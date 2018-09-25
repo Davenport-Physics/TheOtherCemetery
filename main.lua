@@ -11,7 +11,7 @@ local IsInCredits        = false
 
 function InStartMenu()
 
-    StartMenuMusic_Stop()
+    love.audio.stop()
     StartMenuMusic_Start()
     IsInStartingWindow = true
     IsInNewGame        = false
@@ -22,7 +22,7 @@ end
 
 local function StartNewGame()
 
-    StartMenuMusic_Stop()
+    love.audio.stop()
     IsInStartingWindow = false
     IsInNewGame        = true
 
@@ -37,7 +37,9 @@ end
 
 local function Credits()
 
+    love.audio.stop()
     ResetCreditsPositionText()
+    StartCreditMusic()
     IsInStartingWindow = false
     IsInCredits        = true
 
