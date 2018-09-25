@@ -1,6 +1,7 @@
 
 require("./src/startmenu/startmenu")
 require("./src/credits/credits")
+require("./src/newgame/newgame")
 
 
 local IsInStartingWindow = false
@@ -57,7 +58,8 @@ end
 function love.draw()
 
     if IsInStartingWindow then DrawStartingWindow()
-    elseif IsInCredits then DrawCreditsScene() end
+    elseif IsInCredits then DrawCreditsScene()
+    elseif IsInNewGame then DrawNewGame() end
 
 end
 
