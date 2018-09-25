@@ -1,23 +1,26 @@
 
 
-local Map = {}
+Map = {}
+Map.__index = Map
 
-function Map:new(Map, MapTileDirectory)
+function Map:new(TileMap, MapTileDirectory)
 
-    local o = {Map = Map, MapTileDirectory = MapTileDirectory}
-    setmetatable(o, self)
-    self.__index = self
-    return o
+    local obj = {}
+    setmetatable(obj, Map)
+    obj.TileMap = TileMap 
+    obj.MapTileDirectory = MapTileDirectory
+    obj:InitializeMapCache()
+    return obj
 
 end
 
-function Map.InitializeMapStrings()
+function Map:InitializeMapStrings()
 
     self.Map_Cache = {}
-    for y = 1, #self.Map do
+    for y = 1, #self.TileMap do
         self.Map_Cache[y] = {}
-        for x = 1, #self.Map[y] do
-            self.Map_Cache[y][x] = self.MapTileDirectory .. "/" .. self.Map[y][x] .. ".png"
+        for x = 1, #self.TileMap[y] do
+            self.Map_Cache[y][x] = self.MapTileDirectory .. "/" .. self.TileMap[y][x] .. ".png"
         end
     end
 
@@ -26,7 +29,7 @@ end
 function Map:SetImageDataFromStringCache(StringCache, y, x)
 
     for k = 1, #StringCache do
-        if StringCache[k] == StarterMap_Cache[y][x] then
+        if StringCache[k] == self.Map_Cache[y][x] then
             self.Map_Cache[y][x] = self.MapImage_Cache[k]
             break
         end
@@ -43,7 +46,7 @@ function Map:UsingStringCacheResetStarterMapCache(StringCache)
 
     for y = 1, #self.Map_Cache do
         for x = 1, #self.Map_Cache[y] do
-            SetImageDataFromStringCache(StringCache, y, x)
+            self:SetImageDataFromStringCache(StringCache, y, x)
         end
     end
 
@@ -63,19 +66,19 @@ function Map:InitializeMapImages()
     local StringCache = {}
     for y = 1, #self.Map_Cache do
         for x = 1, #self.Map_Cache[y] do
-            if not CheckIfStringExistsInStringCache(StringCache, y, x) then
+            if not self:CheckIfStringExistsInStringCache(StringCache, y, x) then
                 StringCache[#StringCache + 1] = self.Map_Cache[y][x]
             end
         end
     end
-    UsingStringCacheResetStarterMapCache(StringCache)
+    self:UsingStringCacheResetStarterMapCache(StringCache)
 
 end
 
 function Map:InitializeMapCache()
 
-    self.InitializeMapStrings()
-    self.InitializeMapImages()
+    self:InitializeMapStrings()
+    self:InitializeMapImages()
 
 end
 

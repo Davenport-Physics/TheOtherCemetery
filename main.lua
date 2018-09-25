@@ -49,7 +49,6 @@ function love.load()
 
     IsInStartingWindow = true
     StartMenuMusic_Start()
-    InitializeNewGame_StarterMapCache()
     InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Credits)
     InitializeCredits_CallBackFunctions(InStartMenu)
 
