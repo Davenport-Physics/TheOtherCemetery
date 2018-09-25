@@ -87,12 +87,14 @@ local StartingWindowText =
 
 local StartingWindowPics  =
 {
-    NewGame  = love.graphics.newImage("pics/startmenu/newgame.png"),
-    LoadGame = love.graphics.newImage("pics/startmenu/loadgame.png"),
-    Credits  = love.graphics.newImage("pics/startmenu/credits.png")
+    BackGround = love.graphics.newImage("tiles/autumn-platformer-tileset/png/elements/background.png"),
+    NewGame    = love.graphics.newImage("pics/startmenu/newgame.png"),
+    LoadGame   = love.graphics.newImage("pics/startmenu/loadgame.png"),
+    Credits    = love.graphics.newImage("pics/startmenu/credits.png")
 }
 function DrawStartingWindow()
 
+    love.graphics.draw(StartingWindowPics.BackGround, 0, 0, 0, .15, .15)
     love.graphics.draw(StartingWindowText.Name, 200, 100)
     love.graphics.draw(StartingWindowText.MadeWith, 300, 200)
     love.graphics.draw(StartingWindowPics.NewGame,75, 450, 0, .3, .3)
