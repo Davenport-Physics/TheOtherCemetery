@@ -1,0 +1,5 @@
+
+
+function DrawNewGame()
+
+end

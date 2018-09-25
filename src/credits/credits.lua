@@ -31,7 +31,7 @@ end
 
 local function DrawCreditsScrawl()
 
-    local half_window_width = math.floor(love.graphics.getWidth()*.5)
+    local half_window_width = math.floor((love.graphics.getWidth()-50)*.5)
     local displacement = 0
     for title, person in pairs(People) do
 
@@ -41,7 +41,7 @@ local function DrawCreditsScrawl()
 
     end
     y_position_text = y_position_text - 1
-    love.timer.sleep(.05)
+    love.timer.sleep(.03)
     CheckIfCreditsShouldStop()
 
 end
