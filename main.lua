@@ -1,5 +1,6 @@
 
 require("./src/startmenu/startmenu")
+require("./src/credits/credits")
 
 
 local IsInStartingWindow = false
@@ -32,6 +33,7 @@ end
 
 local function Credits()
 
+    ResetCreditsPositionText()
     IsInStartingWindow = false
     IsInCredits        = true
 
@@ -41,6 +43,7 @@ function love.load()
     IsInStartingWindow = true
     StartMenuMusic_Start()
     InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Credits)
+    InitializeCredits_CallBackFunctions(InStartMenu)
 end
 
 local function HandleInput()
@@ -53,9 +56,8 @@ end
 
 function love.draw()
 
-    if IsInStartingWindow then
-        DrawStartingWindow()
-    end
+    if IsInStartingWindow then DrawStartingWindow()
+    elseif IsInCredits then DrawCreditsScene() end
 
 end
 
