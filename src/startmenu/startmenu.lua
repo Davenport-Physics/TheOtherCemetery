@@ -1,5 +1,6 @@
 
-local StartMenuSound = love.audio.newSource("sound/startmenu/startmenu.ogg", "static")
+local StartMenuSound = love.audio.newSource("sound/startmenu/startmenu_slow.mp3", "static")
+local StartMenuClick = love.audio.newSource("sound/startmenu/click/click.ogg", "static")
 
 function StartMenuMusic_Start()
     love.audio.play(StartMenuSound)
@@ -22,7 +23,9 @@ end
 local function HandleInput_StartingWindow_MouseDown_NewGame()
 
     if IsBetweenRange(love.mouse.getX(), 75, 225) and IsBetweenRange(love.mouse.getY(), 450, 550) then
-
+        love.audio.play(StartMenuClick)
+        love.timer.sleep(.5)
+        love.audio.stop(StartMenuClick)
     end
 
 end
