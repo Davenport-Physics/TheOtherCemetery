@@ -11,6 +11,8 @@ local IsInCredits        = false
 
 function InStartMenu()
 
+    StartMenuMusic_Stop()
+    StartMenuMusic_Start()
     IsInStartingWindow = true
     IsInNewGame        = false
     IsInLoadGame       = false
@@ -20,6 +22,7 @@ end
 
 local function StartNewGame()
 
+    StartMenuMusic_Stop()
     IsInStartingWindow = false
     IsInNewGame        = true
 
@@ -41,18 +44,25 @@ local function Credits()
 end
 
 function love.load()
+
     IsInStartingWindow = true
     StartMenuMusic_Start()
+    InitializeNewGame_StarterMapCache()
     InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Credits)
     InitializeCredits_CallBackFunctions(InStartMenu)
+
 end
 
 local function HandleInput()
+
     if IsInStartingWindow then HandleInput_StartingWindow() end
+
 end
 
 function love.update()
+
     HandleInput()
+
 end
 
 function love.draw()
