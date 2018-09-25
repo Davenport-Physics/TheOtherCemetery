@@ -20,22 +20,44 @@ local function IsBetweenRange(value, low, high)
 
 end
 
+local StartNewGame_CallBack
+local LoadGame_CallBack
+local Credits_CallBack
+function InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Credits)
+
+    StartNewGame_CallBack = StartNewGame
+    LoadGame_CallBack     = LoadGame
+    Credits_CallBack      = Credits
+
+end
+
+local function HandleMenuClickSound()
+    love.audio.play(StartMenuClick)
+    love.timer.sleep(.5)
+    love.audio.stop(StartMenuClick)
+end
+
 local function HandleInput_StartingWindow_MouseDown_NewGame()
 
-    if IsBetweenRange(love.mouse.getX(), 75, 225) and IsBetweenRange(love.mouse.getY(), 450, 550) then
-        love.audio.play(StartMenuClick)
-        love.timer.sleep(.5)
-        love.audio.stop(StartMenuClick)
+    if IsBetweenRange(love.mouse.getX(), 75, 250) and IsBetweenRange(love.mouse.getY(), 450, 530) then
+        HandleMenuClickSound()
+        StartNewGame_CallBack()
     end
 
 end
 
 local function HandleInput_StartingWindow_MouseDown_LoadGame()
-
+    if IsBetweenRange(love.mouse.getX(), 275, 425) and IsBetweenRange(love.mouse.getY(), 450, 530) then
+        HandleMenuClickSound()
+        LoadGame_CallBack()
+    end
 end
 
 local function HandleInput_StartingWindow_MouseDown_Credits()
-
+    if IsBetweenRange(love.mouse.getX(), 475, 600) and IsBetweenRange(love.mouse.getY(), 450, 530) then
+        HandleMenuClickSound()
+        Credits_CallBack()
+    end
 end
 
 local function HandleInput_StartingWindow_MouseDown()
