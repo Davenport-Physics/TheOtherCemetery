@@ -1,6 +1,7 @@
 
 
 local BackGroundImage = love.graphics.newImage("tiles/autumn-platformer-tileset/png/elements/background.png")
+local CreditMusic     = love.audio.newSource("sound/credits/credits.ogg", "static")
 
 
 local StartMenu_CallBack
@@ -53,4 +54,8 @@ end
 
 function ResetCreditsPositionText()
     y_position_text = 600
+end
+
+function StartCreditMusic()
+    love.audio.play(CreditMusic)
 end

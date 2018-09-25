@@ -83,6 +83,10 @@ function InitializeNewGame_StarterMapCache()
 
 end
 
+--[[
+local MapClass = require("src/map/map")
+local MapImage = MapClass:new(StarterMap, StarterMapTileDirectory); MapImage:InitializeMapCache();
+]]--
 function DrawNewGame()
 
     for y = 1, #StarterMap_Cache do
