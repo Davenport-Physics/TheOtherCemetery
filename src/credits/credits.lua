@@ -62,11 +62,20 @@ local function DrawCreditsScrawl()
 
 end
 
+local CharacterClass = require("src/character/character")
+local FemaleCharacter = CharacterClass:new("tiles/Characters/Females/F_01.png", 300, 300, 16, 16)
+local function DrawCharacter()
+
+    FemaleCharacter:DrawDown()
+
+end
+
 function DrawCreditsScene()
 
     DrawBackground()
     DrawCreditsScrawl()
     DrawBackButton()
+    DrawCharacter()
 
 end
 
