@@ -10,16 +10,6 @@ function StartMenuMusic_Stop()
     love.audio.stop(StartMenuSound)
 end
 
-local function IsBetweenRange(value, low, high)
-
-    if value >= low and value <= high then
-        return true
-    end
-
-    return false
-
-end
-
 local StartNewGame_CallBack
 local LoadGame_CallBack
 local Credits_CallBack
@@ -37,9 +27,19 @@ local function HandleMenuClickSound()
     love.audio.stop(StartMenuClick)
 end
 
+local ButtonClass = require("src/button/button")
+local Buttons = 
+{
+
+    NewGame  = ButtonClass:newImage("pics/startmenu/newgame.png", 75, 450, .3, .3),
+    LoadGame = ButtonClass:newImage("pics/startmenu/loadgame.png", 275, 450, .3, .3),
+    Credits  = ButtonClass:newImage("pics/startmenu/credits.png", 475, 450, .3, .3)
+
+}
+
 local function HandleInput_StartingWindow_MouseDown_NewGame()
 
-    if IsBetweenRange(love.mouse.getX(), 75, 250) and IsBetweenRange(love.mouse.getY(), 450, 530) then
+    if Buttons.NewGame:CheckMouseClick() then
         HandleMenuClickSound()
         StartNewGame_CallBack()
     end
@@ -47,17 +47,21 @@ local function HandleInput_StartingWindow_MouseDown_NewGame()
 end
 
 local function HandleInput_StartingWindow_MouseDown_LoadGame()
-    if IsBetweenRange(love.mouse.getX(), 275, 425) and IsBetweenRange(love.mouse.getY(), 450, 530) then
+
+    if Buttons.LoadGame:CheckMouseClick() then
         HandleMenuClickSound()
         LoadGame_CallBack()
     end
+
 end
 
 local function HandleInput_StartingWindow_MouseDown_Credits()
-    if IsBetweenRange(love.mouse.getX(), 475, 600) and IsBetweenRange(love.mouse.getY(), 450, 530) then
+
+    if Buttons.Credits:CheckMouseClick() then
         HandleMenuClickSound()
         Credits_CallBack()
     end
+
 end
 
 local function HandleInput_StartingWindow_MouseDown()
@@ -88,17 +92,14 @@ local StartingWindowText =
 local StartingWindowPics  =
 {
     BackGround = love.graphics.newImage("tiles/autumn-platformer-tileset/png/elements/background.png"),
-    NewGame    = love.graphics.newImage("pics/startmenu/newgame.png"),
-    LoadGame   = love.graphics.newImage("pics/startmenu/loadgame.png"),
-    Credits    = love.graphics.newImage("pics/startmenu/credits.png")
 }
+
 function DrawStartingWindow()
 
     love.graphics.draw(StartingWindowPics.BackGround, 0, 0, 0, .15, .15)
     love.graphics.draw(StartingWindowText.Name, 200, 100)
     love.graphics.draw(StartingWindowText.MadeWith, 300, 200)
-    love.graphics.draw(StartingWindowPics.NewGame,75, 450, 0, .3, .3)
-    love.graphics.draw(StartingWindowPics.LoadGame, 275, 450, 0, .3, .3)
-    love.graphics.draw(StartingWindowPics.Credits, 475, 450, 0, .3, .3)
-
+    Buttons.NewGame:Draw()
+    Buttons.LoadGame:Draw()
+    Buttons.Credits:Draw()
 end
