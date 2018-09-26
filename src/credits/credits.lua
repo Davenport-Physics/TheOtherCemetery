@@ -1,16 +1,27 @@
-
-
 local BackGroundImage = love.graphics.newImage("tiles/autumn-platformer-tileset/png/elements/background.png")
 local CreditMusic     = love.audio.newSource("sound/credits/credits.ogg", "static")
 
+local ButtonClass = require("src/button/button")
+local BackButton  = ButtonClass:newImage("pics/share/buttons/backbutton.png", 10, 10, .3, .3)
+BackButton:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+local function DrawBackButton()
+
+    BackButton:Draw()
+
+end
 
 local StartMenu_CallBack
 function InitializeCredits_CallBackFunctions(StartMenu)
+
+    BackButton:SetCallback(StartMenu)
     StartMenu_CallBack = StartMenu
+
 end
 
 local function DrawBackground()
+
     love.graphics.draw(BackGroundImage, 0, 0, 0, .3, .3)
+
 end
 
 local People = 
@@ -25,9 +36,13 @@ local People =
 
 local y_position_text = 600
 local function CheckIfCreditsShouldStop()
+
     if y_position_text <= -100 then
+
         StartMenu_CallBack()
+
     end
+
 end
 
 local function DrawCreditsScrawl()
@@ -48,14 +63,27 @@ local function DrawCreditsScrawl()
 end
 
 function DrawCreditsScene()
+
     DrawBackground()
     DrawCreditsScrawl()
+    DrawBackButton()
+
 end
 
 function ResetCreditsPositionText()
+
     y_position_text = 600
+
 end
 
 function StartCreditMusic()
+
     love.audio.play(CreditMusic)
+
+end
+
+function HandleInput_Credits()
+
+    BackButton:HandleMouseClick()
+
 end

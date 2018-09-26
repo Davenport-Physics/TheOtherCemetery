@@ -56,7 +56,8 @@ end
 
 local function HandleInput()
 
-    if IsInStartingWindow then HandleInput_StartingWindow() end
+    if IsInStartingWindow then HandleInput_StartingWindow()
+    elseif IsInCredits then HandleInput_Credits() end
 
 end
 
