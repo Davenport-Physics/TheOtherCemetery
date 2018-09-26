@@ -1,6 +1,14 @@
 local BackGroundImage = love.graphics.newImage("tiles/autumn-platformer-tileset/png/elements/background.png")
 local CreditMusic     = love.audio.newSource("sound/credits/credits.ogg", "static")
 
+local CharacterClass = require("src/character/character")
+local FemaleCharacter = CharacterClass:new("tiles/Characters/Females/F_01.png", 300, 300, 16, 17)
+local function DrawCharacter()
+
+    FemaleCharacter:DrawWalkInPlace()
+
+end
+
 local ButtonClass = require("src/button/button")
 local BackButton  = ButtonClass:newImage("pics/share/buttons/backbutton.png", 10, 10, .2, .2)
 BackButton:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
@@ -13,7 +21,7 @@ end
 local StartMenu_CallBack
 function InitializeCredits_CallBackFunctions(StartMenu)
 
-    BackButton:SetCallback(StartMenu)
+    BackButton:SetCallback(function() StartMenu(); FemaleCharacter:ResetPositionToOriginal(); end)
     StartMenu_CallBack = StartMenu
 
 end
@@ -59,14 +67,6 @@ local function DrawCreditsScrawl()
     y_position_text = y_position_text - 1
     love.timer.sleep(.03)
     CheckIfCreditsShouldStop()
-
-end
-
-local CharacterClass = require("src/character/character")
-local FemaleCharacter = CharacterClass:new("tiles/Characters/Females/F_01.png", 300, 300, 16, 17)
-local function DrawCharacter()
-
-    FemaleCharacter:DrawWalkInPlace()
 
 end
 

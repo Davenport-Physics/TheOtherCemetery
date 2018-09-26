@@ -21,16 +21,18 @@ local STANCE =
 
 }
 
+local MIN_DT_FOR_CHANGING_STANCES = .075
+
 function Character:new(character_image_file, x_pos, y_pos, width, height)
 
     local obj = {}
     setmetatable(obj, Character)
 
-    obj.character_image = love.graphics.newImage(character_image_file)
-    obj.x_pos         = x_pos
-    obj.y_pos         = y_pos
-    obj.width         = width
-    obj.height        = height
+    obj.character_image            = love.graphics.newImage(character_image_file)
+    obj.x_pos_orig, obj.y_pos_orig = x_pos, y_pos
+    obj.x_pos, obj.y_pos           = x_pos, y_pos
+    obj.width                      = width
+    obj.height                     = height
     obj:InitializeAnimationSet()
 
     return obj
@@ -61,7 +63,8 @@ function Character:InitializeAnimationSet()
     self.direction     = DIRECTION.DOWN
     self.stance        = STANCE.STANDING
     self.next_stance   = STANCE.WALKING_1
-    self.displacement  = 25
+    self.displacement  = 5
+    self.time_until_next_stance = love.timer.getTime() + MIN_DT_FOR_CHANGING_STANCES
 
 end
 
@@ -73,7 +76,7 @@ end
 
 function Character:DrawWalkInPlace()
 
-    self:WalkDown()
+    self:WalkDown(true)
     love.graphics.draw(self.character_image, self.current_quad, self.x_pos, self.y_pos, 0, 3, 3)
 
 end
@@ -98,44 +101,103 @@ function Character:DetermineNewPresentStance()
 
 end
 
-function Character:WalkGeneric(CorrectionDirection)
+function Character:DisplaceCharacter()
 
-    if self.direction == CorrectionDirection then
+    if self.direction == DIRECTION.UP then
+
+        self.y_pos = self.y_pos - self.displacement
+
+    elseif self.direction == DIRECTION.DOWN then
+
+        self.y_pos = self.y_pos + self.displacement
+
+    elseif self.direction == DIRECTION.LEFT then
+
+        self.x_pos = self.x_pos - self.displacement
+
+    elseif self.direction == DIRECTION.RIGHT then
+
+        self.x_pos = self.x_pos + self.displacement
+
+    end
+
+end
+
+function Character:CheckTimeChangeBeforeMoving()
+
+    if love.timer.getTime() >= self.time_until_next_stance then
+
+        self.time_until_next_stance = love.timer.getTime() + MIN_DT_FOR_CHANGING_STANCES
+        return true
+
+    end
+
+    return false
+
+end
+
+function Character:WalkGeneric(CorrectDirection, displace)
+
+    if not self:CheckTimeChangeBeforeMoving() then return end
+
+    if self.direction == CorrectDirection then
 
         self:DetermineNewPresentStance()
+        if displace then self:DisplaceCharacter() end
 
     else
 
-        self.direction    = CorrectionDirection
+        self.direction    = CorrectDirection
         self.stance       = STANCE.STANDING
         self.next_stance  = STANCE.WALKING_1
 
     end
-    self.current_quad = self.quads[CorrectionDirection][self.stance]
+    self.current_quad = self.quads[CorrectDirection][self.stance]
 
 end
 
-function Character:WalkDown()
+function Character:WalkDown(displace)
 
-    self:WalkGeneric(DIRECTION.DOWN)
-
-end
-
-function Character:WalkUp()
-
-    self:WalkGeneric(DIRECTION.UP)
+    self:WalkGeneric(DIRECTION.DOWN, displace)
 
 end
 
-function Character:WalkLeft()
+function Character:WalkUp(displace)
 
-    self:WalkGeneric(DIRECTION.LEFT)
+    self:WalkGeneric(DIRECTION.UP, displace)
 
 end
 
-function Character:WalkRight()
+function Character:WalkLeft(displace)
 
-    self:WalkGeneric(DIRECTION.RIGHT)
+    self:WalkGeneric(DIRECTION.LEFT, displace)
+
+end
+
+function Character:WalkRight(displace)
+
+    self:WalkGeneric(DIRECTION.RIGHT, displace)
+
+end
+
+function Character:ResetPositionToOriginal()
+
+    self.x_pos = self.x_pos_orig
+    self.y_pos = self.y_pos_orig
+
+end
+
+function Character:SetXPos(x_pos)
+
+    self.x_pos_orig = x_pos
+    self.x_pos      = x_pos
+
+end
+
+function Character:SetYPos(y_pos)
+
+    self.y_pos_orig = y_pos
+    self.y_pos      = y_pos
 
 end
 
