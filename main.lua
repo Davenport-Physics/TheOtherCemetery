@@ -72,6 +72,8 @@ function love.draw()
     if IsInStartingWindow then DrawStartingWindow()
     elseif IsInCredits then DrawCreditsScene()
     elseif IsInNewGame then DrawNewGame() end
+    --love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 500, 10)
+
 
 end
 

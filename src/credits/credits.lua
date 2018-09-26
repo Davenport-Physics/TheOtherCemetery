@@ -2,7 +2,7 @@ local BackGroundImage = love.graphics.newImage("tiles/autumn-platformer-tileset/
 local CreditMusic     = love.audio.newSource("sound/credits/credits.ogg", "static")
 
 local ButtonClass = require("src/button/button")
-local BackButton  = ButtonClass:newImage("pics/share/buttons/backbutton.png", 10, 10, .3, .3)
+local BackButton  = ButtonClass:newImage("pics/share/buttons/backbutton.png", 10, 10, .2, .2)
 BackButton:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 local function DrawBackButton()
 
@@ -63,10 +63,10 @@ local function DrawCreditsScrawl()
 end
 
 local CharacterClass = require("src/character/character")
-local FemaleCharacter = CharacterClass:new("tiles/Characters/Females/F_01.png", 300, 300, 16, 16)
+local FemaleCharacter = CharacterClass:new("tiles/Characters/Females/F_01.png", 300, 300, 16, 17)
 local function DrawCharacter()
 
-    FemaleCharacter:DrawDown()
+    FemaleCharacter:DrawWalkInPlace()
 
 end
 
