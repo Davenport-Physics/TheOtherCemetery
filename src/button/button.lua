@@ -1,6 +1,10 @@
 Button = {}
 Button.__index = Button
 
+local function GenericCallBack()
+    print("Callback never set")
+end
+
 function Button:newImage(image_file, x_pos, y_pos, scale_x, scale_y, mouse_click_callback)
 
     local obj = {}
@@ -20,12 +24,20 @@ function Button:InitializeButtonAttributes(image_file, x_pos, y_pos, scale_x, sc
     self.image_height = self.image:getHeight()
     self.scale_x      = scale_x or 1
     self.scale_y      = scale_y or 1
-    self.mouse_click_callback = mouse_click_callback
+    self.mouse_click_callback = mouse_click_callback or GenericCallBack
 
 end
 
-function Button:GenericCallBack()
-    print("Callback never set")
+function Button:SetSoundWhenClicked(sound_file)
+
+    self.sound = love.audio.newSource(sound_file, "static")
+
+end
+
+function Button:SetCallback(mouse_click_callback)
+
+    self.mouse_click_callback = mouse_click_callback
+
 end
 
 function Button:IsBetweenRange(value, low, high)
@@ -53,6 +65,33 @@ function Button:CheckMouseClick()
 
     if love.mouse.isDown(1) then
         return self:CheckForMouseCollision()
+    end
+
+end
+
+function Button:PlayMouseClickSoundIfPossible()
+
+    if self.sound ~= nil then 
+        love.audio.play(self.sound)
+        love.timer.sleep(.45)
+        love.audio.stop(self.sound)
+    end
+
+end
+
+function Button:DoCallBackIfPossible()
+
+    if self.mouse_click_callback ~= nil then
+        self.mouse_click_callback()
+    end
+
+end
+
+function Button:HandleMouseClick()
+
+    if love.mouse.isDown(1) and self:CheckForMouseCollision() then
+        self:PlayMouseClickSoundIfPossible()
+        self:DoCallBackIfPossible()
     end
 
 end

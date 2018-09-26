@@ -1,31 +1,5 @@
 
 local StartMenuSound = love.audio.newSource("sound/startmenu/startmenu_slow.mp3", "static")
-local StartMenuClick = love.audio.newSource("sound/startmenu/click/click.ogg", "static")
-
-function StartMenuMusic_Start()
-    love.audio.play(StartMenuSound)
-end
-
-function StartMenuMusic_Stop()
-    love.audio.stop(StartMenuSound)
-end
-
-local StartNewGame_CallBack
-local LoadGame_CallBack
-local Credits_CallBack
-function InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Credits)
-
-    StartNewGame_CallBack = StartNewGame
-    LoadGame_CallBack     = LoadGame
-    Credits_CallBack      = Credits
-
-end
-
-local function HandleMenuClickSound()
-    love.audio.play(StartMenuClick)
-    love.timer.sleep(.5)
-    love.audio.stop(StartMenuClick)
-end
 
 local ButtonClass = require("src/button/button")
 local Buttons = 
@@ -36,31 +10,45 @@ local Buttons =
     Credits  = ButtonClass:newImage("pics/startmenu/credits.png", 475, 450, .3, .3)
 
 }
+Buttons.NewGame:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+Buttons.LoadGame:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+Buttons.Credits:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+
+function StartMenuMusic_Start()
+
+    love.audio.play(StartMenuSound)
+
+end
+
+function StartMenuMusic_Stop()
+
+    love.audio.stop(StartMenuSound)
+
+end
+
+function InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Credits)
+
+    Buttons.NewGame:SetCallback(StartNewGame)
+    Buttons.LoadGame:SetCallback(LoadGame)
+    Buttons.Credits:SetCallback(Credits)
+
+end
 
 local function HandleInput_StartingWindow_MouseDown_NewGame()
 
-    if Buttons.NewGame:CheckMouseClick() then
-        HandleMenuClickSound()
-        StartNewGame_CallBack()
-    end
+    Buttons.NewGame:HandleMouseClick()
 
 end
 
 local function HandleInput_StartingWindow_MouseDown_LoadGame()
 
-    if Buttons.LoadGame:CheckMouseClick() then
-        HandleMenuClickSound()
-        LoadGame_CallBack()
-    end
+    Buttons.LoadGame:HandleMouseClick()
 
 end
 
 local function HandleInput_StartingWindow_MouseDown_Credits()
 
-    if Buttons.Credits:CheckMouseClick() then
-        HandleMenuClickSound()
-        Credits_CallBack()
-    end
+    Buttons.Credits:HandleMouseClick()
 
 end
 
