@@ -57,7 +57,8 @@ end
 local function HandleInput()
 
     if IsInStartingWindow then HandleInput_StartingWindow()
-    elseif IsInCredits then HandleInput_Credits() end
+    elseif IsInCredits then HandleInput_Credits()
+    elseif IsInNewGame then HandleInput_NewGame() end
 
 end
 

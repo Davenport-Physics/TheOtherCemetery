@@ -21,9 +21,9 @@ local STANCE =
 
 }
 
-local MIN_DT_FOR_CHANGING_STANCES = .075
+local MIN_DT_FOR_CHANGING_STANCES = .05
 
-function Character:new(character_image_file, x_pos, y_pos, width, height)
+function Character:new(character_image_file, x_pos, y_pos, width, height, displacement)
 
     local obj = {}
     setmetatable(obj, Character)
@@ -33,7 +33,7 @@ function Character:new(character_image_file, x_pos, y_pos, width, height)
     obj.x_pos, obj.y_pos           = x_pos, y_pos
     obj.width                      = width
     obj.height                     = height
-    obj:InitializeAnimationSet()
+    obj:InitializeAnimationSet(displacement)
 
     return obj
 
@@ -56,14 +56,14 @@ function Character:InitQuads()
 
 end
 
-function Character:InitializeAnimationSet()
+function Character:InitializeAnimationSet(displacement)
 
     self:InitQuads()
     self.current_quad  = self.quads[1][1]
     self.direction     = DIRECTION.DOWN
     self.stance        = STANCE.STANDING
     self.next_stance   = STANCE.WALKING_1
-    self.displacement  = 5
+    self.displacement  = displacement or 5
     self.time_until_next_stance = love.timer.getTime() + MIN_DT_FOR_CHANGING_STANCES
 
 end
