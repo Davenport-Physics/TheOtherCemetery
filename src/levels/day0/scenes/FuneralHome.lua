@@ -16,7 +16,7 @@ local FuneralHomeFloorData =
 
 }
 
-local FuneralHomeFloorMap = MapClass:new(FuneralHomeFloorData, FuneralHomeFloorDataLocation)
+local FuneralHomeFloorMap = MapClass:new(FuneralHomeFloorData, FuneralHomeFloorDataLocation, .3, .3)
 
 local SeatingPlatformImage = love.graphics.newImage("tiles/zombie-tileset/Objects/PNG/objects_house_0041_Layer-42.png")
 local SeatingPlatformEntites =
