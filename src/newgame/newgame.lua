@@ -16,7 +16,7 @@ local StarterMap =
 }
 
 local MapClass = require("src/map/map")
-local MapImage = MapClass:new(StarterMap, StarterMapTileDirectory); MapImage:InitializeMapCache();
+local MapImage = MapClass:new(StarterMap, StarterMapTileDirectory)
 
 local CharacterClass = require("src/character/character")
 local FemaleCharacter = CharacterClass:new("tiles/Characters/Females/F_01.png", 100, 100, 16, 17, 10)
