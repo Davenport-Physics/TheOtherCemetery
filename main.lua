@@ -9,38 +9,46 @@ local IsInNewGame        = false
 local IsInLoadGame       = false
 local IsInCredits        = false
 
-function InStartMenu()
+local function ResetIsInVars()
 
-    love.audio.stop()
-    StartMenuMusic_Start()
-    IsInStartingWindow = true
+    IsInStartingWindow = false
     IsInNewGame        = false
     IsInLoadGame       = false
     IsInCredits        = false
 
 end
 
+local function InStartMenu()
+
+    ResetIsInVars()
+    love.audio.stop()
+    StartMenuMusic_Start()
+    IsInStartingWindow = true
+
+end
+
 local function StartNewGame()
 
+    ResetIsInVars()
     love.audio.stop()
-    IsInStartingWindow = false
-    IsInNewGame        = true
+    IsInNewGame = true
+
 
 end
 
 local function LoadGame()
 
-    IsInStartingWindow = false
+    ResetIsInVars()
     IsInLoadGame       = true
 
 end
 
 local function Credits()
 
+    ResetIsInVars()
     love.audio.stop()
     ResetCreditsPositionText()
     StartCreditMusic()
-    IsInStartingWindow = false
     IsInCredits        = true
 
 end
