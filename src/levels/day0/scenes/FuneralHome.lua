@@ -1,3 +1,6 @@
+
+local FuneralScene = {}
+
 local MapClass    = require("src/map/map")
 local EntityClass = require("src/entity/entity")
 
@@ -15,38 +18,38 @@ local FuneralHomeFloorData =
 
 local FuneralHomeFloorMap = MapClass:new(FuneralHomeFloorData, FuneralHomeFloorDataLocation)
 
-local SeatingPlatformImage = love.graphics.newImage("tiles/zombie-tileset/Objects/PNG/objects_house_0042_Layer-42.png")
+local SeatingPlatformImage = love.graphics.newImage("tiles/zombie-tileset/Objects/PNG/objects_house_0041_Layer-42.png")
 local SeatingPlatformEntites =
 {
 
-    {EntityClass:newWithImage(SeatingPlatformImage, 100, 200, false)},
+    EntityClass:newWithImage(SeatingPlatformImage, 100, 200, .1, .1, false),
 
 
 }
-
 local CharactersInScene = {}
-local PlayerCharacter = {}
 
-function GetMap()
+function FuneralScene.GetMap()
 
     return FuneralHomeFloorMap
 
 end
 
-function GetEntities()
+function FuneralScene.GetEntities()
 
     return SeatingPlatformEntites
 
 end
 
-function GetCharacters()
+function FuneralScene.GetCharacters()
 
     return CharactersInScene
 
 end
 
-function GetPlayerCharacter()
+function FuneralScene.GetPlayerCharacter()
 
-    return PlayerCharacter
+    return nil
 
 end
+
+return FuneralScene

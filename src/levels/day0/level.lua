@@ -1,4 +1,7 @@
 
+
+Level = {}
+
 local WorldClass   = require("src/world/world")
 local FuneralScene = require("src/levels/day0/scenes/FuneralHome")
 
@@ -9,20 +12,22 @@ local FuneralSceneEntities   = FuneralScene.GetEntities()
 
 local FuneralWorld = WorldClass:new(FuneralSceneMap, FuneralSceneChars, FuneralScenePlayerChar, FuneralSceneEntities)
 
-function Draw()
+function Level.Draw()
 
     FuneralWorld:Draw()
 
 end
 
-function Update()
+function Level.Update()
 
     FuneralWorld:Update()
 
 end
 
-function HandleInput()
+function Level.HandleInput()
 
     FuneralWorld:HandleInput()
 
 end
+
+return Level

@@ -29,20 +29,20 @@ end
 function World:HandleInput()
 
     if love.keyboard.isDown(self.Settings.Controls.UP) then
-        self.player_character_obj.MoveUp()
+        self.player_character_obj.MoveUp(true)
     elseif love.keyboard.isDown(self.Settings.Controls.DOWN) then
-        self.player_character_obj.MoveDown()
+        self.player_character_obj.MoveDown(true)
     elseif love.keyboard.isDown(self.Settings.Controls.LEFT) then
-        self.player_character_obj.MoveLeft()
+        self.player_character_obj.MoveLeft(true)
     elseif love.keyboard.isDown(self.Settings.Controls.RIGHT) then
-        self.player_character_obj.MoveRight()
+        self.player_character_obj.MoveRight(true)
     end
 
 end
 
 function World:Draw()
 
-    self.map_obj:Draw(self.player_character_obj.x_pos, self.player_character_obj.y_pos)
+    self.map_obj:Draw()
 
     for i = 1, #self.entity_objs do
         self.entity_objs[i]:Draw()
@@ -50,7 +50,10 @@ function World:Draw()
     for i = 1, #self.character_objs do
         self.character_objs[i]:Draw()
     end
-    self.player_character_obj:Draw()
+
+    if self.player_character_obj ~= nil then
+        self.player_character_obj:Draw()
+    end
 
 end
 

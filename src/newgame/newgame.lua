@@ -21,8 +21,12 @@ local MapImage = MapClass:new(StarterMap, StarterMapTileDirectory)
 local CharacterClass = require("src/character/character")
 local FemaleCharacter = CharacterClass:new("tiles/Characters/Females/F_01.png", 100, 100, 16, 17, 10)
 
+
+local Day0 = require("src/levels/day0/level")
+
 function DrawNewGame()
 
+    --Day0.Draw()
     MapImage:Draw()
     FemaleCharacter:Draw()
 
