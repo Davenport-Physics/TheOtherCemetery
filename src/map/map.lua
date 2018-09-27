@@ -82,7 +82,10 @@ function Map:InitializeMapCache()
 
 end
 
-function Map:Draw()
+function Map:Draw(x_pos, y_pos)
+
+    -- TODO implement x_pos, y_pos origin
+    -- Character should be as close to center as possible.
     for y = 1, #self.Map_Cache do
         for x = 1, #self.Map_Cache[y] do
             love.graphics.draw(self.Map_Cache[y][x],(x-1)*75, (y-1)*75, 0, .15, .15)
