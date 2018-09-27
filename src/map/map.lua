@@ -3,13 +3,17 @@
 Map = {}
 Map.__index = Map
 
-function Map:new(TileMap, MapTileDirectory)
+function Map:new(TileMap, MapTileDirectory, x_scale, y_scale)
 
     local obj = {}
     setmetatable(obj, Map)
-    obj.TileMap = TileMap 
+
+    obj.TileMap          = TileMap
     obj.MapTileDirectory = MapTileDirectory
+    obj.x_scale          = x_scale or 1
+    obj.y_scale          = y_scale or 1
     obj:InitializeMapCache()
+
     return obj
 
 end
@@ -86,9 +90,13 @@ function Map:Draw(x_pos, y_pos)
 
     -- TODO implement x_pos, y_pos origin
     -- Character should be as close to center as possible.
+    local height
+    local width
     for y = 1, #self.Map_Cache do
         for x = 1, #self.Map_Cache[y] do
-            love.graphics.draw(self.Map_Cache[y][x],(x-1)*75, (y-1)*75, 0, .15, .15)
+            height = self.Map_Cache[y][x]:getHeight() * self.y_scale
+            width  = self.Map_Cache[y][x]:getWidth()  * self.x_scale
+            love.graphics.draw(self.Map_Cache[y][x],(x-1)*width, (y-1)*height, 0, self.x_scale, self.y_scale)
         end
     end
 end
