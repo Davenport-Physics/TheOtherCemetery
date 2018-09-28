@@ -15,21 +15,21 @@ end
 
 function TiledMap:InitializeSpriteSheet()
 
-    self.sprite_sheet = love.graphics.newImage(self.tiled_map.tilesets.image)
+    self.sprite_sheet = love.graphics.newImage(self.tiled_map.tilesets[1].image)
     self.sheet_width  = self.sprite_sheet:getWidth()
     self.sheet_height = self.sprite_sheet:getHeight()
-    self.spacing      = self.tiled_map.tilesets.spacing
-    self.width        = self.tiled_map.tilesets.tilewidth
-    self.height       = self.tiled_map.tilesets.tileheight
+    self.spacing      = self.tiled_map.tilesets[1].spacing
+    self.width        = self.tiled_map.tilesets[1].tilewidth
+    self.height       = self.tiled_map.tilesets[1].tileheight
 
 end
 
 function TiledMap:InitializeTiles()
 
     self.quads = {}
-    for y = 0, sprite_sheet:getHeight() - self.height, self.height + 1 do
+    for y = 0, self.sprite_sheet:getHeight() - self.height, self.height + 1 do
 
-        for x = 0, sprite_sheet:getWidth() - self.width, self.width + 1 do
+        for x = 0, self.sprite_sheet:getWidth() - self.width, self.width + 1 do
 
             local temp_quad = love.graphics.newQuad(x, y, self.width, self.height, self.sheet_width, self.sheet_height)
             self.quads[#self.quads + 1] = temp_quad
@@ -40,11 +40,11 @@ function TiledMap:InitializeTiles()
 
 end
 
-function TileMap:IsTitleLayer(layer)
+function TiledMap:IsTileLayer(layer)
 
-    if layer.type == "titlelayer" then
+    if layer.type == "tilelayer" then
 
-        self.layers_title_layer[#self.layers_title_layer + 1] = self.layer
+        self.layers_tile_layer[#self.layers_tile_layer + 1] = layer
         return true
 
     end
@@ -52,7 +52,7 @@ function TileMap:IsTitleLayer(layer)
 
 end
 
-function TileMap:IsObjectLayer(layer)
+function TiledMap:IsObjectLayer(layer)
 
     -- TODO FINISH THIS
     return false
@@ -61,14 +61,15 @@ end
 
 function TiledMap:InitializeLayers()
 
-    self.layers = self.tiled_map.tilesets.layers
-    self.layers_title_layer  = {}
+    self.layers = self.tiled_map.layers
+    self.layers_tile_layer  = {}
     self.layers_object_layer = {}
 
+    print(#self.layers)
     for i = 1, #self.layers do
 
-        if self:IsTitleLayer(self.layers[i]) then
-        elseif self:IsObjectLayer then end
+        if self:IsTileLayer(self.layers[i]) then
+        elseif self:IsObjectLayer() then end
 
     end
 
@@ -78,13 +79,13 @@ function TiledMap:DrawTile(layer_data, tiles_drawn_along_row, current_y_offset)
 
     if layer_data ~= 0 then
 
-        love.graphics.drawq(self.sprite_sheet, self.quads[layer_data], (tiles_drawn_along_row) * self.width, current_y_offset)
+        love.graphics.draw(self.sprite_sheet, self.quads[layer_data], (tiles_drawn_along_row) * self.width, current_y_offset)
 
     end
 
 end
 
-function TileMap:DrawLayer(layer)
+function TiledMap:DrawLayer(layer)
 
     local TilesAlongX = layer.width
     local TilesAlongY = layer.height
@@ -107,17 +108,17 @@ function TileMap:DrawLayer(layer)
 
 end
 
-function TileMap:DrawObjects()
+function TiledMap:DrawObjects()
 
     return
 
 end
 
-function TileMap:DrawMaps()
+function TiledMap:DrawMaps()
 
-    for i = #self.layers_title_layer, 1, -1 do
+    for i = #self.layers_tile_layer, 1, -1 do
 
-        self:DrawLayer(self.layers_title_layer[i])
+        self:DrawLayer(self.layers_tile_layer[i])
 
     end
 

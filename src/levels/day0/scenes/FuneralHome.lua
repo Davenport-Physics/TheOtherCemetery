@@ -1,50 +1,25 @@
 
-local FuneralScene = {}
+local FuneralScene  = {}
+local TiledMapClass = require("src/map/tiledmap")
 
-local MapClass    = require("src/map/map")
-local EntityClass = require("src/entity/entity")
-
-
-local FuneralHomeFloorDataLocation = "tiles/zombie-tileset/Objects/PNG/"
-local FlText = "objects_house_0041_Layer-42"
-local FuneralHomeFloorData ={}
-
-for y = 1, 22 do
-
-    FuneralHomeFloorData[y] = {}
-    for x = 1, 11 do
-        FuneralHomeFloorData[y][x] = FlText
-    end
-
-end
-
-local FuneralHomeFloorMap = MapClass:new(FuneralHomeFloorData, FuneralHomeFloorDataLocation, .1, .1)
-
-local SeatingPlatformImage = love.graphics.newImage("tiles/zombie-tileset/Objects/PNG/objects_house_0041_Layer-42.png")
-local SeatingPlatformEntites =
-{
-
-    EntityClass:newWithImage(SeatingPlatformImage, 100, 200, .1, .1, false),
-
-
-}
-local CharactersInScene = {}
+local MapData = require("src/levels/day0/maps/funeral")
+local FuneralHomeMap = TiledMapClass:new(MapData)
 
 function FuneralScene.GetMap()
 
-    return FuneralHomeFloorMap
+    return FuneralHomeMap
 
 end
 
 function FuneralScene.GetEntities()
 
-    return nil--SeatingPlatformEntites
+    return nil
 
 end
 
 function FuneralScene.GetCharacters()
 
-    return CharactersInScene
+    return {}
 
 end
 
