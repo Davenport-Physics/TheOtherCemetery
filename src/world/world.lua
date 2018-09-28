@@ -40,20 +40,49 @@ function World:HandleInput()
 
 end
 
-function World:Draw()
+function World:DrawMapIfPossible()
 
-    self.map_obj:Draw()
+    if self.map_obj ~= nil then
+        self.map_obj:Draw()
+    end
+
+end
+
+function World:DrawEntitiesIfPossible()
+
+    if self.entity_objs == nil then return end
 
     for i = 1, #self.entity_objs do
         self.entity_objs[i]:Draw()
     end
+
+end
+
+function World:DrawCharactersIfPossible()
+
+    if self.character_objs == nil then return end
+
     for i = 1, #self.character_objs do
         self.character_objs[i]:Draw()
     end
 
+end
+
+function World:DrawPlayerCharacterIfPossible()
+
     if self.player_character_obj ~= nil then
         self.player_character_obj:Draw()
     end
+
+end
+
+function World:Draw()
+
+    self:DrawMapIfPossible()
+    self:DrawEntitiesIfPossible()
+    self:DrawCharactersIfPossible()
+    self:DrawPlayerCharacterIfPossible()
+
 
 end
 

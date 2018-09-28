@@ -5,18 +5,20 @@ local MapClass    = require("src/map/map")
 local EntityClass = require("src/entity/entity")
 
 
-local FuneralHomeFloorDataLocation = "tiles/autumn-platformer-tileset/png/elements/"
-local FuneralHomeFloorData =
-{
+local FuneralHomeFloorDataLocation = "tiles/zombie-tileset/Objects/PNG/"
+local FlText = "objects_house_0041_Layer-42"
+local FuneralHomeFloorData ={}
 
-    {"box1","box1", "box1","box1", "box1","box1", "box1","box1"},
-    {"box1","box1", "box1","box1", "box1","box1", "box1","box1"},
-    {"box1","box1", "box1","box1", "box1","box1", "box1","box1"},
-    {"box1","box1", "box1","box1", "box1","box1", "box1","box1"},
+for y = 1, 22 do
 
-}
+    FuneralHomeFloorData[y] = {}
+    for x = 1, 11 do
+        FuneralHomeFloorData[y][x] = FlText
+    end
 
-local FuneralHomeFloorMap = MapClass:new(FuneralHomeFloorData, FuneralHomeFloorDataLocation, .3, .3)
+end
+
+local FuneralHomeFloorMap = MapClass:new(FuneralHomeFloorData, FuneralHomeFloorDataLocation, .1, .1)
 
 local SeatingPlatformImage = love.graphics.newImage("tiles/zombie-tileset/Objects/PNG/objects_house_0041_Layer-42.png")
 local SeatingPlatformEntites =
@@ -36,7 +38,7 @@ end
 
 function FuneralScene.GetEntities()
 
-    return SeatingPlatformEntites
+    return nil--SeatingPlatformEntites
 
 end
 
