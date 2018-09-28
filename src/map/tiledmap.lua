@@ -65,7 +65,6 @@ function TiledMap:InitializeLayers()
     self.layers_tile_layer  = {}
     self.layers_object_layer = {}
 
-    print(#self.layers)
     for i = 1, #self.layers do
 
         if self:IsTileLayer(self.layers[i]) then
@@ -116,7 +115,7 @@ end
 
 function TiledMap:DrawMaps()
 
-    for i = #self.layers_tile_layer, 1, -1 do
+    for i = 1, #self.layers_tile_layer do
 
         self:DrawLayer(self.layers_tile_layer[i])
 
