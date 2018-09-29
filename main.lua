@@ -13,7 +13,8 @@ local CONTEXT_INDEX =
     LOAD_GAME       = 3,
     GAME            = 4,
     CREDITS         = 5,
-    OPTIONS         = 6
+    OPTIONS         = 6,
+    QUIT            = 7
 
 }
 
@@ -60,6 +61,10 @@ end
 
 local function Options()
     CURRENT_CONTEXT = CONTEXT_INDEX.OPTIONS
+end
+
+local function Quit()
+    love.quit()
 end
 
 function love.load()
