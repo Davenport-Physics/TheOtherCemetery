@@ -13,8 +13,7 @@ local CONTEXT_INDEX =
     LOAD_GAME       = 3,
     GAME            = 4,
     CREDITS         = 5,
-    OPTIONS         = 6,
-    QUIT            = 7
+    OPTIONS         = 6
 
 }
 
@@ -64,12 +63,12 @@ local function Options()
 end
 
 local function Quit()
-    love.quit()
+    love.event.quit()
 end
 
 function love.load()
     StartMenuMusic_Start()
-    InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Credits)
+    InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, Credits, Quit)
     InitializeCredits_CallBackFunctions(InStartMenu)
 end
 

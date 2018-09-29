@@ -5,14 +5,18 @@ local ButtonClass = require("src/button/button")
 local Buttons = 
 {
 
-    NewGame  = ButtonClass:newImage("pics/startmenu/newgame.png", 75, 450, .3, .3),
-    LoadGame = ButtonClass:newImage("pics/startmenu/loadgame.png", 275, 450, .3, .3),
-    Credits  = ButtonClass:newImage("pics/startmenu/credits.png", 475, 450, .3, .3)
+    NewGame  = ButtonClass:newImage("pics/startmenu/newgame.png", 25, 450),
+    LoadGame = ButtonClass:newImage("pics/startmenu/loadgame.png", 200, 450),
+    Credits  = ButtonClass:newImage("pics/startmenu/credits.png", 375, 450),
+    Options  = ButtonClass:newImage("pics/startmenu/options.png", 550, 450),
+    Quit     = ButtonClass:newImage("pics/startmenu/quit.png", 625, 10)
 
 }
 Buttons.NewGame:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.LoadGame:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.Credits:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+Buttons.Options:SetSoundwhenClicked("sound/startmenu/click/click.ogg")
+Buttons.Quit:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
 function StartMenuMusic_Start()
 
@@ -26,45 +30,22 @@ function StartMenuMusic_Stop()
 
 end
 
-function InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Credits)
+function InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, Credits, Quit)
 
     Buttons.NewGame:SetCallback(StartNewGame)
     Buttons.LoadGame:SetCallback(LoadGame)
     Buttons.Credits:SetCallback(Credits)
-
-end
-
-local function HandleInput_StartingWindow_MouseDown_NewGame()
-
-    Buttons.NewGame:HandleMouseClick()
-
-end
-
-local function HandleInput_StartingWindow_MouseDown_LoadGame()
-
-    Buttons.LoadGame:HandleMouseClick()
-
-end
-
-local function HandleInput_StartingWindow_MouseDown_Credits()
-
-    Buttons.Credits:HandleMouseClick()
-
-end
-
-local function HandleInput_StartingWindow_MouseDown()
-
-    HandleInput_StartingWindow_MouseDown_NewGame()
-    HandleInput_StartingWindow_MouseDown_LoadGame()
-    HandleInput_StartingWindow_MouseDown_Credits()
+    Buttons.Quit:SetCallback(Quit)
 
 end
 
 function HandleInput_StartingWindow()
 
-    if love.mouse.isDown(1) then
-        HandleInput_StartingWindow_MouseDown()
-    end
+    Buttons.NewGame:HandleMouseClick()
+    Buttons.LoadGame:HandleMouseClick()
+    Buttons.Credits:HandleMouseClick()
+    Buttons.Options:HandleMouseclick()
+    Buttons.Quit:HandleMouseClick()
 
 end
 
@@ -90,4 +71,7 @@ function DrawStartingWindow()
     Buttons.NewGame:Draw()
     Buttons.LoadGame:Draw()
     Buttons.Credits:Draw()
+    Buttons.Options:Draw()
+    Buttons.Quit:Draw()
+
 end
