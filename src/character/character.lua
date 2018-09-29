@@ -70,14 +70,14 @@ end
 
 function Character:Draw()
 
-    love.graphics.draw(self.character_image, self.current_quad, self.x_pos, self.y_pos, 0,  3, 3)
+    love.graphics.draw(self.character_image, self.current_quad, self.x_pos, self.y_pos, 0)
 
 end
 
 function Character:DrawWalkInPlace()
 
     self:WalkDown(true)
-    love.graphics.draw(self.character_image, self.current_quad, self.x_pos, self.y_pos, 0, 3, 3)
+    love.graphics.draw(self.character_image, self.current_quad, self.x_pos, self.y_pos, 0)
 
 end
 

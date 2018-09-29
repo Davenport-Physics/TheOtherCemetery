@@ -27,9 +27,9 @@ end
 function TiledMap:InitializeTiles()
 
     self.quads = {}
-    for y = 0, self.sprite_sheet:getHeight() - self.height, self.height + 1 do
+    for y = 0, self.sprite_sheet:getHeight() - self.height, self.height+1 do
 
-        for x = 0, self.sprite_sheet:getWidth() - self.width, self.width + 1 do
+        for x = 0, self.sprite_sheet:getWidth() - self.width, self.width+1 do
 
             local temp_quad = love.graphics.newQuad(x, y, self.width, self.height, self.sheet_width, self.sheet_height)
             self.quads[#self.quads + 1] = temp_quad
@@ -62,7 +62,7 @@ end
 function TiledMap:InitializeLayers()
 
     self.layers = self.tiled_map.layers
-    self.layers_tile_layer  = {}
+    self.layers_tile_layer   = {}
     self.layers_object_layer = {}
 
     for i = 1, #self.layers do
