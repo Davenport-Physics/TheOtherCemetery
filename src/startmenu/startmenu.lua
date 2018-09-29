@@ -15,7 +15,7 @@ local Buttons =
 Buttons.NewGame:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.LoadGame:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.Credits:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
-Buttons.Options:SetSoundwhenClicked("sound/startmenu/click/click.ogg")
+Buttons.Options:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.Quit:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
 function StartMenuMusic_Start()
@@ -44,7 +44,7 @@ function HandleInput_StartingWindow()
     Buttons.NewGame:HandleMouseClick()
     Buttons.LoadGame:HandleMouseClick()
     Buttons.Credits:HandleMouseClick()
-    Buttons.Options:HandleMouseclick()
+    Buttons.Options:HandleMouseClick()
     Buttons.Quit:HandleMouseClick()
 
 end
@@ -63,15 +63,27 @@ local StartingWindowPics  =
     BackGround = love.graphics.newImage("tiles/autumn-platformer-tileset/png/elements/background.png"),
 }
 
-function DrawStartingWindow()
+local function DrawButtons()
 
-    love.graphics.draw(StartingWindowPics.BackGround, 0, 0, 0, .15, .15)
-    love.graphics.draw(StartingWindowText.Name, 200, 100)
-    love.graphics.draw(StartingWindowText.MadeWith, 300, 200)
     Buttons.NewGame:Draw()
     Buttons.LoadGame:Draw()
     Buttons.Credits:Draw()
     Buttons.Options:Draw()
     Buttons.Quit:Draw()
+
+end
+
+local function DrawMisc()
+
+    love.graphics.draw(StartingWindowPics.BackGround, 0, 0, 0, .15, .15)
+    love.graphics.draw(StartingWindowText.Name, 200, 100)
+    love.graphics.draw(StartingWindowText.MadeWith, 300, 200)
+
+end
+
+function DrawStartingWindow()
+
+    DrawMisc()
+    DrawButtons()
 
 end
