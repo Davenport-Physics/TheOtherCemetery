@@ -4,86 +4,81 @@ require("./src/credits/credits")
 require("./src/newgame/newgame")
 
 
-local IsInStartingWindow = false
-local IsInNewGame        = false
-local IsInLoadGame       = false
-local IsInCredits        = false
 
-local function ResetIsInVars()
+local CONTEXT_INDEX =
+{
 
-    IsInStartingWindow = false
-    IsInNewGame        = false
-    IsInLoadGame       = false
-    IsInCredits        = false
+    STARTING_WINDOW = 1,
+    NEW_GAME        = 2,
+    LOAD_GAME       = 3,
+    GAME            = 4,
+    CREDITS         = 5,
+    OPTIONS         = 6
 
-end
+}
+
+local CONTEXT_FUNCTIONS =
+{
+
+    {Draw = DrawStartingWindow, Input = HandleInput_StartingWindow},
+    {Draw = DrawNewGame       , Input = HandleInput_NewGame},
+    {Draw = function() end    , Input = function() end},
+    {Draw = function() end    , Input = function() end},
+    {Draw = DrawCreditsScene  , Input = HandleInput_Credits},
+    {Draw = function() end    , Input = function() end}
+
+}
+
+local CURRENT_CONTEXT = CONTEXT_INDEX.STARTING_WINDOW
 
 local function InStartMenu()
-
-    ResetIsInVars()
     love.audio.stop()
     StartMenuMusic_Start()
-    IsInStartingWindow = true
-
+    CURRENT_CONTEXT = CONTEXT_INDEX.STARTING_WINDOW
 end
 
 local function StartNewGame()
-
-    ResetIsInVars()
     love.audio.stop()
-    IsInNewGame = true
-
-
+    CURRENT_CONTEXT = CONTEXT_INDEX.NEW_GAME
 end
 
 local function LoadGame()
+    CURRENT_CONTEXT = CONTEXT_INDEX.LOAD_GAME
+end
 
-    ResetIsInVars()
-    IsInLoadGame       = true
-
+local function Game()
+    love.audio.stop()
+    CURRENT_CONTEXT = CONTEXT_INDEX.GAME
 end
 
 local function Credits()
-
-    ResetIsInVars()
     love.audio.stop()
     ResetCreditsPositionText()
     StartCreditMusic()
-    IsInCredits        = true
+    CURRENT_CONTEXT = CONTEXT_INDEX.CREDITS
+end
 
+local function Options()
+    CURRENT_CONTEXT = CONTEXT_INDEX.OPTIONS
 end
 
 function love.load()
-
-    IsInStartingWindow = true
     StartMenuMusic_Start()
     InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Credits)
     InitializeCredits_CallBackFunctions(InStartMenu)
-
 end
 
 local function HandleInput()
-
-    if IsInStartingWindow then HandleInput_StartingWindow()
-    elseif IsInCredits then HandleInput_Credits()
-    elseif IsInNewGame then HandleInput_NewGame() end
-
+    CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Input()
 end
 
 function love.update()
-
     HandleInput()
-
 end
 
 function love.draw()
-
-    if IsInStartingWindow then DrawStartingWindow()
-    elseif IsInCredits then DrawCreditsScene()
-    elseif IsInNewGame then DrawNewGame() end
-    --love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 500, 10)
-
-
+    CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Draw()
+    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 500, 10)
 end
 
 function love.quit()
