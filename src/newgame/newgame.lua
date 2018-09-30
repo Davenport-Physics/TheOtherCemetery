@@ -46,5 +46,4 @@ function HandleInput_NewGame()
         FemaleCharacter:WalkRight(true)
     end
 
-
 end
