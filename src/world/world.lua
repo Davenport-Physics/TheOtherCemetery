@@ -1,7 +1,7 @@
 World = {}
 World.__index = World
 
-function World:new(MapObj, CharacterObjs, PlayerCharacterObj, EntityObjs)
+function World:new(MapObj, CharacterObjs, PlayerCharacterObj, CollisionObjs)
 
     local obj = {}
     setmetatable(obj, World)
@@ -9,7 +9,8 @@ function World:new(MapObj, CharacterObjs, PlayerCharacterObj, EntityObjs)
     obj.map_obj              = MapObj
     obj.character_objs       = CharacterObjs
     obj.player_character_obj = PlayerCharacterObj
-    obj.entity_objs          = EntityObjs
+    obj.collision_objs       = CollisionObjs
+    --TODO WORK ON COLLISION OBJECTS
     obj.Settings             = require("src/settings/settings")
 
     return obj
@@ -79,10 +80,8 @@ end
 function World:Draw()
 
     self:DrawMapIfPossible()
-    self:DrawEntitiesIfPossible()
     self:DrawCharactersIfPossible()
     self:DrawPlayerCharacterIfPossible()
-
 
 end
 
