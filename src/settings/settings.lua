@@ -1,6 +1,4 @@
-Settings = {}
-
-Settings.Controls =
+Controls =
 {
 
     UP    = "w",
@@ -10,7 +8,7 @@ Settings.Controls =
 
 }
 
-Settings.PlayerSaveName = ""
+PlayerSaveName = ""
 
 function SetPlayerSaveName(name)
 
@@ -28,4 +26,14 @@ function SetPlayerControls(controls)
 
 end
 
-return Settings
+local camera_x_offset = 0
+local camera_y_offset = 0
+function DrawCameraFunctions(x_translation, y_translation, scale)
+
+    camera_x_offset = math.floor( love.graphics.getWidth() * .5 )
+    camera_y_offset = math.floor( love.graphics.getHeight() * .5 )
+
+    love.graphics.translate(-(x_translation * 3) + camera_x_offset, -(3 * y_translation) + camera_y_offset)
+    love.graphics.scale(scale)
+
+end
