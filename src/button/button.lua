@@ -71,11 +71,11 @@ end
 
 function Button:PlayMouseClickSoundIfPossible()
 
-    if self.sound ~= nil then 
-        love.audio.play(self.sound)
-        love.timer.sleep(.45)
-        love.audio.stop(self.sound)
-    end
+    if self.sound == nil then return end
+
+    love.audio.play(self.sound)
+    love.timer.sleep(.4)
+    love.audio.stop(self.sound)
 
 end
 
