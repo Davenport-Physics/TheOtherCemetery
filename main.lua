@@ -33,7 +33,6 @@ local CURRENT_CONTEXT = CONTEXT_INDEX.STARTING_WINDOW
 
 local function InStartMenu()
 
-    love.audio.stop()
     StartMenuMusic_Start()
     CURRENT_CONTEXT = CONTEXT_INDEX.STARTING_WINDOW
 

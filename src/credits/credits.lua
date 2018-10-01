@@ -1,11 +1,14 @@
 local BackGroundImage = love.graphics.newImage("tiles/autumn-platformer-tileset/png/elements/background.png")
 local CreditMusic     = love.audio.newSource("sound/credits/credits.ogg", "static")
 
+local next_time_to_draw_scrawl = love.timer.getTime()
+
 local CharacterClass = require("src/character/character")
 local FemaleCharacter = CharacterClass:new("tiles/Characters/Females/F_01.png", 300, 300, 16, 17)
 local function DrawCharacter()
 
-    FemaleCharacter:DrawWalkInPlace()
+    FemaleCharacter:WalkRight(true)
+    FemaleCharacter:Draw()
 
 end
 
@@ -21,8 +24,16 @@ end
 local StartMenu_CallBack
 function InitializeCredits_CallBackFunctions(StartMenu)
 
-    BackButton:SetCallback(function() StartMenu(); FemaleCharacter:ResetPositionToOriginal(); end)
-    StartMenu_CallBack = StartMenu
+    StartMenu_CallBack = function()
+
+        StartMenu()
+        FemaleCharacter:ResetPositionToOriginal()
+        ResetCreditsPositionText()
+        love.audio.stop(CreditMusic)
+
+    end
+
+    BackButton:SetCallback(StartMenu_CallBack)
 
 end
 
@@ -32,7 +43,7 @@ local function DrawBackground()
 
 end
 
-local People = 
+local People =
 {
 
     ["Lead Developer"] = "Emma Marie Davenport",
@@ -45,9 +56,20 @@ local People =
 local y_position_text = 600
 local function CheckIfCreditsShouldStop()
 
-    if y_position_text <= -100 then
+    if y_position_text <= -150 then
 
         StartMenu_CallBack()
+
+    end
+
+end
+
+local function SetNextTimeAndIncrementYText()
+
+    if next_time_to_draw_scrawl <= love.timer.getTime() then
+
+        y_position_text          = y_position_text - 1
+        next_time_to_draw_scrawl = love.timer.getTime() + .02
 
     end
 
@@ -64,8 +86,7 @@ local function DrawCreditsScrawl()
         displacement = displacement + 30
 
     end
-    y_position_text = y_position_text - 1
-    love.timer.sleep(.03)
+    SetNextTimeAndIncrementYText()
     CheckIfCreditsShouldStop()
 
 end
