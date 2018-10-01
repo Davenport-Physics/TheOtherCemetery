@@ -1,4 +1,4 @@
-Button = {}
+local Button = {}
 Button.__index = Button
 
 local function GenericCallBack()
