@@ -25,6 +25,7 @@ function Button:InitializeButtonAttributes(image_file, x_pos, y_pos, scale_x, sc
     self.scale_x      = scale_x or 1
     self.scale_y      = scale_y or 1
     self.mouse_click_callback = mouse_click_callback or GenericCallBack
+    self.sound_thread = nil
 
 end
 
@@ -73,9 +74,21 @@ function Button:PlayMouseClickSoundIfPossible()
 
     if self.sound == nil then return end
 
-    love.audio.play(self.sound)
-    love.timer.sleep(.4)
-    love.audio.stop(self.sound)
+    local sound_thread_data =
+    [[
+        require("love.audio")
+        require("love.timer")
+        sound = ...
+        love.audio.play(sound)
+        love.timer.sleep(.4)
+        love.audio.stop(sound)
+    ]]
+    if self.sound_thread ~= nil and self.sound_thread:isRunning() then
+        return
+    end
+    self.sound_thread = nil
+    self.sound_thread = love.thread.newThread(sound_thread_data)
+    self.sound_thread:start(self.sound)
 
 end
 
