@@ -1,4 +1,4 @@
-Character = {}
+local Character = {}
 Character.__index = Character
 
 
@@ -33,9 +33,16 @@ function Character:new(character_image_file, x_pos, y_pos, width, height, displa
     obj.x_pos, obj.y_pos           = x_pos, y_pos
     obj.width                      = width
     obj.height                     = height
+    obj.collision_objs             = {}
     obj:InitializeAnimationSet(displacement)
 
     return obj
+
+end
+
+function Character:SetCollisionObjects(collision_objs)
+
+    self.collision_objs = collision_objs
 
 end
 
@@ -101,23 +108,62 @@ function Character:DetermineNewPresentStance()
 
 end
 
+function Character:DoesCharacterCollide(new_x, new_y)
+
+    for i = 1, #self.collision_objs do
+
+        if self.collision_objs[i]:CheckForCollision(new_x, new_y) then
+            return true
+        end
+
+    end
+    return false
+
+end
+
+function Character:DisplaceCharacterAlongXWithCollisionCheck(displace_x)
+
+    local temp_x = 0
+    local increment = 1
+    if displace_x > 0 then increment = -1 end
+
+    for dis = displace_x, 0, increment do
+        temp_x = self.x_pos + dis
+        if not self:DoesCharacterCollide(temp_x, self.y_pos) then self.x_pos = temp_x; break; end
+    end
+
+end
+
+function Character:DisplaceCharacterAlongYWithCollisionCheck(displace_y)
+
+    local temp_y = 0
+    local increment = 1
+    if displace_y > 0 then increment = -1 end
+
+    for dis = displace_y, 0, increment do
+        temp_y = self.y_pos + dis
+        if not self:DoesCharacterCollide(self.x_pos, temp_y) then self.y_pos = temp_y; break; end
+    end
+
+end
+
 function Character:DisplaceCharacter()
 
     if self.direction == DIRECTION.UP then
 
-        self.y_pos = self.y_pos - self.displacement
+        self:DisplaceCharacterAlongYWithCollisionCheck(-self.displacement)
 
     elseif self.direction == DIRECTION.DOWN then
 
-        self.y_pos = self.y_pos + self.displacement
+        self:DisplaceCharacterAlongYWithCollisionCheck(self.displacement)
 
     elseif self.direction == DIRECTION.LEFT then
 
-        self.x_pos = self.x_pos - self.displacement
+        self:DisplaceCharacterAlongXWithCollisionCheck(-self.displacement)
 
     elseif self.direction == DIRECTION.RIGHT then
 
-        self.x_pos = self.x_pos + self.displacement
+        self:DisplaceCharacterAlongXWithCollisionCheck(self.displacement)
 
     end
 

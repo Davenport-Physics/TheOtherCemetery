@@ -14,9 +14,9 @@ function FuneralScene.GetMap()
 
 end
 
-function FuneralScene.GetEntities()
+function FuneralScene.GetCollisionObjs()
 
-    return nil
+    return FuneralHomeMap:GetCollisionObjects()
 
 end
 

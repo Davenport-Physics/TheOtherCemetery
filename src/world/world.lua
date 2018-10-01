@@ -1,4 +1,4 @@
-World = {}
+local World = {}
 World.__index = World
 
 function World:new(MapObj, CharacterObjs, PlayerCharacterObj, CollisionObjs)
@@ -10,8 +10,8 @@ function World:new(MapObj, CharacterObjs, PlayerCharacterObj, CollisionObjs)
     obj.character_objs       = CharacterObjs
     obj.player_character_obj = PlayerCharacterObj
     obj.collision_objs       = CollisionObjs
-    --TODO WORK ON COLLISION OBJECTS
     obj.Settings             = require("src/settings/settings")
+    obj.player_character_obj:SetCollisionObjects(obj.collision_objs)
 
     return obj
 
