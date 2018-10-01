@@ -30,13 +30,13 @@ end
 function World:HandleInput()
 
     if love.keyboard.isDown(self.Settings.Controls.UP) then
-        self.player_character_obj.MoveUp(true)
+        self.player_character_obj:WalkUp(true)
     elseif love.keyboard.isDown(self.Settings.Controls.DOWN) then
-        self.player_character_obj.MoveDown(true)
+        self.player_character_obj:WalkDown(true)
     elseif love.keyboard.isDown(self.Settings.Controls.LEFT) then
-        self.player_character_obj.MoveLeft(true)
+        self.player_character_obj:WalkLeft(true)
     elseif love.keyboard.isDown(self.Settings.Controls.RIGHT) then
-        self.player_character_obj.MoveRight(true)
+        self.player_character_obj:WalkRight(true)
     end
 
 end
@@ -79,9 +79,18 @@ end
 
 function World:Draw()
 
+    if self.camera_tracking ~= nil then
+        self.Settings.DrawCameraFunctions(self.camera_tracking.x_pos, self.camera_tracking.y_pos, 3)
+    end
     self:DrawMapIfPossible()
     self:DrawCharactersIfPossible()
     self:DrawPlayerCharacterIfPossible()
+
+end
+
+function World:SetEntityToTrackForCamera(entity)
+
+    self.camera_tracking = entity
 
 end
 

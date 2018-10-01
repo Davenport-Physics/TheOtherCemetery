@@ -11,6 +11,7 @@ local FuneralScenePlayerChar = FuneralScene.GetPlayerCharacter()
 local FuneralSceneEntities   = FuneralScene.GetEntities()
 
 local FuneralWorld = WorldClass:new(FuneralSceneMap, FuneralSceneChars, FuneralScenePlayerChar, FuneralSceneEntities)
+FuneralWorld:SetEntityToTrackForCamera(FuneralScenePlayerChar)
 
 function Level.Draw()
 
