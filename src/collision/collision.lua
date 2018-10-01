@@ -1,4 +1,4 @@
-Collision = {}
+local Collision = {}
 Collision.__index = Collision
 
 local Shared = require("src/shared/shared")
@@ -12,7 +12,7 @@ function Collision:new(x_pos, y_pos, width, height)
     obj.width  = width
     obj.height = height
 
-    return obj    
+    return obj
 
 end
 
@@ -21,7 +21,7 @@ function Collision:CheckForCollision(x, y)
     if not Shared.IsBetweenRange(x, self.x_pos, self.x_pos + self.width) then
         return false
     end
-    
+
     if not Shared.IsBetweenRange(y, self.y_pos, self.y_pos + self.height) then
         return false
     end
@@ -29,3 +29,5 @@ function Collision:CheckForCollision(x, y)
     return true
 
 end
+
+return Collision
