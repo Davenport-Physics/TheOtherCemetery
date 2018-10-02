@@ -35,8 +35,23 @@ function Character:new(character_image_file, x_pos, y_pos, width, height, displa
     obj.height                     = height
     obj.collision_objs             = {}
     obj:InitializeAnimationSet(displacement)
+    obj:SetCollisionFunctions()
 
     return obj
+
+end
+
+function Character:SetCollisionFunctions()
+
+    self.collision_functions =
+    {
+
+        [DIRECTION.UP]    = function() self:DisplaceCharacterAlongYWithCollisionCheck(-self.displacement) end,
+        [DIRECTION.DOWN]  = function() self:DisplaceCharacterAlongYWithCollisionCheck(self.displacement)  end,
+        [DIRECTION.LEFT]  = function() self:DisplaceCharacterAlongXWithCollisionCheck(-self.displacement) end,
+        [DIRECTION.RIGHT] = function() self:DisplaceCharacterAlongXWithCollisionCheck(self.displacement)  end
+
+    }
 
 end
 
@@ -122,10 +137,11 @@ end
 
 function Character:DisplaceCharacterAlongXWithCollisionCheck(displace_x)
 
-    local temp_x = 0
-    local increment = 1
-    if displace_x > 0 then increment = -1 end
+    local temp_x       = 0
+    local increment    = 1
+    local x_mid, y_mid = self:GetCenterPosition()
 
+    if displace_x > 0 then increment = -1 end
     for dis = displace_x, 0, increment do
         temp_x = self.x_pos + dis
         if not self:DoesCharacterCollide(temp_x, self.y_pos) then self.x_pos = temp_x; break; end
@@ -135,10 +151,11 @@ end
 
 function Character:DisplaceCharacterAlongYWithCollisionCheck(displace_y)
 
-    local temp_y = 0
-    local increment = 1
-    if displace_y > 0 then increment = -1 end
+    local temp_y       = 0
+    local increment    = 1
+    local x_mid, y_mid = self:GetCenterPosition()
 
+    if displace_y > 0 then increment = -1 end
     for dis = displace_y, 0, increment do
         temp_y = self.y_pos + dis
         if not self:DoesCharacterCollide(self.x_pos, temp_y) then self.y_pos = temp_y; break; end
@@ -148,23 +165,7 @@ end
 
 function Character:DisplaceCharacter()
 
-    if self.direction == DIRECTION.UP then
-
-        self:DisplaceCharacterAlongYWithCollisionCheck(-self.displacement)
-
-    elseif self.direction == DIRECTION.DOWN then
-
-        self:DisplaceCharacterAlongYWithCollisionCheck(self.displacement)
-
-    elseif self.direction == DIRECTION.LEFT then
-
-        self:DisplaceCharacterAlongXWithCollisionCheck(-self.displacement)
-
-    elseif self.direction == DIRECTION.RIGHT then
-
-        self:DisplaceCharacterAlongXWithCollisionCheck(self.displacement)
-
-    end
+    self.collision_functions[self.direction]()
 
 end
 
@@ -243,6 +244,15 @@ function Character:SetYPos(y_pos)
 
     self.y_pos_orig = y_pos
     self.y_pos      = y_pos
+
+end
+
+function Character:GetCenterPosition()
+
+    local x_mid = self.x_pos + math.floor(self.width  * .5)
+    local y_mid = self.y_pos + math.floor(self.height * .5)
+
+    return x_mid, y_mid
 
 end
 
