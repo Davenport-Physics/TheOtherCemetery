@@ -143,8 +143,8 @@ function Character:DisplaceCharacterAlongXWithCollisionCheck(displace_x)
 
     if displace_x > 0 then increment = -1 end
     for dis = displace_x, 0, increment do
-        temp_x = self.x_pos + dis
-        if not self:DoesCharacterCollide(temp_x, self.y_pos) then self.x_pos = temp_x; break; end
+        temp_x = x_mid + dis
+        if not self:DoesCharacterCollide(temp_x, self.y_pos + self.height) then self.x_pos = self.x_pos + dis; break; end
     end
 
 end
@@ -157,8 +157,8 @@ function Character:DisplaceCharacterAlongYWithCollisionCheck(displace_y)
 
     if displace_y > 0 then increment = -1 end
     for dis = displace_y, 0, increment do
-        temp_y = self.y_pos + dis
-        if not self:DoesCharacterCollide(self.x_pos, temp_y) then self.y_pos = temp_y; break; end
+        temp_y = self.y_pos + self.height + dis
+        if not self:DoesCharacterCollide(x_mid, temp_y) then self.y_pos = self.y_pos + dis; break; end
     end
 
 end
