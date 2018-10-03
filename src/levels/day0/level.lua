@@ -27,13 +27,14 @@ local CameraPanning = true
 function Level.Update()
 
     if CameraPanning and Camera.y_pos < -180 then
+
         FuneralWorld:SetEntityToTrackForCamera(FuneralScenePlayerChar)
         CameraPanning = false
+        Camera = nil
+
     end
 
-    if CameraPanning then
-        Camera:Update()
-    end
+    if CameraPanning then Camera:Update() end
     FuneralWorld:Update()
 
 end

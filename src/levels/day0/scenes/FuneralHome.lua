@@ -6,7 +6,7 @@ local MapData = require("src/levels/day0/maps/funeral")
 local FuneralHomeMap = TiledMapClass:new(MapData)
 
 local CharacterClass = require("src/character/character")
-local FemaleCharacter = CharacterClass:new("tiles/Characters/Females/F_01.png", 90, 75, 16, 17, 10)
+local FemaleCharacter = CharacterClass:new("tiles/Characters/Females/F_01.png", 90, 75, 16, 17, 6)
 
 function FuneralScene.GetMap()
 

@@ -9,6 +9,7 @@ function TiledMap:new(tiled_map)
     obj:InitializeSpriteSheet()
     obj:InitializeTiles()
     obj:InitializeLayers()
+    obj.tile_cache = {}
 
     return obj
 end
@@ -74,13 +75,54 @@ function TiledMap:InitializeLayers()
 
 end
 
-function TiledMap:DrawTile(layer_data, tiles_drawn_along_row, current_y_offset)
+local bit31    = 2147483648
+local bit30    = 1073741824
+local bit29    = 536870912
+function TiledMap:RotationConditions(layer_data)
 
-    if layer_data ~= 0 then
+    local angle    = 0
+    local x_off    = 0
+    local y_off    = 0
+    local temp_id  = layer_data
 
-        love.graphics.draw(self.sprite_sheet, self.quads[layer_data], (tiles_drawn_along_row) * self.width, current_y_offset)
+    if temp_id >= bit31 then
+        temp_id = temp_id - bit31
+        angle = 0
+        x_off = x_off + 2 * self.width
+    end
+    if temp_id >= bit30 then
+        temp_id = temp_id - bit30
+        angle = angle + math.pi
+        x_off = x_off + self.width
+        y_off = y_off + self.height
+    end
+    if temp_id >= bit29 then
+        temp_id = temp_id - bit29
+        angle = angle + (math.pi/2)
+        x_off = x_off - self.width
+    end
+    return {temp_id, angle, x_off, y_off}
+
+end
+
+function TiledMap:GetRotation(layer_data)
+
+    if self.tile_cache[layer_data] ~= nil then
+
+        return unpack(self.tile_cache[layer_data])
 
     end
+
+    self.tile_cache[layer_data] = self:RotationConditions(layer_data)
+
+    return unpack(self.tile_cache[layer_data])
+end
+
+function TiledMap:DrawTile(layer_data, tiles_drawn_along_row, current_y_offset)
+
+    if layer_data == 0 then return end
+    local real_id, angle, x_off, y_off = self:GetRotation(layer_data)
+    love.graphics.draw(self.sprite_sheet, self.quads[real_id], (tiles_drawn_along_row) * self.width + x_off, current_y_offset + y_off, angle)
 
 end
 

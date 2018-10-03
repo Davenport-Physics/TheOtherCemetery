@@ -21,7 +21,7 @@ local STANCE =
 
 }
 
-local MIN_DT_FOR_CHANGING_STANCES = .065
+local MIN_DT_FOR_CHANGING_STANCES = .045
 
 function Character:new(character_image_file, x_pos, y_pos, width, height, displacement)
 
