@@ -20,12 +20,12 @@ local CONTEXT_INDEX =
 local CONTEXT_FUNCTIONS =
 {
 
-    {Draw = DrawStartingWindow, Input = HandleInput_StartingWindow},
-    {Draw = DrawNewGame       , Input = HandleInput_NewGame},
-    {Draw = function() end    , Input = function() end},
-    {Draw = function() end    , Input = function() end},
-    {Draw = DrawCreditsScene  , Input = HandleInput_Credits},
-    {Draw = function() end    , Input = function() end}
+    {Draw = DrawStartingWindow, Input = HandleInput_StartingWindow, Update = function() end},
+    {Draw = DrawNewGame       , Input = HandleInput_NewGame       , Update = Update_NewGame},
+    {Draw = function() end    , Input = function() end            , Update = function() end},
+    {Draw = function() end    , Input = function() end            , Update = function() end},
+    {Draw = DrawCreditsScene  , Input = HandleInput_Credits       , Update = function() end},
+    {Draw = function() end    , Input = function() end            , Update = function() end}
 
 }
 
@@ -96,6 +96,7 @@ end
 function love.update()
 
     HandleInput()
+    CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Update()
 
 end
 

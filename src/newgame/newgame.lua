@@ -7,6 +7,12 @@ function DrawNewGame()
 
 end
 
+function Update_NewGame()
+
+    Day0.Update()
+
+end
+
 function HandleInput_NewGame()
 
     Day0.HandleInput()

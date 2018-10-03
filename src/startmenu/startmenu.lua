@@ -16,7 +16,6 @@ Buttons.NewGame:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.LoadGame:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.Credits:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.Options:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
-Buttons.Quit:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
 function StartMenuMusic_Start()
 
