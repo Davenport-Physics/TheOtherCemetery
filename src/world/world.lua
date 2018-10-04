@@ -1,7 +1,7 @@
 local World = {}
 World.__index = World
 
-function World:new(MapObj, CharacterObjs, PlayerCharacterObj, CollisionObjs)
+function World:new(MapObj, CharacterObjs, PlayerCharacterObj, CollisionObjs, Scale)
 
     local obj = {}
     setmetatable(obj, World)
@@ -11,7 +11,11 @@ function World:new(MapObj, CharacterObjs, PlayerCharacterObj, CollisionObjs)
     obj.player_character_obj = PlayerCharacterObj
     obj.collision_objs       = CollisionObjs
     obj.Settings             = require("src/settings/settings")
-    obj.player_character_obj:SetCollisionObjects(obj.collision_objs)
+
+    if obj.player_character_obj ~= nil then
+        obj.player_character_obj:SetCollisionObjects(obj.collision_objs)
+    end
+    obj.world_scale          = Scale or 2.5
 
     return obj
 
@@ -80,7 +84,7 @@ end
 function World:Draw()
 
     if self.camera_tracking ~= nil then
-        self.Settings.DrawCameraFunctions(self.camera_tracking.x_pos, self.camera_tracking.y_pos, 3)
+        self.Settings.DrawCameraFunctions(self.camera_tracking.x_pos, self.camera_tracking.y_pos, self.world_scale)
     end
     self:DrawMapIfPossible()
     self:DrawCharactersIfPossible()

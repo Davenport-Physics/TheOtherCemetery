@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="7" height="6" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="1">
+ <tileset firstgid="1" source="basictiles_2.tsx"/>
+ <layer id="5" name="Floor" width="7" height="6">
+  <data encoding="csv">
+0,0,0,0,0,0,0,
+9,9,9,9,9,9,9,
+9,9,18,18,18,9,9,
+9,9,18,18,18,9,9,
+9,9,18,18,18,9,9,
+9,9,9,9,9,9,9
+</data>
+ </layer>
+ <layer id="6" name="Objects" width="7" height="6">
+  <data encoding="csv">
+0,0,0,0,0,0,0,
+46,37,0,56,56,0,0,
+54,0,0,0,0,0,0,
+0,0,0,0,0,0,3758096432,
+47,0,0,0,0,0,70,
+55,0,0,0,0,0,28
+</data>
+ </layer>
+ <layer id="7" name="Wall" width="7" height="6">
+  <data encoding="csv">
+1610612753,1610612753,1610612753,1610612753,1610612753,1610612753,1610612753,
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="8" name="Door" width="7" height="6">
+  <data encoding="csv">
+0,0,0,0,0,51,0,
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>
