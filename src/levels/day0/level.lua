@@ -11,6 +11,8 @@ local FuneralScene = require("src/levels/day0/scenes/FuneralHome")
 local CameraClass = require("src/camera/camera")
 local Camera      = CameraClass:new(150, 400, 0, -.25, .01)
 
+local EntityClass = require("src/entity/entity")
+
 local FuneralSceneMap             = FuneralScene.GetMap()
 local FuneralSceneChars           = FuneralScene.GetCharacters()
 local FuneralScenePlayerChar      = FuneralScene.GetPlayerCharacter()
@@ -21,8 +23,10 @@ FuneralWorld:SetEntityToTrackForCamera(Camera)
 
 local CameraPanning = true
 
-local RoomScene = require("src/levels/day0/scenes/henry-bedroom-scene")
-local RoomWorld = WorldClass:new(RoomScene.GetMap(), RoomScene.GetCharacters(), RoomScene.GetPlayerCharacter(), RoomScene.GetCollisionObjs())
+local RoomEntity = EntityClass:newMinimal(50, 50)
+local RoomScene  = require("src/levels/day0/scenes/henry-bedroom-scene")
+local RoomWorld  = WorldClass:new(RoomScene.GetMap(), RoomScene.GetCharacters(), RoomScene.GetPlayerCharacter(), RoomScene.GetCollisionObjs())
+RoomWorld:SetEntityToTrackForCamera(RoomEntity)
 
 local IntroMusic = nil
 

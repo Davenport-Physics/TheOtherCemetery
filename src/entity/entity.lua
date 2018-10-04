@@ -36,6 +36,19 @@ function Entity:newWithImage(image, x_pos, y_pos, x_scale, y_scale, collision_on
 
 end
 
+function Entity:newMinimal(x_pos, y_pos)
+
+    local obj = {}
+    setmetatable(obj, Entity)
+    obj.x_pos = x_pos
+    obj.y_pos = y_pos
+    obj.width = 16
+    obj.width = 16
+
+    return obj
+
+end
+
 
 function Entity:CheckCollision(x_pos, y_pos)
 
