@@ -103,7 +103,6 @@ end
 function love.draw()
 
     CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Draw()
-    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 500, 10)
 
 end
 

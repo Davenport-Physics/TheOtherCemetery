@@ -24,6 +24,8 @@ local CameraPanning = true
 local RoomScene = require("src/levels/day0/scenes/henry-bedroom-scene")
 local RoomWorld = WorldClass:new(RoomScene.GetMap(), RoomScene.GetCharacters(), RoomScene.GetPlayerCharacter(), RoomScene.GetCollisionObjs())
 
+local IntroMusic = nil
+
 local function Room_Draw()
 
     RoomWorld:Draw()
@@ -51,6 +53,8 @@ end
 
 local function FuneralWorld_Clear()
 
+    love.audio.stop(IntroMusic)
+    IntroMusic                = nil
     CameraPanning             = nil
     Camera                    = false
     FuneralScene              = nil
@@ -95,9 +99,40 @@ local function FuneralWorld_HandleInput()
 
 end
 
-DrawFunction   = FuneralWorld_Draw
-UpdateFunction = FuneralWorld_Update
-InputFunction  = FuneralWorld_HandleInput
+
+local IntroVideo = nil
+local function Introduction_Draw()
+
+    if IntroVideo == nil then return end
+    love.graphics.scale(.4)
+    love.graphics.draw(IntroVideo, 0, 0)
+
+end
+
+local function Intro_Update()
+
+    if IntroVideo == nil then
+
+        IntroMusic = love.audio.newSource("sound/intro/Mournful_Departure.mp3", "static")
+        IntroVideo = love.graphics.newVideo("video/intro/intro.ogv")
+        IntroMusic:play()
+        IntroVideo:play()
+
+    end
+    if not IntroVideo:isPlaying() then
+
+        IntroVideo     = nil
+        DrawFunction   = FuneralWorld_Draw
+        UpdateFunction = FuneralWorld_Update
+        InputFunction  = FuneralWorld_HandleInput
+
+    end
+
+end
+
+DrawFunction   = Introduction_Draw
+UpdateFunction = Intro_Update
+InputFunction  = function() end
 
 function Level.Draw()
 
