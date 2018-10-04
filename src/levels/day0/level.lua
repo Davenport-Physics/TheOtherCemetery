@@ -9,7 +9,7 @@ local WorldClass   = require("src/world/world")
 local FuneralScene = require("src/levels/day0/scenes/FuneralHome")
 
 local CameraClass = require("src/camera/camera")
-local Camera      = CameraClass:new(150, 400, 0, -.5, .01)
+local Camera      = CameraClass:new(150, 400, 0, -.25, .01)
 
 local FuneralSceneMap             = FuneralScene.GetMap()
 local FuneralSceneChars           = FuneralScene.GetCharacters()
