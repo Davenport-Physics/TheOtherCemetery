@@ -29,6 +29,7 @@ local RoomWorld  = WorldClass:new(RoomScene.GetMap(), RoomScene.GetCharacters(),
 RoomWorld:SetEntityToTrackForCamera(RoomEntity)
 
 local IntroMusic = nil
+local AnnaDialog = nil
 
 local function Room_Draw()
 
@@ -119,6 +120,7 @@ local function Intro_Update()
 
         IntroMusic = love.audio.newSource("sound/intro/Mournful_Departure.mp3", "static")
         IntroVideo = love.graphics.newVideo("video/intro/intro.ogv")
+        IntroMusic:setVolume(.15)
         IntroMusic:play()
         IntroVideo:play()
 
@@ -129,6 +131,8 @@ local function Intro_Update()
         DrawFunction   = FuneralWorld_Draw
         UpdateFunction = FuneralWorld_Update
         InputFunction  = FuneralWorld_HandleInput
+        AnnaDialog = love.audio.newSource("sound/intro/anna-dialog/anna-intro.mp3", "static")
+        AnnaDialog:play()
 
     end
 
