@@ -87,8 +87,9 @@ function TiledMap:RotationConditions(layer_data)
 
     if temp_id >= bit31 then
         temp_id = temp_id - bit31
-        angle = 0
-        x_off = x_off + 2 * self.width
+        angle = angle + (math.pi)
+        x_off = x_off + self.width
+        y_off = y_off - self.height
     end
     if temp_id >= bit30 then
         temp_id = temp_id - bit30
