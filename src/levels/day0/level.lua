@@ -1,31 +1,16 @@
 
+local Level = {}
+
 local DrawFunction   = nil
 local UpdateFunction = nil
 local InputFunction  = nil
 
-local Level = {}
-
+local EntityClass  = require("src/entity/entity")
 local WorldClass   = require("src/world/world")
-local FuneralScene = require("src/levels/day0/scenes/FuneralHome")
 
-local CameraClass = require("src/camera/camera")
-local Camera      = CameraClass:new(150, 450, 0, -.25, .01)
-
-local EntityClass = require("src/entity/entity")
-
-local FuneralSceneMap             = FuneralScene.GetMap()
-local FuneralSceneChars           = FuneralScene.GetCharacters()
-local FuneralScenePlayerChar      = FuneralScene.GetPlayerCharacter()
-local FuneralSceneCollisionObjs   = FuneralScene.GetCollisionObjs()
-
-local FuneralWorld = WorldClass:new(FuneralSceneMap, FuneralSceneChars, FuneralScenePlayerChar, FuneralSceneCollisionObjs)
-FuneralWorld:SetEntityToTrackForCamera(Camera)
-
-local CameraPanning = true
-
-local RoomEntity = EntityClass:newMinimal(50, 50)
-local RoomScene  = require("src/levels/day0/scenes/henry-bedroom-scene")
-local RoomWorld  = WorldClass:new(RoomScene.GetMap(), RoomScene.GetCharacters(), RoomScene.GetPlayerCharacter(), RoomScene.GetCollisionObjs())
+local RoomEntity   = EntityClass:newMinimal(50, 50)
+local RoomScene    = require("src/levels/day0/scenes/henry-bedroom-scene")
+local RoomWorld    = WorldClass:new(RoomScene.GetMap(), RoomScene.GetCharacters(), RoomScene.GetPlayerCharacter(), RoomScene.GetCollisionObjs())
 RoomWorld:SetEntityToTrackForCamera(RoomEntity)
 
 local IntroMusic = nil
@@ -49,6 +34,20 @@ local function Room_HandleInput()
 
 end
 
+local FuneralScene = require("src/levels/day0/scenes/FuneralHome")
+
+local CameraClass = require("src/camera/camera")
+local Camera      = CameraClass:new(150, 450, 0, -.25, .01)
+
+local FuneralSceneMap             = FuneralScene.GetMap()
+local FuneralSceneChars           = FuneralScene.GetCharacters()
+local FuneralScenePlayerChar      = FuneralScene.GetPlayerCharacter()
+local FuneralSceneCollisionObjs   = FuneralScene.GetCollisionObjs()
+
+local FuneralWorld = WorldClass:new(FuneralSceneMap, FuneralSceneChars, FuneralScenePlayerChar, FuneralSceneCollisionObjs)
+FuneralWorld:SetEntityToTrackForCamera(Camera)
+
+local CameraPanning = true
 
 local function FuneralWorld_Draw()
 
@@ -90,7 +89,9 @@ local function FuneralWorld_Update()
     end
 
     if CameraPanning then
+
         Camera:Update()
+
     end
     FuneralWorld:Update()
 
@@ -99,7 +100,9 @@ end
 local function FuneralWorld_HandleInput()
 
     if not CameraPanning then
+
         FuneralWorld:HandleInput()
+
     end
 
 end
@@ -120,18 +123,20 @@ local function Intro_Update()
 
         IntroMusic = love.audio.newSource("sound/intro/Mournful_Departure.mp3", "static")
         IntroVideo = love.graphics.newVideo("video/intro/intro.ogv")
-        IntroMusic:setVolume(.15)
         IntroMusic:play()
         IntroVideo:play()
+        love.audio.setVolume(.1)
 
     end
     if not IntroVideo:isPlaying() then
 
+        love.audio.setVolume(1)
+        IntroMusic:setVolume(.15)
         IntroVideo     = nil
         DrawFunction   = FuneralWorld_Draw
         UpdateFunction = FuneralWorld_Update
         InputFunction  = FuneralWorld_HandleInput
-        AnnaDialog = love.audio.newSource("sound/intro/anna-dialog/anna-intro.mp3", "static")
+        AnnaDialog     = love.audio.newSource("sound/intro/anna-dialog/anna-intro.mp3", "static")
         AnnaDialog:play()
 
     end
@@ -141,7 +146,6 @@ end
 DrawFunction   = Introduction_Draw
 UpdateFunction = Intro_Update
 InputFunction  = function() end
-
 
 function Level.Draw()
 
