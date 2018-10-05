@@ -81,6 +81,12 @@ function World:DrawPlayerCharacterIfPossible()
 
 end
 
+function World:DrawObjectsIfPossible()
+    if self.map_obj ~= nil then
+        self.map_obj:DrawObjects()
+    end
+end
+
 function World:Draw()
 
     if self.camera_tracking ~= nil then
@@ -89,6 +95,7 @@ function World:Draw()
     self:DrawMapIfPossible()
     self:DrawCharactersIfPossible()
     self:DrawPlayerCharacterIfPossible()
+    self:DrawObjectsIfPossible()
 
 end
 

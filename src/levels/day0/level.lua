@@ -125,13 +125,12 @@ local function Intro_Update()
         IntroVideo = love.graphics.newVideo("video/intro/intro.ogv")
         IntroMusic:play()
         IntroVideo:play()
-        love.audio.setVolume(.1)
+        love.audio.setVolume(.5)
 
     end
     if not IntroVideo:isPlaying() then
 
-        love.audio.setVolume(1)
-        IntroMusic:setVolume(.15)
+        IntroMusic:setVolume(.25)
         IntroVideo     = nil
         DrawFunction   = FuneralWorld_Draw
         UpdateFunction = FuneralWorld_Update

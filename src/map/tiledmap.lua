@@ -150,26 +150,31 @@ function TiledMap:DrawLayer(layer)
 
 end
 
-function TiledMap:DrawObjects()
-
-    return
-
-end
-
-function TiledMap:DrawMaps()
+function TiledMap:DrawMaps(DrawObjects)
 
     for i = 1, #self.layers_tile_layer do
 
-        self:DrawLayer(self.layers_tile_layer[i])
+        if not DrawObjects and self.layers_tile_layer[i].name ~= "Objects" then
+            self:DrawLayer(self.layers_tile_layer[i])
+        end
+        if DrawObjects and self.layers_tile_layer[i].name == "Objects" then
+            self:DrawLayer(self.layers_tile_layer[i])
+        end
 
     end
 
 end
 
+function TiledMap:DrawObjects()
+
+    self:DrawMaps(true)
+
+end
+
+
 function TiledMap:Draw()
 
-    self:DrawMaps()
-    self:DrawObjects()
+    self:DrawMaps(false)
 
 end
 

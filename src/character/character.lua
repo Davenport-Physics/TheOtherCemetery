@@ -86,7 +86,7 @@ function Character:InitializeAnimationSet(displacement)
     self.stance        = STANCE.STANDING
     self.next_stance   = STANCE.WALKING_1
     self.displacement  = displacement or 5
-    self.time_until_next_stance = love.timer.getTime() + MIN_DT_FOR_CHANGING_STANCES
+    self.time_until_next_stance = love.timer.getTime()
 
 end
 
