@@ -4,6 +4,7 @@ require("./src/credits/credits")
 require("./src/newgame/newgame")
 
 
+local Settings = require("src/settings/settings")
 
 local CONTEXT_INDEX =
 {
@@ -30,6 +31,8 @@ local CONTEXT_FUNCTIONS =
 }
 
 local CURRENT_CONTEXT = CONTEXT_INDEX.STARTING_WINDOW
+
+local CANVAS = love.graphics.newCanvas()
 
 local function InStartMenu()
 
@@ -103,7 +106,20 @@ end
 
 function love.draw()
 
-    CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Draw()
+    if CURRENT_CONTEXT == CONTEXT_INDEX.NEW_GAME then
+        love.graphics.setCanvas(CANVAS)
+
+            love.graphics.clear()
+            CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Draw()
+            love.graphics.scale(Settings.Scale, Settings.Scale)
+
+        love.graphics.setCanvas()
+        love.graphics.draw(CANVAS, Settings.X_Canvas_Translation, Settings.Y_Canvas_Translation)
+    else
+        CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Draw()
+    end
+
+
 
 end
 

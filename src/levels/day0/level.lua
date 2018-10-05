@@ -5,6 +5,7 @@ local DrawFunction   = nil
 local UpdateFunction = nil
 local InputFunction  = nil
 
+local Settings     = require("src/settings/settings")
 local EntityClass  = require("src/entity/entity")
 local WorldClass   = require("src/world/world")
 
@@ -37,7 +38,7 @@ end
 local FuneralScene = require("src/levels/day0/scenes/FuneralHome")
 
 local CameraClass = require("src/camera/camera")
-local Camera      = CameraClass:new(150, 450, 0, -.25, .01)
+local Camera      = CameraClass:new(135, 200, 0, -.2, .02)
 
 local FuneralSceneMap             = FuneralScene.GetMap()
 local FuneralSceneChars           = FuneralScene.GetCharacters()
@@ -112,7 +113,7 @@ local IntroVideo = nil
 local function Introduction_Draw()
 
     if IntroVideo == nil then return end
-    love.graphics.scale(.4)
+    love.graphics.scale(.35)
     love.graphics.draw(IntroVideo, 0, 0)
 
 end
