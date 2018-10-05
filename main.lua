@@ -81,6 +81,7 @@ end
 
 function love.load()
 
+    love.graphics.setDefaultFilter( "nearest", "nearest", 8 )
     StartMenuMusic_Start()
     InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, Credits, Quit)
     InitializeCredits_CallBackFunctions(InStartMenu)

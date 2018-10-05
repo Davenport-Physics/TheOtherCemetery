@@ -16,6 +16,7 @@ function World:new(MapObj, CharacterObjs, PlayerCharacterObj, CollisionObjs, Sca
         obj.player_character_obj:SetCollisionObjects(obj.collision_objs)
     end
     obj.world_scale          = Scale or 2.5
+    obj.map_obj:SetScaleForBlending(obj.world_scale)
 
     return obj
 

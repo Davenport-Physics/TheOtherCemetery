@@ -10,8 +10,15 @@ function TiledMap:new(tiled_map)
     obj:InitializeTiles()
     obj:InitializeLayers()
     obj.tile_cache = {}
+    obj.scale = 1
 
     return obj
+end
+
+function TiledMap:SetScaleForBlending(scale)
+
+    self.scale = scale
+
 end
 
 function TiledMap:InitializeSpriteSheet()
@@ -123,7 +130,14 @@ function TiledMap:DrawTile(layer_data, tiles_drawn_along_row, current_y_offset)
 
     if layer_data == 0 then return end
     local real_id, angle, x_off, y_off = self:GetRotation(layer_data)
-    love.graphics.draw(self.sprite_sheet, self.quads[real_id], (tiles_drawn_along_row) * self.width + x_off, current_y_offset + y_off, angle)
+
+    --local x = math.floor(((tiles_drawn_along_row) * self.width + x_off) / self.scale  + .5) * self.scale
+    --local y = math.floor((current_y_offset + y_off) / self.scale  + .5) * self.scale
+    local x = (tiles_drawn_along_row) * self.width + x_off
+    local y = current_y_offset + y_off
+
+    love.graphics.draw(self.sprite_sheet, self.quads[real_id], x, y, angle)
+
 
 end
 

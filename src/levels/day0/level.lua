@@ -44,7 +44,7 @@ local FuneralSceneChars           = FuneralScene.GetCharacters()
 local FuneralScenePlayerChar      = FuneralScene.GetPlayerCharacter()
 local FuneralSceneCollisionObjs   = FuneralScene.GetCollisionObjs()
 
-local FuneralWorld = WorldClass:new(FuneralSceneMap, FuneralSceneChars, FuneralScenePlayerChar, FuneralSceneCollisionObjs)
+local FuneralWorld = WorldClass:new(FuneralSceneMap, FuneralSceneChars, FuneralScenePlayerChar, FuneralSceneCollisionObjs, 2.5)
 FuneralWorld:SetEntityToTrackForCamera(Camera)
 
 local CameraPanning = true
