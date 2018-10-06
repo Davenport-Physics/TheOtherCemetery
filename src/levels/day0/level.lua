@@ -9,7 +9,7 @@ local Settings     = require("src/settings/settings")
 local EntityClass  = require("src/entity/entity")
 local WorldClass   = require("src/world/world")
 
-local RoomEntity   = EntityClass:newMinimal(75, 50)
+local RoomEntity   = EntityClass:newMinimal(48, 48)
 local RoomScene    = require("src/levels/day0/scenes/henry-bedroom-scene")
 local RoomWorld    = WorldClass:new(RoomScene.GetMap(), RoomScene.GetCharacters(), RoomScene.GetPlayerCharacter(), RoomScene.GetCollisionObjs())
 RoomWorld:SetEntityToTrackForCamera(RoomEntity)
@@ -38,7 +38,7 @@ end
 local FuneralScene = require("src/levels/day0/scenes/FuneralHome")
 
 local CameraClass = require("src/camera/camera")
-local Camera      = CameraClass:new(135, 200, 0, -.2, .02)
+local Camera      = CameraClass:new(128, 300, 0, -.2, .02)
 
 local FuneralSceneMap             = FuneralScene.GetMap()
 local FuneralSceneChars           = FuneralScene.GetCharacters()

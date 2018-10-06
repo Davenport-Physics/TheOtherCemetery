@@ -104,17 +104,27 @@ function love.update()
 
 end
 
+local function SetCanvas()
+
+    love.graphics.setCanvas(CANVAS)
+
+        love.graphics.clear()
+        CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Draw()
+
+    love.graphics.setCanvas()
+
+    love.graphics.translate(Settings.X_Canvas_Translation, Settings.Y_Canvas_Translation)
+    love.graphics.scale(Settings.Scale, Settings.Scale)
+
+end
+
 function love.draw()
 
     if CURRENT_CONTEXT == CONTEXT_INDEX.NEW_GAME then
-        love.graphics.setCanvas(CANVAS)
 
-            love.graphics.clear()
-            CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Draw()
-            love.graphics.scale(Settings.Scale, Settings.Scale)
+        SetCanvas()
+        love.graphics.draw(CANVAS, 0, 0)
 
-        love.graphics.setCanvas()
-        love.graphics.draw(CANVAS, Settings.X_Canvas_Translation, Settings.Y_Canvas_Translation)
     else
         CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Draw()
     end
