@@ -5,7 +5,7 @@ local MapData        = require("src/levels/day0/maps/henry-bedroom")
 local TiledMapClass  = require("src/map/tiledmap")
 local TiledMap       = TiledMapClass:new(MapData)
 
-local AnnaChar = 
+--local AnnaChar = 
 
 function Scene.GetMap()
 

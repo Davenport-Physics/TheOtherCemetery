@@ -197,7 +197,7 @@ function TiledMap:MakeCollisionObj(tile, tiles_drawn_along_row, current_y_offset
 
     if tile == 0 then return end
 
-    local x = x = (tiles_drawn_along_row) * self.width
+    local x = (tiles_drawn_along_row) * self.width
     local y = 0
 
     if full_mesh then
