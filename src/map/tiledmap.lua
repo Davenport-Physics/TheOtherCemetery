@@ -193,17 +193,26 @@ function TiledMap:Draw()
 end
 
 local CollisionClass = require("src/collision/collision")
-function TiledMap:MakeCollisionObj(tile, tiles_drawn_along_row, current_y_offset)
+function TiledMap:MakeCollisionObj(tile, tiles_drawn_along_row, current_y_offset, full_mesh)
 
     if tile == 0 then return end
-    self.collision_objs[#self.collision_objs + 1] = CollisionClass:new((tiles_drawn_along_row) * self.width, current_y_offset, self.width, self.height)
+
+    local x = x = (tiles_drawn_along_row) * self.width
+    local y = 0
+
+    if full_mesh then
+        y = current_y_offset
+    else
+        y = current_y_offset + 10
+    end
+
+    self.collision_objs[#self.collision_objs + 1] = CollisionClass:new(x, y, self.width, self.height)
 
 end
 
-function TiledMap:FromLayerDetermineCollisionObjs(layer)
+function TiledMap:FromLayerDetermineCollisionObjs(layer, full_mesh)
 
     local TilesAlongX = layer.width
-    local TilesAlongY = layer.height
 
     local tiles_drawn_along_row = 0
     local current_y_offset      = 0
@@ -216,7 +225,7 @@ function TiledMap:FromLayerDetermineCollisionObjs(layer)
             tiles_drawn_along_row = 0
 
         end
-        self:MakeCollisionObj(layer.data[i], tiles_drawn_along_row, current_y_offset)
+        self:MakeCollisionObj(layer.data[i], tiles_drawn_along_row, current_y_offset, full_mesh)
         tiles_drawn_along_row = tiles_drawn_along_row + 1
 
     end
@@ -229,7 +238,10 @@ function TiledMap:InitializeCollisionObjs()
 
     for i = 1, #self.layers_tile_layer do
         if self.layers_tile_layer[i].name == "Wall" then
-            self:FromLayerDetermineCollisionObjs(self.layers_tile_layer[i])
+            self:FromLayerDetermineCollisionObjs(self.layers_tile_layer[i], true)
+        end
+        if self.layers_tile_layer[i].name == "Objects" then
+            self:FromLayerDetermineCollisionObjs(self.layers_tile_layer[i], false)
         end
     end
 
