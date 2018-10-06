@@ -131,8 +131,6 @@ function TiledMap:DrawTile(layer_data, tiles_drawn_along_row, current_y_offset)
     if layer_data == 0 then return end
     local real_id, angle, x_off, y_off = self:GetRotation(layer_data)
 
-    --local x = math.floor(((tiles_drawn_along_row) * self.width + x_off) / self.scale  + .5) * self.scale
-    --local y = math.floor((current_y_offset + y_off) / self.scale  + .5) * self.scale
     local x = (tiles_drawn_along_row) * self.width + x_off
     local y = current_y_offset + y_off
 

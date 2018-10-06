@@ -34,10 +34,17 @@ function Character:new(character_image_file, x_pos, y_pos, width, height, displa
     obj.width                      = width
     obj.height                     = height
     obj.collision_objs             = {}
+    obj.allow_drawing              = true
     obj:InitializeAnimationSet(displacement)
     obj:SetCollisionFunctions()
 
     return obj
+
+end
+
+function Character:AllowDrawing(allow_drawing)
+
+    self.allow_drawing = allow_drawing
 
 end
 

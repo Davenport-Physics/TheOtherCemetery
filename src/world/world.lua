@@ -69,7 +69,9 @@ function World:DrawCharactersIfPossible()
     if self.character_objs == nil then return end
 
     for i = 1, #self.character_objs do
-        self.character_objs[i]:Draw()
+        if self.character_objs[i].allow_drawing then
+            self.character_objs[i]:Draw()
+        end
     end
 
 end
