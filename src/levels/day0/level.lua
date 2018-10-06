@@ -9,7 +9,7 @@ local Settings     = require("src/settings/settings")
 local EntityClass  = require("src/entity/entity")
 local WorldClass   = require("src/world/world")
 
-local RoomEntity   = EntityClass:newMinimal(50, 50)
+local RoomEntity   = EntityClass:newMinimal(75, 50)
 local RoomScene    = require("src/levels/day0/scenes/henry-bedroom-scene")
 local RoomWorld    = WorldClass:new(RoomScene.GetMap(), RoomScene.GetCharacters(), RoomScene.GetPlayerCharacter(), RoomScene.GetCollisionObjs())
 RoomWorld:SetEntityToTrackForCamera(RoomEntity)
@@ -81,7 +81,7 @@ end
 
 local function FuneralWorld_Update()
 
-    if CameraPanning and Camera.y_pos < -180 then
+    if CameraPanning and Camera.y_pos < -20 then
 
         FuneralWorld_Clear()
         FuneralWorld_SetNextFunctions()
