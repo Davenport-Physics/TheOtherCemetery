@@ -23,7 +23,7 @@ local STANCE =
 
 local MIN_DT_FOR_CHANGING_STANCES = .045
 
-function Character:new(character_image_file, x_pos, y_pos, width, height, displacement)
+function Character:new(character_image_file, x_pos, y_pos, width, height, displacement, stance_change_time)
 
     local obj = {}
     setmetatable(obj, Character)
@@ -35,6 +35,7 @@ function Character:new(character_image_file, x_pos, y_pos, width, height, displa
     obj.height                     = height
     obj.collision_objs             = {}
     obj.allow_drawing              = true
+    obj.stance_change_time         = stance_change_time or MIN_DT_FOR_CHANGING_STANCES
     obj:InitializeAnimationSet(displacement)
     obj:SetCollisionFunctions()
 
@@ -180,7 +181,7 @@ function Character:CheckTimeChangeBeforeMoving()
 
     if love.timer.getTime() >= self.time_until_next_stance then
 
-        self.time_until_next_stance = love.timer.getTime() + MIN_DT_FOR_CHANGING_STANCES
+        self.time_until_next_stance = love.timer.getTime() + self.stance_change_time
         return true
 
     end

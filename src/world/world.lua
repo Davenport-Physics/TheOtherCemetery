@@ -34,6 +34,8 @@ end
 
 function World:HandleInput()
 
+    if self.player_character_obj == nil then return end
+
     if love.keyboard.isDown(self.Settings.Controls.UP) then
         self.player_character_obj:WalkUp(true)
     elseif love.keyboard.isDown(self.Settings.Controls.DOWN) then

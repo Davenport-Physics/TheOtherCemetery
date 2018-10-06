@@ -1,4 +1,3 @@
-
 local Level = {}
 
 local DrawFunction   = nil
@@ -9,9 +8,9 @@ local Settings     = require("src/settings/settings")
 local EntityClass  = require("src/entity/entity")
 local WorldClass   = require("src/world/world")
 
-local RoomEntity   = EntityClass:newMinimal(48, 48)
-local RoomScene    = require("src/levels/day0/scenes/henry-bedroom-scene")
-local RoomWorld    = WorldClass:new(RoomScene.GetMap(), RoomScene.GetCharacters(), RoomScene.GetPlayerCharacter(), RoomScene.GetCollisionObjs())
+local RoomEntity         = EntityClass:newMinimal(48, 48)
+local RoomScene          = require("src/levels/day0/scenes/henry-bedroom-scene")
+local RoomWorld          = WorldClass:new(RoomScene.GetMap(), RoomScene.GetCharacters(), RoomScene.GetPlayerCharacter(), RoomScene.GetCollisionObjs())
 RoomWorld:SetEntityToTrackForCamera(RoomEntity)
 
 local IntroMusic = nil
@@ -23,7 +22,80 @@ local function Room_Draw()
 
 end
 
+local time_to_spawn_anna     = nil
+local function Room_Spawn_Anna()
+
+    if time_to_spawn_anna == nil then
+        time_to_spawn_anna = love.timer.getTime() + 1
+        return
+    end
+    if love.timer.getTime() >= time_to_spawn_anna then
+        RoomScene.GetCharacters()[1]:AllowDrawing(true)
+    end
+
+end
+
+
+local Anna = RoomScene.GetCharacters()[1]
+local ANNA_MADE_POSITION =
+{
+
+    false, false, false, false
+
+}
+local ANNA_POSITION_FUNCTION =
+{
+
+    Anna.WalkDown,
+    Anna.WalkLeft,
+    Anna.WalkRight,
+    Anna.WalkUp
+
+}
+local ANNA_POSITIONS =
+{
+
+    {x = 80, y = 32},
+    {x = 32, y = 32},
+    {x = 80, y = 32},
+    {x = 80, y = 16}
+
+}
+
+local function Room_Check_Made_Anna()
+
+    for i = 1, #ANNA_POSITIONS do
+        if not ANNA_MADE_POSITION[i] then
+            local x = Anna.x_pos
+            local y = Anna.y_pos
+            if x == ANNA_POSITIONS[i].x and y == ANNA_POSITIONS[i].y then
+                ANNA_MADE_POSITION[i] = true
+            end
+            break
+        end
+    end
+
+end
+
+local function Room_Move_Anna()
+
+    for i = 1, #ANNA_MADE_POSITION do
+        if not ANNA_MADE_POSITION[i] then
+            ANNA_POSITION_FUNCTION[i](Anna, true)
+            break
+        end
+    end
+
+end
+
 local function Room_Update()
+
+    if not RoomScene.GetCharacters()[1].allow_drawing then
+        Room_Spawn_Anna()
+    else
+        Room_Check_Made_Anna()
+        Room_Move_Anna()
+    end
 
     RoomWorld:Update()
 
