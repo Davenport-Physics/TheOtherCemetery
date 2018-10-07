@@ -190,20 +190,39 @@ local function Introduction_Draw()
 
 end
 
-local function Intro_Update()
+local function Intro_Update_CheckForNil()
 
     if IntroVideo == nil then
 
-        IntroMusic = love.audio.newSource("sound/intro/Mournful_Departure.mp3", "static")
         IntroVideo = love.graphics.newVideo("video/intro/intro.ogv")
-        IntroMusic:play()
+        IntroMusic = love.audio.newSource("sound/intro/Mournful_Departure.mp3", "static")
         IntroVideo:play()
-        love.audio.setVolume(.5)
+        IntroVideo:getSource():setVolume(.5)
 
     end
+
+end
+
+local function Intro_Update_CheckToStartSecondaryMusicSource()
+
+    if IntroVideo:isPlaying() and not IntroMusic:isPlaying() then
+
+        if IntroVideo:getSource():getDuration() - 5 <= IntroVideo:getSource():tell() then
+
+            IntroMusic:play()
+            IntroMusic:seek(IntroVideo:getSource():tell())
+            IntroMusic:setVolume(.25)
+
+        end
+
+    end
+
+end
+
+local function Intro_Update_CheckForPlayback()
+
     if not IntroVideo:isPlaying() then
 
-        IntroMusic:setVolume(.25)
         IntroVideo     = nil
         DrawFunction   = FuneralWorld_Draw
         UpdateFunction = FuneralWorld_Update
@@ -212,6 +231,15 @@ local function Intro_Update()
         AnnaDialog:play()
 
     end
+
+end
+
+local function Intro_Update()
+
+    Intro_Update_CheckForNil()
+    Intro_Update_CheckToStartSecondaryMusicSource()
+    Intro_Update_CheckForPlayback()
+
 
 end
 
