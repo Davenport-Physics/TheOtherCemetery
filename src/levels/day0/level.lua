@@ -4,33 +4,39 @@ local Scene_idx = 1
 local Scenes =
 {
 
-    require("src/levels/day0/scenes/intro"),
-    require("src/levels/day0/scenes/FuneralHome"),
-    require("src/levels/day0/scenes/henry-bedroom-scene")
+    "src/levels/day0/scenes/intro",
+    "src/levels/day0/scenes/FuneralHome",
+    "src/levels/day0/scenes/henry-bedroom-scene"
 
 }
 
+local Scene = require(Scenes[1])
+
 function Level.Draw()
 
-    Scenes[Scene_idx].Draw()
+    Scene.Draw()
 
 end
 
 function Level.Update()
 
-    if Scenes[Scene_idx].CanTransition() then
+    if Scene.CanTransition() then
         Scene_idx = Scene_idx + 1
+        Scene = nil
+        if Scenes[Scene_idx] ~= nil then
+            Scene = require(Scenes[Scene_idx])
+        end
     end
     if #Scenes < Scene_idx then
         print("STUB FIGURE OUT WHAT TO DO NEXT")
     end
-    Scenes[Scene_idx].Update()
+    Scene.Update()
 
 end
 
 function Level.HandleInput()
 
-    Scenes[Scene_idx].HandleInput()
+    Scene.HandleInput()
 
 end
 

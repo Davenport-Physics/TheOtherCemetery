@@ -36,21 +36,6 @@ function Scene.Draw()
 
 end
 
-local function FuneralWorld_Clear()
-
-    love.audio.stop(IntroMusic)
-    IntroMusic                = nil
-    CameraPanning             = nil
-    Camera                    = false
-    FuneralScene              = nil
-    FuneralSceneMap           = nil
-    FuneralSceneChars         = nil
-    FuneralScenePlayerChar    = nil
-    FuneralSceneCollisionObjs = nil
-    FuneralWorld              = nil
-
-end
-
 local function FuneralWorld_SetNextFunctions()
 
     DrawFunction   = Room_Draw
@@ -65,6 +50,7 @@ function Scene.Update()
 
         CameraPanning = false
         transition    = true
+        love.audio.stop()
         return
 
     end

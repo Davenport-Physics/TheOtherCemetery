@@ -4,8 +4,7 @@ local Scene = {}
 local IntroMusic = nil
 local AnnaDialog = nil
 
-local CameraPanning = true
-local IntroVideo    = nil
+local IntroVideo = nil
 
 local transition = false
 
