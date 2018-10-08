@@ -234,6 +234,31 @@ function Character:WalkRight(displace)
 
 end
 
+
+function Character:GlideUp()
+
+    self:DisplaceCharacterAlongYWithCollisionCheck(-2)
+
+end
+
+function Character:GlideDown()
+
+    self:DisplaceCharacterAlongYWithCollisionCheck(2)
+
+end
+
+function Character:GlideLeft()
+
+    self:DisplaceCharacterAlongXWithCollisionCheck(-2)
+
+end
+
+function Character:GlideRight()
+
+    self:DisplaceCharacterAlongXWithCollisionCheck(2)
+
+end
+
 function Character:ResetPositionToOriginal()
 
     self.x_pos = self.x_pos_orig
