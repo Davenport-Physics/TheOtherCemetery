@@ -26,7 +26,7 @@ local function DetermineScalingFactors()
 
     scale_x = love.graphics.getWidth() / IntroVideo:getWidth() - .03
     scale_y = love.graphics.getHeight() / IntroVideo:getHeight()
-    
+
 end
 
 local function Intro_Update_CheckForNil()

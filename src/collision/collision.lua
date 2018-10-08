@@ -3,7 +3,7 @@ Collision.__index = Collision
 
 local Shared = require("src/shared/shared")
 
-function Collision:new(x_pos, y_pos, width, height)
+function Collision:new(x_pos, y_pos, width, height, name)
 
     local obj = {}
     setmetatable(obj, Collision)
@@ -11,6 +11,7 @@ function Collision:new(x_pos, y_pos, width, height)
     obj.y_pos  = y_pos
     obj.width  = width
     obj.height = height
+    obj.name   = name or ""
 
     return obj
 
