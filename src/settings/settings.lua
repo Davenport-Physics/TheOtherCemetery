@@ -41,9 +41,6 @@ function Settings.DrawCameraFunctions(x_translation, y_translation)
     Settings.X_Canvas_Translation = -(x_translation * Settings.Scale) + camera_x_offset
     Settings.Y_Canvas_Translation = -(y_translation * Settings.Scale) + camera_y_offset
 
-    --love.graphics.translate(x, y)
-    --love.graphics.scale(Settings.Scale, Settings.Scale)
-
 end
 
 return Settings

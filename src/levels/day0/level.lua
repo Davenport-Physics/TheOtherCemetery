@@ -12,6 +12,8 @@ local Scenes =
 
 local Scene = require(Scenes[1])
 
+local transition_to_next_level = false
+
 function Level.Draw()
 
     Scene.Draw()
@@ -27,11 +29,18 @@ function Level.Update()
             Scene = require(Scenes[Scene_idx])
         end
     end
-    if #Scenes < Scene_idx then
+    if Scene == nil then
+        transition_to_next_level = true
         print("STUB FIGURE OUT WHAT TO DO NEXT")
     end
     Scene.Update()
 
+end
+
+function Level.CanTransition()
+
+    return transition_to_next_level
+    
 end
 
 function Level.HandleInput()
