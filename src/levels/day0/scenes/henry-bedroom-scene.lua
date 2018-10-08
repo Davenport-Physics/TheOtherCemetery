@@ -9,11 +9,11 @@ local MapData        = require("src/levels/day0/maps/henry-bedroom")
 local TiledMapClass  = require("src/map/tiledmap")
 local TiledMap       = TiledMapClass:new(MapData)
 
-local AnnaChar  = CharacterClass:new("tiles/Characters/Females/F_01.png", 80, 16, 16, 17, 2, .05); AnnaChar:AllowDrawing(false);
-local HenryChar = CharacterClass:new("tiles/Characters/Males/M_08.png", 16, 32, 16, 17, 6); HenryChar:WalkRight(true);
+local AnnaChar  = CharacterClass:new("tiles/Characters/Females/F_01.png", 96, 16, 16, 17, 2, .05); AnnaChar:AllowDrawing(false);
+local HenryChar = CharacterClass:new("tiles/Characters/Males/M_08.png", 32, 32, 16, 17, 6, .05); HenryChar:WalkRight(true);
 
 local RoomEntity         = EntityClass:newMinimal(48, 48)
-local RoomWorld          = WorldClass:new(TiledMap, {AnnaChar, HenryChar}, nil, TiledMap:GetCollisionObjects())
+local RoomWorld          = WorldClass:new(TiledMap, {AnnaChar}, HenryChar, TiledMap:GetCollisionObjects())
 RoomWorld:SetEntityToTrackForCamera(RoomEntity)
 
 local transition = false
@@ -36,13 +36,14 @@ local ANNA_POSITION_FUNCTION =
 local ANNA_POSITIONS =
 {
 
-    {x = 80, y = 32},
-    {x = 32, y = 32},
-    {x = 80, y = 32},
-    {x = 80, y = 16}
+    {x = 96, y = 32},
+    {x = 48, y = 32},
+    {x = 96, y = 32},
+    {x = 96, y = 16}
 
 }
 
+local cycle_complete         = false
 local time_to_spawn_anna     = nil
 local function Room_Spawn_Anna()
 
@@ -56,6 +57,16 @@ local function Room_Spawn_Anna()
 
 end
 
+local function Room_CheckTo_Despawn_Anna(idx)
+
+    if idx == #ANNA_POSITIONS then
+        AnnaChar:AllowDrawing(false)
+        cycle_complete = true
+        RoomWorld:SetEntityToTrackForCamera(HenryChar)
+    end
+
+end
+
 local function Room_Check_Made_Anna()
 
     for i = 1, #ANNA_POSITIONS do
@@ -64,6 +75,7 @@ local function Room_Check_Made_Anna()
             local y = AnnaChar.y_pos
             if x == ANNA_POSITIONS[i].x and y == ANNA_POSITIONS[i].y then
                 ANNA_MADE_POSITION[i] = true
+                Room_CheckTo_Despawn_Anna(i)
             end
             break
         end
@@ -82,15 +94,20 @@ local function Room_Move_Anna()
 
 end
 
-function Scene.Update()
-
+local function Update_Anna_Checks()
     if not AnnaChar.allow_drawing then
         Room_Spawn_Anna()
     else
         Room_Check_Made_Anna()
         Room_Move_Anna()
     end
+end
 
+function Scene.Update()
+
+    if not cycle_complete then
+        Update_Anna_Checks()
+    end
     RoomWorld:Update()
 
 end
@@ -110,7 +127,9 @@ end
 
 function Scene.HandleInput()
 
-    RoomWorld:HandleInput()
+    if cycle_complete then
+        RoomWorld:HandleInput()
+    end
 
 end
 
