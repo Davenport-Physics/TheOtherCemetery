@@ -22,6 +22,12 @@ function World:new(MapObj, CharacterObjs, PlayerCharacterObj, CollisionObjs, Sca
 
 end
 
+function World:SetHandleInputCallback(func)
+
+    self.input_callback = func
+
+end
+
 function World:RandomWalker()
 
 end
@@ -35,6 +41,7 @@ end
 function World:HandleInput()
 
     if self.player_character_obj == nil then return end
+    if self.input_callback ~= nil then self.input_callback(); return; end
 
     if love.keyboard.isDown(self.Settings.Controls.UP) then
         self.player_character_obj:WalkUp(true)
