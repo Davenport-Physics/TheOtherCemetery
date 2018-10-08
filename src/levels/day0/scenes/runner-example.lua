@@ -16,7 +16,7 @@ local transition = false
 
 function Scene.Update()
 
-    HenryChar.WalkDown(true)
+    HenryChar:WalkDown(true)
     World:Update()
 
 
@@ -31,9 +31,9 @@ end
 local function RunnerCallback()
 
     if love.keyboard.isDown(Settings.Controls.LEFT) then
-        HenryChar.x_pos = HenryChar.x_pos - 6
+        HenryChar:GlideLeft()
     elseif love.keyboard.isDown(Settings.Controls.RIGHT) then
-        HenryChar.x_pos = HenryChar.x_pos - 6
+        HenryChar:GlideRight()
     end
 
 end

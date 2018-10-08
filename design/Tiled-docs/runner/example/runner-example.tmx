@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="6" height="70" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="1">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="6" height="71" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="1">
  <tileset firstgid="1" source="../../Funeral/City.tsx"/>
- <layer id="3" name="Floor" width="6" height="70">
+ <layer id="6" name="Floor" width="6" height="71">
   <data encoding="csv">
 0,939,939,939,939,0,
 0,939,939,939,939,0,
@@ -72,10 +72,11 @@
 0,939,939,939,939,0,
 0,939,939,939,939,0,
 0,939,939,939,939,0,
-0,939,939,939,939,0
+0,939,939,939,939,0,
+0,0,0,0,0,0
 </data>
  </layer>
- <layer id="4" name="Wall" width="6" height="70">
+ <layer id="7" name="Wall" width="6" height="71">
   <data encoding="csv">
 965,0,0,0,0,963,
 965,0,0,0,0,963,
@@ -146,10 +147,11 @@
 965,0,0,0,0,963,
 965,0,0,0,0,963,
 965,0,0,0,0,963,
-965,0,0,0,0,963
+965,0,0,0,0,963,
+1019,927,927,927,927,1019
 </data>
  </layer>
- <layer id="5" name="Objects" width="6" height="70">
+ <layer id="8" name="Objects" width="6" height="71">
   <data encoding="csv">
 0,0,0,0,0,0,
 0,0,0,0,0,0,
@@ -165,11 +167,12 @@
 0,0,0,0,0,0,
 0,514,0,0,0,0,
 0,0,0,0,0,0,
-0,0,518,517,0,0,
+0,0,516,517,0,0,
 0,0,0,0,0,0,
 0,0,0,0,0,0,
+0,516,517,517,0,0,
 0,0,0,0,0,0,
-0,0,0,0,0,0,
+0,0,0,513,514,0,
 0,0,0,0,0,0,
 0,0,0,0,0,0,
 0,0,0,0,0,0,

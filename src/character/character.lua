@@ -234,7 +234,6 @@ function Character:WalkRight(displace)
 
 end
 
-
 function Character:GlideUp()
 
     self:DisplaceCharacterAlongYWithCollisionCheck(-2)
