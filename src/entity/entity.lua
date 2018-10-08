@@ -49,6 +49,23 @@ function Entity:newMinimal(x_pos, y_pos)
 
 end
 
+function Entity:newQuadWithMovementFunction(x_pos, y_pos, movement_function, dt_update, quad, sprite_sheet)
+
+    local obj = {}
+    setmetatable(obj, Entity)
+
+    obj.x_pos          = x_pos
+    obj.y_pos          = y_pos
+    obj.move_func      = movement_function
+    obj.quad           = quad
+    obj.sprite_sheet   = sprite_sheet
+    obj.dt_update      = dt_update or .1
+    obj.next_update    = love.timer.getTime() + obj.dt_update
+
+    return obj
+
+end
+
 
 function Entity:CheckCollision(x_pos, y_pos)
 
@@ -64,7 +81,22 @@ end
 
 function Entity:Draw()
 
-    love.graphics.draw(self.image, self.x_pos, self.y_pos, 0, self.x_scale, self.y_scale)
+    if self.image ~= nil then
+        love.graphics.draw(self.image, self.x_pos, self.y_pos, 0, self.x_scale, self.y_scale)
+    elseif self.quad ~= nil and sprite_sheet ~= nil then
+        love.graphics.draw(self.sprite_sheet, self.quad, self.x_pos, self.y_pos)
+    end
+
+end
+
+function Entity:Update()
+
+    if self.move_func ~= nil and love.timer.getTime() >= self.next_update then
+
+        self.x_pos, self.y_pos = self.move_func(self.x_pos, self.y_pos)
+        self.next_update = love.timer.getTime() + self.dt_update
+
+    end
 
 end
 
