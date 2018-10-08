@@ -24,12 +24,25 @@ local transition = false
 function Scene.Update()
 
     World:Update()
+    if Puck ~= nil then Puck:Update() end
 
 end
 
 function Scene.CanTransition()
 
     return transition
+
+end
+
+local function Move_Puck(x, y)
+
+    return x - 1, y
+
+end
+
+local function Shoot_Puck()
+
+    Puck = EntityClass:newQuadWithMovementFunction(HenryChar.x_pos-4, HenryChar.y_pos, Move_Puck, .01, PuckQuad, Map.sprite_sheet)
 
 end
 
@@ -41,6 +54,9 @@ local function HandleInputCallback()
     elseif love.keyboard.isDown(Settings.Controls.DOWN) then
         HenryChar:GlideDown()
         HenryChar:WalkLeft(false)
+    end
+    if love.keyboard.isDown(Settings.Controls.ATTACK_BUTTON) then
+        Shoot_Puck()
     end
 
 end
@@ -56,6 +72,7 @@ end
 function Scene.Draw()
 
     World:Draw()
+    if Puck ~= nil then Puck:Draw() end
 
 end
 

@@ -7,6 +7,7 @@ Settings.Controls =
     DOWN  = "s",
     LEFT  = "a",
     RIGHT = "d",
+    ATTACK_BUTTON = "space"
 
 }
 
