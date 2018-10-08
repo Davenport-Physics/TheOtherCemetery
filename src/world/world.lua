@@ -11,6 +11,7 @@ function World:new(MapObj, CharacterObjs, PlayerCharacterObj, CollisionObjs, Sca
     obj.player_character_obj = PlayerCharacterObj
     obj.collision_objs       = CollisionObjs
     obj.Settings             = require("src/settings/settings")
+    obj.entities             = {}
 
     if obj.player_character_obj ~= nil then
         obj.player_character_obj:SetCollisionObjects(obj.collision_objs)
@@ -117,4 +118,9 @@ function World:SetEntityToTrackForCamera(entity)
 
 end
 
+function World:AddEntityForTracking(entity)
+
+    self.entities[#self.entities + 1] = entity
+
+end
 return World

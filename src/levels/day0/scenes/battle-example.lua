@@ -16,6 +16,9 @@ local StaticEntity = EntityClass:newMinimal(80, 80)
 local World = WorldClass:new(Map, {BullyChar}, HenryChar, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(StaticEntity)
 
+local PuckQuad = Map.quads[496]
+local Puck     = nil -- EntityClass:newQuadWithMovementFunction()
+
 local transition = false
 
 function Scene.Update()

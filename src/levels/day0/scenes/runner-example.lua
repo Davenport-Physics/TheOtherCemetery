@@ -14,11 +14,23 @@ World:SetEntityToTrackForCamera(HenryChar)
 
 local transition = false
 
+local time_to_transition = nil
+
+local function CheckForTransitionTime()
+
+    if time_to_transition == nil then
+        time_to_transition = love.timer.getTime() + 5
+    elseif love.timer.getTime() >= time_to_transition then
+        transition = true
+    end
+
+end
+
 function Scene.Update()
 
     HenryChar:WalkDown(true)
     World:Update()
-
+    CheckForTransitionTime()
 
 end
 

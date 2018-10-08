@@ -7,7 +7,7 @@ local Scenes =
     --"src/levels/day0/scenes/intro",
     --"src/levels/day0/scenes/FuneralHome",
     --"src/levels/day0/scenes/henry-bedroom-scene",
-    --"src/levels/day0/scenes/runner-example",
+    "src/levels/day0/scenes/runner-example",
     "src/levels/day0/scenes/battle-example"
 
 }
@@ -42,7 +42,7 @@ end
 function Level.CanTransition()
 
     return transition_to_next_level
-    
+
 end
 
 function Level.HandleInput()
