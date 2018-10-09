@@ -9,7 +9,8 @@ function TiledMap:new(tiled_map)
     obj:InitializeSpriteSheet()
     obj:InitializeTiles()
     obj:InitializeLayers()
-    obj.tile_cache = {}
+    obj.tile_cache     = {}
+    obj.sheet_id_cache = {}
     obj.scale = 1
 
     return obj
