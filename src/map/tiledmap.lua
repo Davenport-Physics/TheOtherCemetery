@@ -153,9 +153,11 @@ end
 
 function TiledMap:FromRealIDGetSpriteSheetIndex(real_id)
 
+    if self.sheet_id_cache[real_id] ~= nil then return self.sheet_id_cache[real_id] end
     for i = 1, #self.quad_ids do
 
         if self.quad_ids[i].max >= real_id and real_id >= self.quad_ids[i].min then
+            self.sheet_id_cache[real_id] = i
             return i
         end
 
