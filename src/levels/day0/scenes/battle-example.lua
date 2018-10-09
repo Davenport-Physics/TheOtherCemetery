@@ -36,7 +36,7 @@ end
 
 local function Move_Puck(x, y)
 
-    return x - 1, y
+    return x - 2, y
 
 end
 
