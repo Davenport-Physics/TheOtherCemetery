@@ -21,29 +21,53 @@ function TiledMap:SetScaleForBlending(scale)
 
 end
 
+function TiledMap:InitializeEmptyTables()
+
+    self.sprite_sheet = {}
+    self.sheet_width  = {}
+    self.sheet_height = {}
+    self.spacing      = {}
+    self.width        = {}
+    self.height       = {}
+
+end
+
 function TiledMap:InitializeSpriteSheet()
 
-    self.sprite_sheet = love.graphics.newImage(self.tiled_map.tilesets[1].image)
-    self.sheet_width  = self.sprite_sheet:getWidth()
-    self.sheet_height = self.sprite_sheet:getHeight()
-    self.spacing      = self.tiled_map.tilesets[1].spacing
-    self.width        = self.tiled_map.tilesets[1].tilewidth
-    self.height       = self.tiled_map.tilesets[1].tileheight
+    self:InitializeEmptyTables()
+    for i = 1, #self.tiled_map.tilesets do
+
+        self.sprite_sheet[i] = love.graphics.newImage(self.tiled_map.tilesets[i].image)
+        self.sheet_width[i]  = self.sprite_sheet[i]:getWidth()
+        self.sheet_height[i] = self.sprite_sheet[i]:getHeight()
+        self.spacing[i]      = self.tiled_map.tilesets[i].spacing
+        self.width[i]        = self.tiled_map.tilesets[i].tilewidth
+        self.height[i]       = self.tiled_map.tilesets[i].tileheight
+
+    end
+
 
 end
 
 function TiledMap:InitializeTiles()
 
     self.quads = {}
-    for y = 0, self.sprite_sheet:getHeight() - self.height, self.height + self.spacing do
+    self.quad_ids = {}
+    local max_id = 0
+    for i = 1, #self.tiled_map.tilesets do
+        self.quad_ids[i] = {min = max_id+1, max = max_id+1}
+        for y = 0, self.sprite_sheet[i]:getHeight() - self.height[i], self.height[i] + self.spacing[i] do
 
-        for x = 0, self.sprite_sheet:getWidth() - self.width, self.width + self.spacing do
+            for x = 0, self.sprite_sheet[i]:getWidth() - self.width[i], self.width[i] + self.spacing[i] do
 
-            local temp_quad = love.graphics.newQuad(x, y, self.width, self.height, self.sheet_width, self.sheet_height)
-            self.quads[#self.quads + 1] = temp_quad
+                local temp_quad = love.graphics.newQuad(x, y, self.width[i], self.height[i], self.sheet_width[i], self.sheet_height[i])
+                self.quads[#self.quads + 1] = temp_quad
+                max_id = max_id + 1
+
+            end
 
         end
-
+        self.quad_ids[i].max = max_id
     end
 
 end
@@ -95,19 +119,19 @@ function TiledMap:RotationConditions(layer_data)
     if temp_id >= bit31 then
         temp_id = temp_id - bit31
         angle = angle + (math.pi)
-        x_off = x_off + self.width
-        y_off = y_off - self.height
+        x_off = x_off + self.width[1]
+        y_off = y_off - self.height[1]
     end
     if temp_id >= bit30 then
         temp_id = temp_id - bit30
         angle = angle + math.pi
-        x_off = x_off + self.width
-        y_off = y_off + self.height
+        x_off = x_off + self.width[1]
+        y_off = y_off + self.height[1]
     end
     if temp_id >= bit29 then
         temp_id = temp_id - bit29
         angle = angle + (math.pi/2)
-        x_off = x_off - self.width
+        x_off = x_off - self.width[1]
     end
     return {temp_id, angle, x_off, y_off}
 
@@ -126,15 +150,31 @@ function TiledMap:GetRotation(layer_data)
     return unpack(self.tile_cache[layer_data])
 end
 
+function TiledMap:FromRealIDGetSpriteSheetIndex(real_id)
+
+    for i = 1, #self.quad_ids do
+
+        if self.quad_ids[i].max >= real_id and real_id >= self.quad_ids[i].min then
+            return i
+        end
+
+    end
+    print("Defaulting to first sheet")
+    return 1
+
+end
+
 function TiledMap:DrawTile(layer_data, tiles_drawn_along_row, current_y_offset)
 
     if layer_data == 0 then return end
     local real_id, angle, x_off, y_off = self:GetRotation(layer_data)
 
-    local x = (tiles_drawn_along_row) * self.width + x_off
+    local x = (tiles_drawn_along_row) * self.width[1] + x_off
     local y = current_y_offset + y_off
 
-    love.graphics.draw(self.sprite_sheet, self.quads[real_id], x, y, angle)
+    local sprite_sheet_idx = self:FromRealIDGetSpriteSheetIndex(real_id)
+
+    love.graphics.draw(self.sprite_sheet[sprite_sheet_idx], self.quads[real_id], x, y, angle)
 
 
 end
@@ -151,7 +191,7 @@ function TiledMap:DrawLayer(layer)
 
         if (tiles_drawn_along_row > (TilesAlongX - 1)) then
 
-            current_y_offset = current_y_offset + self.height
+            current_y_offset = current_y_offset + self.height[1]
             tiles_drawn_along_row = 0
 
         end
@@ -195,7 +235,7 @@ function TiledMap:MakeCollisionObj(tile, tiles_drawn_along_row, current_y_offset
 
     if tile == 0 then return end
 
-    local x = (tiles_drawn_along_row) * self.width
+    local x = (tiles_drawn_along_row) * self.width[1]
     local y = 0
 
     if full_mesh then
@@ -211,7 +251,7 @@ function TiledMap:MakeCollisionObj(tile, tiles_drawn_along_row, current_y_offset
         name = "Objects"
     end
 
-    self.collision_objs[#self.collision_objs + 1] = CollisionClass:new(x, y, self.width, self.height, name)
+    self.collision_objs[#self.collision_objs + 1] = CollisionClass:new(x, y, self.width[1], self.height[1], name)
 
 end
 
@@ -226,7 +266,7 @@ function TiledMap:FromLayerDetermineCollisionObjs(layer, full_mesh)
 
         if (tiles_drawn_along_row > (TilesAlongX - 1)) then
 
-            current_y_offset = current_y_offset + self.height
+            current_y_offset = current_y_offset + self.height[1]
             tiles_drawn_along_row = 0
 
         end
