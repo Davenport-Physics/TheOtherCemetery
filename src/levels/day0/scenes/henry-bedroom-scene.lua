@@ -10,14 +10,14 @@ local MapData        = require("src/levels/day0/maps/henry-bedroom")
 local TiledMapClass  = require("src/map/tiledmap")
 local TiledMap       = TiledMapClass:new(MapData)
 
-local AnnaChar  = CharacterClass:new("tiles/Characters/Females/F_01.png", 96, 16, 16, 17, 2, .05); AnnaChar:AllowDrawing(false);
-local HenryChar = CharacterClass:new("tiles/Characters/Males/M_08.png", 32, 32, 16, 17, 6, .05); HenryChar:WalkRight(true);
+local AnnaChar  = CharacterClass:new("tiles/Characters/Females/F_01.png", 12*16, 4*16, 16, 17, 2, .05); AnnaChar:AllowDrawing(false);
+local HenryChar = CharacterClass:new("tiles/Characters/Males/M_08.png", 6*16, 6*16, 16, 17, 6, .05); HenryChar:WalkRight(true);
 
-local RoomEntity         = EntityClass:newMinimal(48, 48)
-local RoomWorld          = WorldClass:new(TiledMap, {AnnaChar}, HenryChar, TiledMap:GetCollisionObjects())
+local RoomEntity = EntityClass:newMinimal(8*16, 6*16)
+local RoomWorld  = WorldClass:new(TiledMap, {AnnaChar}, HenryChar, TiledMap:GetCollisionObjects())
 RoomWorld:SetEntityToTrackForCamera(RoomEntity)
 
-local Door_LeaveBedroom = DoorClass:new(6*16, 0, 16, 16, "src/levels/day0/scenes/runner-example")
+local Door_LeaveBedroom = DoorClass:new(12*16, 16, 2*16, 3*16, "src/levels/day0/scenes/home-lobby", 2*16, 8*16)
 
 local transition = false
 
@@ -39,10 +39,10 @@ local ANNA_POSITION_FUNCTION =
 local ANNA_POSITIONS =
 {
 
-    {x = 96, y = 32},
-    {x = 48, y = 32},
-    {x = 96, y = 32},
-    {x = 96, y = 16}
+    {x = 12*16, y = 6*16},
+    {x = 7*16,  y = 6*16},
+    {x = 12*16, y = 6*16},
+    {x = 12*16, y = 4*16}
 
 }
 
@@ -136,6 +136,13 @@ function Scene.HandleInput()
     if cycle_complete then
         RoomWorld:HandleInput()
     end
+
+end
+
+function Scene.SetPlayerCharPosition(x_pos, y_pos)
+
+    HenryChar.x_pos = x_pos
+    HenryChar.y_pos = y_pos
 
 end
 

@@ -22,21 +22,23 @@ function Level.Draw()
 
 end
 
+local CanTransition = nil
+local function SetUpTransition()
+
+        Scene = require(CanTransition[1])
+        if #CanTransition == 3 then
+            Scene.SetPlayerCharPosition(CanTransition[2], CanTransition[3])
+        end
+
+end
+
 function Level.Update()
 
-
-    if type(Scene.CanTransition()) == "string" then
-
-        Scene = require(Scene.CanTransition())
-
+    CanTransition = Scene.CanTransition()
+    if type(CanTransition) == "table" then
+        SetUpTransition()
     elseif type(Scene.CanTransition) == "bool" and Scene.CanTransition() then
-
         transition_to_next_level = true
-
-    end
-    if Scene == nil then
-        transition_to_next_level = true
-        print("STUB FIGURE OUT WHAT TO DO NEXT")
     end
     Scene.Update()
 
