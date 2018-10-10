@@ -84,7 +84,6 @@ function Entity:Draw()
     if self.image ~= nil then
         love.graphics.draw(self.image, self.x_pos, self.y_pos, 0, self.x_scale, self.y_scale)
     elseif self.quad ~= nil and self.sprite_sheet ~= nil then
-        print("Drawing puck")
         love.graphics.draw(self.sprite_sheet, self.quad, self.x_pos, self.y_pos)
     end
 

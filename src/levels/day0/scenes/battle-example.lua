@@ -42,7 +42,7 @@ end
 
 local function Shoot_Puck()
 
-    Puck = EntityClass:newQuadWithMovementFunction(HenryChar.x_pos-4, HenryChar.y_pos, Move_Puck, .01, PuckQuad, Map.sprite_sheet)
+    Puck = EntityClass:newQuadWithMovementFunction(HenryChar.x_pos-4, HenryChar.y_pos, Move_Puck, .01, PuckQuad, Map.sprite_sheet[1])
 
 end
 
