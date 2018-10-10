@@ -14,8 +14,8 @@ local MapData        = require("src/levels/day0/maps/funeral-twoSheets")
 local FuneralHomeMap = TiledMapClass:new(MapData)
 
 local CharacterClass = require("src/character/character")
-local AnnaCharacter = CharacterClass:new("tiles/Characters/Females/F_01.png", 128, 102, 16, 17, 6)
-local HenryChar     = CharacterClass:new("tiles/Characters/Males/M_08.png", 112, 172, 16, 17, 0); HenryChar:WalkUp(true);
+local AnnaCharacter  = CharacterClass:new("tiles/Characters/Females/F_01.png", 128, 102, 16, 17, 6)
+local HenryChar      = CharacterClass:new("tiles/Characters/Males/M_08.png", 112, 172, 16, 17, 0); HenryChar:WalkUp(true);
 
 local RandomFemaleFirstRow  = CharacterClass:new("tiles/Characters/Females/F_11.png", 192, 166, 16, 17, 0); RandomFemaleFirstRow:WalkUp(true);
 local RandomFemaleSecondRow = CharacterClass:new("tiles/Characters/Females/F_12.png", 208, 198, 16, 17, 0); RandomFemaleSecondRow:WalkUp(true);
@@ -33,14 +33,6 @@ local transition = false
 function Scene.Draw()
 
     FuneralWorld:Draw()
-
-end
-
-local function FuneralWorld_SetNextFunctions()
-
-    DrawFunction   = Room_Draw
-    UpdateFunction = Room_Update
-    InputFunction  = Room_HandleInput
 
 end
 

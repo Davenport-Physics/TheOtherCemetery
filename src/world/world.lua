@@ -14,7 +14,7 @@ function World:new(MapObj, CharacterObjs, PlayerCharacterObj, CollisionObjs, Sca
     obj.entities             = {}
     obj.world_scale          = Scale or 2.5
     obj.map_obj:SetScaleForBlending(obj.world_scale)
-    obj.GiveCharactersMapCollisionObjects()
+    obj:GiveCharactersMapCollisionObjects()
 
     return obj
 
@@ -28,7 +28,7 @@ function World:GiveCharactersMapCollisionObjects()
     for i = 1, #self.character_objs do
         self.character_objs[i]:SetCollisionObjects(self.collision_objs)
     end
-    
+
 end
 
 function World:SetHandleInputCallback(func)
