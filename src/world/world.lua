@@ -12,15 +12,23 @@ function World:new(MapObj, CharacterObjs, PlayerCharacterObj, CollisionObjs, Sca
     obj.collision_objs       = CollisionObjs
     obj.Settings             = require("src/settings/settings")
     obj.entities             = {}
-
-    if obj.player_character_obj ~= nil then
-        obj.player_character_obj:SetCollisionObjects(obj.collision_objs)
-    end
     obj.world_scale          = Scale or 2.5
     obj.map_obj:SetScaleForBlending(obj.world_scale)
+    obj.GiveCharactersMapCollisionObjects()
 
     return obj
 
+end
+
+function World:GiveCharactersMapCollisionObjects()
+
+    if self.player_character_obj ~= nil then
+        self.player_character_obj:SetCollisionObjects(self.collision_objs)
+    end
+    for i = 1, #self.character_objs do
+        self.character_objs[i]:SetCollisionObjects(self.collision_objs)
+    end
+    
 end
 
 function World:SetHandleInputCallback(func)
