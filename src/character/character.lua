@@ -36,6 +36,7 @@ function Character:new(character_image_file, x_pos, y_pos, width, height, displa
     obj.collision_objs             = {}
     obj.allow_drawing              = true
     obj.stance_change_time         = stance_change_time or MIN_DT_FOR_CHANGING_STANCES
+    obj.health                     = 10
     obj:InitializeAnimationSet(displacement)
     obj:SetCollisionFunctions()
 
@@ -66,6 +67,23 @@ end
 function Character:SetCollisionObjects(collision_objs)
 
     self.collision_objs = collision_objs
+
+end
+
+function Character:SetHealth(Health)
+
+    self.health = Health
+
+end
+
+function Character:DecreaseHealth(amount)
+
+    self.health = self.health - amount
+    if self.health <= 0 then
+
+        self.allow_drawing = false
+
+    end
 
 end
 
