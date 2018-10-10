@@ -37,23 +37,9 @@ local function Intro_Update_CheckForNil()
         IntroMusic = love.audio.newSource("sound/intro/Mournful_Departure.mp3", "static")
         DetermineScalingFactors()
         IntroVideo:play()
+        IntroMusic:play()
+        IntroMusic:setVolume(.25)
         IntroVideo:getSource():setVolume(.5)
-
-    end
-
-end
-
-local function Intro_Update_CheckToStartSecondaryMusicSource()
-
-    if IntroVideo:isPlaying() and not IntroMusic:isPlaying() then
-
-        if IntroVideo:getSource():getDuration() - 5 <= IntroVideo:getSource():tell() then
-
-            IntroMusic:play()
-            IntroMusic:seek(IntroVideo:getSource():tell())
-            IntroMusic:setVolume(.25)
-
-        end
 
     end
 
@@ -75,9 +61,7 @@ end
 function Scene.Update()
 
     Intro_Update_CheckForNil()
-    Intro_Update_CheckToStartSecondaryMusicSource()
     Intro_Update_CheckForPlayback()
-
 
 end
 
