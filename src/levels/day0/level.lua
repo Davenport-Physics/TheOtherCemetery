@@ -25,10 +25,10 @@ end
 local CanTransition = nil
 local function SetUpTransition()
 
-        Scene = require(CanTransition[1])
-        if #CanTransition == 3 then
-            Scene.SetPlayerCharPosition(CanTransition[2], CanTransition[3])
-        end
+    Scene = require(CanTransition[1])
+    if #CanTransition == 3 then
+        Scene.SetPlayerCharPosition(CanTransition[2], CanTransition[3])
+    end
 
 end
 
