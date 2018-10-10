@@ -52,7 +52,7 @@ local function Intro_Update_CheckForPlayback()
         IntroVideo     = nil
         AnnaDialog     = love.audio.newSource("sound/intro/anna-dialog/anna-intro.mp3", "static")
         AnnaDialog:play()
-        transition = true
+        transition     = "src/levels/day0/scenes/FuneralHome"
 
     end
 

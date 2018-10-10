@@ -6,9 +6,9 @@ local Scenes =
 
     --"src/levels/day0/scenes/intro",
     --"src/levels/day0/scenes/FuneralHome",
-    --"src/levels/day0/scenes/henry-bedroom-scene",
-    "src/levels/day0/scenes/runner-example",
-    "src/levels/day0/scenes/battle-example"
+    "src/levels/day0/scenes/henry-bedroom-scene",
+    --"src/levels/day0/scenes/runner-example",
+    --"src/levels/day0/scenes/battle-example"
 
 }
 
@@ -24,12 +24,15 @@ end
 
 function Level.Update()
 
-    if Scene.CanTransition() then
-        Scene_idx = Scene_idx + 1
-        Scene = nil
-        if Scenes[Scene_idx] ~= nil then
-            Scene = require(Scenes[Scene_idx])
-        end
+
+    if type(Scene.CanTransition()) == "string" then
+
+        Scene = require(Scene.CanTransition())
+
+    elseif type(Scene.CanTransition) == "bool" and Scene.CanTransition() then
+
+        transition_to_next_level = true
+
     end
     if Scene == nil then
         transition_to_next_level = true

@@ -41,7 +41,7 @@ function Scene.Update()
     if CameraPanning and Camera.y_pos < -20 then
 
         CameraPanning = false
-        transition    = true
+        transition    = "src/levels/day0/scenes/henry-bedroom-scene"
         love.audio.stop()
         return
 

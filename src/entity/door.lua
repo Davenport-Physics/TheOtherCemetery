@@ -21,7 +21,7 @@ end
 function Door:CheckForCollision(x_pos, y_pos)
 
     if self.collision_obj:CheckForCollision(x_pos, y_pos) then
-        return transition_to_scene
+        return self.transition_to_scene
     end
     return false
 

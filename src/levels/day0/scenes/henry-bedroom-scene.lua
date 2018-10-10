@@ -3,6 +3,7 @@ local Scene = {}
 local Settings     = require("src/settings/settings")
 local EntityClass  = require("src/entity/entity")
 local WorldClass   = require("src/world/world")
+local DoorClass    = require("src/entity/door")
 
 local CharacterClass = require("src/character/character")
 local MapData        = require("src/levels/day0/maps/henry-bedroom")
@@ -15,6 +16,8 @@ local HenryChar = CharacterClass:new("tiles/Characters/Males/M_08.png", 32, 32, 
 local RoomEntity         = EntityClass:newMinimal(48, 48)
 local RoomWorld          = WorldClass:new(TiledMap, {AnnaChar}, HenryChar, TiledMap:GetCollisionObjects())
 RoomWorld:SetEntityToTrackForCamera(RoomEntity)
+
+local Door_LeaveBedroom = DoorClass:new(6*16, 0, 16, 16, "src/levels/day0/scenes/runner-example")
 
 local transition = false
 
@@ -95,12 +98,14 @@ local function Room_Move_Anna()
 end
 
 local function Update_Anna_Checks()
+
     if not AnnaChar.allow_drawing then
         Room_Spawn_Anna()
     else
         Room_Check_Made_Anna()
         Room_Move_Anna()
     end
+
 end
 
 function Scene.Update()
@@ -109,6 +114,7 @@ function Scene.Update()
         Update_Anna_Checks()
     end
     RoomWorld:Update()
+    transition = Door_LeaveBedroom:CheckForCollision(HenryChar:GetCenterPosition())
 
 end
 
