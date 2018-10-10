@@ -10,7 +10,7 @@ local TiledMapClass = require("src/map/tiledmap")
 local Camera        = CameraClass:new(144, 300, 0, -.2, .015)
 local CameraPanning = true
 
-local MapData        = require("src/levels/day0/maps/funeral-twoSheets")
+local MapData        = require("src/levels/day0/maps/funeral")
 local FuneralHomeMap = TiledMapClass:new(MapData)
 
 local CharacterClass = require("src/character/character")
