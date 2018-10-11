@@ -22,6 +22,7 @@ local STANCE =
 }
 
 local MIN_DT_FOR_CHANGING_STANCES = .045
+local MIN_DT_FOR_GLIDING = .01
 
 function Character:new(character_image_file, x_pos, y_pos, width, height, displacement, stance_change_time)
 
@@ -113,6 +114,7 @@ function Character:InitializeAnimationSet(displacement)
     self.next_stance   = STANCE.WALKING_1
     self.displacement  = displacement or 5
     self.time_until_next_stance = love.timer.getTime()
+    self.NextGlideTime = love.timer.getTime()
 
 end
 
@@ -252,27 +254,47 @@ function Character:WalkRight(displace)
 
 end
 
+function Character:CanGlide()
+
+    if love.timer.getTime() >= self.NextGlideTime then
+
+        self.NextGlideTime = love.timer.getTime() + MIN_DT_FOR_GLIDING
+        return true
+
+    end
+    return false
+
+end
+
 function Character:GlideUp()
 
-    self:DisplaceCharacterAlongYWithCollisionCheck(-2)
+    if self:CanGlide() then
+        self:DisplaceCharacterAlongYWithCollisionCheck(-2)
+    end
 
 end
 
 function Character:GlideDown()
 
-    self:DisplaceCharacterAlongYWithCollisionCheck(2)
+    if self:CanGlide() then
+        self:DisplaceCharacterAlongYWithCollisionCheck(2)
+    end
 
 end
 
 function Character:GlideLeft()
 
-    self:DisplaceCharacterAlongXWithCollisionCheck(-2)
+    if self:CanGlide() then
+        self:DisplaceCharacterAlongXWithCollisionCheck(-2)
+    end
 
 end
 
 function Character:GlideRight()
 
-    self:DisplaceCharacterAlongXWithCollisionCheck(2)
+    if self:CanGlide() then
+        self:DisplaceCharacterAlongXWithCollisionCheck(2)
+    end
 
 end
 
