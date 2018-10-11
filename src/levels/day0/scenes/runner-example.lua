@@ -21,7 +21,7 @@ local function CheckForTransitionTime()
     if time_to_transition == nil then
         time_to_transition = love.timer.getTime() + 5
     elseif love.timer.getTime() >= time_to_transition then
-        transition = "src/levels/day0/scenes/battle-example"
+        transition = {"src/levels/day0/scenes/battle-example"}
     end
 
 end
