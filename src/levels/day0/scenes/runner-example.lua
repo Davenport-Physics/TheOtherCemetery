@@ -13,7 +13,6 @@ local World     = WorldClass:new(Map, {}, HenryChar, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(HenryChar)
 
 local transition = false
-
 local time_to_transition = nil
 
 local function CheckForTransitionTime()
