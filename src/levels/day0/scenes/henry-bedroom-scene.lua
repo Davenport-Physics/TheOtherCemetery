@@ -17,7 +17,7 @@ local RoomEntity = EntityClass:newMinimal(8*16, 6*16)
 local RoomWorld  = WorldClass:new(TiledMap, {AnnaChar}, HenryChar, TiledMap:GetCollisionObjects())
 RoomWorld:SetEntityToTrackForCamera(RoomEntity)
 
-local Door_LeaveBedroom = DoorClass:new(12*16, 16, 2*16, 3*16, "src/levels/day0/scenes/home-lobby", 2*16, 8*16)
+local Door_LeaveBedroom = DoorClass:new(12*16, 16, 2*16, 3*16, "src/levels/day0/scenes/home-lobby", 2*16, 7*16)
 
 --local BackgroundMusic = love.audio.newSource("src/sound/fight.mp3", "static")
 

@@ -16,18 +16,17 @@ local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 2 * 16, 7 * 
 local World = WorldClass:new(Map, {Anna}, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)
 
-local BedroomDoor    = DoorClass:new(2*16, 4*16, 2*16, 3*16, "src/levels/day0/scenes/henry-bedroom-scene", 12*16, 5*16)
-local LeaveHouseDoor = DoorClass:new(2*16, 13*16, 2*16, 16, "src/levels/day0/scenes/city", 49 * 16, 62 * 16)
+local BedroomDoor    = DoorClass:new(2*16, 4*16, 2*16, 3*16, "src/levels/day0/scenes/henry-bedroom-scene", 12*16, 4*16)
+local LeaveHouseDoor = DoorClass:new(2*16, 14*16, 2*16, 16, "src/levels/day0/scenes/city", 49 * 16, 61 * 16)
 
 local transition = false
 
 local function CheckDoorCollisions()
 
-    if type(BedroomDoor:CheckForCollision(Henry.x_pos, Henry.y_pos)) == "table" then
-        transition = BedroomDoor:CheckForCollision(Henry.x_pos, Henry.y_pos)
-    end
-    if type(LeaveHouseDoor:CheckForCollision(Henry.x_pos, Henry.y_pos)) == "table" then
-        transition = LeaveHouseDoor:CheckForCollision(Henry.x_pos, Henry.y_pos)
+    if type(BedroomDoor:CheckForCollision(Henry:GetCenterPosition())) == "table" then
+        transition = BedroomDoor:CheckForCollision(Henry:GetCenterPosition())
+    elseif type(LeaveHouseDoor:CheckForCollision(Henry:GetCenterPosition())) == "table" then
+        transition = LeaveHouseDoor:CheckForCollision(Henry:GetCenterPosition())
     end
 
 end

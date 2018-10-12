@@ -9,16 +9,25 @@ local TiledMapClass  = require("src/map/tiledmap")
 
 local MapData = require("src/levels/day0/maps/city")
 local Map     = TiledMapClass:new(MapData)
-
 local Henry   = CharacterClass:new("tiles/Characters/Males/M_08.png", 49 * 16, 62 * 16, 16, 17, 6, .05);
+
+local HomeDoor = DoorClass:new(49 * 16, 60 * 16, 16, 16, "src/levels/day0/scenes/home-lobby", 2*16, 13*16)
 
 local World   = WorldClass:new(Map, {}, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)
 
 local transition = false
+
+local function DoorCollisionChecks()
+
+    transition = HomeDoor:CheckForCollision(Henry:GetCenterPosition())
+
+end
+
 function Scene.Update()
 
     World:Update()
+    DoorCollisionChecks()
 
 end
 
@@ -36,7 +45,7 @@ end
 
 function Scene.CanTransition()
 
-    return false
+    return transition
 
 end
 
