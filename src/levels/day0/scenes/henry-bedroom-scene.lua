@@ -19,6 +19,8 @@ RoomWorld:SetEntityToTrackForCamera(RoomEntity)
 
 local Door_LeaveBedroom = DoorClass:new(12*16, 16, 2*16, 3*16, "src/levels/day0/scenes/home-lobby", 2*16, 8*16)
 
+--local BackgroundMusic = love.audio.newSource("src/sound/fight.mp3", "static")
+
 local transition = false
 
 local ANNA_MADE_POSITION =
