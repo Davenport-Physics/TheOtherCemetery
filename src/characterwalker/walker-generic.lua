@@ -4,12 +4,12 @@ local BattleWalkerClass = require("src/characterwalker/battle-walker")
 local PathWalkerClass   = require("src/characterwalker/path-walker")
 
 local WalkerGeneric = {}
-CharWalker.__index = CharWalker
+WalkerGeneric.__index = WalkerGeneric
 
 function WalkerGeneric:new(char, type, walker_instructions)
 
     local obj = {}
-    setmetatable(obj, CharWalker)
+    setmetatable(obj, WalkerGeneric)
     obj.char = char
     obj.type = type
     obj.walker_instructions = walker_instructions

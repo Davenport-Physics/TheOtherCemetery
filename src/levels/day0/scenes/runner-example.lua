@@ -1,16 +1,20 @@
 
 local Scene = {}
 
-local Settings   = require("src/settings/settings")
-local MapClass   = require("src/map/tiledmap")
-local CharClass  = require("src/character/character")
-local WorldClass = require("src/world/world")
-local MapData    = require("src/levels/day0/maps/runner-example")
-local Map        = MapClass:new(MapData)
+local Settings    = require("src/settings/settings")
+local MapClass    = require("src/map/tiledmap")
+local CharClass   = require("src/character/character")
+local RunnerClass = require("src/characterwalker/walker-generic")
+local WorldClass  = require("src/world/world")
+local MapData     = require("src/levels/day0/maps/runner-example")
+local Map         = MapClass:new(MapData)
 
-local HenryChar = CharClass:new("tiles/Characters/Males/M_08.png", 32, 32, 16, 17, 6, .05)
-local World     = WorldClass:new(Map, {}, HenryChar, Map:GetCollisionObjects())
+local RunnerNPC = CharClass:new("tiles/Characters/Males/M_09.png", 3 * 16, 0, 16, 17, 6, .05)
+local HenryChar = CharClass:new("tiles/Characters/Males/M_08.png", 3 * 16, 3 * 16, 16, 17, 6, .05)
+local World     = WorldClass:new(Map, {RunnerNPC}, HenryChar, Map:GetCollisionObjects(), false)
 World:SetEntityToTrackForCamera(HenryChar)
+
+local Runner    = RunnerClass:new(RunnerNPC, "runner-walker", {WalkDirection = "WalkDown", Player = HenryChar})
 
 local transition = false
 local time_to_transition = nil
@@ -28,6 +32,7 @@ end
 function Scene.Update()
 
     HenryChar:WalkDown(true)
+    Runner:Update()
     World:Update()
     CheckForTransitionTime()
 
