@@ -1,6 +1,8 @@
 local TiledMap = {}
 TiledMap.__index = TiledMap
 
+local Shared = require("src/shared/shared")
+
 function TiledMap:new(tiled_map)
 
     local obj = {}
@@ -171,7 +173,7 @@ function TiledMap:FromRealIDGetSpriteSheetIndex(real_id)
 
 end
 
-function TiledMap:DrawTile(layer_data, tiles_drawn_along_row, current_y_offset)
+function TiledMap:DrawTile(layer_data, tiles_drawn_along_row, current_y_offset, ra_x, ra_y)
 
     if layer_data == 0 then return end
     local real_id, angle, x_off, y_off, sx, sy = self:GetRotation(layer_data)
@@ -180,11 +182,18 @@ function TiledMap:DrawTile(layer_data, tiles_drawn_along_row, current_y_offset)
     local y = current_y_offset + y_off
 
     local sprite_sheet_idx = self:FromRealIDGetSpriteSheetIndex(real_id)
-    love.graphics.draw(self.sprite_sheet[sprite_sheet_idx], self.quads[real_id], x, y, angle, sx, sy)
+
+    if ra_x ~= nil and ra_y ~= nil then
+        if Shared.IsBetweenRange(x, ra_x - 160, ra_x + 160) and Shared.IsBetweenRange(y, ra_y-160, ra_y+160) then
+            love.graphics.draw(self.sprite_sheet[sprite_sheet_idx], self.quads[real_id], x, y, angle, sx, sy)
+        end
+    else
+        love.graphics.draw(self.sprite_sheet[sprite_sheet_idx], self.quads[real_id], x, y, angle, sx, sy)
+    end
 
 end
 
-function TiledMap:DrawLayer(layer)
+function TiledMap:DrawLayer(layer, ra_x, ra_y)
 
     local TilesAlongX = layer.width
     local TilesAlongY = layer.height
@@ -200,38 +209,38 @@ function TiledMap:DrawLayer(layer)
             tiles_drawn_along_row = 0
 
         end
-        self:DrawTile(layer.data[i], tiles_drawn_along_row, current_y_offset)
+        self:DrawTile(layer.data[i], tiles_drawn_along_row, current_y_offset, ra_x, ra_y)
         tiles_drawn_along_row = tiles_drawn_along_row + 1
 
     end
 
 end
 
-function TiledMap:DrawMaps(DrawObjects)
+function TiledMap:DrawMaps(DrawObjects, ra_x, ra_y)
 
     for i = 1, #self.layers_tile_layer do
 
         if not DrawObjects and self.layers_tile_layer[i].name ~= "Objects" then
-            self:DrawLayer(self.layers_tile_layer[i])
+            self:DrawLayer(self.layers_tile_layer[i], ra_x, ra_y)
         end
         if DrawObjects and self.layers_tile_layer[i].name == "Objects" then
-            self:DrawLayer(self.layers_tile_layer[i])
+            self:DrawLayer(self.layers_tile_layer[i], ra_x, ra_y)
         end
 
     end
 
 end
 
-function TiledMap:DrawObjects()
+function TiledMap:DrawObjects(ra_x, ra_y)
 
-    self:DrawMaps(true)
+    self:DrawMaps(true, ra_x, ra_y)
 
 end
 
 
-function TiledMap:Draw()
+function TiledMap:Draw(ra_x, ra_y)
 
-    self:DrawMaps(false)
+    self:DrawMaps(false, ra_x, ra_y)
 
 end
 

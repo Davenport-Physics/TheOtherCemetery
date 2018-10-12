@@ -17,7 +17,7 @@ local World = WorldClass:new(Map, {Anna}, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)
 
 local BedroomDoor    = DoorClass:new(2*16, 4*16, 2*16, 3*16, "src/levels/day0/scenes/henry-bedroom-scene", 12*16, 5*16)
-local LeaveHouseDoor = DoorClass:new(2*16, 13*16, 2*16, 16, "src/levels/day0/scenes/runner-example")
+local LeaveHouseDoor = DoorClass:new(2*16, 13*16, 2*16, 16, "src/levels/day0/scenes/city", 10 * 16, 11 * 16)
 
 local transition = false
 
