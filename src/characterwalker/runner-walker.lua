@@ -12,29 +12,38 @@ function RunnerWalker:new(char, walker_instructions)
 
 end
 
-function RunnerWalker:Walk()
-
+function RunnerWalker:AnnimateMove()
     if self.walker_instructions.WalkDirection == "WalkDown" then
-        self.char:WalkDown(true)
+        self.char:WalkDown(false)
+        self.char:GlideDown()
     elseif self.walker_instructions.WalkDirection == "WalkUp" then
-        self.char:WalkUp(true)
+        self.char:WalkUp(false)
+        self.char:GlideUp()
     elseif self.walker_instructions.WalkDirection == "WalkLeft" then
-        self.char:WalkLeft(true)
+        self.char:WalkLeft(false)
+        self.char:GlideLeft()
     elseif self.walker_instructions.WalkDirection == "WalkRight" then
-        self.char:WalkRight(true)
+        self.char:WalkRight(false)
+        self.char:GlideRight()
     end
+end
+
+function RunnerWalker:CalculateSidestep()
+
+    
 
 end
 
-function RunnerWalker:Glide()
+function RunnerWalker:Move()
 
+    self:AnnimateMove()
+    self:
 
 end
 
 function RunnerWalker:Update()
 
-    self:Walk()
-    self:Glide()
+    self:Move()
 
 end
 
