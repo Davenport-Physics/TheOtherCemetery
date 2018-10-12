@@ -32,7 +32,7 @@ local CONTEXT_FUNCTIONS =
 
 local CURRENT_CONTEXT = CONTEXT_INDEX.STARTING_WINDOW
 
-local CANVAS = love.graphics.newCanvas()
+local CANVAS = love.graphics.newCanvas(2000, 2000)
 
 local function InStartMenu()
 
