@@ -6,12 +6,13 @@ local PathWalkerClass   = require("src/characterwalker/path-walker")
 local WalkerGeneric = {}
 CharWalker.__index = CharWalker
 
-function WalkerGeneric:new(char, type)
+function WalkerGeneric:new(char, type, walker_instructions)
 
     local obj = {}
     setmetatable(obj, CharWalker)
     obj.char = char
     obj.type = type
+    obj.walker_instructions = walker_instructions
     obj:InitializeWalkerTypeObject()
 
     return obj
@@ -20,14 +21,14 @@ end
 
 function WalkerGeneric:InitializeWalkerTypeObject()
 
-    if self.type == "random" then
-        self.walker = RandomWalkerClass:new()
+    if self.type == "random-walker" then
+        self.walker = RandomWalkerClass:new(self.walker_instructions)
     elseif self.type == "runner-walker" then
-        self.walker = RunnerWalkerClass:new()
+        self.walker = RunnerWalkerClass:new(self.walker_instructions)
     elseif self.type == "battle-walker" then
-        self.walker = BattleWalkerClass:new()
+        self.walker = BattleWalkerClass:new(self.walker_instructions)
     elseif self.type == "path-walker" then
-        self.walker = PathWalkerClass:new()
+        self.walker = PathWalkerClass:new(self.walker_instructions)
     end
 
 end
@@ -37,6 +38,16 @@ function WalkerGeneric:Update()
     if self.walker ~= nil then
         self.walker:Update()
     end
+
+end
+
+function WalkerGeneric:IsDoneWalking()
+
+    if self.walker ~= nil then
+        return self.walker:IsDoneWalking()
+    end
+
+    return false
 
 end
 
