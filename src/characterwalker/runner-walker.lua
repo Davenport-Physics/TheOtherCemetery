@@ -14,13 +14,13 @@ end
 
 function RunnerWalker:Walk()
 
-    if self:walker_instructions.WalkDirection == "WalkDown" then
+    if self.walker_instructions.WalkDirection == "WalkDown" then
         self.char:WalkDown(true)
-    elseif self:walker_instructions.WalkDirection == "WalkUp" then
+    elseif self.walker_instructions.WalkDirection == "WalkUp" then
         self.char:WalkUp(true)
-    elseif self:walker_instructions.WalkDirection == "WalkLeft" then
+    elseif self.walker_instructions.WalkDirection == "WalkLeft" then
         self.char:WalkLeft(true)
-    elseif self:walker_instructions.WalkDirection == "WalkRight" then
+    elseif self.walker_instructions.WalkDirection == "WalkRight" then
         self.char:WalkRight(true)
     end
 
