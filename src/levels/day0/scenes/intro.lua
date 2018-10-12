@@ -20,6 +20,10 @@ end
 
 function Scene.HandleInput()
 
+    if love.keyboard.isDown("space") and IntroVideo ~= nil then
+        IntroVideo:pause()
+    end
+
 end
 
 local function DetermineScalingFactors()
