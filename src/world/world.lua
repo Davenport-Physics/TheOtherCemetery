@@ -1,18 +1,19 @@
 local World = {}
 World.__index = World
 
-function World:new(MapObj, CharacterObjs, PlayerCharacterObj, CollisionObjs, Scale)
+function World:new(MapObj, CharacterObjs, PlayerCharacterObj, CollisionObjs, SetCollisionsForNPC)
 
     local obj = {}
     setmetatable(obj, World)
 
-    obj.map_obj              = MapObj
-    obj.character_objs       = CharacterObjs
-    obj.player_character_obj = PlayerCharacterObj
-    obj.collision_objs       = CollisionObjs
-    obj.Settings             = require("src/settings/settings")
-    obj.entities             = {}
-    obj.world_scale          = Scale or 2.5
+    obj.map_obj               = MapObj
+    obj.character_objs        = CharacterObjs
+    obj.player_character_obj  = PlayerCharacterObj
+    obj.collision_objs        = CollisionObjs
+    obj.Settings              = require("src/settings/settings")
+    obj.entities              = {}
+    if SetCollisionsForNPC == nil then SetCollisionsForNPC = true end
+    obj.set_collision_for_npc = SetCollisionsForNPC
     obj.map_obj:SetScaleForBlending(obj.world_scale)
     obj:GiveCharactersMapCollisionObjects()
 
@@ -25,8 +26,10 @@ function World:GiveCharactersMapCollisionObjects()
     if self.player_character_obj ~= nil then
         self.player_character_obj:SetCollisionObjects(self.collision_objs)
     end
-    for i = 1, #self.character_objs do
-        self.character_objs[i]:SetCollisionObjects(self.collision_objs)
+    if self.set_collision_for_npc then
+        for i = 1, #self.character_objs do
+            self.character_objs[i]:SetCollisionObjects(self.collision_objs)
+        end
     end
 
 end
