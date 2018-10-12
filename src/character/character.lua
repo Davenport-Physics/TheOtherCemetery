@@ -266,34 +266,35 @@ function Character:CanGlide()
 
 end
 
-function Character:GlideUp()
+function Character:GlideUp(glide_distance)
+
 
     if self:CanGlide() then
-        self:DisplaceCharacterAlongYWithCollisionCheck(-2)
+        self:DisplaceCharacterAlongYWithCollisionCheck(glide_distance or -2)
     end
 
 end
 
-function Character:GlideDown()
+function Character:GlideDown(glide_distance)
 
     if self:CanGlide() then
-        self:DisplaceCharacterAlongYWithCollisionCheck(2)
+        self:DisplaceCharacterAlongYWithCollisionCheck(glide_distance or 2)
     end
 
 end
 
-function Character:GlideLeft()
+function Character:GlideLeft(glide_distance)
 
     if self:CanGlide() then
-        self:DisplaceCharacterAlongXWithCollisionCheck(-2)
+        self:DisplaceCharacterAlongXWithCollisionCheck(glide_distance or -2)
     end
 
 end
 
-function Character:GlideRight()
+function Character:GlideRight(glide_distance)
 
     if self:CanGlide() then
-        self:DisplaceCharacterAlongXWithCollisionCheck(2)
+        self:DisplaceCharacterAlongXWithCollisionCheck(glide_distance or 2)
     end
 
 end
