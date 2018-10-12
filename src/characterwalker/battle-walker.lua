@@ -1,10 +1,11 @@
 local BattleWalker = {}
 BattleWalker.__index = BattleWalker
 
-function BattleWalker:new(walker_instructions)
+function BattleWalker:new(char, walker_instructions)
 
     local obj = {}
     setmetatable(obj, BattleWalker)
+    obj.char = char
     obj.walker_instructions = walker_instructions
 
     return obj

@@ -22,13 +22,13 @@ end
 function WalkerGeneric:InitializeWalkerTypeObject()
 
     if self.type == "random-walker" then
-        self.walker = RandomWalkerClass:new(self.walker_instructions)
+        self.walker = RandomWalkerClass:new(self.char, self.walker_instructions)
     elseif self.type == "runner-walker" then
-        self.walker = RunnerWalkerClass:new(self.walker_instructions)
+        self.walker = RunnerWalkerClass:new(self.char, self.walker_instructions)
     elseif self.type == "battle-walker" then
-        self.walker = BattleWalkerClass:new(self.walker_instructions)
+        self.walker = BattleWalkerClass:new(self.char, self.walker_instructions)
     elseif self.type == "path-walker" then
-        self.walker = PathWalkerClass:new(self.walker_instructions)
+        self.walker = PathWalkerClass:new(self.char, self.walker_instructions)
     end
 
 end

@@ -1,10 +1,11 @@
 local PathWalker = {}
 PathWalker.__index = PathWalker
 
-function PathWalker:new(walker_instructions)
+function PathWalker:new(char, walker_instructions)
 
     local obj = {}
     setmetatable(obj, PathWalker)
+    obj.char = char
     obj.walker_instructions = walker_instructions
 
     return obj
