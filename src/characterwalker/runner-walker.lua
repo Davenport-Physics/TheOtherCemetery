@@ -17,16 +17,16 @@ end
 function RunnerWalker:AnnimateMove()
     if self.walk_direction == "WalkDown" then
         self.char:WalkDown(false)
-        self.char:GlideDown(1.6)
+        self.char:GlideDown(1.5)
     elseif self.walk_direction == "WalkUp" then
         self.char:WalkUp(false)
-        self.char:GlideUp(-1.6)
+        self.char:GlideUp(-1.5)
     elseif self.walk_direction == "WalkLeft" then
         self.char:WalkLeft(false)
-        self.char:GlideLeft(-1.6)
+        self.char:GlideLeft(-1.5)
     elseif self.walk_direction == "WalkRight" then
         self.char:WalkRight(false)
-        self.char:GlideRight(1.6)
+        self.char:GlideRight(1.5)
     end
 end
 
