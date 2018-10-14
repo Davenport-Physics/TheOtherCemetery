@@ -28,16 +28,52 @@ local transition = false
 function UpdateAllPucks()
 
     for i = 1, #Puck do
-        Puck[i]:Update()
+        if Puck[i].allow_drawing then
+            Puck[i]:Update()
+        end
     end
+
+end
+
+function TransitionIfBullyIncapacitated()
+
+    if not BullyChar.allow_drawing then
+        transition = {"src/levels/day0/scenes/city"}
+    end
+
+end
+
+function CheckIfBullyShouldBeIncapacitated()
+
+    if BullyChar.health <= 0 then
+        BullyChar.allow_drawing = false
+    end
+
+end
+
+function UpdateBullyHealth()
+
+    if BullyChar.health <= 0 then return end
+    for i = 1, #Puck do
+
+        if Puck[i].allow_drawing and Puck[i]:CheckCollision(BullyChar:GetCenterPosition()) then
+            Puck[i].allow_drawing = false
+            BullyChar.health      = BullyChar.health - 3.34
+        end
+
+    end
+    CheckIfBullyShouldBeIncapacitated()
 
 end
 
 function Scene.Update()
 
+
     World:Update()
     Runner:Update()
     if #Puck ~= 0 then UpdateAllPucks() end
+    UpdateBullyHealth()
+    TransitionIfBullyIncapacitated()
 
 end
 
@@ -88,7 +124,9 @@ end
 function DrawPucks()
 
     for i = 1, #Puck do
-        Puck[i]:Draw()
+        if Puck[i].allow_drawing then
+            Puck[i]:Draw()
+        end
     end
 
 end

@@ -49,18 +49,21 @@ function Entity:newMinimal(x_pos, y_pos)
 
 end
 
-function Entity:newQuadWithMovementFunction(x_pos, y_pos, movement_function, dt_update, quad, sprite_sheet)
+function Entity:newQuadWithMovementFunction(x_pos, y_pos, movement_function, dt_update, quad, sprite_sheet, width, height)
 
     local obj = {}
     setmetatable(obj, Entity)
 
     obj.x_pos          = x_pos
     obj.y_pos          = y_pos
+    obj.width          = width or 16
+    obj.height         = height or 16
     obj.move_func      = movement_function
     obj.quad           = quad
     obj.sprite_sheet   = sprite_sheet
     obj.dt_update      = dt_update or .1
     obj.next_update    = love.timer.getTime() + obj.dt_update
+    obj.allow_drawing  = true
 
     return obj
 
@@ -69,10 +72,10 @@ end
 
 function Entity:CheckCollision(x_pos, y_pos)
 
-    if not Shared.IsBetweenRange(x_pos, self.x_pos, self.width) then
+    if not Shared.IsBetweenRange(x_pos, self.x_pos, self.x_pos + self.width) then
         return false
     end
-    if not Shared.IsBetweenRange(y_pos, self.y_pos, self.height) then
+    if not Shared.IsBetweenRange(y_pos, self.y_pos, self.y_pos + self.height) then
         return false
     end
     return true
