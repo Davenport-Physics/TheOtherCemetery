@@ -18,16 +18,26 @@ local StaticEntity = EntityClass:newMinimal(80, 80)
 local World = WorldClass:new(Map, {BullyChar}, HenryChar, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(StaticEntity)
 
+local MIN_TIME_FOR_PUCK_SPAWN = .25
+local TimeForNextPuck = love.timer.getTime()
 local PuckQuad = Map.quads[496]
-local Puck     = nil -- EntityClass:newQuadWithMovementFunction()
+local Puck     = {} -- EntityClass:newQuadWithMovementFunction()
 
 local transition = false
+
+function UpdateAllPucks()
+
+    for i = 1, #Puck do
+        Puck[i]:Update()
+    end
+
+end
 
 function Scene.Update()
 
     World:Update()
     Runner:Update()
-    if Puck ~= nil then Puck:Update() end
+    if #Puck ~= 0 then UpdateAllPucks() end
 
 end
 
@@ -45,7 +55,10 @@ end
 
 local function Shoot_Puck()
 
-    Puck = EntityClass:newQuadWithMovementFunction(HenryChar.x_pos-4, HenryChar.y_pos, Move_Puck, .01, PuckQuad, Map.sprite_sheet[1])
+    if love.timer.getTime() >= TimeForNextPuck then
+        Puck[#Puck + 1] = EntityClass:newQuadWithMovementFunction(HenryChar.x_pos-4, HenryChar.y_pos, Move_Puck, .01, PuckQuad, Map.sprite_sheet[1])
+        TimeForNextPuck = love.timer.getTime() + MIN_TIME_FOR_PUCK_SPAWN
+    end
 
 end
 
@@ -72,10 +85,18 @@ function Scene.HandleInput()
 
 end
 
+function DrawPucks()
+
+    for i = 1, #Puck do
+        Puck[i]:Draw()
+    end
+
+end
+
 function Scene.Draw()
 
     World:Draw()
-    if Puck ~= nil then Puck:Draw() end
+    if #Puck ~= 0 then DrawPucks() end
 
 end
 
