@@ -5,12 +5,14 @@ local MapClass    = require("src/map/tiledmap")
 local CharClass   = require("src/character/character")
 local WorldClass  = require("src/world/world")
 local EntityClass = require("src/entity/entity")
+local RunnerClass = require("src/characterwalker/walker-generic")
 
 local MapData = require("src/levels/day0/maps/battle-example")
 local Map     = MapClass:new(MapData)
 
 local HenryChar = CharClass:new("tiles/Characters/Males/M_08.png", 108, 64, 16, 17, 6, .05); HenryChar:WalkLeft(true);
 local BullyChar = CharClass:new("tiles/Characters/Males/M_07.png", 16, 16, 16, 17, 6, .05); BullyChar:WalkRight(true);
+local Runner    = RunnerClass:new(BullyChar, "runner-walker", {WalkDirection = "WalkRight", Player = HenryChar, Displacement = .5, RandomDisplacementChance = 35})
 
 local StaticEntity = EntityClass:newMinimal(80, 80)
 local World = WorldClass:new(Map, {BullyChar}, HenryChar, Map:GetCollisionObjects())
@@ -24,6 +26,7 @@ local transition = false
 function Scene.Update()
 
     World:Update()
+    Runner:Update()
     if Puck ~= nil then Puck:Update() end
 
 end
