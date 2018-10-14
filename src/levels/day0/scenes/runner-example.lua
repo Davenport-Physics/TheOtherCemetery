@@ -19,15 +19,6 @@ local Runner    = RunnerClass:new(RunnerNPC, "runner-walker", {WalkDirection = "
 local transition = false
 local time_to_transition = nil
 
-local function IsDistanceBetweenCharsAcceptable()
-
-    if math.abs(RunnerNPC.x_pos - HenryChar.x_pos) <= 1 and math.abs(RunnerNPC.y_pos - HenryChar.y_pos) <= 1 then
-        return true
-    end
-    return false
-
-end
-
 local function CheckForTransitionTime()
 
     if time_to_transition == nil then
@@ -35,7 +26,7 @@ local function CheckForTransitionTime()
     end
     if love.timer.getTime() >= time_to_transition then
         transition = {"src/levels/day0/scenes/city"}
-    elseif IsDistanceBetweenCharsAcceptable() then
+    elseif Runner:IsDistanceBetweenCharsAcceptable(HenryChar) then
         transition = {"src/levels/day0/scenes/battle-example"}
     end
 

@@ -51,4 +51,16 @@ function WalkerGeneric:IsDoneWalking()
 
 end
 
+function WalkerGeneric:IsDistanceBetweenCharsAcceptable(otherchar)
+
+    if math.abs(self.char.x_pos - otherchar.x_pos) <= 1 and math.abs(self.char.y_pos - otherchar.y_pos) <= 1 then
+
+        return true
+
+    end
+
+    return false
+
+end
+
 return WalkerGeneric

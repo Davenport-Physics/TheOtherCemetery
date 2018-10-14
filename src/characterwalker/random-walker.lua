@@ -18,8 +18,6 @@ end
 
 function RandomWalker:IsDoneWalking()
 
-    return false
-
 end
 
 return RandomWalker
