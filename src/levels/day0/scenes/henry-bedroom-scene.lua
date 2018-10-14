@@ -10,14 +10,14 @@ local MapData        = require("src/levels/day0/maps/henry-bedroom")
 local TiledMapClass  = require("src/map/tiledmap")
 local TiledMap       = TiledMapClass:new(MapData)
 
-local AnnaChar  = CharacterClass:new("tiles/Characters/Females/F_01.png", 12*16, 4*16, 16, 17, 2, .05); AnnaChar:AllowDrawing(false);
-local HenryChar = CharacterClass:new("tiles/Characters/Males/M_08.png", 6*16, 6*16, 16, 17, 6, .05); HenryChar:WalkRight(true);
+local AnnaChar  = CharacterClass:new("tiles/Characters/Females/F_01.png", 7*16, 4*16, 16, 17, 2, .05); AnnaChar:AllowDrawing(false);
+local HenryChar = CharacterClass:new("tiles/Characters/Males/M_08.png", 3*16, 5*16, 16, 17, 6, .05); HenryChar:WalkRight(true);
 
-local RoomEntity = EntityClass:newMinimal(8*16, 6*16)
+local RoomEntity = EntityClass:newMinimal(5*16, 5*16)
 local RoomWorld  = WorldClass:new(TiledMap, {AnnaChar}, HenryChar, TiledMap:GetCollisionObjects())
 RoomWorld:SetEntityToTrackForCamera(RoomEntity)
 
-local Door_LeaveBedroom = DoorClass:new(12*16, 16, 2*16, 3*16, "src/levels/day0/scenes/home-lobby", 2*16, 7*16)
+local Door_LeaveBedroom = DoorClass:new(7*16, 3*16, 16, 16, "src/levels/day0/scenes/home-lobby", 2*16, 6*16)
 
 --local BackgroundMusic = love.audio.newSource("src/sound/fight.mp3", "static")
 
@@ -41,10 +41,10 @@ local ANNA_POSITION_FUNCTION =
 local ANNA_POSITIONS =
 {
 
-    {x = 12*16, y = 6*16},
-    {x = 7*16,  y = 6*16},
-    {x = 12*16, y = 6*16},
-    {x = 12*16, y = 4*16}
+    {x = 7*16 , y = 5*16},
+    {x = 5*16 , y = 5*16},
+    {x = 7*16 , y = 5*16},
+    {x = 7*16 , y = 4*16}
 
 }
 
