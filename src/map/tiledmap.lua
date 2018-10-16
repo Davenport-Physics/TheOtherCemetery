@@ -1,7 +1,8 @@
 local TiledMap = {}
 TiledMap.__index = TiledMap
 
-local Shared = require("src/shared/shared")
+local Settings = require("src/settings/settings")
+local Shared   = require("src/shared/shared")
 
 function TiledMap:new(tiled_map)
 
@@ -184,7 +185,7 @@ function TiledMap:DrawTile(layer_data, tiles_drawn_along_row, current_y_offset, 
     local sprite_sheet_idx = self:FromRealIDGetSpriteSheetIndex(real_id)
 
     if ra_x ~= nil and ra_y ~= nil then
-        if Shared.IsBetweenRange(x, ra_x - 160, ra_x + 160) and Shared.IsBetweenRange(y, ra_y-160, ra_y+160) then
+        if Shared.IsBetweenRange(x, ra_x-self.d_l, ra_x+self.d_l) and Shared.IsBetweenRange(y, ra_y-self.d_l, ra_y+self.d_l) then
             love.graphics.draw(self.sprite_sheet[sprite_sheet_idx], self.quads[real_id], x, y, angle, sx, sy)
         end
     else
@@ -201,6 +202,7 @@ function TiledMap:DrawLayer(layer, ra_x, ra_y)
     local tiles_drawn_along_row = 0
     local current_y_offset      = 0
 
+    self.d_l = 960/Settings.Scale
     for i = 1, #layer.data do
 
         if (tiles_drawn_along_row > (TilesAlongX - 1)) then
