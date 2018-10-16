@@ -1,8 +1,9 @@
 
+local Settings = require("src/settings/settings")
 local StartMenuSound = love.audio.newSource("sound/startmenu/startmenu_slow.mp3", "static")
 
 local ButtonClass = require("src/button/button")
-local Buttons = 
+local Buttons =
 {
 
     NewGame  = ButtonClass:newImage("pics/startmenu/newgame.png", 25, 450),
@@ -53,7 +54,7 @@ local StartingWindowText =
 {
 
     Name     = love.graphics.newText(love.graphics.newFont(65), "Disconnected"),
-    MadeWith = love.graphics.newText(love.graphics.newFont(15), "A game made with Love")
+    MadeWith = love.graphics.newText(love.graphics.newFont(25), "A game made with Love")
 
 }
 
@@ -72,11 +73,21 @@ local function DrawButtons()
 
 end
 
+function Update_StartMenu()
+
+    Buttons.NewGame.x_pos  = love.graphics.getWidth()*.5 - (25 + 350)
+    Buttons.LoadGame.x_pos = Buttons.NewGame.x_pos  + 175
+    Buttons.Credits.x_pos  = Buttons.LoadGame.x_pos + 175
+    Buttons.Options.x_pos  = Buttons.Credits.x_pos  + 175
+    Buttons.Quit.x_pos     = Buttons.Options.x_pos
+
+end
+
 local function DrawMisc()
 
-    love.graphics.draw(StartingWindowPics.BackGround, 0, 0, 0, .15, .15)
-    love.graphics.draw(StartingWindowText.Name, 125, 100)
-    love.graphics.draw(StartingWindowText.MadeWith, 300, 175)
+    love.graphics.draw(StartingWindowPics.BackGround, 0, 0, 0, 3 * .15/Settings.Scale, 3 * .15/Settings.Scale)
+    love.graphics.draw(StartingWindowText.Name, love.graphics.getWidth()*.5 - 175, love.graphics.getHeight()*.5 - 150)
+    love.graphics.draw(StartingWindowText.MadeWith, love.graphics.getWidth()*.5 - 150, love.graphics.getHeight()*.5 - 75)
 
 end
 

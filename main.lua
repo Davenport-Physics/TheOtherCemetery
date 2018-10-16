@@ -21,7 +21,7 @@ local CONTEXT_INDEX =
 local CONTEXT_FUNCTIONS =
 {
 
-    {Draw = DrawStartingWindow, Input = HandleInput_StartingWindow, Update = function() end},
+    {Draw = DrawStartingWindow, Input = HandleInput_StartingWindow, Update = Update_StartMenu},
     {Draw = DrawNewGame       , Input = HandleInput_NewGame       , Update = Update_NewGame},
     {Draw = function() end    , Input = function() end            , Update = function() end},
     {Draw = function() end    , Input = function() end            , Update = function() end},
