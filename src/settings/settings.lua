@@ -11,12 +11,12 @@ Settings.Controls =
 
 }
 
-Settings.PlayerSaveName = ""
-Settings.Window_Width      = love.graphics.getWidth()
-Settings.Window_Height     = love.graphics.getHeight()
-Settings.Window_Width_old  = Settings.Window_Width
-Settings.Window_Height_old = Settings.Window_Height_old
-Settings.Scale             = 3 * (Settings.Window_Height/Settings.Window_Width)*(600/800)
+Settings.PlayerSaveName       = ""
+Settings.Window_Width         = love.graphics.getWidth()
+Settings.Window_Height        = love.graphics.getHeight()
+Settings.Window_Width_old     = Settings.Window_Width
+Settings.Window_Height_old    = Settings.Window_Height_old
+Settings.Scale                = 3 * (Settings.Window_Height/Settings.Window_Width)*(600/800)
 Settings.X_Canvas_Translation = 0
 Settings.Y_Canvas_Translation = 0
 

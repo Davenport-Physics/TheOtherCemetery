@@ -1,7 +1,7 @@
 
-require("./src/startmenu/startmenu")
-require("./src/credits/credits")
-require("./src/newgame/newgame")
+require("src/startmenu/startmenu")
+require("src/credits/credits")
+require("src/newgame/newgame")
 
 
 local Settings = require("src/settings/settings")
@@ -89,7 +89,8 @@ function love.load()
     InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, Credits, Quit)
     InitializeCredits_CallBackFunctions(InStartMenu)
     love.window.setTitle("Diconnected")
-    love.window.setFullscreen(true, "desktop")
+    love.window.setMode(800, 600, {resizable=true, vsync=true, minwidth=800, minheight=600})
+    --love.window.setFullscreen(true, "desktop")
 
 end
 
@@ -124,10 +125,10 @@ function love.draw()
         love.graphics.draw(CANVAS, 0, 0)
 
     else
+
         CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Draw()
+
     end
-
-
 
 end
 
