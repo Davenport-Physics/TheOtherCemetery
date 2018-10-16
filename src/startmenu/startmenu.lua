@@ -10,7 +10,7 @@ local Buttons =
     LoadGame = ButtonClass:newImage("pics/startmenu/loadgame.png", 200, 450),
     Credits  = ButtonClass:newImage("pics/startmenu/credits.png", 375, 450),
     Options  = ButtonClass:newImage("pics/startmenu/options.png", 550, 450),
-    Quit     = ButtonClass:newImage("pics/startmenu/quit.png", 625, 10)
+    Quit     = ButtonClass:newImage("pics/startmenu/quit.png", 625, 20)
 
 }
 Buttons.NewGame:SetSoundWhenClicked("sound/startmenu/click/click.ogg")

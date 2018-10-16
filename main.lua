@@ -112,8 +112,12 @@ local function SetCanvas()
 
     love.graphics.setCanvas()
 
-    love.graphics.translate(Settings.X_Canvas_Translation, Settings.Y_Canvas_Translation)
-    love.graphics.scale(Settings.Scale, Settings.Scale)
+    if Settings.GlobalScaleOn then
+
+        love.graphics.translate(Settings.X_Canvas_Translation, Settings.Y_Canvas_Translation)
+        love.graphics.scale(Settings.Scale, Settings.Scale)
+
+    end
 
 end
 
