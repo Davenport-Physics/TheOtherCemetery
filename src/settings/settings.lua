@@ -26,7 +26,7 @@ function Settings.CheckIfResolutionChanged()
     if Settings.Window_Width_old ~= Settings.Window_Width then
         return true
     end
-    if Settings.Window_Height_old ~= Settings.Window_Height_old then
+    if Settings.Window_Height_old ~= Settings.Window_Height then
         return true
     end
 
