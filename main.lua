@@ -84,22 +84,20 @@ end
 
 function love.load()
 
-    love.graphics.setDefaultFilter( "nearest", "nearest", 8 )
+    love.graphics.setDefaultFilter( "nearest", "nearest", 16 )
     StartMenuMusic_Start()
     InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, Credits, Quit)
     InitializeCredits_CallBackFunctions(InStartMenu)
-
-end
-
-local function HandleInput()
-
-    CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Input()
+    love.window.setTitle("Diconnected")
+    love.window.setFullscreen(true, "desktop")
 
 end
 
 function love.update()
 
-    HandleInput()
+    Settings.UpdateWindow()
+    Settings.UpdateScale()
+    CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Input()
     CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Update()
 
 end
