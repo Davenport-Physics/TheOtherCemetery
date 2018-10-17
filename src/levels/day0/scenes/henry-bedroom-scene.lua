@@ -4,6 +4,7 @@ local Settings     = require("src/settings/settings")
 local EntityClass  = require("src/entity/entity")
 local WorldClass   = require("src/world/world")
 local DoorClass    = require("src/entity/door")
+local TextBubbleClass = require("src/character/textbubbles")
 
 local CharacterClass = require("src/character/character")
 local MapData        = require("src/levels/day0/maps/henry-bedroom")
@@ -12,6 +13,8 @@ local TiledMap       = TiledMapClass:new(MapData)
 
 local AnnaChar  = CharacterClass:new("tiles/Characters/Females/F_01.png", 7*16, 4*16, 16, 17, 2, .05); AnnaChar:AllowDrawing(false);
 local HenryChar = CharacterClass:new("tiles/Characters/Males/M_08.png", 3*16, 5*16, 16, 17, 6, .05); HenryChar:WalkRight(true);
+
+local AnnaTextBubble = TextBubbleClass:new(AnnaChar, "pics/share/text/TextBubble.png", "Hey Bud, how are you feeling?")
 
 local RoomEntity = EntityClass:newMinimal(5*16, 5*16)
 local RoomWorld  = WorldClass:new(TiledMap, {AnnaChar}, HenryChar, TiledMap:GetCollisionObjects())
