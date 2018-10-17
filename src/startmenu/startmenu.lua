@@ -86,8 +86,8 @@ end
 local function DrawMisc()
 
     love.graphics.draw(StartingWindowPics.BackGround, 0, 0, 0, 3 * .15/Settings.Scale, 3 * .15/Settings.Scale)
-    love.graphics.draw(StartingWindowText.Name, love.graphics.getWidth()*.5 - 175, love.graphics.getHeight()*.5 - 150)
-    love.graphics.draw(StartingWindowText.MadeWith, love.graphics.getWidth()*.5 - 150, love.graphics.getHeight()*.5 - 75)
+    love.graphics.draw(StartingWindowText.Name, love.graphics.getWidth()*.5 - 200, 125)
+    love.graphics.draw(StartingWindowText.MadeWith, love.graphics.getWidth()*.5 - 175, 200)
 
 end
 
