@@ -185,7 +185,7 @@ function TiledMap:DrawTile(layer_data, tiles_drawn_along_row, current_y_offset, 
     local sprite_sheet_idx = self:FromRealIDGetSpriteSheetIndex(real_id)
 
     if ra_x ~= nil and ra_y ~= nil then
-        if Shared.IsBetweenRange(x, ra_x-self.d_l, ra_x+self.d_l) and Shared.IsBetweenRange(y, ra_y-self.d_l, ra_y+self.d_l) then
+        if Shared.IsBetweenRange(x, ra_x-self.d_lx, ra_x+self.d_lx) and Shared.IsBetweenRange(y, ra_y-self.d_ly, ra_y+self.d_ly) then
             love.graphics.draw(self.sprite_sheet[sprite_sheet_idx], self.quads[real_id], x, y, angle, sx, sy)
         end
     else
@@ -194,6 +194,8 @@ function TiledMap:DrawTile(layer_data, tiles_drawn_along_row, current_y_offset, 
 
 end
 
+local GraphicsHeight = love.graphics.getHeight
+local GraphicsWidth  = love.graphics.getWidth
 function TiledMap:DrawLayer(layer, ra_x, ra_y)
 
     local TilesAlongX = layer.width
@@ -202,7 +204,8 @@ function TiledMap:DrawLayer(layer, ra_x, ra_y)
     local tiles_drawn_along_row = 0
     local current_y_offset      = 0
 
-    self.d_l = 960/Settings.Scale
+    self.d_lx = GraphicsWidth()*.5 + 40
+    self.d_ly = GraphicsHeight()*.5 + 40
     for i = 1, #layer.data do
 
         if (tiles_drawn_along_row > (TilesAlongX - 1)) then
