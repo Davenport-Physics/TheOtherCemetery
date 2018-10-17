@@ -29,7 +29,7 @@ end
 
 function PathWalker:CheckForPointsMade()
 
-
+    
 
 end
 
