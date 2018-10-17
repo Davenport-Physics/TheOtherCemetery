@@ -7,8 +7,13 @@ function PathWalker:new(char, walker_instructions)
     setmetatable(obj, PathWalker)
     obj.char = char
     obj.walker_instructions = walker_instructions
+    obj:InitializePath()
 
     return obj
+
+end
+
+function PathWalker:InitializePath()
 
 end
 
