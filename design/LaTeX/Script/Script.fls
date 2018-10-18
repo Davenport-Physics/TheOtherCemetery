@@ -95,10 +95,10 @@ INPUT c:/texlive/2016/texmf-dist/fonts/tfm/public/lm/lmsy7.tfm
 INPUT c:/texlive/2016/texmf-dist/tex/latex/lm/omxlmex.fd
 INPUT c:/texlive/2016/texmf-dist/tex/latex/lm/omxlmex.fd
 INPUT c:/texlive/2016/texmf-dist/fonts/tfm/public/lm/lmex10.tfm
+INPUT c:/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT c:/texlive/2016/texmf-dist/fonts/tfm/public/lm/ec-lmr17.tfm
 INPUT c:/texlive/2016/texmf-dist/fonts/tfm/public/lm/ec-lmbx12.tfm
 INPUT c:/texlive/2016/texmf-dist/fonts/tfm/public/lm/ec-lmbx12.tfm
-INPUT c:/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT c:/texlive/2016/texmf-dist/fonts/tfm/public/lm/ec-lmbx12.tfm
 INPUT Script.aux
 INPUT ./Script.out
