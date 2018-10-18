@@ -4,6 +4,7 @@ local Settings     = require("src/settings/settings")
 local EntityClass  = require("src/entity/entity")
 local WorldClass   = require("src/world/world")
 local DoorClass    = require("src/entity/door")
+local WalkerClass  = require("src/characterwalker/walker-generic")
 local TextBubbleClass = require("src/character/textbubbles")
 
 local CharacterClass = require("src/character/character")
@@ -14,6 +15,18 @@ local TiledMap       = TiledMapClass:new(MapData)
 local AnnaChar  = CharacterClass:new("tiles/Characters/Females/F_01.png", 7*16, 4*16, 16, 17, 2, .05); AnnaChar:AllowDrawing(false);
 local HenryChar = CharacterClass:new("tiles/Characters/Males/M_08.png", 3*16, 5*16, 16, 17, 6, .05); HenryChar:WalkRight(true);
 
+local AnnaPathWalkerInstructionsToHenry =
+{
+    {x = 7*16 , y = 5*16},
+    {x = 5*16 , y = 5*16}
+}
+local AnnaPathWalkerInstructionsAwayFromHenry =
+{
+    {x = 7*16 , y = 5*16},
+    {x = 7*16 , y = 4*16}
+}
+local AnnaPathWalkerToHenry       = WalkerClass:new(AnnaChar, "path-walker", AnnaPathWalkerInstructionsToHenry)
+local AnnaPathWalkerAwayFromHenry = nil
 local AnnaTextBubble = TextBubbleClass:new(AnnaChar, "pics/share/text/TextBubble.png", "Hey Bud, how are you feeling?")
 
 local RoomEntity = EntityClass:newMinimal(5*16, 5*16)
@@ -22,38 +35,12 @@ RoomWorld:SetEntityToTrackForCamera(RoomEntity)
 
 local Door_LeaveBedroom = DoorClass:new(7*16, 3*16, 16, 16, "src/levels/day0/scenes/home-lobby", 2*16, 6*16)
 
---local BackgroundMusic = love.audio.newSource("src/sound/fight.mp3", "static")
-
 local transition = false
-
-local ANNA_MADE_POSITION =
-{
-
-    false, false, false, false
-
-}
-local ANNA_POSITION_FUNCTION =
-{
-
-    AnnaChar.WalkDown,
-    AnnaChar.WalkLeft,
-    AnnaChar.WalkRight,
-    AnnaChar.WalkUp
-
-}
-local ANNA_POSITIONS =
-{
-
-    {x = 7*16 , y = 5*16},
-    {x = 5*16 , y = 5*16},
-    {x = 7*16 , y = 5*16},
-    {x = 7*16 , y = 4*16}
-
-}
 
 local cycle_complete         = false
 local time_to_spawn_anna     = nil
-local function Room_Spawn_Anna()
+local anna_done_talking      = false
+local function Room_SpawnAnna()
 
     if time_to_spawn_anna == nil then
         time_to_spawn_anna = love.timer.getTime() + 1
@@ -65,59 +52,43 @@ local function Room_Spawn_Anna()
 
 end
 
-local function Room_CheckTo_Despawn_Anna(idx)
+local function Room_CheckToDespawnAnna()
 
-    if idx == #ANNA_POSITIONS then
-        AnnaChar:AllowDrawing(false)
-        cycle_complete = true
-        RoomWorld:SetEntityToTrackForCamera(HenryChar)
+    if not AnnaPathWalkerAwayFromHenry:IsDoneWalking() then return end
+    AnnaChar:AllowDrawing(false)
+    cycle_complete = true
+    RoomWorld:SetEntityToTrackForCamera(HenryChar)
+
+end
+
+local function Update_AnnaMove()
+
+    AnnaPathWalkerToHenry:Update()
+    if AnnaPathWalkerToHenry:IsDoneWalking() and not anna_done_talking then
+        anna_done_talking = true
+    end
+    if anna_done_talking and AnnaPathWalkerAwayFromHenry == nil then
+        AnnaPathWalkerAwayFromHenry = WalkerClass:new(AnnaChar, "path-walker", AnnaPathWalkerInstructionsAwayFromHenry)
+    elseif anna_done_talking and not AnnaPathWalkerAwayFromHenry:IsDoneWalking() then
+        AnnaPathWalkerAwayFromHenry:Update()
+        Room_CheckToDespawnAnna()
     end
 
 end
 
-local function Room_Check_Made_Anna()
-
-    for i = 1, #ANNA_POSITIONS do
-        if not ANNA_MADE_POSITION[i] then
-            local x = AnnaChar.x_pos
-            local y = AnnaChar.y_pos
-            if x == ANNA_POSITIONS[i].x and y == ANNA_POSITIONS[i].y then
-                ANNA_MADE_POSITION[i] = true
-                Room_CheckTo_Despawn_Anna(i)
-            end
-            break
-        end
-    end
-
-end
-
-local function Room_Move_Anna()
-
-    for i = 1, #ANNA_MADE_POSITION do
-        if not ANNA_MADE_POSITION[i] then
-            ANNA_POSITION_FUNCTION[i](AnnaChar, true)
-            break
-        end
-    end
-
-end
-
-local function Update_Anna_Checks()
+local function Update_Anna()
 
     if not AnnaChar.allow_drawing then
-        Room_Spawn_Anna()
+        Room_SpawnAnna()
     else
-        Room_Check_Made_Anna()
-        Room_Move_Anna()
+        Update_AnnaMove()
     end
 
 end
 
 function Scene.Update()
 
-    if not cycle_complete then
-        Update_Anna_Checks()
-    end
+    if not cycle_complete then Update_Anna() end
     RoomWorld:Update()
     transition = Door_LeaveBedroom:CheckForCollision(HenryChar:GetCenterPosition())
 

@@ -16,13 +16,13 @@ end
 function PathWalker:Init()
 
     self.is_done_walking = false
-    self.path         = self.walker_instructions.Path
+    self.path         = self.walker_instructions
     self.point_made   = {}
     self.current_walk = nil
 
-    if #path > 0 then
-        self:SetNewWalkStanceX(char.x_pos, self.path[1].x)
-        self:SetNewWalkStanceY(char.y_pos, self.path[1].y)
+    if #self.path > 0 then
+        self:SetNewWalkStanceX(self.char.x_pos, self.path[1].x)
+        self:SetNewWalkStanceY(self.char.y_pos, self.path[1].y)
     end
     for i = 1, #self.path do
         self.point_made[i] = false
@@ -33,9 +33,9 @@ end
 function PathWalker:SetNewWalkStanceY(old_pos, new_pos)
 
     if new_pos > old_pos then
-        self.current_walk = char.WalkDown
-    else
-        self.current_walk = char.Up
+        self.current_walk = self.char.WalkDown
+    elseif new_pos < old_pos then
+        self.current_walk = self.char.WalkUp
     end
 
 end
@@ -43,9 +43,9 @@ end
 function PathWalker:SetNewWalkStanceX(old_pos, new_pos)
 
     if new_pos > old_pos then
-        self.current_walk = char.WalkRight
-    else
-        self.current_walk = char.WalkLeft
+        self.current_walk = self.char.WalkRight
+    elseif new_pos < old_pos then
+        self.current_walk = self.char.WalkLeft
     end
 
 end
@@ -77,7 +77,7 @@ end
 
 function PathWalker:CheckForPointsMade()
 
-    for i = 1, #self.point_made[i] do
+    for i = 1, #self.point_made do
         if not self.point_made[i] then
             self:CheckForSpecificPointMade(i)
             if self.point_made[i] then self:CalculateNextWalkOrQuit(i) end
@@ -89,7 +89,7 @@ end
 function PathWalker:Update()
 
     if self.is_done_walking then return end
-    self.current_walk(char, true)
+    self.current_walk(self.char, true)
     self:CheckForPointsMade()
 
 end
