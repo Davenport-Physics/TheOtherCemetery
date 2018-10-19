@@ -151,9 +151,9 @@ end
 
 function Scene.SetPlayerCharPosition(x_pos, y_pos)
 
-    transition = false
-    HenryChar.x_pos = x_pos
-    HenryChar.y_pos = y_pos
+    transition = true
+    HenryChar.x_pos = x_pos or HenryChar.x_pos
+    HenryChar.y_pos = y_pos or HenryChar.y_pos
     HenryChar:WalkDown(true)
 
 end
