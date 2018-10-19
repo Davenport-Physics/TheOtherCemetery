@@ -31,12 +31,12 @@ local TextTime = love.timer.getTime()
 local Textidx  = 0
 local Text =
 {
-    TextBubbleClass:new(AnnaChar, "pics/share/text/TextBubble.png", "Hey Bud, how are you feeling?", 7),
-    TextBubbleClass:new(HenryChar, "pics/share/text/TextBubble.png", "...", 7),
-    TextBubbleClass:new(AnnaChar, "pics/share/text/TextBubble.png", "Yeah, me too. I miss them.", 7),
-    TextBubbleClass:new(AnnaChar, "pics/share/text/TextBubble.png", "Well . . . try to get some sleep \ntonight alright?", 7),
-    TextBubbleClass:new(AnnaChar, "pics/share/text/TextBubble.png", "You have to get back to school\n tomorrow.", 7),
-    TextBubbleClass:new(AnnaChar, "pics/share/text/TextBubble.png", "Love you kiddo.", 7)
+    TextBubbleClass:new(AnnaChar, "pics/share/text/TextBubbleSpeaking.png", "Hey Bud, how are you feeling?", 7),
+    TextBubbleClass:new(HenryChar, "pics/share/text/TextBubbleSpeaking.png", "...", 7),
+    TextBubbleClass:new(AnnaChar, "pics/share/text/TextBubbleSpeaking.png", "Yeah, me too. I miss them.", 7),
+    TextBubbleClass:new(AnnaChar, "pics/share/text/TextBubbleSpeaking.png", "Well . . . try to get some sleep \ntonight alright?", 7),
+    TextBubbleClass:new(AnnaChar, "pics/share/text/TextBubbleSpeaking.png", "You have to get back to school\n tomorrow.", 7),
+    TextBubbleClass:new(AnnaChar, "pics/share/text/TextBubbleSpeaking.png", "Love you kiddo.", 7)
 }
 
 local RoomEntity = EntityClass:newMinimal(5*16, 5*16)
@@ -75,7 +75,7 @@ local function Update_Talk()
 
     if love.timer.getTime() >= TextTime then
 
-        TextTime = love.timer.getTime() + 2
+        TextTime = love.timer.getTime() + 2.25
         Textidx = Textidx + 1
 
     end
