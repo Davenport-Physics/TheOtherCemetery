@@ -27,9 +27,9 @@ end
 function TextBubble:Draw()
 
     if self.allow_drawing then
-        love.graphics.draw(self.image, self.char.x_pos+16, self.char.y_pos-30)
+        love.graphics.draw(self.image, self.char.x_pos+12, self.char.y_pos-26)
         love.graphics.setFont(self.font)
-        love.graphics.print({{0,0,0,1} ,self.text}, self.char.x_pos+20, self.char.y_pos-25)
+        love.graphics.print({{0,0,0,1} ,self.text}, self.char.x_pos+16, self.char.y_pos-21)
     end
 
 end
