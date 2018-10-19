@@ -68,6 +68,7 @@ local function Room_CheckToDespawnAnna()
     AnnaChar:AllowDrawing(false)
     cycle_complete = true
     RoomWorld:SetEntityToTrackForCamera(HenryChar)
+    transition = {"src/levels/day0/scenes/day-one-transition"}
 
 end
 
@@ -112,10 +113,10 @@ end
 
 function Scene.Update()
 
+    transition = Door_LeaveBedroom:CheckForCollision(HenryChar:GetCenterPosition())
     if not cycle_complete then Update_Anna() end
     RoomWorld:Update()
-    transition = Door_LeaveBedroom:CheckForCollision(HenryChar:GetCenterPosition())
-
+    
 end
 
 function Scene.CanTransition()
