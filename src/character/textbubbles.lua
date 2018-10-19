@@ -11,6 +11,7 @@ function TextBubble:new(char, image, text, fontsize)
     obj.text          = text
     obj.fontsize      = fontsize or 12
     obj.font          = love.graphics.newFont(fontsize)
+    obj.font:setFilter("nearest", "nearest", 16)
     obj.allow_drawing = true
 
     return obj
