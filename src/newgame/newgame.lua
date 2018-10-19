@@ -1,20 +1,20 @@
 
-local Day0 = require("src/levels/day0/level")
+local Game = require("src/gamehandler/gamehandler")
 
 function DrawNewGame()
 
-    Day0.Draw()
+    Game.Draw()
 
 end
 
 function Update_NewGame()
 
-    Day0.Update()
+    Game.Update()
 
 end
 
 function HandleInput_NewGame()
 
-    Day0.HandleInput()
+    Game.HandleInput()
 
 end

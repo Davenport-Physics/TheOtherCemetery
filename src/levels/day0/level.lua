@@ -4,9 +4,9 @@ local Scene_idx = 1
 local Scenes =
 {
 
-    --"src/levels/day0/scenes/intro",
+    "src/levels/day0/scenes/intro",
     --"src/levels/day0/scenes/FuneralHome",
-    "src/levels/day0/scenes/henry-bedroom-scene",
+    --"src/levels/day0/scenes/henry-bedroom-scene",
     --"src/levels/day0/scenes/runner-example",
     --"src/levels/day0/scenes/battle-example"
 
@@ -37,7 +37,7 @@ function Level.Update()
     CanTransition = Scene.CanTransition()
     if type(CanTransition) == "table" then
         SetUpTransition()
-    elseif type(Scene.CanTransition) == "bool" and Scene.CanTransition() then
+    elseif type(CanTransition) == "bool" and CanTransition then
         transition_to_next_level = true
     end
     Scene.Update()
