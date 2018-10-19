@@ -1,7 +1,7 @@
 local TextBubble = {}
 TextBubble.__index = TextBubble
 
-function TextBubble:new(char, image, text)
+function TextBubble:new(char, image, text, fontsize)
 
     local obj = {}
     setmetatable(obj, TextBubble)
@@ -9,7 +9,9 @@ function TextBubble:new(char, image, text)
     obj.char          = char
     obj.image         = love.graphics.newImage(image)
     obj.text          = text
-    obj.allow_drawing = false
+    obj.fontsize      = fontsize or 12
+    obj.font          = love.graphics.newFont(fontsize)
+    obj.allow_drawing = true
 
     return obj
 
@@ -24,8 +26,9 @@ end
 function TextBubble:Draw()
 
     if self.allow_drawing then
-        love.graphics.draw(image, char.x_pos+20, char.y_pos-20)
-        love.graphics.print(text, char.x_pos+22, char.y_pos-15)
+        love.graphics.draw(self.image, self.char.x_pos+16, self.char.y_pos-30)
+        love.graphics.setFont(self.font)
+        love.graphics.print({{0,0,0,1} ,self.text}, self.char.x_pos+20, self.char.y_pos-25)
     end
 
 end

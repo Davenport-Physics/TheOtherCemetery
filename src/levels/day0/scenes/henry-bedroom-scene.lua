@@ -27,7 +27,17 @@ local AnnaPathWalkerInstructionsAwayFromHenry =
 }
 local AnnaPathWalkerToHenry       = WalkerClass:new(AnnaChar, "path-walker", AnnaPathWalkerInstructionsToHenry)
 local AnnaPathWalkerAwayFromHenry = nil
-local AnnaTextBubble = TextBubbleClass:new(AnnaChar, "pics/share/text/TextBubble.png", "Hey Bud, how are you feeling?")
+local TextTime = love.timer.getTime()
+local Textidx  = 0
+local Text =
+{
+    TextBubbleClass:new(AnnaChar, "pics/share/text/TextBubble.png", "Hey Bud, how are you feeling?", 7),
+    TextBubbleClass:new(HenryChar, "pics/share/text/TextBubble.png", "...", 7),
+    TextBubbleClass:new(AnnaChar, "pics/share/text/TextBubble.png", "Yeah, me too. I miss them.", 7),
+    TextBubbleClass:new(AnnaChar, "pics/share/text/TextBubble.png", "Well . . . try to get some sleep \ntonight alright?", 7),
+    TextBubbleClass:new(AnnaChar, "pics/share/text/TextBubble.png", "You have to get back to school\n tomorrow.", 7),
+    TextBubbleClass:new(AnnaChar, "pics/share/text/TextBubble.png", "Love you kiddo.", 7)
+}
 
 local RoomEntity = EntityClass:newMinimal(5*16, 5*16)
 local RoomWorld  = WorldClass:new(TiledMap, {AnnaChar}, HenryChar, TiledMap:GetCollisionObjects())
@@ -61,11 +71,25 @@ local function Room_CheckToDespawnAnna()
 
 end
 
+local function Update_Talk()
+
+    if love.timer.getTime() >= TextTime then
+
+        TextTime = love.timer.getTime() + 2
+        Textidx = Textidx + 1
+
+    end
+    if Textidx > #Text then
+        anna_done_talking = true
+    end
+
+end
+
 local function Update_AnnaMove()
 
     AnnaPathWalkerToHenry:Update()
     if AnnaPathWalkerToHenry:IsDoneWalking() and not anna_done_talking then
-        anna_done_talking = true
+        Update_Talk()
     end
     if anna_done_talking and AnnaPathWalkerAwayFromHenry == nil then
         AnnaPathWalkerAwayFromHenry = WalkerClass:new(AnnaChar, "path-walker", AnnaPathWalkerInstructionsAwayFromHenry)
@@ -100,9 +124,18 @@ function Scene.CanTransition()
 
 end
 
+local function DrawText()
+
+    if not anna_done_talking and Textidx > 0 then
+        Text[Textidx]:Draw()
+    end
+
+end
+
 function Scene.Draw()
 
     RoomWorld:Draw()
+    DrawText()
 
 end
 
