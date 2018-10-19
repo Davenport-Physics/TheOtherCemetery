@@ -31,7 +31,7 @@ function Level.Update()
     CanTransition = Scene.CanTransition()
     if type(CanTransition) == "table" then
         SetUpTransition()
-    elseif type(CanTransition) == "bool" and CanTransition then
+    elseif type(CanTransition) == "boolean" and CanTransition then
         transition_to_next_level = true
     end
     Scene.Update()

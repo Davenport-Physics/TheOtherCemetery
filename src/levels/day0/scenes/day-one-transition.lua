@@ -20,7 +20,7 @@ function Scene.Update()
     end
     if video ~= nil and not video:isPlaying() then
         Settings.GlobalScaleOn = true
-        transition = {"src/levels/day0/scenes/henry-bedroom-scene"}
+        transition = true
     end
 
 end

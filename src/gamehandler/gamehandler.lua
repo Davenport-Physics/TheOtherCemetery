@@ -19,7 +19,7 @@ end
 function Game.Update()
 
     CanTransition = Level.CanTransition()
-    if type(CanTransition) == "bool" and CanTransition then
+    if Level.CanTransition() then
         Level_idx = Level_idx + 1
         Level     = require(Levels[Level_idx])
     end
