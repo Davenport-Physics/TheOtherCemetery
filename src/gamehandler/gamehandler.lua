@@ -1,4 +1,7 @@
+local SaveData = require("src/save/savingdata")
+
 local Game = {}
+local GameReady = false
 
 local Level_idx = 1
 local Levels =
@@ -9,7 +12,7 @@ local Levels =
 
 }
 
-local Level = require(Levels[Level_idx])
+local Level = nil --require(Levels[Level_idx])
 function Game.Draw()
 
     Level.Draw()
@@ -31,6 +34,31 @@ function Game.HandleInput()
 
     Level.HandleInput()
     
+end
+
+local function DetermineCurrentLevel()
+
+    for i = 0, #SaveData.level do
+        if not SaveData.level["day" .. tostring(i)] then
+            Level = require(Levels[i+1])
+            return
+        end
+    end
+    print("Warning: All Levels seem to be complete with selected save")
+
+end
+
+function Game.InitializeGameHandler()
+
+    DetermineCurrentLevel()
+    GameReady = true
+
+end
+
+function Game.IsReady()
+
+    return GameReady
+
 end
 
 return Game

@@ -1,5 +1,6 @@
 
 local Game = require("src/gamehandler/gamehandler")
+Game.InitializeGameHandler()
 
 function DrawNewGame()
 

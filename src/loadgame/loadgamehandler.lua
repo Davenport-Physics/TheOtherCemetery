@@ -17,9 +17,9 @@ BackButton:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
 local SaveGameButtons =
 {
-    ButtonClass:newWithoutImage(0, 0, 1, 1, 750, 125),
-    ButtonClass:newWithoutImage(0, 0, 1, 1, 750, 125),
-    ButtonClass:newWithoutImage(0, 0, 1, 1, 750, 125)
+    ButtonClass:newWithoutImage(-10000, -10000, 1, 1, 750, 125),
+    ButtonClass:newWithoutImage(-10000, -10000, 1, 1, 750, 125),
+    ButtonClass:newWithoutImage(-10000, -10000, 1, 1, 750, 125)
 }
 SaveGameButtons[1]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 SaveGameButtons[2]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
@@ -92,7 +92,7 @@ end
 
 function LoadGameHandler_Update()
 
-    LoadGameGui_x_pos     = love.graphics.getWidth()*.5 - LoadGameGui:getWidth()*.5
+    LoadGameGui_x_pos     = love.graphics.getWidth()*.5  - LoadGameGui:getWidth()*.5
     LoadGameGui_y_pos     = love.graphics.getHeight()*.5 - LoadGameGui:getHeight()*.5
     LoadGameBackground_sx = love.graphics.getWidth()/LoadGameBackground:getWidth()
     LoadGameBackground_sy = love.graphics.getHeight()/LoadGameBackground:getHeight()
@@ -102,6 +102,7 @@ end
 
 function LoadGameHandler_Input()
 
+    -- TODO ADD DELAY FOR MOUSE CLICK HANDLING
     BackButton:HandleMouseClick()
     for i = 1, 3 do
         SaveGameButtons[i]:HandleMouseClick()
