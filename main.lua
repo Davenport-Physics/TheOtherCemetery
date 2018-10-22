@@ -3,6 +3,7 @@ require("src/startmenu/startmenu")
 require("src/credits/credits")
 require("src/newgame/newgame")
 require("src/save/saving")
+require("src/loadgame/loadgamehandler")
 
 
 local Settings = require("src/settings/settings")
@@ -22,12 +23,12 @@ local CONTEXT_INDEX =
 local CONTEXT_FUNCTIONS =
 {
 
-    {Draw = DrawStartingWindow, Input = HandleInput_StartingWindow, Update = Update_StartMenu},
-    {Draw = DrawNewGame       , Input = HandleInput_NewGame       , Update = Update_NewGame},
-    {Draw = function() end    , Input = function() end            , Update = function() end},
-    {Draw = function() end    , Input = function() end            , Update = function() end},
-    {Draw = DrawCreditsScene  , Input = HandleInput_Credits       , Update = function() end},
-    {Draw = function() end    , Input = function() end            , Update = function() end}
+    {Draw = DrawStartingWindow   , Input = HandleInput_StartingWindow, Update = Update_StartMenu},
+    {Draw = DrawNewGame          , Input = HandleInput_NewGame       , Update = Update_NewGame},
+    {Draw = LoadGameHandler_Draw , Input = LoadGameHandler_Input     , Update = LoadGameHandler_Update},
+    {Draw = function() end       , Input = function() end            , Update = function() end},
+    {Draw = DrawCreditsScene     , Input = HandleInput_Credits       , Update = function() end},
+    {Draw = function() end       , Input = function() end            , Update = function() end}
 
 }
 
@@ -88,6 +89,7 @@ function love.load()
     LoadSettings()
     love.graphics.setDefaultFilter( "nearest", "nearest", 16 )
     StartMenuMusic_Start()
+    InitializeLoadGame_CallBackFunctions(InStartMenu)
     InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, Credits, Quit)
     InitializeCredits_CallBackFunctions(InStartMenu)
     love.window.setTitle("Diconnected")
