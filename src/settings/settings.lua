@@ -20,7 +20,8 @@ Settings.Scale                = 3 * (Settings.Window_Height/Settings.Window_Widt
 Settings.GlobalScaleOn        = true
 Settings.X_Canvas_Translation = 0
 Settings.Y_Canvas_Translation = 0
-
+Settings.MasterVolume         = 1
+Settings.MusicVolume          = 1
 
 function Settings.CheckIfResolutionChanged()
 

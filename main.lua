@@ -2,6 +2,7 @@
 require("src/startmenu/startmenu")
 require("src/credits/credits")
 require("src/newgame/newgame")
+require("src/save/saving")
 
 
 local Settings = require("src/settings/settings")
@@ -84,12 +85,13 @@ end
 
 function love.load()
 
+    LoadSettings()
     love.graphics.setDefaultFilter( "nearest", "nearest", 16 )
     StartMenuMusic_Start()
     InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, Credits, Quit)
     InitializeCredits_CallBackFunctions(InStartMenu)
     love.window.setTitle("Diconnected")
-    love.window.setMode(800, 600, {resizable=true, vsync=true, minwidth=800, minheight=600})
+    love.window.setMode(Settings.Window_Width, Settings.Window_Height, {resizable=true, vsync=true, minwidth=800, minheight=600})
     --love.window.setFullscreen(true, "desktop")
 
 end
@@ -138,6 +140,7 @@ end
 
 function love.quit()
 
-  print("Thanks for playing! Come back soon!")
+    StoreSettings()
+    print("Thanks for playing! Come back soon!")
 
 end

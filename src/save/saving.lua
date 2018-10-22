@@ -2,7 +2,7 @@ local SaveData    = require("src/save/savingdata")
 local Settings    = require("src/settings/settings")
 require("src/save/savingpersistence")
 
-local separator = separator = package.config:sub(1,1)
+local separator = package.config:sub(1,1)
 
 local function CheckIfSaveDirectoryExists()
 
@@ -67,13 +67,13 @@ end
 
 function StoreSettings()
 
-    persistence.store(".." .. seperator .. "settings.lua", GetRelevantSettingData())
+    persistence.store("settings.lua", GetRelevantSettingData())
 
 end
 
 function LoadSettings()
 
-    local temp = persistence.load(".." .. seperator .. "settings.lua")
+    local temp = persistence.load("settings.lua")
     if temp then
         Settings.Controls      = temp.Controls
         Settings.Window_Width  = temp.Window_Width
