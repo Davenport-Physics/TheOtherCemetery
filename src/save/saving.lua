@@ -1,11 +1,8 @@
 local SaveData    = require("src/save/savingdata")
+local Settings    = require("src/settings/settings")
 require("src/save/savingpersistence")
 
-local separator = nil
-
-local function InitSeparator()
-    separator = package.config:sub(1,1)
-end
+local separator = separator = package.config:sub(1,1)
 
 local function CheckIfSaveDirectoryExists()
 
@@ -29,7 +26,6 @@ end
 
 local function HandleDirectoryChecksAndCreation()
 
-    InitSeparator()
     if not CheckIfSaveDirectoryExists() then
         print("Making saves dir")
         Makedirectory()
@@ -37,17 +33,53 @@ local function HandleDirectoryChecksAndCreation()
 
 end
 
-function SaveDataToFile(filename)
+function StoreSaveData(filename)
 
     persistence.store(filename, SaveData.DataToSave)
-    
+
 end
 
-function LoadDataFromFile(filename)
+function LoadSaveData(filename)
 
     SaveData.DataToSave = persistence.load(filename)
     if SaveData.DataToSave == nil then
         return "SaveDidNotExist"
+    end
+
+end
+
+local function GetRelevantSettingData()
+
+    local temp = 
+    {
+
+        ["Controls"]      = Settings.Controls, 
+        ["Window_Width"]  = Settings.Window_Width, 
+        ["Window_Height"] = Settings.Window_Height, 
+        ["MasterVolume"]  = Settings.MasterVolume, 
+        ["MusicVolume"]   = Settings.MusicVolume
+
+    }
+
+    return temp
+
+end
+
+function StoreSettings()
+
+    persistence.store(".." .. seperator .. "settings.lua", GetRelevantSettingData())
+
+end
+
+function LoadSettings()
+
+    local temp = persistence.load(".." .. seperator .. "settings.lua")
+    if temp then
+        Settings.Controls      = temp.Controls
+        Settings.Window_Width  = temp.Window_Width
+        Settings.Window_Height = temp.Window_Height
+        Settings.MasterVolume  = temp.MasterVolume
+        Settings.MusicVolume   = temp.MusicVolume
     end
 
 end
