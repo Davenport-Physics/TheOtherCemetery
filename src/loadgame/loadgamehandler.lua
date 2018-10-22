@@ -25,6 +25,21 @@ SaveGameButtons[1]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 SaveGameButtons[2]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 SaveGameButtons[3]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
+local function SaveGameButtonsCallback(save_idx)
+
+    if PartialSaveData[save_idx].SaveName == "Empty" then
+        print("Save to load does not exist STUB: SaveGameButtonsCallback")
+        return
+    end
+    LoadSaveData(PartialSaveData[save_idx].File)
+    print("Need to transition to gamehandler STUB: SaveGameButtonsCallback")
+
+end
+
+SaveGameButtons[1]:SetCallback(function() SaveGameButtonsCallback(1) end)
+SaveGameButtons[2]:SetCallback(function() SaveGameButtonsCallback(2) end)
+SaveGameButtons[3]:SetCallback(function() SaveGameButtonsCallback(3) end)
+
 local function DrawBackButton()
 
     BackButton:Draw()

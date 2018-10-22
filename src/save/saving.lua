@@ -50,14 +50,16 @@ end
 
 function GetPartialDataFromSaves()
 
-    local s_start = ".." .. separator
+    local s_start  = ".." .. separator
+    local filename = ""
     local p_saves = {}
     for i = 1, 3 do
-        local s = persistence.load(s_start .. "save" .. tostring(i) .. ".lua")
+        filename = s_start .. "save" .. tostring(i) .. ".lua"
+        local s  = persistence.load(filename)
         if s ~= nil then
-            p_saves[i] = {["SaveName"] = s["SaveName"], ["PlayTime"] = s["PlayTime"]}
+            p_saves[i] = {["SaveName"] = s["SaveName"], ["PlayTime"] = s["PlayTime"], ["File"] = filename}
         else
-            p_saves[i] = {["SaveName"] = "empty", ["PlayTime"] = 0}
+            p_saves[i] = {["SaveName"] = "empty", ["PlayTime"] = 0, ["File"] = filename}
         end
     end
     return p_saves
