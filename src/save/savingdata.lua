@@ -1,6 +1,8 @@
 local DataToSave = 
 {
 
+    ["SaveName"] = "",
+    
     ["level"] = 
     {
 
