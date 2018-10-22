@@ -9,8 +9,23 @@ function Button:newImage(image_file, x_pos, y_pos, scale_x, scale_y, mouse_click
 
     local obj = {}
     setmetatable(obj, Button)
-
     obj:InitializeButtonAttributes(image_file, x_pos, y_pos, scale_x, scale_y, mouse_click_callback)
+    return obj
+
+end
+
+function Button:newWithoutImage(x_pos, y_pos, scale_x, scale_y, width, height, mouse_click_callback)
+
+    local obj = {}
+    setmetatable(obj, Button)
+    self.x_pos        = x_pos
+    self.y_pos        = y_pos
+    self.image_width  = width
+    self.image_height = height
+    self.scale_x      = scale_x or 1
+    self.scale_y      = scale_y or 1
+    self.mouse_click_callback = mouse_click_callback or GenericCallBack
+    self.sound_thread = nil
     return obj
 
 end
@@ -111,6 +126,7 @@ end
 
 function Button:Draw()
 
+    if self.image == nil then return end
     love.graphics.draw(self.image, self.x_pos, self.y_pos, 0, self.scale_x, self.scale_y)
 
 end
