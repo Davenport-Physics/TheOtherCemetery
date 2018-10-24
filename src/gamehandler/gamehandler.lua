@@ -13,13 +13,13 @@ local Levels =
 }
 
 local Level = nil --require(Levels[Level_idx])
-function Game.Draw()
+function Game_Draw()
 
     Level.Draw()
 
 end
 
-function Game.Update()
+function Game_Update()
 
     CanTransition = Level.CanTransition()
     if Level.CanTransition() then
@@ -30,10 +30,10 @@ function Game.Update()
 
 end
 
-function Game.HandleInput()
+function Game_HandleInput()
 
     Level.HandleInput()
-    
+
 end
 
 local function DetermineCurrentLevel()
@@ -48,16 +48,10 @@ local function DetermineCurrentLevel()
 
 end
 
-function Game.InitializeGameHandler()
+function Game_InitializeGameHandler()
 
     DetermineCurrentLevel()
     GameReady = true
-
-end
-
-function Game.IsReady()
-
-    return GameReady
 
 end
 

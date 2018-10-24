@@ -1,7 +1,5 @@
 
 local utf8 = require("utf8")
-local Game = require("src/gamehandler/gamehandler")
-Game.InitializeGameHandler()
 
 local DataToSave  = require("src/save/savingdata")
 local Saves       = require("src/save/saving")
@@ -37,6 +35,8 @@ local WriteTextIdx  = nil
 
 local Font = love.graphics.newFont(30)
 local NextTimeForMouseClick = love.timer.getTime() + .15
+
+local GameHandlerCallback = nil
 
 local function SaveGameButtonsCallback(save_idx)
 
@@ -149,9 +149,9 @@ function love.keypressed(key)
             DataToSave.SaveName = string.sub(DataToSave.SaveName, 1, byteoffset - 1)
         end
     end
-    if key == "enter" then
+    if key == "return" then
 
-
+        GameHandlerCallback()
 
     end
 
@@ -169,9 +169,10 @@ function NewGameHandler_Input()
 
 end
 
-function InitializeNewGame_CallBackFunctions(InStartMenu)
+function InitializeNewGame_CallBackFunctions(InStartMenu, GameHandle)
 
     BackButton:SetCallback(InStartMenu)
+    GameHandlerCallback = GameHandle
 
 end
 
