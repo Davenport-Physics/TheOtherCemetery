@@ -46,6 +46,7 @@ local function SaveGameButtonsCallback(save_idx)
     end
     DrawWriteText = true
     WriteTextIdx  = save_idx
+    DataToSave.SaveName = ""
 
 end
 
@@ -127,6 +128,32 @@ function NewGameHandler_Update()
     NewGameBackground_sx = love.graphics.getWidth()/NewGameBackground:getWidth()
     NewGameBackground_sy = love.graphics.getHeight()/NewGameBackground:getHeight()
     UpdateSaveButtonPositions()
+
+end
+
+
+function love.textinput(t)
+
+    if not DrawWriteText then return end
+    if #DataToSave.SaveName >= 10 then return end
+    DataToSave.SaveName = DataToSave.SaveName .. t
+
+end
+
+function love.keypressed(key)
+
+    if not DrawWriteText then return end
+    if key == "backspace" then
+        local byteoffset = utf8.offset(DataToSave.SaveName, -1)
+        if byteoffset then
+            DataToSave.SaveName = string.sub(DataToSave.SaveName, 1, byteoffset - 1)
+        end
+    end
+    if key == "enter" then
+
+
+
+    end
 
 end
 
