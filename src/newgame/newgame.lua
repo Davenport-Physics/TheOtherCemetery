@@ -29,11 +29,18 @@ SaveGameButtons[1]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 SaveGameButtons[2]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 SaveGameButtons[3]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
+--local YesOverwrite  = ButtonClass:newWithoutImage(-10000, -10000,)
+--local NoOverwrite   = ButtonClass:newWithoutImage(-10000, -10000,)
+--YesOverwrite:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+--NoOverwrite:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+local OverWrite     = love.graphics.newImage("pics/overwrite/overwrite.png")
+local DrawOverWrite = false
+
 local WriteText     = "Press enter to start"
 local DrawWriteText = false
 local WriteTextIdx  = nil
 
-local Font = love.graphics.newFont(30)
+local Font                  = love.graphics.newFont(30)
 local NextTimeForMouseClick = love.timer.getTime() + .05
 
 local GameHandlerCallback = nil
@@ -41,7 +48,7 @@ local GameHandlerCallback = nil
 local function SaveGameButtonsCallback(save_idx)
 
     if PartialSaveData[save_idx].SaveName ~= "empty" then
-        print("Save to New does not exist STUB: SaveGameButtonsCallback")
+        DrawOverWrite = true
         return
     end
     DrawWriteText = true
@@ -97,6 +104,15 @@ local function HandleWriteDrawing()
     end
 end
 
+local function HandleOverWriteDrawing()
+
+    if not DrawOverWrite then return end
+    local t_width  = NewGameGui_x_pos + NewGameGui:getWidth()*.5 - OverWrite:getWidth()*.5
+    local t_height = NewGameGui_y_pos + NewGameGui:getHeight()*.5 - OverWrite:getHeight()*.5
+    love.graphics.draw(OverWrite, t_width, t_height)
+
+end
+
 function NewGameHandler_Draw()
 
     love.graphics.setFont(Font)
@@ -105,6 +121,7 @@ function NewGameHandler_Draw()
     DrawBackButton()
     HandlePartialSaveDrawing()
     HandleWriteDrawing()
+    HandleOverWriteDrawing()
 
 end
 
@@ -160,14 +177,24 @@ function love.keypressed(key)
 
 end
 
+local function HandleOverwriteInput()
+
+    --YesOverwrite:HandleMouseClick()
+    --NoOverwrite:HandleMouseClick()
+
+end
+
 function NewGameHandler_Input()
 
     BackButton:HandleMouseClick()
-    if love.timer.getTime() > NextTimeForMouseClick then
+    if love.timer.getTime() > NextTimeForMouseClick and not DrawOverWrite then
         for i = 1, 3 do
             SaveGameButtons[i]:HandleMouseClick()
         end
         NextTimeForMouseClick = love.timer.getTime() + .05
+    end
+    if DrawOverWrite then
+        HandleOverwriteInput()
     end
 
 end
