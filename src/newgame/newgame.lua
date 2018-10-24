@@ -47,6 +47,7 @@ local function SaveGameButtonsCallback(save_idx)
     DrawWriteText = true
     WriteTextIdx  = save_idx
     DataToSave.SaveName = ""
+    DataToSave.File = "save" .. save_idx
 
 end
 

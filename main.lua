@@ -54,7 +54,7 @@ end
 
 local function LoadGame()
 
-    InitializePartialSaveDataForLoadGame()
+    ResetLoadGame()
     CURRENT_CONTEXT = CONTEXT_INDEX.LOAD_GAME
 
 end

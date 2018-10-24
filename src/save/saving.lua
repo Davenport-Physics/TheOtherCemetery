@@ -69,7 +69,7 @@ end
 
 local function GetRelevantSettingData()
 
-    local temp = 
+    local temp =
     {
 
         ["Controls"]      = Settings.Controls,

@@ -25,6 +25,8 @@ SaveGameButtons[1]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 SaveGameButtons[2]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 SaveGameButtons[3]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
+local GameHandlerCallback = nil
+
 local function SaveGameButtonsCallback(save_idx)
 
     if PartialSaveData[save_idx].SaveName == "empty" then
@@ -32,7 +34,7 @@ local function SaveGameButtonsCallback(save_idx)
         return
     end
     LoadSaveData(PartialSaveData[save_idx].File)
-    print("Need to transition to gamehandler STUB: SaveGameButtonsCallback")
+    GameHandlerCallback()
 
 end
 
@@ -41,7 +43,8 @@ SaveGameButtons[2]:SetCallback(function() SaveGameButtonsCallback(2) end)
 SaveGameButtons[3]:SetCallback(function() SaveGameButtonsCallback(3) end)
 
 
-local Font = love.graphics.newFont(30)
+local Font                  = love.graphics.newFont(30)
+local NextTimeForMouseClick = love.timer.getTime() + .05
 
 local function DrawBackButton()
 
@@ -108,20 +111,25 @@ function LoadGameHandler_Input()
 
     -- TODO ADD DELAY FOR MOUSE CLICK HANDLING
     BackButton:HandleMouseClick()
-    for i = 1, 3 do
-        SaveGameButtons[i]:HandleMouseClick()
+    if love.timer.getTime() >= NextTimeForMouseClick then
+        for i = 1, 3 do
+            SaveGameButtons[i]:HandleMouseClick()
+        end
+        NextTimeForMouseClick = love.timer.getTime() + .05
     end
 
 end
 
-function InitializeLoadGame_CallBackFunctions(InStartMenu)
+function InitializeLoadGame_CallBackFunctions(InStartMenu, game)
 
     BackButton:SetCallback(InStartMenu)
+    GameHandlerCallback = game
 
 end
 
-function InitializePartialSaveDataForLoadGame()
+function ResetLoadGame()
 
+    NextTimeForMouseClick = love.timer.getTime() + .1
     PartialSaveData = GetPartialDataFromSaves()
 
 end
