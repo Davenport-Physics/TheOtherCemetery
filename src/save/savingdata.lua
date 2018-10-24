@@ -4,7 +4,7 @@ local DataToSave =
     ["SaveName"] = "",
     ["PlayTime"] = 0,
 
-    ["level"] = 
+    ["level"] =
     {
 
         day0 = false,
@@ -14,7 +14,7 @@ local DataToSave =
 
     },
 
-    ["Day0Events"] = 
+    ["Day0Events"] =
     {
         IntroPlayed             = false,
         FuneralScenePlayed      = false,

@@ -1,4 +1,4 @@
-local SaveData = require("src/save/savingdata")
+local DataToSave = require("src/save/savingdata")
 local Level = {}
 
 local Scene_idx = 1
@@ -6,19 +6,19 @@ local Scenes =
 {
 
     "src/levels/day0/scenes/intro",
-    --"src/levels/day0/scenes/FuneralHome",
-    --"src/levels/day0/scenes/henry-bedroom-scene",
+    "src/levels/day0/scenes/FuneralHome",
+    "src/levels/day0/scenes/henry-bedroom-scene",
     --"src/levels/day0/scenes/runner-example",
     --"src/levels/day0/scenes/battle-example"
 
 }
 
-local Scene = require(Scenes[1])
-
+local Scene = nil
 local transition_to_next_level = false
 
 function Level.Draw()
 
+    if Scene == nil then return end
     Scene.Draw()
 
 end
@@ -33,8 +33,27 @@ local function SetUpTransition()
 
 end
 
+local function DetermineSceneFromSaveData()
+
+    local temp_idx
+    if not DataToSave.Day0Events["BedroomSceneConveration"] then
+        temp_idx = 3
+    end
+    if not DataToSave.Day0Events["FuneralScenePlayed"] then
+        temp_idx = 2
+    end
+    if not DataToSave.Day0Events["IntroPlayed"] then
+        temp_idx = 1
+    end
+    Scene = require(Scenes[temp_idx])
+
+end
+
 function Level.Update()
 
+    if Scene == nil then
+        DetermineSceneFromSaveData()
+    end
     CanTransition = Scene.CanTransition()
     if type(CanTransition) == "table" then
         SetUpTransition()
@@ -54,6 +73,7 @@ end
 
 function Level.HandleInput()
 
+    if Scene == nil then return end
     Scene.HandleInput()
 
 end
