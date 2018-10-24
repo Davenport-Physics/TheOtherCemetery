@@ -24,7 +24,7 @@ local CONTEXT_FUNCTIONS =
 {
 
     {Draw = DrawStartingWindow   , Input = HandleInput_StartingWindow, Update = Update_StartMenu},
-    {Draw = DrawNewGame          , Input = HandleInput_NewGame       , Update = Update_NewGame},
+    {Draw = NewGameHandler_Draw  , Input = NewGameHandler_Input      , Update = NewGameHandler_Update},
     {Draw = LoadGameHandler_Draw , Input = LoadGameHandler_Input     , Update = LoadGameHandler_Update},
     {Draw = function() end       , Input = function() end            , Update = function() end},
     {Draw = DrawCreditsScene     , Input = HandleInput_Credits       , Update = function() end},
@@ -46,6 +46,7 @@ end
 local function StartNewGame()
 
     love.audio.stop()
+    InitializePartialSaveDataForNewGame()
     CURRENT_CONTEXT = CONTEXT_INDEX.NEW_GAME
 
 end
@@ -91,6 +92,7 @@ function love.load()
     love.graphics.setDefaultFilter( "nearest", "nearest", 16 )
     StartMenuMusic_Start()
     InitializeLoadGame_CallBackFunctions(InStartMenu)
+    InitializeNewGame_CallBackFunctions(InStartMenu)
     InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, Credits, Quit)
     InitializeCredits_CallBackFunctions(InStartMenu)
     love.window.setTitle("Diconnected")
@@ -128,7 +130,7 @@ end
 
 function love.draw()
 
-    if CURRENT_CONTEXT == CONTEXT_INDEX.NEW_GAME then
+    if CURRENT_CONTEXT == CONTEXT_INDEX.GAME then
 
         SetCanvas()
         love.graphics.draw(CANVAS, 0, 0)
