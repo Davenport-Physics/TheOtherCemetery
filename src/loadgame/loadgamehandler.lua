@@ -27,7 +27,7 @@ SaveGameButtons[3]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
 local function SaveGameButtonsCallback(save_idx)
 
-    if PartialSaveData[save_idx].SaveName == "Empty" then
+    if PartialSaveData[save_idx].SaveName == "empty" then
         print("Save to load does not exist STUB: SaveGameButtonsCallback")
         return
     end
@@ -39,6 +39,9 @@ end
 SaveGameButtons[1]:SetCallback(function() SaveGameButtonsCallback(1) end)
 SaveGameButtons[2]:SetCallback(function() SaveGameButtonsCallback(2) end)
 SaveGameButtons[3]:SetCallback(function() SaveGameButtonsCallback(3) end)
+
+
+local Font = love.graphics.newFont(30)
 
 local function DrawBackButton()
 
@@ -69,6 +72,7 @@ end
 
 function LoadGameHandler_Draw()
 
+    love.graphics.setFont(Font)
     HandleBackgroundDrawing()
     HandleLoadGuiDrawing()
     DrawBackButton()

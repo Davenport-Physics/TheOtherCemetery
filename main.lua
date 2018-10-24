@@ -46,6 +46,7 @@ end
 local function StartNewGame()
 
     love.audio.stop()
+    SetWriteTextToFalse()
     InitializePartialSaveDataForNewGame()
     CURRENT_CONTEXT = CONTEXT_INDEX.NEW_GAME
 

@@ -1,24 +1,7 @@
 
+local utf8 = require("utf8")
 local Game = require("src/gamehandler/gamehandler")
 Game.InitializeGameHandler()
-
-function DrawNewGame()
-
-    Game.Draw()
-
-end
-
-function Update_NewGame()
-
-    Game.Update()
-
-end
-
-function HandleInput_NewGame()
-
-    Game.HandleInput()
-
-end
 
 local Saves       = require("src/save/saving")
 local ButtonClass = require("src/button/button")
@@ -47,13 +30,18 @@ SaveGameButtons[1]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 SaveGameButtons[2]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 SaveGameButtons[3]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
+local WriteText     = "Press enter to start"
+local DrawWriteText = false
+
+local Font = love.graphics.newFont(30)
+
 local function SaveGameButtonsCallback(save_idx)
 
-    if PartialSaveData[save_idx].SaveName == "Empty" then
+    if PartialSaveData[save_idx].SaveName ~= "empty" then
         print("Save to New does not exist STUB: SaveGameButtonsCallback")
         return
     end
-    print("Need to transition to gamehandler STUB: SaveGameButtonsCallback")
+    DrawWriteText = true
 
 end
 
@@ -88,12 +76,20 @@ local function HandlePartialSaveDrawing()
 
 end
 
+local function HandleWriteDrawing()
+    if DrawWriteText then
+        love.graphics.print(WriteText, NewGameGui_x_pos + NewGameGui:getWidth()*.5, NewGameGui_y_pos + NewGameGui:getHeight() - 60)
+    end
+end
+
 function NewGameHandler_Draw()
 
+    love.graphics.setFont(Font)
     HandleBackgroundDrawing()
     HandleNewGuiDrawing()
     DrawBackButton()
     HandlePartialSaveDrawing()
+    HandleWriteDrawing()
 
 end
 
@@ -141,4 +137,8 @@ function InitializePartialSaveDataForNewGame()
 
     PartialSaveData = GetPartialDataFromSaves()
 
+end
+
+function SetWriteTextToFalse()
+    DrawWriteText = false
 end
