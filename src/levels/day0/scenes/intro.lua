@@ -1,4 +1,6 @@
 
+local DataToSave = require("src/save/savingdata")
+
 local Scene = {}
 
 local Settings = require("src/settings/settings")
@@ -60,6 +62,7 @@ local function Intro_Update_CheckForPlayback()
         AnnaDialog:play()
         transition     = {"src/levels/day0/scenes/FuneralHome"}
         Settings.GlobalScaleOn = true
+        DataToSave.Day0Events["IntroPlayed"] = true
 
     end
 

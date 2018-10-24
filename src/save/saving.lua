@@ -42,8 +42,8 @@ end
 
 function LoadSaveData(filename)
 
-    SaveData.DataToSave = persistence.load("saves" .. separator .. filename)
-    if SaveData.DataToSave == nil then
+    DataToSave = persistence.load("saves" .. separator .. filename)
+    if DataToSave == nil then
         return "SaveDidNotExist"
     end
 

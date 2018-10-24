@@ -1,3 +1,4 @@
+local DataToSave = require("src/save/savingdata")
 
 local Scene  = {}
 
@@ -43,6 +44,7 @@ function Scene.Update()
         CameraPanning = false
         transition    = {"src/levels/day0/scenes/henry-bedroom-scene"}
         love.audio.stop()
+        DataToSave.Day0Events["FuneralScenePlayed"] = true
         return
 
     end

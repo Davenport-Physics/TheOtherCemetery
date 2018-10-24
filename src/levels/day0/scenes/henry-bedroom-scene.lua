@@ -1,3 +1,5 @@
+local DataToSave = require("src/save/savingdata")
+
 local Scene = {}
 
 local Settings     = require("src/settings/settings")
@@ -68,6 +70,7 @@ local function Room_CheckToDespawnAnna()
     AnnaChar:AllowDrawing(false)
     cycle_complete = true
     RoomWorld:SetEntityToTrackForCamera(HenryChar)
+    DataToSave.Day0Events["BedroomSceneConveration"] = true
     transition = {"src/levels/day0/scenes/day-one-transition"}
 
 end
@@ -116,7 +119,7 @@ function Scene.Update()
     transition = Door_LeaveBedroom:CheckForCollision(HenryChar:GetCenterPosition())
     if not cycle_complete then Update_Anna() end
     RoomWorld:Update()
-    
+
 end
 
 function Scene.CanTransition()
