@@ -3,6 +3,7 @@ local utf8 = require("utf8")
 local Game = require("src/gamehandler/gamehandler")
 Game.InitializeGameHandler()
 
+local DataToSave  = require("src/save/savingdata")
 local Saves       = require("src/save/saving")
 local ButtonClass = require("src/button/button")
 
@@ -32,8 +33,10 @@ SaveGameButtons[3]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
 local WriteText     = "Press enter to start"
 local DrawWriteText = false
+local WriteTextIdx  = nil
 
 local Font = love.graphics.newFont(30)
+local NextTimeForMouseClick = love.timer.getTime() + .15
 
 local function SaveGameButtonsCallback(save_idx)
 
@@ -42,6 +45,7 @@ local function SaveGameButtonsCallback(save_idx)
         return
     end
     DrawWriteText = true
+    WriteTextIdx  = save_idx
 
 end
 
@@ -69,9 +73,18 @@ end
 
 local function HandlePartialSaveDrawing()
 
+    local SaveName = ""
+    local PlayTime = ""
     for i = 1, 3 do
-        love.graphics.print("Save file: " .. PartialSaveData[i].SaveName, NewGameGui_x_pos + 50, NewGameGui_y_pos + 160 * (i) - 20 *(i - 1))
-        love.graphics.print("Play time: " .. PartialSaveData[i].PlayTime, NewGameGui_x_pos + 400, NewGameGui_y_pos + 160 * (i) - 20 *(i - 1))
+        if DrawWriteText and WriteTextIdx == i then
+            SaveName = DataToSave.SaveName
+            PlayTime = 0
+        else
+            SaveName = PartialSaveData[i].SaveName
+            PlayTime = PartialSaveData[i].PlayTime
+        end
+        love.graphics.print("Save file: " .. SaveName, NewGameGui_x_pos + 50, NewGameGui_y_pos + 160 * (i) - 20 *(i - 1))
+        love.graphics.print("Play time: " .. PlayTime, NewGameGui_x_pos + 400, NewGameGui_y_pos + 160 * (i) - 20 *(i - 1))
     end
 
 end
@@ -119,10 +132,12 @@ end
 
 function NewGameHandler_Input()
 
-    -- TODO ADD DELAY FOR MOUSE CLICK HANDLING
     BackButton:HandleMouseClick()
-    for i = 1, 3 do
-        SaveGameButtons[i]:HandleMouseClick()
+    if love.timer.getTime() > NextTimeForMouseClick then
+        for i = 1, 3 do
+            SaveGameButtons[i]:HandleMouseClick()
+        end
+        NextTimeForMouseClick = love.timer.getTime() + .15
     end
 
 end
@@ -133,12 +148,10 @@ function InitializeNewGame_CallBackFunctions(InStartMenu)
 
 end
 
-function InitializePartialSaveDataForNewGame()
+function ResetNewGame()
 
-    PartialSaveData = GetPartialDataFromSaves()
-
-end
-
-function SetWriteTextToFalse()
     DrawWriteText = false
+    PartialSaveData = GetPartialDataFromSaves()
+    NextTimeForMouseClick = love.timer.getTime() + .15
+
 end
