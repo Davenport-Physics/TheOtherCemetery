@@ -1,9 +1,9 @@
-local DataToSave = 
+local DataToSave =
 {
 
     ["SaveName"] = "",
     ["PlayTime"] = 0,
-    
+
     ["level"] = 
     {
 

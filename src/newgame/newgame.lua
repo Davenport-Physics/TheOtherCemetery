@@ -34,7 +34,7 @@ local DrawWriteText = false
 local WriteTextIdx  = nil
 
 local Font = love.graphics.newFont(30)
-local NextTimeForMouseClick = love.timer.getTime() + .15
+local NextTimeForMouseClick = love.timer.getTime() + .05
 
 local GameHandlerCallback = nil
 
@@ -151,6 +151,8 @@ function love.keypressed(key)
     end
     if key == "return" then
 
+        StoreSaveData("save" .. WriteTextIdx .. ".lua")
+        DrawWriteText = false
         GameHandlerCallback()
 
     end
@@ -164,7 +166,7 @@ function NewGameHandler_Input()
         for i = 1, 3 do
             SaveGameButtons[i]:HandleMouseClick()
         end
-        NextTimeForMouseClick = love.timer.getTime() + .15
+        NextTimeForMouseClick = love.timer.getTime() + .05
     end
 
 end
@@ -180,6 +182,6 @@ function ResetNewGame()
 
     DrawWriteText = false
     PartialSaveData = GetPartialDataFromSaves()
-    NextTimeForMouseClick = love.timer.getTime() + .15
+    NextTimeForMouseClick = love.timer.getTime() + .1
 
 end

@@ -1,4 +1,4 @@
-local SaveData    = require("src/save/savingdata")
+local DataToSave  = require("src/save/savingdata")
 local Settings    = require("src/settings/settings")
 require("src/save/savingpersistence")
 
@@ -20,7 +20,7 @@ end
 
 local function Makedirectory()
 
-    os.execute("mkdir .." .. separator .. "saves"  )
+    os.execute("mkdir saves")
 
 end
 
@@ -35,13 +35,14 @@ end
 
 function StoreSaveData(filename)
 
-    persistence.store(filename, SaveData.DataToSave)
+    HandleDirectoryChecksAndCreation()
+    persistence.store("saves" .. separator .. filename, DataToSave)
 
 end
 
 function LoadSaveData(filename)
 
-    SaveData.DataToSave = persistence.load(filename)
+    SaveData.DataToSave = persistence.load("saves" .. separator .. filename)
     if SaveData.DataToSave == nil then
         return "SaveDidNotExist"
     end
@@ -50,7 +51,7 @@ end
 
 function GetPartialDataFromSaves()
 
-    local s_start  = ".." .. separator
+    local s_start  = "saves" .. separator
     local filename = ""
     local p_saves = {}
     for i = 1, 3 do
@@ -63,7 +64,7 @@ function GetPartialDataFromSaves()
         end
     end
     return p_saves
-    
+
 end
 
 local function GetRelevantSettingData()
@@ -71,10 +72,10 @@ local function GetRelevantSettingData()
     local temp = 
     {
 
-        ["Controls"]      = Settings.Controls, 
-        ["Window_Width"]  = Settings.Window_Width, 
-        ["Window_Height"] = Settings.Window_Height, 
-        ["MasterVolume"]  = Settings.MasterVolume, 
+        ["Controls"]      = Settings.Controls,
+        ["Window_Width"]  = Settings.Window_Width,
+        ["Window_Height"] = Settings.Window_Height,
+        ["MasterVolume"]  = Settings.MasterVolume,
         ["MusicVolume"]   = Settings.MusicVolume
 
     }
