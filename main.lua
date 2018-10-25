@@ -111,6 +111,7 @@ local function CheckEventPool()
         end
     end
     love.event.clear()
+    
 end
 
 function love.update()
