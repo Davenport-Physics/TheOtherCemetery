@@ -103,12 +103,23 @@ function love.load()
 
 end
 
+local function CheckEventPool()
+
+    for n, a, b, c, d, e, f in love.event.poll() do
+        if n == "startmenu" then
+            InStartMenu()
+        end
+    end
+    love.event.clear()
+end
+
 function love.update()
 
     Settings.UpdateWindow()
     Settings.UpdateScale()
     CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Input()
     CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Update()
+    CheckEventPool()
 
 end
 

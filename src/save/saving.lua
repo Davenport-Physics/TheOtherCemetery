@@ -36,14 +36,17 @@ end
 function StoreSaveData(filename)
 
     HandleDirectoryChecksAndCreation()
+    if filename == nil then filename = DataToSave["File"] end
     persistence.store("saves" .. separator .. filename, DataToSave)
 
 end
 
 function LoadSaveData(filename)
 
-    DataToSave = persistence.load("saves" .. separator .. filename)
+    local err
+    DataToSave, err = persistence.load("saves" .. separator .. filename)
     if DataToSave == nil then
+        print(err)
         return "SaveDidNotExist"
     end
 
@@ -58,9 +61,9 @@ function GetPartialDataFromSaves()
         filename = s_start .. "save" .. tostring(i) .. ".lua"
         local s  = persistence.load(filename)
         if s ~= nil then
-            p_saves[i] = {["SaveName"] = s["SaveName"], ["PlayTime"] = s["PlayTime"], ["File"] = filename}
+            p_saves[i] = {["SaveName"] = s["SaveName"], ["PlayTime"] = s["PlayTime"], ["File"] = "save" .. tostring(i) .. ".lua"}
         else
-            p_saves[i] = {["SaveName"] = "empty", ["PlayTime"] = 0, ["File"] = filename}
+            p_saves[i] = {["SaveName"] = "empty", ["PlayTime"] = 0, ["File"] = "save" .. tostring(i) .. ".lua"}
         end
     end
     return p_saves

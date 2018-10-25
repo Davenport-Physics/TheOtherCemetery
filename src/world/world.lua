@@ -1,4 +1,5 @@
 local ButtonClass = require("src/button/button")
+local Save        = require("src/save/saving")
 
 local ESCAPE_MENU_IMAGE_CACHE      = love.graphics.newImage("pics/ingame/ingame.png")
 local ESCAPE_MENU_IMAGE_BACKGROUND = love.graphics.newImage("tiles/autumn-platformer-tileset/png/elements/background.png")
@@ -7,6 +8,8 @@ local ESCAPE_MENU_QUIT_GAME_BUTTON = ButtonClass:newWithoutImage(-100,-100, 1, 1
 
 ESCAPE_MENU_QUIT_GAME_BUTTON:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 ESCAPE_MENU_SAVE_GAME_BUTTON:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+
+ESCAPE_MENU_QUIT_GAME_BUTTON:SetCallback(function() love.event.push("startmenu") end)
 
 local World = {}
 World.__index = World
@@ -42,6 +45,7 @@ function World:SetEscapeMenuObjects()
     self.escape_menu_active     = false
     self.escape_menu_save_game  = ESCAPE_MENU_SAVE_GAME_BUTTON
     self.escape_menu_quit_game  = ESCAPE_MENU_QUIT_GAME_BUTTON
+    self.escape_menu_save_game:SetCallback(function() StoreSaveData(); self.escape_menu_active = false; self.Settings.GlobalScaleOn = true; end)
 
 end
 
