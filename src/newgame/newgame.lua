@@ -29,10 +29,15 @@ SaveGameButtons[1]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 SaveGameButtons[2]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 SaveGameButtons[3]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
---local YesOverwrite  = ButtonClass:newWithoutImage(-10000, -10000,)
---local NoOverwrite   = ButtonClass:newWithoutImage(-10000, -10000,)
---YesOverwrite:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
---NoOverwrite:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+local YesOverwrite  = ButtonClass:newWithoutImage(-10000, -10000, 1, 1, 192, 84)
+local NoOverwrite   = ButtonClass:newWithoutImage(-10000, -10000, 1, 1, 192, 84)
+-- TODO, FIGURE OUT WHY THIS IS NECESSARY
+YesOverwrite.image_height = 84
+YesOverwrite.image_width  = 192
+NoOverwrite.image_height  = 84
+NoOverwrite.image_width   = 192
+YesOverwrite:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+NoOverwrite:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 local OverWrite     = love.graphics.newImage("pics/overwrite/overwrite.png")
 local DrawOverWrite = false
 
@@ -45,8 +50,30 @@ local NextTimeForMouseClick = love.timer.getTime() + .05
 
 local GameHandlerCallback = nil
 
+local current_save_idx = nil
+
+local function YesOverwriteCallBack()
+
+    DrawOverWrite = false
+    DrawWriteText = true
+    WriteTextIdx  = current_save_idx
+    DataToSave.SaveName = ""
+    DataToSave.File = "save" .. current_save_idx
+
+end
+
+local function NoOverwriteCallBack()
+
+    DrawOverWrite = false
+
+end
+
+YesOverwrite:SetCallback(YesOverwriteCallBack)
+NoOverwrite:SetCallback(NoOverwriteCallBack)
+
 local function SaveGameButtonsCallback(save_idx)
 
+    current_save_idx = save_idx
     if PartialSaveData[save_idx].SaveName ~= "empty" then
         DrawOverWrite = true
         return
@@ -54,7 +81,7 @@ local function SaveGameButtonsCallback(save_idx)
     DrawWriteText = true
     WriteTextIdx  = save_idx
     DataToSave.SaveName = ""
-    DataToSave.File = "save" .. save_idx
+    DataToSave.File  = "save" .. save_idx
 
 end
 
@@ -139,6 +166,19 @@ local function UpdateSaveButtonPositions()
 
 end
 
+local function UpdateOverWriteButtons()
+
+    if not DrawOverWrite then return end
+    local t_x = NewGameGui_x_pos + NewGameGui:getWidth()*.5  - OverWrite:getWidth()*.5 + 4
+    local t_y = NewGameGui_y_pos + NewGameGui:getHeight()*.5 - OverWrite:getHeight()*.5 + 56
+
+    YesOverwrite.x_pos = t_x
+    YesOverwrite.y_pos = t_y
+    NoOverwrite.x_pos  = t_x + 198
+    NoOverwrite.y_pos  = t_y
+
+end
+
 function NewGameHandler_Update()
 
     NewGameGui_x_pos     = love.graphics.getWidth()*.5  - NewGameGui:getWidth()*.5
@@ -146,6 +186,7 @@ function NewGameHandler_Update()
     NewGameBackground_sx = love.graphics.getWidth()/NewGameBackground:getWidth()
     NewGameBackground_sy = love.graphics.getHeight()/NewGameBackground:getHeight()
     UpdateSaveButtonPositions()
+    UpdateOverWriteButtons()
 
 end
 
@@ -179,21 +220,22 @@ end
 
 local function HandleOverwriteInput()
 
-    --YesOverwrite:HandleMouseClick()
-    --NoOverwrite:HandleMouseClick()
+    YesOverwrite:HandleMouseClick()
+    NoOverwrite:HandleMouseClick()
 
 end
 
 function NewGameHandler_Input()
 
     BackButton:HandleMouseClick()
-    if love.timer.getTime() > NextTimeForMouseClick and not DrawOverWrite then
+    if not DrawOverWrite and love.timer.getTime() > NextTimeForMouseClick then
         for i = 1, 3 do
             SaveGameButtons[i]:HandleMouseClick()
         end
         NextTimeForMouseClick = love.timer.getTime() + .05
     end
     if DrawOverWrite then
+        NextTimeForMouseClick = love.timer.getTime() + 1
         HandleOverwriteInput()
     end
 

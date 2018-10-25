@@ -131,4 +131,12 @@ function Button:Draw()
 
 end
 
+function Button:DrawOutline()
+
+    print(self.image_width)
+    print(self.image_height)
+    love.graphics.rectangle("line", self.x_pos, self.y_pos, self.image_width, self.image_height)
+
+end
+
 return Button
