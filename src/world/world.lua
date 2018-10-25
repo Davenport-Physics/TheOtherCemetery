@@ -1,3 +1,13 @@
+local ButtonClass = require("src/button/button")
+
+local ESCAPE_MENU_IMAGE_CACHE      = love.graphics.newImage("pics/ingame/ingame.png")
+local ESCAPE_MENU_IMAGE_BACKGROUND = love.graphics.newImage("tiles/autumn-platformer-tileset/png/elements/background.png")
+local ESCAPE_MENU_SAVE_GAME_BUTTON = ButtonClass:newWithoutImage(-100,-100, 1, 1, 0, 0)
+local ESCAPE_MENU_QUIT_GAME_BUTTON = ButtonClass:newWithoutImage(-100,-100, 1, 1, 0, 0)
+
+ESCAPE_MENU_QUIT_GAME_BUTTON:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+ESCAPE_MENU_SAVE_GAME_BUTTON:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+
 local World = {}
 World.__index = World
 
@@ -12,12 +22,26 @@ function World:new(MapObj, CharacterObjs, PlayerCharacterObj, CollisionObjs, Set
     obj.collision_objs        = CollisionObjs
     obj.Settings              = require("src/settings/settings")
     obj.entities              = {}
+    obj:SetEscapeMenuObjects()
     if SetCollisionsForNPC == nil then SetCollisionsForNPC = true end
     obj.set_collision_for_npc = SetCollisionsForNPC
     obj.map_obj:SetScaleForBlending(obj.world_scale)
     obj:GiveCharactersMapCollisionObjects()
 
     return obj
+
+end
+
+function World:SetEscapeMenuObjects()
+
+    self.escape_menu_x_pos      = -100
+    self.escape_menu_y_pos      = -100
+    self.escape_menu_call_time  = love.timer.getTime()
+    self.escape_menu            = ESCAPE_MENU_IMAGE_CACHE
+    self.escape_menu_background = ESCAPE_MENU_IMAGE_BACKGROUND
+    self.escape_menu_active     = false
+    self.escape_menu_save_game  = ESCAPE_MENU_SAVE_GAME_BUTTON
+    self.escape_menu_quit_game  = ESCAPE_MENU_QUIT_GAME_BUTTON
 
 end
 
@@ -44,16 +68,45 @@ function World:RandomWalker()
 
 end
 
-function World:Update()
+function World:UpdateEscapeMenuSaveObject(offset_x, offset_y)
 
-    -- self:RandomWalker()
+    self.escape_menu_save_game.x_pos = self.escape_menu_x_pos + 20.5
+    self.escape_menu_save_game.y_pos = self.escape_menu_y_pos + 125.5
+    self.escape_menu_save_game.image_width  = 303
+    self.escape_menu_save_game.image_height = 105
 
 end
 
-function World:HandleInput()
+function World:UpdateEscapeMenuQuitObject(offset_x, offset_y)
 
-    if self.player_character_obj == nil then return end
-    if self.input_callback ~= nil then self.input_callback(); return; end
+
+    self.escape_menu_quit_game.x_pos = self.escape_menu_x_pos + 20.5
+    self.escape_menu_quit_game.y_pos = self.escape_menu_y_pos + 395.5
+    self.escape_menu_quit_game.image_width  = 303
+    self.escape_menu_quit_game.image_height = 105
+
+end
+
+function World:UpdateEscapeMenuObjects()
+
+    local offset_x = 0
+    local offset_y = 0
+    if self.camera_tracking ~= nil then
+        offset_x = self.camera_tracking.x_pos
+        offset_y = self.camera_tracking.y_pos
+    end
+    self:UpdateEscapeMenuSaveObject(offset_x, offset_y)
+    self:UpdateEscapeMenuQuitObject(offset_x, offset_y)
+
+end
+
+function World:Update()
+
+    self:UpdateEscapeMenuObjects()
+
+end
+
+function World:HandleInputMovePlayer()
 
     if love.keyboard.isDown(self.Settings.Controls.UP) then
         self.player_character_obj:WalkUp(true)
@@ -64,6 +117,37 @@ function World:HandleInput()
     elseif love.keyboard.isDown(self.Settings.Controls.RIGHT) then
         self.player_character_obj:WalkRight(true)
     end
+
+end
+
+function World:HandleInputEscapeButtons()
+
+    self.escape_menu_save_game:HandleMouseClick()
+    self.escape_menu_quit_game:HandleMouseClick()
+
+end
+
+function World:HandleInputEscape()
+
+    if love.keyboard.isDown("escape") and love.timer.getTime() >= self.escape_menu_call_time then
+        self.escape_menu_active     = not self.escape_menu_active
+        self.escape_menu_call_time  = love.timer.getTime() + .2
+        self.Settings.GlobalScaleOn = not self.Settings.GlobalScaleOn
+    end
+
+    if self.escape_menu_active then
+        self:HandleInputEscapeButtons()
+    end
+
+end
+
+function World:HandleInput()
+
+    if self.player_character_obj == nil then return end
+    if self.input_callback ~= nil then self.input_callback(); return; end
+
+    self:HandleInputEscape()
+    if not self.escape_menu_active then self:HandleInputMovePlayer() end
 
 end
 
@@ -121,8 +205,25 @@ function World:DrawObjectsIfPossible()
 
 end
 
+function World:DrawEscapeMenu()
+
+    self.escape_menu_x_pos =  love.graphics.getWidth()*.5 -  self.escape_menu:getWidth()*.5
+    self.escape_menu_y_pos = love.graphics.getHeight()*.5 - self.escape_menu:getHeight()*.5
+
+    local b_s_x = love.graphics.getWidth()/self.escape_menu_background:getWidth()
+    local b_s_y = love.graphics.getHeight()/self.escape_menu_background:getHeight()
+
+    love.graphics.draw(self.escape_menu_background, 0, 0, 0, b_s_x, b_s_y)
+    love.graphics.draw(self.escape_menu, self.escape_menu_x_pos, self.escape_menu_y_pos)
+
+end
+
 function World:Draw()
 
+    if self.escape_menu_active then
+        self:DrawEscapeMenu()
+        return
+    end
     if self.camera_tracking ~= nil then
         self.Settings.DrawCameraFunctions(self.camera_tracking.x_pos, self.camera_tracking.y_pos, self.world_scale)
     end
