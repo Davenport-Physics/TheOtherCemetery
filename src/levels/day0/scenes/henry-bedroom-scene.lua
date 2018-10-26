@@ -161,4 +161,21 @@ function Scene.SetPlayerCharPosition(x_pos, y_pos)
 
 end
 
+function Scene.Reset()
+
+    transition         = false
+    cycle_complete     = false
+    time_to_spawn_anna = nil
+    anna_done_talking  = false
+    AnnaChar.x_pos     = 7*16
+    AnnaChar.y_pos     = 4*16
+    HenryChar.x_pos    = 3*16
+    HenryChar.y_pos    = 5*16
+    AnnaPathWalkerToHenry       = WalkerClass:new(AnnaChar, "path-walker", AnnaPathWalkerInstructionsToHenry)
+    AnnaPathWalkerAwayFromHenry = nil
+    TextTime = love.timer.getTime()
+    Textidx  = 0
+
+end
+
 return Scene

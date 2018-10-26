@@ -51,4 +51,12 @@ function Level.HandleInput()
 
 end
 
+function Level.Reset()
+
+    Scene_idx = 1
+    transition_to_next_level = false
+    CanTransition = nil
+
+end
+
 return Level

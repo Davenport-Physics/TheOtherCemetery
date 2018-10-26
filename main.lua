@@ -4,7 +4,7 @@ require("src/credits/credits")
 require("src/newgame/newgame")
 require("src/save/saving")
 require("src/loadgame/loadgamehandler")
-local Game = require("src/gamehandler/gamehandler")
+require("src/gamehandler/gamehandler")
 
 
 local Settings = require("src/settings/settings")
@@ -27,7 +27,7 @@ local CONTEXT_FUNCTIONS =
     {Draw = DrawStartingWindow   , Input = HandleInput_StartingWindow, Update = Update_StartMenu},
     {Draw = NewGameHandler_Draw  , Input = NewGameHandler_Input      , Update = NewGameHandler_Update},
     {Draw = LoadGameHandler_Draw , Input = LoadGameHandler_Input     , Update = LoadGameHandler_Update},
-    {Draw = Game.Draw            , Input = Game.HandleInput          , Update = Game.Update},
+    {Draw = Game_Draw            , Input = Game_HandleInput          , Update = Game_Update},
     {Draw = DrawCreditsScene     , Input = HandleInput_Credits       , Update = function() end},
     {Draw = function() end       , Input = function() end            , Update = function() end}
 
@@ -62,7 +62,7 @@ end
 local function Game()
 
     love.audio.stop()
-    Game.InitializeGameHandler()
+    Game_InitializeGameHandler()
     CURRENT_CONTEXT = CONTEXT_INDEX.GAME
 
 end

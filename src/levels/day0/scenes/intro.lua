@@ -83,4 +83,15 @@ function Scene.CanTransition()
 
 end
 
+function Scene.Reset()
+
+    IntroMusic = nil
+    AnnaDialog = nil
+    IntroVideo = nil
+    scale_x = 1
+    scale_y = 1
+    transition = false
+
+end
+
 return Scene

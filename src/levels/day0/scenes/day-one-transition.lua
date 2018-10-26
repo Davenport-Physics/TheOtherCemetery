@@ -35,4 +35,11 @@ function Scene.CanTransition()
 
 end
 
+function Scene.Reset()
+
+    transition = false
+    video      = nil
+
+end
+
 return Scene

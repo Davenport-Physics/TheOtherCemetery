@@ -46,6 +46,7 @@ local function DetermineSceneFromSaveData()
         temp_idx = 1
     end
     Scene = require(Scenes[temp_idx])
+    Scene.Reset()
 
 end
 
@@ -75,6 +76,15 @@ function Level.HandleInput()
 
     if Scene == nil then return end
     Scene.HandleInput()
+
+end
+
+function Level.Reset()
+
+    Scene_idx = 1
+    Scene = nil
+    transition_to_next_level = false
+    CanTransition = nil
 
 end
 

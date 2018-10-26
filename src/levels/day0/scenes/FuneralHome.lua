@@ -74,4 +74,12 @@ function Scene.HandleInput()
 
 end
 
+function Scene.Reset()
+
+    Camera:ResetPosition()
+    CameraPanning = true
+    transition    = false
+
+end
+
 return Scene
