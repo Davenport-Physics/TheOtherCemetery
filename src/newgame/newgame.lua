@@ -21,21 +21,17 @@ BackButton:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
 local SaveGameButtons =
 {
-    ButtonClass:newWithoutImage(-10000, -10000, 1, 1, 750, 125),
-    ButtonClass:newWithoutImage(-10000, -10000, 1, 1, 750, 125),
-    ButtonClass:newWithoutImage(-10000, -10000, 1, 1, 750, 125)
+    ButtonClass:newWithoutImage(-10000, -10000, 750, 125),
+    ButtonClass:newWithoutImage(-10000, -10000, 750, 125),
+    ButtonClass:newWithoutImage(-10000, -10000, 750, 125)
 }
 SaveGameButtons[1]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 SaveGameButtons[2]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 SaveGameButtons[3]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
-local YesOverwrite  = ButtonClass:newWithoutImage(-10000, -10000, 1, 1, 192, 84)
-local NoOverwrite   = ButtonClass:newWithoutImage(-10000, -10000, 1, 1, 192, 84)
--- TODO, FIGURE OUT WHY THIS IS NECESSARY
-YesOverwrite.image_height = 84
-YesOverwrite.image_width  = 192
-NoOverwrite.image_height  = 84
-NoOverwrite.image_width   = 192
+
+local YesOverwrite  = ButtonClass:newWithoutImage(-10000, -10000, 192, 84)
+local NoOverwrite   = ButtonClass:newWithoutImage(-10000, -10000, 192, 84)
 YesOverwrite:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 NoOverwrite:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 local OverWrite     = getImageFromCache("pics/overwrite/overwrite.png")
@@ -250,8 +246,13 @@ end
 
 function ResetNewGame()
 
-    DrawWriteText = false
-    PartialSaveData = GetPartialDataFromSaves()
+    DrawWriteText    = false
+    PartialSaveData  = GetPartialDataFromSaves()
     NextTimeForMouseClick = love.timer.getTime() + .1
+    DrawOverWrite    = false
+    DrawWriteText    = false
+    WriteTextIdx     = nil
+    NewGameGui_x_pos = 0
+    NewGameGui_y_pos = 0
 
 end

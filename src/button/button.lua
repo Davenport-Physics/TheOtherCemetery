@@ -16,18 +16,16 @@ function Button:newImage(image_file, x_pos, y_pos, scale_x, scale_y, mouse_click
 
 end
 
-function Button:newWithoutImage(x_pos, y_pos, scale_x, scale_y, width, height, mouse_click_callback)
+function Button:newWithoutImage(x_pos, y_pos, width, height, mouse_click_callback)
 
     local obj = {}
     setmetatable(obj, Button)
-    self.x_pos        = x_pos
-    self.y_pos        = y_pos
-    self.image_width  = width
-    self.image_height = height
-    self.scale_x      = scale_x or 1
-    self.scale_y      = scale_y or 1
-    self.mouse_click_callback = mouse_click_callback or GenericCallBack
-    self.sound_thread = nil
+    obj.x_pos        = x_pos
+    obj.y_pos        = y_pos
+    obj.image_width  = width
+    obj.image_height = height
+    obj.mouse_click_callback = mouse_click_callback or GenericCallBack
+    obj.sound_thread = nil
     return obj
 
 end
@@ -48,7 +46,7 @@ end
 
 function Button:SetSoundWhenClicked(sound_file)
 
-    self.sound = love.audio.newSource(sound_file, "static")
+    self.sound = getSoundFromCache(sound_file, "static")
 
 end
 
@@ -58,8 +56,17 @@ function Button:SetCallback(mouse_click_callback)
 
 end
 
+function Button:SetDebug(val)
+
+    self.debug = val
+
+end
+
 function Button:IsBetweenRange(value, low, high)
 
+    if self.debug then
+        print(low .. " " .. value .. " " .. high)
+    end
     if value >= low and value <= high then return true end
     return false
 
@@ -67,11 +74,11 @@ end
 
 function Button:CheckForMouseCollision()
 
-    if not self:IsBetweenRange(love.mouse.getX(), self.x_pos, self.x_pos + self.image_width * self.scale_x) then
+    if not self:IsBetweenRange(love.mouse.getX(), self.x_pos, self.x_pos + self.image_width) then
         return false
     end
 
-    if not self:IsBetweenRange(love.mouse.getY(), self.y_pos, self.y_pos + self.image_height * self.scale_y) then
+    if not self:IsBetweenRange(love.mouse.getY(), self.y_pos, self.y_pos + self.image_height) then
         return false
     end
 

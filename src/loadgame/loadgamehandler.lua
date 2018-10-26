@@ -18,9 +18,9 @@ BackButton:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
 local SaveGameButtons =
 {
-    ButtonClass:newWithoutImage(-10000, -10000, 1, 1, 750, 125),
-    ButtonClass:newWithoutImage(-10000, -10000, 1, 1, 750, 125),
-    ButtonClass:newWithoutImage(-10000, -10000, 1, 1, 750, 125)
+    ButtonClass:newWithoutImage(-10000, -10000, 750, 125),
+    ButtonClass:newWithoutImage(-10000, -10000, 750, 125),
+    ButtonClass:newWithoutImage(-10000, -10000, 750, 125)
 }
 SaveGameButtons[1]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 SaveGameButtons[2]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")

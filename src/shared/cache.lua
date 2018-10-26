@@ -8,3 +8,13 @@ function getImageFromCache(file)
     return IMAGE_CACHE[file]
 
 end
+
+local SOUND_CACHE = {}
+function getSoundFromCache(file)
+
+    if SOUND_CACHE[file] == nil then
+        SOUND_CACHE[file] = love.audio.newSource(file, "static")
+    end
+    return SOUND_CACHE[file]
+
+end
