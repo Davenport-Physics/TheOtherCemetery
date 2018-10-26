@@ -1,8 +1,9 @@
+require("src/shared/cache")
 local ButtonClass = require("src/button/button")
 local Save        = require("src/save/saving")
 
-local ESCAPE_MENU_IMAGE_CACHE      = love.graphics.newImage("pics/ingame/ingame.png")
-local ESCAPE_MENU_IMAGE_BACKGROUND = love.graphics.newImage("tiles/autumn-platformer-tileset/png/elements/background.png")
+local ESCAPE_MENU_IMAGE_CACHE      = getImageFromCache("pics/ingame/ingame.png")
+local ESCAPE_MENU_IMAGE_BACKGROUND = getImageFromCache("tiles/autumn-platformer-tileset/png/elements/background.png")
 local ESCAPE_MENU_SAVE_GAME_BUTTON = ButtonClass:newWithoutImage(-100,-100, 1, 1, 0, 0)
 local ESCAPE_MENU_QUIT_GAME_BUTTON = ButtonClass:newWithoutImage(-100,-100, 1, 1, 0, 0)
 

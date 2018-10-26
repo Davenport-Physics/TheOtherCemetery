@@ -1,4 +1,5 @@
 
+require("src/shared/cache")
 local Settings = require("src/settings/settings")
 local StartMenuSound = love.audio.newSource("sound/startmenu/startmenu_slow.mp3", "static")
 
@@ -60,7 +61,7 @@ local StartingWindowText =
 
 local StartingWindowPics  =
 {
-    BackGround = love.graphics.newImage("tiles/autumn-platformer-tileset/png/elements/background.png"),
+    BackGround = getImageFromCache("tiles/autumn-platformer-tileset/png/elements/background.png"),
 }
 
 local function DrawButtons()

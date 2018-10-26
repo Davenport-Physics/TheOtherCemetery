@@ -1,9 +1,10 @@
-local BackGroundImage = love.graphics.newImage("tiles/autumn-platformer-tileset/png/elements/background.png")
+require("src/shared/cache")
+local BackGroundImage = getImageFromCache("tiles/autumn-platformer-tileset/png/elements/background.png")
 local CreditMusic     = love.audio.newSource("sound/credits/credits.ogg", "static")
 
 local next_time_to_draw_scrawl = love.timer.getTime()
 
-local CharacterClass = require("src/character/character")
+local CharacterClass  = require("src/character/character")
 local FemaleCharacter = CharacterClass:new("tiles/Characters/Females/F_01.png", 300, 300, 16, 17)
 local function DrawCharacter()
 

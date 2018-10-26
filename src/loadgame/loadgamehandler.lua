@@ -1,8 +1,9 @@
+require("src/shared/cache")
 local Saves       = require("src/save/saving")
 local ButtonClass = require("src/button/button")
 
-local LoadGameBackground = love.graphics.newImage("tiles/autumn-platformer-tileset/png/elements/background.png")
-local LoadGameGui        = love.graphics.newImage("pics/loadgame/LoadGame.png")
+local LoadGameBackground = getImageFromCache("tiles/autumn-platformer-tileset/png/elements/background.png")
+local LoadGameGui        = getImageFromCache("pics/loadgame/LoadGame.png")
 
 local LoadGameBackground_sx = love.graphics.getWidth()/LoadGameBackground:getWidth()
 local LoadGameBackground_sy = love.graphics.getHeight()/LoadGameBackground:getHeight()

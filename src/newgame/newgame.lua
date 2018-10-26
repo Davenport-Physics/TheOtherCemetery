@@ -1,12 +1,12 @@
-
+require("src/shared/cache")
 local utf8 = require("utf8")
 
 local DataToSave  = require("src/save/savingdata")
 local Saves       = require("src/save/saving")
 local ButtonClass = require("src/button/button")
 
-local NewGameBackground = love.graphics.newImage("tiles/autumn-platformer-tileset/png/elements/background.png")
-local NewGameGui        = love.graphics.newImage("pics/newgame/newgame.png")
+local NewGameBackground = getImageFromCache("tiles/autumn-platformer-tileset/png/elements/background.png")
+local NewGameGui        = getImageFromCache("pics/newgame/newgame.png")
 
 local NewGameBackground_sx = love.graphics.getWidth()/NewGameBackground:getWidth()
 local NewGameBackground_sy = love.graphics.getHeight()/NewGameBackground:getHeight()
@@ -38,7 +38,7 @@ NoOverwrite.image_height  = 84
 NoOverwrite.image_width   = 192
 YesOverwrite:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 NoOverwrite:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
-local OverWrite     = love.graphics.newImage("pics/overwrite/overwrite.png")
+local OverWrite     = getImageFromCache("pics/overwrite/overwrite.png")
 local DrawOverWrite = false
 
 local WriteText     = "Press enter to start"

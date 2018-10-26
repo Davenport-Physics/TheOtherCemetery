@@ -1,3 +1,5 @@
+require("src/shared/cache")
+
 local Button = {}
 Button.__index = Button
 
@@ -32,7 +34,7 @@ end
 
 function Button:InitializeButtonAttributes(image_file, x_pos, y_pos, scale_x, scale_y, mouse_click_callback)
 
-    self.image        = love.graphics.newImage(image_file)
+    self.image        = getImageFromCache(image_file)
     self.x_pos        = x_pos
     self.y_pos        = y_pos
     self.image_width  = self.image:getWidth()
