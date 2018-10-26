@@ -206,7 +206,7 @@ function TiledMap:DrawLayer(layer, ra_x, ra_y)
     local tiles_drawn_along_row = 0
     local current_y_offset      = 0
 
-    self.d_lx = GraphicsWidth()*.5 + 40
+    self.d_lx = GraphicsWidth() *.5 + 40
     self.d_ly = GraphicsHeight()*.5 + 40
     for i = 1, #layer.data do
 
@@ -257,7 +257,7 @@ function TiledMap:MakeCollisionObj(tile, tiles_drawn_along_row, current_y_offset
     if tile == 0 then return end
 
     local x = (tiles_drawn_along_row) * self.width[1]
-    local y = 0
+    local y
 
     if full_mesh then
         y = current_y_offset
