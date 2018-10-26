@@ -84,7 +84,10 @@ end
 
 local function Quit()
 
-    love.event.quit()
+    love.audio.stop()
+    --love.event.quit()
+    StoreSettings()
+    os.exit()
 
 end
 
@@ -108,10 +111,12 @@ local function CheckEventPool()
     for n, a, b, c, d, e, f in love.event.poll() do
         if n == "startmenu" then
             InStartMenu()
+        elseif n == "quit" then
+            Quit()
         end
     end
     love.event.clear()
-    
+
 end
 
 function love.update()
@@ -159,7 +164,6 @@ end
 
 function love.quit()
 
-    StoreSettings()
     print("Thanks for playing! Come back soon!")
 
 end

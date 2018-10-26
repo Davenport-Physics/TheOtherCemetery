@@ -46,7 +46,6 @@ function LoadSaveData(filename)
     local err
     DataToSave, err = persistence.load("saves" .. separator .. filename)
     if DataToSave == nil then
-        print(err)
         return "SaveDidNotExist"
     end
 
