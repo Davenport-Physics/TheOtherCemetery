@@ -1,3 +1,5 @@
+require("src/shared/cache")
+
 local TiledMap = {}
 TiledMap.__index = TiledMap
 
@@ -41,7 +43,7 @@ function TiledMap:InitializeSpriteSheet()
     self:InitializeEmptyTables()
     for i = 1, #self.tiled_map.tilesets do
 
-        self.sprite_sheet[i] = love.graphics.newImage(self.tiled_map.tilesets[i].image)
+        self.sprite_sheet[i] = getImageFromCache(self.tiled_map.tilesets[i].image)
         self.sheet_width[i]  = self.sprite_sheet[i]:getWidth()
         self.sheet_height[i] = self.sprite_sheet[i]:getHeight()
         self.spacing[i]      = self.tiled_map.tilesets[i].spacing
