@@ -45,14 +45,14 @@ local Font                  = love.graphics.newFont(30)
 local NextTimeForMouseClick = love.timer.getTime() + .05
 
 local GameHandlerCallback = nil
-
-local current_save_idx = nil
+local current_save_idx    = nil
 
 local function YesOverwriteCallBack()
 
     DrawOverWrite = false
     DrawWriteText = true
     WriteTextIdx  = current_save_idx
+    DataToSave.ResetValues()
     DataToSave.SaveName = ""
     DataToSave.File = "save" .. current_save_idx
 
@@ -76,6 +76,7 @@ local function SaveGameButtonsCallback(save_idx)
     end
     DrawWriteText = true
     WriteTextIdx  = save_idx
+    DataToSave.ResetValues()
     DataToSave.SaveName = ""
     DataToSave.File  = "save" .. save_idx .. ".lua"
 

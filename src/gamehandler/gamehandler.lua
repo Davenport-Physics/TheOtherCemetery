@@ -1,10 +1,9 @@
 local SaveData = require("src/save/savingdata")
 
 local Game = {}
-local GameReady = false
 
 local Level_idx = 1
-local Levels =
+local Levels    =
 {
 
     "src/levels/day0/level",
@@ -12,14 +11,14 @@ local Levels =
 
 }
 
-local Level = nil --require(Levels[Level_idx])
-function Game_Draw()
+local Level = nil
+function Game.Draw()
 
     Level.Draw()
 
 end
 
-function Game_Update()
+function Game.Update()
 
     CanTransition = Level.CanTransition()
     if Level.CanTransition() then
@@ -30,7 +29,7 @@ function Game_Update()
 
 end
 
-function Game_HandleInput()
+function Game.HandleInput()
 
     Level.HandleInput()
 
@@ -48,10 +47,10 @@ local function DetermineCurrentLevel()
 
 end
 
-function Game_InitializeGameHandler()
+function Game.InitializeGameHandler()
 
     DetermineCurrentLevel()
-    GameReady = true
+    Level_idx = 1
 
 end
 
