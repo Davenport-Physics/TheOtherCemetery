@@ -1,4 +1,4 @@
-Shared = {}
+local Shared = {}
 
 function Shared.IsBetweenRange(value, low, high)
 

@@ -1,3 +1,5 @@
+require("src/shared/cache")
+
 local TextBubble = {}
 TextBubble.__index = TextBubble
 
@@ -7,7 +9,7 @@ function TextBubble:new(char, image, text, fontsize)
     setmetatable(obj, TextBubble)
 
     obj.char          = char
-    obj.image         = love.graphics.newImage(image)
+    obj.image         = getImageFromCache(image)
     obj.text          = text
     obj.fontsize      = fontsize or 12
     obj.font          = love.graphics.newFont(fontsize)

@@ -1,4 +1,5 @@
 local DataToSave = require("src/save/savingdata")
+local Shared     = require("src/shared/shared")
 local Scene = {}
 
 local Settings       = require("src/settings/settings")
@@ -7,6 +8,7 @@ local WorldClass     = require("src/world/world")
 local DoorClass      = require("src/entity/door")
 local CharacterClass = require("src/character/character")
 local TiledMapClass  = require("src/map/tiledmap")
+local TextBubbleClass = require("src/character/textbubbles")
 
 local MapData = require("src/levels/day0/maps/home-lobby")
 local Map     = TiledMapClass:new(MapData)
@@ -36,6 +38,15 @@ local function CheckDoorCollisions()
 
 end
 
+local LoveYouText = TextBubbleClass:new(Anna, "pics/share/text/TextBubbleSpeaking.png", "Have a good day at school!", 7)
+local function CheckIfPlayerIsCloseToAnna()
+
+    if Shared.IsNear(Henry.x_pos, Henry.y_pos, Anna.x_pos, Anna.y_pos, 64) then
+        LoveYouText:Draw()
+    end
+
+end
+
 function Scene.Update()
 
     World:Update()
@@ -46,6 +57,7 @@ end
 function Scene.Draw()
 
     World:Draw()
+    CheckIfPlayerIsCloseToAnna()
 
 end
 
