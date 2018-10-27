@@ -18,12 +18,12 @@ end
 
 function Game_Update()
 
-    CanTransition = Level.CanTransition()
-    if Level.CanTransition() then
+    local CanTransition = Level.CanTransition()
+    if CanTransition then
         print("Transitioning to " .. Level_idx + 1)
+        if Level ~= nil then Level.Reset() end
         Level_idx = Level_idx + 1
         Level     = require(Levels[Level_idx])
-        Level.Reset()
     end
     Level.Update()
 
@@ -41,6 +41,7 @@ local function DetermineCurrentLevel()
         if not SaveData.level["day" .. tostring(i)] then
             print("starting on day " .. i)
             Level = require(Levels[i+1])
+            Level.Reset()
             return
         end
     end

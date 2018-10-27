@@ -45,6 +45,7 @@ local function DetermineSceneFromSaveData()
     if not DataToSave.Day0Events["IntroPlayed"] then
         temp_idx = 1
     end
+    print(tostring(DataToSave.Day0Events["BedroomSceneConveration"]))
     Scene = require(Scenes[temp_idx])
     Scene.Reset()
 

@@ -52,7 +52,6 @@ local function YesOverwriteCallBack()
     DrawOverWrite = false
     DrawWriteText = true
     WriteTextIdx  = current_save_idx
-    DataToSave.ResetValues()
     DataToSave.SaveName = ""
     DataToSave.File = "save" .. current_save_idx
 
@@ -76,7 +75,6 @@ local function SaveGameButtonsCallback(save_idx)
     end
     DrawWriteText = true
     WriteTextIdx  = save_idx
-    DataToSave.ResetValues()
     DataToSave.SaveName = ""
     DataToSave.File  = "save" .. save_idx .. ".lua"
 
@@ -196,6 +194,18 @@ function love.textinput(t)
 
 end
 
+local function HandleReturnKeyPressed()
+
+    StoreSaveData("save" .. WriteTextIdx .. ".lua")
+    DrawWriteText = false
+    local temp_name = DataToSave.SaveName
+    DataToSave.ResetValues()
+    DataToSave.SaveName = temp_name
+    DataToSave.File = "save" .. WriteTextIdx .. ".lua"
+    GameHandlerCallback()
+
+end
+
 function love.keypressed(key)
 
     if not DrawWriteText then return end
@@ -206,11 +216,7 @@ function love.keypressed(key)
         end
     end
     if key == "return" then
-
-        StoreSaveData("save" .. WriteTextIdx .. ".lua")
-        DrawWriteText = false
-        GameHandlerCallback()
-
+        HandleReturnKeyPressed()
     end
 
 end

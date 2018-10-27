@@ -27,7 +27,6 @@ end
 local function HandleDirectoryChecksAndCreation()
 
     if not CheckIfSaveDirectoryExists() then
-        print("Making saves dir")
         Makedirectory()
     end
 
