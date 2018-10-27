@@ -43,6 +43,7 @@ function Scene.Update()
 
         CameraPanning = false
         transition    = {"src/levels/day0/scenes/henry-bedroom-scene"}
+        DataToSave.CurrentScene = "src/levels/day0/scenes/henry-bedroom-scene"
         love.audio.stop()
         DataToSave.Day0Events["FuneralScenePlayed"] = true
         return
@@ -50,11 +51,9 @@ function Scene.Update()
     end
 
     if CameraPanning then
-
         Camera:Update()
-
     end
-    FuneralWorld:Update()
+    --FuneralWorld:Update()
 
 end
 
@@ -79,6 +78,9 @@ function Scene.Reset()
     Camera:ResetPosition()
     CameraPanning = true
     transition    = false
+    Camera:ResetPosition()
+    print("Funeral Scene Reset")
+    print("Camera.y_pos = " .. Camera.y_pos)
 
 end
 

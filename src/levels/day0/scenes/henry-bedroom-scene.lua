@@ -72,6 +72,7 @@ local function Room_CheckToDespawnAnna()
     RoomWorld:SetEntityToTrackForCamera(HenryChar)
     DataToSave.Day0Events["BedroomSceneConveration"] = true
     transition = {"src/levels/day0/scenes/day-one-transition"}
+    DataToSave.CurrentScene = "src/levels/day0/scenes/day-one-transition"
 
 end
 
@@ -175,6 +176,7 @@ function Scene.Reset()
     AnnaPathWalkerAwayFromHenry = nil
     TextTime = love.timer.getTime()
     Textidx  = 0
+    RoomWorld:SetEntityToTrackForCamera(RoomEntity)
 
 end
 

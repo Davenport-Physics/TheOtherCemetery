@@ -58,9 +58,8 @@ function DataToSave.ResetValues()
     DataToSave["CurrentCharacter"]         = "Henry"
     DataToSave["CurrentCoordinates"].x_pos = 0
     DataToSave["CurrentCoordinates"].y_pos = 0
-    DataToSave["CurrentScene"]             = "levels/day0/scenes/intro"
+    DataToSave["CurrentScene"]             = "src/levels/day0/scenes/intro"
     DataToSave["File"]                     =  ""
-
 
 end
 

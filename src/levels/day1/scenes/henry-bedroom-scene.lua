@@ -1,3 +1,5 @@
+local DataToSave = require("src/save/savingdata")
+
 local Scene = {}
 
 local Settings     = require("src/settings/settings")
@@ -22,8 +24,11 @@ local transition = false
 function Scene.Update()
 
     transition = Door_LeaveBedroom:CheckForCollision(HenryChar:GetCenterPosition())
+    if type(transition) == "table" then
+        DataToSave.CurrentScene = transition[1]
+    end
     RoomWorld:Update()
-    
+
 end
 
 function Scene.CanTransition()
@@ -51,6 +56,10 @@ function Scene.SetPlayerCharPosition(x_pos, y_pos)
     HenryChar.x_pos = x_pos
     HenryChar.y_pos = y_pos
     HenryChar:WalkDown(true)
+
+end
+
+function Scene.Reset()
 
 end
 

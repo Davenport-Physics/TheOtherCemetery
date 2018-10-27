@@ -1,3 +1,4 @@
+local DataToSave = require("src/save/savingdata")
 local Scene = {}
 
 local Settings       = require("src/settings/settings")
@@ -27,6 +28,10 @@ local function CheckDoorCollisions()
         transition = BedroomDoor:CheckForCollision(Henry:GetCenterPosition())
     elseif type(LeaveHouseDoor:CheckForCollision(Henry:GetCenterPosition())) == "table" then
         transition = LeaveHouseDoor:CheckForCollision(Henry:GetCenterPosition())
+    end
+
+    if type(transition) == table then
+        DataToSave.CurrentScene = transition[1]
     end
 
 end
@@ -62,6 +67,10 @@ function Scene.SetPlayerCharPosition(x_pos, y_pos)
     Henry.x_pos = x_pos
     Henry.y_pos = y_pos
     Henry:WalkDown(true)
+
+end
+
+function Scene.Reset()
 
 end
 

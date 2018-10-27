@@ -1,3 +1,5 @@
+local DataToSave = require("src/save/savingdata")
+
 local Scene = {}
 local Settings   = require("src/settings/settings")
 local transition = false
@@ -21,6 +23,7 @@ function Scene.Update()
     if video ~= nil and not video:isPlaying() then
         Settings.GlobalScaleOn = true
         transition = true
+        DataToSave.CurrentScene = "src/levels/day1/henry-bedroom-scene"
     end
 
 end

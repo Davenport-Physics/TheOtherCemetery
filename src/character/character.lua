@@ -1,3 +1,5 @@
+require("src/shared/cache")
+
 local Character = {}
 Character.__index = Character
 
@@ -29,7 +31,7 @@ function Character:new(character_image_file, x_pos, y_pos, width, height, displa
     local obj = {}
     setmetatable(obj, Character)
 
-    obj.character_image            = love.graphics.newImage(character_image_file)
+    obj.character_image            = getImageFromCache(character_image_file)
     obj.x_pos_orig, obj.y_pos_orig = x_pos, y_pos
     obj.x_pos, obj.y_pos           = x_pos, y_pos
     obj.width                      = width

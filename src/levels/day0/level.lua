@@ -7,9 +7,7 @@ local Scenes =
 
     "src/levels/day0/scenes/intro",
     "src/levels/day0/scenes/FuneralHome",
-    "src/levels/day0/scenes/henry-bedroom-scene",
-    --"src/levels/day0/scenes/runner-example",
-    --"src/levels/day0/scenes/battle-example"
+    "src/levels/day0/scenes/henry-bedroom-scene"
 
 }
 
@@ -27,6 +25,7 @@ local CanTransition = nil
 local function SetUpTransition()
 
     Scene = require(CanTransition[1])
+    Scene.Reset()
     if #CanTransition == 3 then
         Scene.SetPlayerCharPosition(CanTransition[2], CanTransition[3])
     end
@@ -36,18 +35,13 @@ end
 local function DetermineSceneFromSaveData()
 
     local temp_idx
-    if not DataToSave.Day0Events["BedroomSceneConveration"] then
-        temp_idx = 3
+    for i = 1, #Scenes do
+        if DataToSave.CurrentScene == Scenes[i] then
+            Scene = require(Scenes[i])
+            Scene.Reset()
+            return
+        end
     end
-    if not DataToSave.Day0Events["FuneralScenePlayed"] then
-        temp_idx = 2
-    end
-    if not DataToSave.Day0Events["IntroPlayed"] then
-        temp_idx = 1
-    end
-    print(tostring(DataToSave.Day0Events["BedroomSceneConveration"]))
-    Scene = require(Scenes[temp_idx])
-    Scene.Reset()
 
 end
 
