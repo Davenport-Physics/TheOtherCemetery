@@ -1,12 +1,14 @@
 local DataToSave = require("src/save/savingdata")
+local Shared     = require("src/shared/shared")
 local Scene = {}
 
-local Settings       = require("src/settings/settings")
-local EntityClass    = require("src/entity/entity")
-local WorldClass     = require("src/world/world")
-local DoorClass      = require("src/entity/door")
-local CharacterClass = require("src/character/character")
-local TiledMapClass  = require("src/map/tiledmap")
+local Settings        = require("src/settings/settings")
+local EntityClass     = require("src/entity/entity")
+local WorldClass      = require("src/world/world")
+local DoorClass       = require("src/entity/door")
+local CharacterClass  = require("src/character/character")
+local TiledMapClass   = require("src/map/tiledmap")
+local TextBubbleClass = require("src/character/textbubbles")
 
 local MapData = require("src/levels/day0/maps/city")
 local Map     = TiledMapClass:new(MapData)
@@ -35,9 +37,36 @@ function Scene.Update()
 
 end
 
+
+local DoNotGoInText =
+{
+    {x_pos = 23*16, y_pos = 59*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubbleSpeaking.png", "Locked...")},
+    {x_pos = 29*16, y_pos = 59*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubbleSpeaking.png", "Locked...")},
+    {x_pos = 35*16, y_pos = 59*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubbleSpeaking.png", "Locked...")},
+    {x_pos = 41*16, y_pos = 59*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubbleSpeaking.png", "Locked...")},
+    {x_pos = 16*16, y_pos = 40*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubbleSpeaking.png", "I shouldn't go here")},
+    {x_pos = 25*16, y_pos = 41*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubbleSpeaking.png", "I should go to school")},
+    {x_pos = 53*16, y_pos = 37*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubbleSpeaking.png", "...")},
+    {x_pos = 42*16, y_pos = 40*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubbleSpeaking.png", "I should go to school")},
+    {x_pos = 36*16, y_pos = 41*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubbleSpeaking.png", "I shouldn't go here")},
+
+}
+local function DrawHenryStopTextBubblesIfPossible()
+
+    for i = 1, #DoNotGoInText do
+
+        if Shared.IsNear(Henry.x_pos, Henry.y_pos, DoNotGoInText[i].x_pos, DoNotGoInText[i].y_pos, 16) then
+            DoNotGoInText[i].text:Draw()
+        end
+
+    end
+
+end
+
 function Scene.Draw()
 
     World:Draw()
+    DrawHenryStopTextBubblesIfPossible()
 
 end
 
