@@ -19,6 +19,17 @@ local NPCs  = {}
 local World = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)
 
+local ExitDoor = DoorClass:new(8*16, 14*16, 3*16, 16, "src/levels/day1/scenes/school", 7*16, 12*16)
+
+local function CheckForDoorTransitions()
+
+    transition = ExitDoor:CheckForCollision(Henry:GetCenterPosition())
+    if type(transition) == "table" then
+        DataToSave.CurrentScene = transition[1]
+    end
+
+end
+
 function Scene.Update()
 
     World:Update()
