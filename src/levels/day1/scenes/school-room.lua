@@ -10,16 +10,60 @@ local CharacterClass  = require("src/character/character")
 local TiledMapClass   = require("src/map/tiledmap")
 local WalkerClass     = require("src/characterwalker/walker-generic")
 local TextBubbleClass = require("src/character/textbubbles")
+local DialogClass     = require("src/dialog/dialog")
 
 local transition = false
 local Map        = TiledMapClass:new(require("src/levels/day1/maps/school-room"))
 
-local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 9*16, 13*16, 16, 17, 6, .05); Henry:WalkUp();
-local NPCs  = {}
-local World = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
-World:SetEntityToTrackForCamera(Henry)
+local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 9*16, 13*16, 16, 17, 4, .025); Henry:WalkUp();
+local NPCs  =
+{
+    CharacterClass:new("tiles/Characters/Males/M_05.png"  , 9*16, 7*16, 16, 17, 4, .025), -- Teacher
+    CharacterClass:new("tiles/Characters/Females/F_07.png", 7*16, 7*16, 16, 17, 4, .025),
+    CharacterClass:new("tiles/Characters/Females/F_06.png", 5*16, 7*16, 16, 17, 4, .025),
+    CharacterClass:new("tiles/Characters/Males/M_10.png"  , 3*16, 9*16, 16, 17, 4, .025),
+    CharacterClass:new("tiles/Characters/Males/M_04.png"  , 5*16, 11*16, 16, 17, 4, .025)
 
-local ExitDoor = DoorClass:new(8*16, 14*16, 3*16, 16, "src/levels/day1/scenes/school", 7*16, 12*16)
+}
+for i = 2, #NPCs do
+    NPCs[i]:WalkUp()
+end
+
+local StationaryEntity = EntityClass:newMinimal(9*16, 13*16)
+local World            = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
+World:SetEntityToTrackForCamera(StationaryEntity)
+World:SetHandleInputCallback(function() end)
+local ExitDoor         = DoorClass:new(8*16, 14*16, 3*16, 16, "src/levels/day1/scenes/school", 7*16, 12*16)
+
+local TextBubbles =
+{
+
+    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "He is next..."),
+    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "OH! Henry, why are you \nhere today?"),
+    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Shouldn’t you be at home \nresting after what happened?"),
+    TextBubbleClass:new(Henry,   "pics/share/text/TextBubble.png", "Who was he talking about..."),
+    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Well, take your seat Henry"),
+
+}
+
+local Dialog = DialogClass:new(TextBubbles, 3)
+
+local TextBoxEntity = EntityClass:newMinimal(0, 13*16)
+--"Now, who they made a deal with still remains a mystery, although we have our theories. It could be natives that had inhabited this region before, or maybe another force they had reckoned with. . ."
+local TextBox =
+{
+    TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "Our great founding fathers \nmade a deal..."),
+    TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "This deal has kept our town of \nwillowstead safe for over a century."),
+    TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "Our great founding fathers made a deal...\n"),
+}
+local TextBoxDialog = DialogClass:new(TextBox, 3)
+
+local HenryPathWalkerInstructions =
+{
+    {x = 11*16, y = 13*16},
+    {x = 11*16, y = 9*16}
+}
+local HenryPathWalker = WalkerClass:new(Henry, "path-walker", HenryPathWalkerInstructions)
 
 local function CheckForDoorTransitions()
 
@@ -30,16 +74,50 @@ local function CheckForDoorTransitions()
 
 end
 
+local function DrawDialogIfPossible()
+
+    if Dialog:IsFinished() then return end
+    Dialog:Draw()
+
+end
+
+local function DrawTeacherSecondDialogIfPossible()
+
+    if not HenryPathWalker:IsDoneWalking() and not TextBoxDialog:IsFinished() then
+        return
+    end
+    TextBoxDialog:Draw()
+
+end
+
+local function HandleIfHenryShouldWalk()
+
+    if not Dialog:IsFinished() or HenryPathWalker:IsDoneWalking() then
+        return
+    end
+    HenryPathWalker:Update()
+
+end
+
+local function HandleTransitionIfTeacherIsDoneTalkingAgain()
+
+end
+
 function Scene.Update()
 
     World:Update()
     CheckForDoorTransitions()
+    HandleIfHenryShouldWalk()
+    HandleTransitionIfTeacherIsDoneTalkingAgain()
 
 end
+
 
 function Scene.Draw()
 
     World:Draw()
+    DrawDialogIfPossible()
+    DrawTeacherSecondDialogIfPossible()
 
 end
 
@@ -64,7 +142,7 @@ function Scene.SetPlayerCharPosition(x_pos, y_pos)
     transition = false
     Henry.x_pos = x_pos
     Henry.y_pos = y_pos
-    Henry:WalkDown(true)
+    Henry:WalkUp(true)
 
 end
 
