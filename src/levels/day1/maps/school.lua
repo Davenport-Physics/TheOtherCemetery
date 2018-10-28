@@ -21,7 +21,7 @@ return {
       spacing = 1,
       margin = 0,
       columns = 37,
-      image = "../../../../tiles/Roguelike-Modern-City/Spritesheet/roguelikeCity_magenta.png",
+      image = "tiles/Roguelike-Modern-City/Spritesheet/roguelikeCity_magenta.png",
       imagewidth = 628,
       imageheight = 475,
       tileoffset = {
@@ -47,7 +47,7 @@ return {
       spacing = 1,
       margin = 0,
       columns = 57,
-      image = "../../../../tiles/Roguelike-pack/Spritesheet/roguelikeSheet_transparent.png",
+      image = "tiles/Roguelike-pack/Spritesheet/roguelikeSheet_transparent.png",
       imagewidth = 968,
       imageheight = 526,
       tileoffset = {

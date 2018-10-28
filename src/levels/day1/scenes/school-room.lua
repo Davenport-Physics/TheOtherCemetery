@@ -12,9 +12,9 @@ local WalkerClass     = require("src/characterwalker/walker-generic")
 local TextBubbleClass = require("src/character/textbubbles")
 
 local transition = false
-local Map        = TiledMapClass:new(require("src/levels/day1/maps/school"))
+local Map        = TiledMapClass:new(require("src/levels/day1/maps/school-room"))
 
-local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 7*16, 27*16, 16, 17, 6, .05); Henry:WalkUp();
+local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 9*16, 13*16, 16, 17, 6, .05); Henry:WalkUp();
 local NPCs  = {}
 local World = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)
@@ -22,6 +22,7 @@ World:SetEntityToTrackForCamera(Henry)
 function Scene.Update()
 
     World:Update()
+    CheckForDoorTransitions()
 
 end
 
