@@ -225,12 +225,15 @@ end
 
 function TiledMap:DrawMaps(DrawObjects, ra_x, ra_y)
 
+    local name
     for i = 1, #self.layers_tile_layer do
 
-        if not DrawObjects and self.layers_tile_layer[i].name ~= "Objects" then
+        name = self.layers_tile_layer[i].name
+        if not DrawObjects and name ~= "Objects" and name ~= "Objects Detail" then
             self:DrawLayer(self.layers_tile_layer[i], ra_x, ra_y)
-        end
-        if DrawObjects and self.layers_tile_layer[i].name == "Objects" then
+        elseif DrawObjects and name == "Objects" and name ~= "Objects Detail" then
+            self:DrawLayer(self.layers_tile_layer[i], ra_x, ra_y)
+        elseif DrawObjects and name == "Objects Detail" then
             self:DrawLayer(self.layers_tile_layer[i], ra_x, ra_y)
         end
 
