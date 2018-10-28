@@ -22,7 +22,7 @@ local NPCs =
 {
 
     CharacterClass:new("tiles/Characters/Males/M_05.png", 33*16, 62*16, 16, 17, 4, .05),   -- Key Person
-    CharacterClass:new("tiles/Characters/Females/F_08.png", 20*16, 43*16, 16, 17, 4, .05), -- Going To Work
+    CharacterClass:new("tiles/Characters/Females/F_08.png", 24*16, 43*16, 16, 17, 4, .05), -- Going To Work
     CharacterClass:new("tiles/Characters/Females/F_07.png", 33*16, 39*16, 16, 17, 4, .05), -- Kid Going To School
 
 }
@@ -68,7 +68,7 @@ local function DoorCollisionChecks()
         transition = HomeDoor:CheckForCollision(Henry:GetCenterPosition())
         DataToSave.CurrentScene = transition[1]
     elseif type(SchoolDoor:CheckForCollision(Henry:GetCenterPosition())) == "table" then
-        transition = HomeDoor:CheckForCollision(Henry:GetCenterPosition())
+        transition = SchoolDoor:CheckForCollision(Henry:GetCenterPosition())
         DataToSave.CurrentScene = transition[1]
     end
 
@@ -90,7 +90,7 @@ end
 local function NPCWalkerConditions()
 
     for i = 1, #NPCWalkersCanWalk do
-        if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[i+1].x_pos, NPCs[i+1].y_pos, 100) then
+        if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[i+1].x_pos, NPCs[i+1].y_pos, 144) then
             NPCWalkersCanWalk[i] = true
         end
     end
