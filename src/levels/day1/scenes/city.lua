@@ -15,8 +15,8 @@ local MapData = require("src/levels/day0/maps/city")
 local Map     = TiledMapClass:new(MapData)
 local Henry   = CharacterClass:new("tiles/Characters/Males/M_08.png", 49 * 16, 62 * 16, 16, 17, 6, .05);
 
-local HomeDoor   = DoorClass:new(49 * 16, 60 * 16, 16, 16, "src/levels/day1/scenes/home-lobby", 2*16, 7*16)
-local SchoolDoor = DoorClass:new(36 * 16, 5 * 16, 2*16, 16, "src/levels/day1/scenes/school", PLACEHOLDER)
+local HomeDoor   = DoorClass:new(49 * 16, 60 * 16, 16, 16,  "src/levels/day1/scenes/home-lobby", 2*16, 7*16)
+local SchoolDoor = DoorClass:new(36 * 16, 5 * 16, 2*16, 16, "src/levels/day1/scenes/school",   7*16, 27*16)
 
 local NPCs =
 {
@@ -64,8 +64,11 @@ local transition = false
 
 local function DoorCollisionChecks()
 
-    transition = HomeDoor:CheckForCollision(Henry:GetCenterPosition())
-    if type(transition) == "table" then
+    if type(HomeDoor:CheckForCollision(Henry:GetCenterPosition())) == "table" then
+        transition = HomeDoor:CheckForCollision(Henry:GetCenterPosition())
+        DataToSave.CurrentScene = transition[1]
+    elseif type(SchoolDoor:CheckForCollision(Henry:GetCenterPosition())) == "table" then
+        transition = HomeDoor:CheckForCollision(Henry:GetCenterPosition())
         DataToSave.CurrentScene = transition[1]
     end
 
