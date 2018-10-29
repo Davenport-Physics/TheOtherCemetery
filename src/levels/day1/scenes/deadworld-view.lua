@@ -15,6 +15,7 @@ local CameraClass     = require("src/camera/camera")
 
 local BackgroundWindSound = getSoundFromCache("sound/ambiance/creepy-wind/creepy-wind-a.wav")
 local BackgroundDeadSound = getSoundFromCache("sound/ambiance/moaning-dead/moaning-of-the-dead-a.wav")
+local Knocking            = nil
 
 local cameras     =
 {
@@ -46,6 +47,12 @@ end
 local function MoveCameraTwo()
 
     cameras[2]:Update()
+    if cameras[2].y_pos <= 12*16 and Knocking == nil then
+        Knocking = getSoundFromCache("sound/shorts/knock-with-urgency.wav")
+        Knocking:setVolume(.5)
+        Knocking:setLooping(true)
+        Knocking:play()
+    end
     if cameras[2].y_pos <= 10*16 then
         should_cameras_pan[2] = false
     end
@@ -59,7 +66,7 @@ local function MoveCameras()
     elseif should_cameras_pan[2] then
         MoveCameraTwo()
     else
-        transition = {"something"}
+        transition = {"src/levels/day1/scenes/school-room-after-dead"}
     end
 
 end
@@ -99,6 +106,9 @@ end
 
 function Scene.CanTransition()
 
+    if type(transition) == "table" then
+        love.audio.stop()
+    end
     return transition
 
 end

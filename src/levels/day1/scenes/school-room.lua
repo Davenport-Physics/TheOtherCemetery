@@ -11,6 +11,9 @@ local TiledMapClass   = require("src/map/tiledmap")
 local WalkerClass     = require("src/characterwalker/walker-generic")
 local TextBubbleClass = require("src/character/textbubbles")
 local DialogClass     = require("src/dialog/dialog")
+local CameraClass     = require("src/camera/camera")
+
+local SleepCam        = nil --CameraClass:new(9*16, 10*16, .25, 0, .0125)
 
 local transition = false
 local Map        = TiledMapClass:new(require("src/levels/day1/maps/school-room"))
@@ -59,7 +62,7 @@ local TextBox =
     TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "or maybe another force entirely..."),
 
 }
-local TextBoxDialog = DialogClass:new(TextBox, 3)
+local TextBoxDialog = DialogClass:new(TextBox, 4)
 
 local HenryPathWalkerInstructions =
 {
@@ -110,12 +113,25 @@ local function HandleTransitionIfTeacherIsDoneTalkingAgain()
 
 end
 
+local function UpdateSleepCam()
+
+    if not HenryPathWalker:IsDoneWalking() then return end
+    if SleepCam == nil then
+        SleepCam = CameraClass:new(9*16, 10*16, .35, 0, .0125)
+        World:SetEntityToTrackForCamera(SleepCam)
+    end
+    SleepCam:Update()
+
+
+end
+
 function Scene.Update()
 
     World:Update()
     CheckForDoorTransitions()
     HandleIfHenryShouldWalk()
     HandleTransitionIfTeacherIsDoneTalkingAgain()
+    UpdateSleepCam()
 
 end
 
