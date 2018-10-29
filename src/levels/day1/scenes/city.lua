@@ -13,6 +13,7 @@ local WalkerClass     = require("src/characterwalker/walker-generic")
 local TextBubbleClass = require("src/character/textbubbles")
 
 local BackgroundSound = getSoundFromCache("sound/ambiance/city.wav")
+local SchoolBell      = nil--
 
 local MapData = require("src/levels/day0/maps/city")
 local Map     = TiledMapClass:new(MapData)
@@ -64,6 +65,19 @@ local World   = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)
 
 local transition = false
+
+local function CheckIfNearSchoolDoor()
+
+    if SchoolBell ~= nil then return end
+    if math.sqrt((Henry.x_pos - 36 * 16)^2 + (Henry.y_pos - 5 * 16)^2) < 200 then
+
+        SchoolBell = getSoundFromCache("sound/shorts/school-bell.wav")
+        SchoolBell:setVolume(.5)
+        SchoolBell:play()
+
+    end
+
+end
 
 local function DoorCollisionChecks()
 
@@ -121,6 +135,7 @@ function Scene.Update()
     DoorCollisionChecks()
     NPCUpdates()
     SoundUpdates()
+    CheckIfNearSchoolDoor()
 
 end
 
