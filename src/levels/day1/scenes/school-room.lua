@@ -54,7 +54,10 @@ local TextBox =
 {
     TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "Our great founding fathers \nmade a deal..."),
     TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "This deal has kept our town of \nwillowstead safe for over a century."),
-    TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "Our great founding fathers made a deal...\n"),
+    TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "Now, who they made a deal with \nstill remains a mystery, although we \nhave our theories."),
+    TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "It could be natives that had inhabited this region before"),
+    TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "or maybe another force entirely..."),
+
 }
 local TextBoxDialog = DialogClass:new(TextBox, 3)
 
