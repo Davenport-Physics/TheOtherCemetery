@@ -104,6 +104,10 @@ end
 
 local function HandleTransitionIfTeacherIsDoneTalkingAgain()
 
+    if TextBoxDialog:IsFinished() then
+        transition = {"src/levels/day1/scenes/deadworld-view"}
+    end
+
 end
 
 function Scene.Update()

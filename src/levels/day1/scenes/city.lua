@@ -1,3 +1,4 @@
+require("src/shared/cache")
 local DataToSave = require("src/save/savingdata")
 local Shared     = require("src/shared/shared")
 local Scene = {}
@@ -10,6 +11,8 @@ local CharacterClass  = require("src/character/character")
 local TiledMapClass   = require("src/map/tiledmap")
 local WalkerClass     = require("src/characterwalker/walker-generic")
 local TextBubbleClass = require("src/character/textbubbles")
+
+local BackgroundSound = getSoundFromCache("sound/ambiance/city.wav")
 
 local MapData = require("src/levels/day0/maps/city")
 local Map     = TiledMapClass:new(MapData)
@@ -104,11 +107,20 @@ local function NPCUpdates()
 
 end
 
+local function SoundUpdates()
+    if not BackgroundSound:isPlaying() then
+        BackgroundSound:setVolume(.5)
+        BackgroundSound:setLooping(true)
+        BackgroundSound:play()
+    end
+end
+
 function Scene.Update()
 
     World:Update()
     DoorCollisionChecks()
     NPCUpdates()
+    SoundUpdates()
 
 end
 
