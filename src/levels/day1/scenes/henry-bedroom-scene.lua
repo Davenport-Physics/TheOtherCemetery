@@ -1,6 +1,6 @@
+require("src/shared/cache")
 local DataToSave = require("src/save/savingdata")
-
-local Scene = {}
+local Scene      = {}
 
 local Settings     = require("src/settings/settings")
 local WorldClass   = require("src/world/world")
@@ -13,6 +13,8 @@ local MapData        = require("src/levels/day0/maps/henry-bedroom")
 local TiledMapClass  = require("src/map/tiledmap")
 local TiledMap       = TiledMapClass:new(MapData)
 
+local BackgroundSound = getSoundFromCache("sound/ambiance/home/home.mp3")
+
 local HenryChar = CharacterClass:new("tiles/Characters/Males/M_08.png", 3*16, 5*16, 16, 17, 6, .05); HenryChar:WalkRight(true);
 
 local RoomWorld  = WorldClass:new(TiledMap, {}, HenryChar, TiledMap:GetCollisionObjects())
@@ -21,6 +23,15 @@ RoomWorld:SetEntityToTrackForCamera(HenryChar)
 local Door_LeaveBedroom = DoorClass:new(7*16, 3*16, 16, 16, "src/levels/day1/scenes/home-lobby", 2*16, 6*16)
 
 local transition = false
+
+local function UpdateSounds()
+
+    if not BackgroundSound:isPlaying() then
+        BackgroundSound:setVolume(.5)
+        BackgroundSound:play()
+    end
+
+end
 function Scene.Update()
 
     transition = Door_LeaveBedroom:CheckForCollision(HenryChar:GetCenterPosition())
@@ -28,6 +39,7 @@ function Scene.Update()
         DataToSave.CurrentScene = transition[1]
     end
     RoomWorld:Update()
+    UpdateSounds()
 
 end
 

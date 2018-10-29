@@ -29,7 +29,7 @@ for i = 2, #NPCs do
     NPCs[i]:WalkUp()
 end
 
-local StationaryEntity = EntityClass:newMinimal(9*16, 13*16)
+local StationaryEntity = EntityClass:newMinimal(9*16, 10*16)
 local World            = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(StationaryEntity)
 World:SetHandleInputCallback(function() end)
@@ -54,8 +54,8 @@ local TextBox =
 {
     TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "Our great founding fathers \nmade a deal..."),
     TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "This deal has kept our town of \nwillowstead safe for over a century."),
-    TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "Now, who they made a deal with \nstill remains a mystery, although we \nhave our theories."),
-    TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "It could be natives that had inhabited this region before"),
+    TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "Now, who they made a deal with \nstill remains a mystery, although \nwe have our theories."),
+    TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "It could be natives that had \ninhabited this region before"),
     TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "or maybe another force entirely..."),
 
 }

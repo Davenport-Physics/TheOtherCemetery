@@ -22,6 +22,8 @@ World:SetEntityToTrackForCamera(Henry)
 local BedroomDoor    = DoorClass:new(2*16, 5*16, 16, 16, "src/levels/day1/scenes/henry-bedroom-scene", 7*16, 4*16)
 local LeaveHouseDoor = DoorClass:new(2*16, 8*16, 2*16, 16, "src/levels/day1/scenes/city", 49 * 16, 61 * 16)
 
+local BackgroundSound = getSoundFromCache("sound/ambiance/home/home.mp3")
+
 local transition = false
 
 local function CheckDoorCollisions()
@@ -47,10 +49,20 @@ local function CheckIfPlayerIsCloseToAnna()
 
 end
 
+local function UpdateSounds()
+
+    if not BackgroundSound:isPlaying() then
+        BackgroundSound:setVolume(.5)
+        BackgroundSound:play()
+    end
+
+end
+
 function Scene.Update()
 
     World:Update()
     CheckDoorCollisions()
+    UpdateSounds()
 
 end
 

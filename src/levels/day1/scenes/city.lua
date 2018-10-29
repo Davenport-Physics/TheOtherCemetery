@@ -202,6 +202,10 @@ end
 
 function Scene.CanTransition()
 
+    if type(transition) == "table" then
+        love.audio.stop()
+    end
+
     return transition
 
 end
@@ -216,7 +220,7 @@ function Scene.SetPlayerCharPosition(x_pos, y_pos)
 end
 
 function Scene.Reset()
-
+    love.audio.stop()
 end
 
 return Scene

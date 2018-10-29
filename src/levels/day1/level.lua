@@ -23,7 +23,6 @@ local CanTransition = nil
 local function SetUpTransition()
 
     Scene = require(CanTransition[1])
-    love.audio.stop()
     Scene.Reset()
     if #CanTransition == 3 then
         Scene.SetPlayerCharPosition(CanTransition[2], CanTransition[3])
