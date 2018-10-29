@@ -93,6 +93,7 @@ end
 
 function love.load()
 
+    collectgarbage("setpause", 50)
     LoadSettings()
     love.graphics.setDefaultFilter( "nearest", "nearest", 16 )
     StartMenuMusic_Start()

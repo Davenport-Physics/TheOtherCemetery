@@ -1,3 +1,4 @@
+require("src/shared/cache")
 local DataToSave = require("src/save/savingdata")
 local Shared     = require("src/shared/shared")
 local Scene = {}
@@ -13,6 +14,8 @@ local TextBubbleClass = require("src/character/textbubbles")
 
 local transition = false
 local Map        = TiledMapClass:new(require("src/levels/day1/maps/school"))
+
+local BackgroundMusic = getStreamSoundFromCache("sound/ambiance/school/school.wav")
 
 local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 7*16, 27*16, 16, 17, 6, .05); Henry:WalkUp();
 local NPCs  = {}
@@ -34,11 +37,22 @@ local function CheckForDoorTransitions()
 
 end
 
+local function UpdateSounds()
+
+    if not BackgroundMusic:isPlaying() then
+        BackgroundMusic:setVolume(1)
+        BackgroundMusic:setLooping(true)
+        BackgroundMusic:play()
+    end
+
+end
+
 
 function Scene.Update()
 
     World:Update()
     CheckForDoorTransitions()
+    UpdateSounds()
 
 end
 
@@ -56,6 +70,9 @@ end
 
 function Scene.CanTransition()
 
+    if type(transition) == "table" then
+        love.audio.stop()
+    end
     return transition
 
 end

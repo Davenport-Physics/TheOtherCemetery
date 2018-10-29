@@ -1,3 +1,4 @@
+require("src/shared/cache")
 local DataToSave = require("src/save/savingdata")
 local Shared     = require("src/shared/shared")
 local Scene = {}
@@ -17,6 +18,8 @@ local SleepCam        = nil --CameraClass:new(9*16, 10*16, .25, 0, .0125)
 
 local transition = false
 local Map        = TiledMapClass:new(require("src/levels/day1/maps/school-room"))
+
+local BackgroundMusic = getStreamSoundFromCache("sound/ambiance/school/school.wav")
 
 local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 9*16, 13*16, 16, 17, 4, .025); Henry:WalkUp();
 local NPCs  =
@@ -117,11 +120,21 @@ local function UpdateSleepCam()
 
     if not HenryPathWalker:IsDoneWalking() then return end
     if SleepCam == nil then
-        SleepCam = CameraClass:new(9*16, 10*16, .35, 0, .0125)
+        SleepCam = CameraClass:new(9*16, 10*16, .1, 0, .0125)
         World:SetEntityToTrackForCamera(SleepCam)
     end
     SleepCam:Update()
 
+
+end
+
+local function UpdateSounds()
+
+    if not BackgroundMusic:isPlaying() then
+        BackgroundMusic:setVolume(1)
+        BackgroundMusic:setLooping(true)
+        BackgroundMusic:play()
+    end
 
 end
 
@@ -132,6 +145,7 @@ function Scene.Update()
     HandleIfHenryShouldWalk()
     HandleTransitionIfTeacherIsDoneTalkingAgain()
     UpdateSleepCam()
+    UpdateSounds()
 
 end
 
@@ -152,6 +166,9 @@ end
 
 function Scene.CanTransition()
 
+    if type(transition) == "table" then
+        love.audio.stop()
+    end
     return transition
 
 end
