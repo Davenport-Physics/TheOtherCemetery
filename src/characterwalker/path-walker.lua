@@ -7,6 +7,7 @@ function PathWalker:new(char, walker_instructions)
     setmetatable(obj, PathWalker)
     obj.char = char
     obj.walker_instructions = walker_instructions
+    obj.point_threshold     = .5
     obj:Init()
 
     return obj
@@ -69,9 +70,13 @@ end
 
 function PathWalker:CheckForSpecificPointMade(idx)
 
-    if self.char.x_pos == self.path[idx].x and self.char.y_pos == self.path[idx].y then
-        self.point_made[idx] = true
+    if math.abs(self.char.x_pos - self.path[idx].x) > self.point_threshold then
+        return
     end
+    if math.abs(self.char.y_pos - self.path[idx].y) > self.point_threshold then
+        return
+    end
+    self.point_made[idx] = true
 
 end
 
