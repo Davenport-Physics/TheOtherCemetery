@@ -1,14 +1,16 @@
+require("src/shared/cache")
 local DataToSave = require("src/save/savingdata")
 local Shared     = require("src/shared/shared")
 local Scene = {}
 
-local Settings       = require("src/settings/settings")
-local EntityClass    = require("src/entity/entity")
-local WorldClass     = require("src/world/world")
-local DoorClass      = require("src/entity/door")
-local CharacterClass = require("src/character/character")
-local TiledMapClass  = require("src/map/tiledmap")
+local Settings        = require("src/settings/settings")
+local EntityClass     = require("src/entity/entity")
+local WorldClass      = require("src/world/world")
+local DoorClass       = require("src/entity/door")
+local CharacterClass  = require("src/character/character")
+local TiledMapClass   = require("src/map/tiledmap")
 local TextBubbleClass = require("src/character/textbubbles")
+local DialogClass     = require("src/dialog/dialog")
 
 local MapData = require("src/levels/day0/maps/home-lobby")
 local Map     = TiledMapClass:new(MapData)
@@ -24,8 +26,10 @@ local LeaveHouseDoor = DoorClass:new(2*16, 8*16, 2*16, 16, "src/levels/day1/scen
 
 local BackgroundSound = getSoundFromCache("sound/ambiance/home/home.mp3")
 
-local transition = false
+local SecondaryConversationStarted = false
+local FrozeHenry                   = false
 
+local transition = false
 local function CheckDoorCollisions()
 
     if type(BedroomDoor:CheckForCollision(Henry:GetCenterPosition())) == "table" then
@@ -41,11 +45,41 @@ local function CheckDoorCollisions()
 end
 
 local LoveYouText = TextBubbleClass:new(Anna, "pics/share/text/TextBubbleSpeaking.png", "Have a good day at school!", 7)
+
+local TextBetweenHenryAndMom =
+{
+
+    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "Hey! Did you have a good \nday at school?"),
+    TextBubbleClass:new(Henry, "pics/share/text/TextBubbleSpeaking.png", "It. . . was okay."),
+    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "Well that’s good to hear."),
+    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I had a fairly weird day myself."),
+    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I went to the grocery store \nto get some food and"),
+    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "as I was going to checkout,"),
+    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I realized there wasn’t anyone \nin the store"),
+    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I thought I had saw a clerk or \ntwo when I entered, but \nI don’t know. . ."),
+    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "Anyways, I’m going to make dinner \nin an hour."),
+    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "So if you any homework or if you \nwant to go play outside, now’s your chance"),
+}
+local DialogBetweenHenryAndMom = DialogClass:new(TextBetweenHenryAndMom, 3.25)
+
+local function DrawTextFromAnna()
+
+    if not DataToSave["Day1Events"].WentToSchool then
+        LoveYouText:Draw()
+    elseif not SecondaryConversationStarted then
+        SecondaryConversationStarted = true
+    elseif not DialogBetweenHenryAndMom:IsFinished() then
+        DialogBetweenHenryAndMom:Draw()
+    end
+
+end
+
 local function CheckIfPlayerIsCloseToAnna()
 
-    if Shared.IsNear(Henry.x_pos, Henry.y_pos, Anna.x_pos, Anna.y_pos, 64) and not DataToSave["Day1Events"].WentToSchool then
-        LoveYouText:Draw()
+    if not Shared.IsNear(Henry.x_pos, Henry.y_pos, Anna.x_pos, Anna.y_pos, 64) then
+        return
     end
+    DrawTextFromAnna()
 
 end
 
@@ -58,11 +92,25 @@ local function UpdateSounds()
 
 end
 
+local function UpdateHenryForFreezing()
+
+    if not SecondaryConversationStarted then return end
+    if not FrozeHenry then
+        FrozeHenry = true
+        World:SetHandleInputCallback(function() end)
+    end
+    if DialogBetweenHenryAndMom:IsFinished() then
+        World:SetHandleInputCallback(nil)
+    end
+
+end
+
 function Scene.Update()
 
     World:Update()
     CheckDoorCollisions()
     UpdateSounds()
+    UpdateHenryForFreezing()
 
 end
 
@@ -87,7 +135,7 @@ end
 
 function Scene.SetPlayerCharPosition(x_pos, y_pos)
 
-    transition = false
+    transition  = false
     Henry.x_pos = x_pos
     Henry.y_pos = y_pos
     Henry:WalkDown(true)
