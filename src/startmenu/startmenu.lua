@@ -11,7 +11,9 @@ local Buttons =
     LoadGame = ButtonClass:newImage("pics/startmenu/loadgame.png", 200, 450),
     Credits  = ButtonClass:newImage("pics/startmenu/credits.png", 375, 450),
     Options  = ButtonClass:newImage("pics/startmenu/options.png", 550, 450),
-    Quit     = ButtonClass:newImage("pics/startmenu/quit.png", 625, 20)
+    Quit     = ButtonClass:newImage("pics/startmenu/quit.png", 625, 20),
+    Twitter  = ButtonClass:newImage("pics/social/twitter.png", 125, 550),
+    Website  = ButtonClass:newImage("pics/social/Website.png", 300, 542.5),
 
 }
 Buttons.NewGame:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
@@ -37,6 +39,8 @@ function InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, 
     Buttons.LoadGame:SetCallback(LoadGame)
     Buttons.Credits:SetCallback(Credits)
     Buttons.Quit:SetCallback(Quit)
+    Buttons.Twitter:SetCallback(function() love.system.openURL("https://twitter.com/DSectorStudios") end)
+    Buttons.Website:SetCallback(function() love.system.openURL("https://www.darksectorstudios.com/") end)
 
 end
 
@@ -71,6 +75,8 @@ local function DrawButtons()
     Buttons.Credits:Draw()
     Buttons.Options:Draw()
     Buttons.Quit:Draw()
+    Buttons.Twitter:Draw()
+    Buttons.Website:Draw()
 
 end
 
@@ -85,6 +91,8 @@ function Update_StartMenu()
     Buttons.Credits.x_pos  = Buttons.LoadGame.x_pos + 175
     Buttons.Options.x_pos  = Buttons.Credits.x_pos  + 175
     Buttons.Quit.x_pos     = Buttons.Options.x_pos
+    --Buttons.Twitter.x_pos  = Buttons.Twitter.x_pos  + 175
+    --Buttons.Website.x_pos  = Buttons.Website.x_pos  + 175
 
 end
 

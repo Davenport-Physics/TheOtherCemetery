@@ -94,6 +94,7 @@ end
 function love.load()
 
     collectgarbage("setpause", 50)
+    --love.system.openURL("https://www.darksectorstudios.com/")
     LoadSettings()
     love.graphics.setDefaultFilter( "nearest", "nearest", 16 )
     StartMenuMusic_Start()
