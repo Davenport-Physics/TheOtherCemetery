@@ -43,7 +43,7 @@ end
 local LoveYouText = TextBubbleClass:new(Anna, "pics/share/text/TextBubbleSpeaking.png", "Have a good day at school!", 7)
 local function CheckIfPlayerIsCloseToAnna()
 
-    if Shared.IsNear(Henry.x_pos, Henry.y_pos, Anna.x_pos, Anna.y_pos, 64) then
+    if Shared.IsNear(Henry.x_pos, Henry.y_pos, Anna.x_pos, Anna.y_pos, 64) and not DataToSave["Day1Events"].WentToSchool then
         LoveYouText:Draw()
     end
 

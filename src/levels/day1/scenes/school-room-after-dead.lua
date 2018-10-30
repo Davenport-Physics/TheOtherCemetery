@@ -18,14 +18,15 @@ local transition       = false
 local Map              = TiledMapClass:new(require("src/levels/day1/maps/school-room"))
 local StationaryEntity = EntityClass:newMinimal(9*16, 10*16)
 
-local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 11*16, 9*16, 16, 17, 6, .05); Henry:WalkUp();
+local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 12*16, 9*16, 16, 17, 6, .05); Henry:WalkUp();
 local NPCs  =
 {
-    CharacterClass:new("tiles/Characters/Males/M_05.png"  , 10*16, 9*16, 16, 17, 4, .025),
+    CharacterClass:new("tiles/Characters/Males/M_05.png"  , 11*16, 9*16, 16, 17, 4, .025),
 }
 NPCs[1]:WalkRight()
 local World = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(StationaryEntity)
+World:SetHandleInputCallback(function() end)
 
 local TextAfterWakingUp =
 {
@@ -36,11 +37,26 @@ local TextAfterWakingUp =
 local Dialog = DialogClass:new(TextAfterWakingUp, 3)
 local CameraTrackingChanged = false
 
+local ExitDoor = DoorClass:new(9*16, 14*16, 3*16, 16, "src/levels/day1/scenes/school", 7*16, 12*16)
+
+local function CheckForDoorTransitions()
+
+    transition = ExitDoor:CheckForCollision(Henry:GetCenterPosition())
+    if type(transition) == "table" then
+        DataToSave.CurrentScene = transition[1]
+    end
+
+end
+
 local function SwitchCameraTrackingToHenryIfPossible()
 
     if Dialog:IsFinished() and not CameraTrackingChanged then
+
         World:SetEntityToTrackForCamera(Henry)
         CameraTrackingChanged = true
+        DataToSave["Day1Events"].WentToSchool = true
+        World:SetHandleInputCallback(nil)
+
     end
 
 end
@@ -57,6 +73,7 @@ function Scene.Update()
 
     World:Update()
     SwitchCameraTrackingToHenryIfPossible()
+    CheckForDoorTransitions()
 
 end
 

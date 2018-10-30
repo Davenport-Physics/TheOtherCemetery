@@ -21,14 +21,14 @@ local Map        = TiledMapClass:new(require("src/levels/day1/maps/school-room")
 
 local BackgroundMusic = getStreamSoundFromCache("sound/ambiance/school/school.wav")
 
-local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 9*16, 13*16, 16, 17, 4, .025); Henry:WalkUp();
+local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 10*16, 13*16, 16, 17, 4, .025); Henry:WalkUp();
 local NPCs  =
 {
-    CharacterClass:new("tiles/Characters/Males/M_05.png"  , 9*16, 7*16, 16, 17, 4, .025), -- Teacher
-    CharacterClass:new("tiles/Characters/Females/F_07.png", 7*16, 7*16, 16, 17, 4, .025),
-    CharacterClass:new("tiles/Characters/Females/F_06.png", 5*16, 7*16, 16, 17, 4, .025),
-    CharacterClass:new("tiles/Characters/Males/M_10.png"  , 3*16, 9*16, 16, 17, 4, .025),
-    CharacterClass:new("tiles/Characters/Males/M_04.png"  , 5*16, 11*16, 16, 17, 4, .025)
+    CharacterClass:new("tiles/Characters/Males/M_05.png"  , 10*16, 7*16, 16, 17, 4, .025), -- Teacher
+    CharacterClass:new("tiles/Characters/Females/F_07.png", 8*16, 7*16, 16, 17, 4, .025),
+    CharacterClass:new("tiles/Characters/Females/F_06.png", 6*16, 7*16, 16, 17, 4, .025),
+    CharacterClass:new("tiles/Characters/Males/M_10.png"  , 4*16, 9*16, 16, 17, 4, .025),
+    CharacterClass:new("tiles/Characters/Males/M_04.png"  , 6*16, 11*16, 16, 17, 4, .025)
 
 }
 for i = 2, #NPCs do
@@ -39,7 +39,7 @@ local StationaryEntity = EntityClass:newMinimal(9*16, 10*16)
 local World            = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(StationaryEntity)
 World:SetHandleInputCallback(function() end)
-local ExitDoor         = DoorClass:new(8*16, 14*16, 3*16, 16, "src/levels/day1/scenes/school", 7*16, 12*16)
+local ExitDoor         = DoorClass:new(9*16, 14*16, 3*16, 16, "src/levels/day1/scenes/school", 7*16, 12*16)
 
 local TextBubbles =
 {
@@ -54,7 +54,7 @@ local TextBubbles =
 
 local Dialog = DialogClass:new(TextBubbles, 3)
 
-local TextBoxEntity = EntityClass:newMinimal(0, 13*16)
+local TextBoxEntity = EntityClass:newMinimal(16, 13*16)
 --"Now, who they made a deal with still remains a mystery, although we have our theories. It could be natives that had inhabited this region before, or maybe another force they had reckoned with. . ."
 local TextBox =
 {
@@ -69,8 +69,8 @@ local TextBoxDialog = DialogClass:new(TextBox, 4)
 
 local HenryPathWalkerInstructions =
 {
-    {x = 11*16, y = 13*16},
-    {x = 11*16, y = 9*16}
+    {x = 12*16, y = 13*16},
+    {x = 12*16, y = 9*16}
 }
 local HenryPathWalker = WalkerClass:new(Henry, "path-walker", HenryPathWalkerInstructions)
 

@@ -168,17 +168,9 @@ end
 local KeyNPCText = TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "What is wrong ... OPEN!")
 local function DrawKeyNPCTextIfPossible()
 
+    if not NPCs[1].allow_drawing then return end
     if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[1].x_pos, NPCs[1].y_pos, 100) then
         KeyNPCText:Draw()
-    end
-
-end
-
-local KidNPCText = TextBubbleClass:new(NPCs[3], "pics/share/text/TextBubbleSpeaking.png", "Gahh, I'm going to be late!")
-local function DrawKidNPCTextIfPossible()
-
-    if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[3].x_pos, NPCs[3].y_pos, 100) and NPCs[3].allow_drawing then
-        KidNPCText:Draw()
     end
 
 end
@@ -186,18 +178,38 @@ end
 local AdultGoingToWorkText = TextBubbleClass:new(NPCs[2], "pics/share/text/TextBubbleSpeaking.png", "NEED COFFEE")
 local function DrawAdultTextIfPossible()
 
+    if not NPCs[2].allow_drawing then return end
     if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[2].x_pos, NPCs[2].y_pos, 100) and NPCs[2].allow_drawing then
         AdultGoingToWorkText:Draw()
     end
 
 end
 
+local KidNPCText = TextBubbleClass:new(NPCs[3], "pics/share/text/TextBubbleSpeaking.png", "Gahh, I'm going to be late!")
+local function DrawKidNPCTextIfPossible()
+
+    if not NPCs[3].allow_drawing then return end
+    if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[3].x_pos, NPCs[3].y_pos, 100) and NPCs[3].allow_drawing then
+        KidNPCText:Draw()
+    end
+
+end
 
 local function DrawNPCTextIfPossible()
 
     DrawKeyNPCTextIfPossible()
     DrawAdultTextIfPossible()
     DrawKidNPCTextIfPossible()
+
+end
+
+local function StopDrawingNPCs()
+
+    for i = 1, #NPCWalkers do
+        NPCWalkersCanWalk[i] = false
+        NPCs[i+1]:AllowDrawing(false)
+    end
+    NPCs[1]:AllowDrawing(false)
 
 end
 
@@ -235,7 +247,12 @@ function Scene.SetPlayerCharPosition(x_pos, y_pos)
 end
 
 function Scene.Reset()
+
     love.audio.stop()
+    if DataToSave["Day1Events"].WentToSchool then
+        StopDrawingNPCs()
+    end
+
 end
 
 return Scene
