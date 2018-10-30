@@ -1,8 +1,9 @@
 require("src/shared/cache")
 local BackGroundImage = getImageFromCache("tiles/autumn-platformer-tileset/png/elements/background.png")
-local CreditMusic     = love.audio.newSource("sound/credits/credits.ogg", "static")
+local CreditMusic     = love.audio.newSource("sound/credits/credits.ogg", "stream")
 
 local next_time_to_draw_scrawl = love.timer.getTime()
+local Font                     = love.graphics.newFont(15)
 
 local CharacterClass  = require("src/character/character")
 local FemaleCharacter = CharacterClass:new("tiles/Characters/Females/F_01.png", 300, 300, 16, 17)
@@ -47,10 +48,13 @@ end
 local People =
 {
 
-    ["Lead Developer"] = "Emma Marie Davenport",
-    ["Lead Designer"]  = "Emma Marie Davenport",
-    ["Artists"]        = "Various Sources",
-    ["Music & Sounds"] = "Various Sources"
+    {Title = "Lead Developer" , Credit = "Emma Marie Davenport"},
+    {Title = "Lead Designer"  , Credit = "Emma Marie Davenport"},
+    {Title = "Lead Writer"    , Credit = "Emma Marie Davenport"},
+    {Title = "Lead Everything", Credit = "Emma Marie Davenport"},
+    {Title = "", Credit = ""},
+    {Title = "Special Thanks to", Credit = "Friends and Family"},
+    {Title = "Special Thanks to", Credit = "You, the player!"},
 
 }
 
@@ -80,11 +84,12 @@ local function DrawCreditsScrawl()
 
     local half_window_width = math.floor((love.graphics.getWidth()-50)*.5)
     local displacement = 0
-    for title, person in pairs(People) do
+    love.graphics.setFont(Font)
+    for i = 1, #People do
 
-        love.graphics.print(title, half_window_width, y_position_text + displacement)
-        love.graphics.print(person, half_window_width+15, y_position_text+10 + displacement)
-        displacement = displacement + 30
+        love.graphics.print(People[i].Title, half_window_width, y_position_text + displacement)
+        love.graphics.print(People[i].Credit, half_window_width+15, y_position_text+30 + displacement)
+        displacement = displacement + 60
 
     end
     SetNextTimeAndIncrementYText()
