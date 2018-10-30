@@ -12,7 +12,7 @@ local TiledMapClass   = require("src/map/tiledmap")
 local WalkerClass     = require("src/characterwalker/walker-generic")
 local TextBubbleClass = require("src/character/textbubbles")
 
-local BackgroundSound = getSoundFromCache("sound/ambiance/city.wav")
+local BackgroundSound = getStreamSoundFromCache("sound/ambiance/city.wav")
 local SchoolBell      = nil--
 
 local MapData = require("src/levels/day0/maps/city")
@@ -122,7 +122,13 @@ local function NPCUpdates()
 end
 
 local function SoundUpdates()
-    if not BackgroundSound:isPlaying() then
+    if not BackgroundSound:isPlaying() and not DataToSave["Day1Events"].WentToSchool then
+        BackgroundSound = getStreamSoundFromCache("sound/ambiance/city.wav")
+        BackgroundSound:setVolume(.5)
+        BackgroundSound:setLooping(true)
+        BackgroundSound:play()
+    elseif not BackgroundSound:isPlaying() and DataToSave["Day1Events"].WentToSchool then
+        BackgroundSound = getStreamSoundFromCache("sound/ambiance/city-slow.wav")
         BackgroundSound:setVolume(.5)
         BackgroundSound:setLooping(true)
         BackgroundSound:play()

@@ -15,6 +15,8 @@ local DialogClass     = require("src/dialog/dialog")
 local MapData = require("src/levels/day0/maps/home-lobby")
 local Map     = TiledMapClass:new(MapData)
 
+local StationaryEntity = EntityClass:newMinimal(7*16, 6*16)
+
 local Anna  = CharacterClass:new("tiles/Characters/Females/F_01.png", 7 * 16, 4 * 16, 16, 17, 2, .05);
 local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 2 * 16, 6 * 16, 16, 17, 6, .05);
 
@@ -56,9 +58,12 @@ local TextBetweenHenryAndMom =
     TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I went to the grocery store \nto get some food and"),
     TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "as I was going to checkout,"),
     TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I realized there wasn’t anyone \nin the store"),
-    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I thought I had saw a clerk or \ntwo when I entered, but \nI don’t know. . ."),
-    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "Anyways, I’m going to make dinner \nin an hour."),
-    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "So if you any homework or if you \nwant to go play outside, now’s your chance"),
+    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I thought I had saw a clerk or \ntwo when I entered,"),
+    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "but I don’t know. . ."),
+    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "Anyways, I’m going to \nmake dinner in an hour."),
+    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "So if you any homework \nor if you want to go"),
+    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "play outside, now’s your \nchance"),
+
 }
 local DialogBetweenHenryAndMom = DialogClass:new(TextBetweenHenryAndMom, 3.25)
 
@@ -98,9 +103,11 @@ local function UpdateHenryForFreezing()
     if not FrozeHenry then
         FrozeHenry = true
         World:SetHandleInputCallback(function() end)
+        World:SetEntityToTrackForCamera(StationaryEntity)
     end
     if DialogBetweenHenryAndMom:IsFinished() then
         World:SetHandleInputCallback(nil)
+        World:SetEntityToTrackForCamera(Henry)
     end
 
 end

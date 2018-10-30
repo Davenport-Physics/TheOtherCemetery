@@ -22,6 +22,7 @@ Buttons.LoadGame:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.Credits:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.Options:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.Twitter:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+Buttons.YouTube:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.Website:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
 function StartMenuMusic_Start()
