@@ -3,6 +3,8 @@ require("src/shared/cache")
 local Button = {}
 Button.__index = Button
 
+local CALLBACK_TIME_TO_NEXT_DT = .1
+
 local function GenericCallBack()
     print("Callback never set")
 end
@@ -26,6 +28,7 @@ function Button:newWithoutImage(x_pos, y_pos, width, height, mouse_click_callbac
     obj.image_height = height
     obj.mouse_click_callback = mouse_click_callback or GenericCallBack
     obj.sound_thread = nil
+    obj.next_callback = love.timer.getTime()
     return obj
 
 end
@@ -41,6 +44,7 @@ function Button:InitializeButtonAttributes(image_file, x_pos, y_pos, scale_x, sc
     self.scale_y      = scale_y or 1
     self.mouse_click_callback = mouse_click_callback or GenericCallBack
     self.sound_thread = nil
+    self.next_callback = love.timer.getTime()
 
 end
 
@@ -118,9 +122,14 @@ end
 
 function Button:DoCallBackIfPossible()
 
-    if self.mouse_click_callback ~= nil then
-        self.mouse_click_callback()
+    if self.mouse_click_callback == nil then
+        return
     end
+    if self.next_callback > love.timer.getTime() then
+        return
+    end
+    self.mouse_click_callback()
+    self.next_callback = love.timer.getTime() + CALLBACK_TIME_TO_NEXT_DT
 
 end
 

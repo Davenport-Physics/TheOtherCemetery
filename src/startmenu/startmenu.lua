@@ -20,6 +20,8 @@ Buttons.NewGame:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.LoadGame:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.Credits:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.Options:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+Buttons.Twitter:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+Buttons.Website:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
 function StartMenuMusic_Start()
 
@@ -51,6 +53,8 @@ function HandleInput_StartingWindow()
     Buttons.Credits:HandleMouseClick()
     Buttons.Options:HandleMouseClick()
     Buttons.Quit:HandleMouseClick()
+    Buttons.Twitter:HandleMouseClick()
+    Buttons.Website:HandleMouseClick()
 
 end
 
