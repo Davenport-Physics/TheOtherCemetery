@@ -14,7 +14,7 @@ local Buttons =
     Quit     = ButtonClass:newImage("pics/startmenu/quit.png", 625, 20),
     Twitter  = ButtonClass:newImage("pics/social/twitter.png", 175, 550),
     YouTube  = ButtonClass:newImage("pics/social/youtube.png", 350, 542.5),
-    Website  = ButtonClass:newImage("pics/social/Website.png", 450, 543.5)
+    Website  = ButtonClass:newImage("pics/social/Website.png", 450, 544)
 
 }
 Buttons.NewGame:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
@@ -67,7 +67,8 @@ local StartingWindowText =
 {
 
     Name     = love.graphics.newText(love.graphics.newFont(65), "Disconnected"),
-    MadeWith = love.graphics.newText(love.graphics.newFont(25), "A game made with Love")
+    MadeWith = love.graphics.newText(love.graphics.newFont(25), "A game made with Love"),
+    Version  = love.graphics.newText(love.graphics.newFont(25), "Alpha 1")
 
 }
 
@@ -112,6 +113,7 @@ local function DrawMisc()
     love.graphics.draw(StartingWindowPics.BackGround, 0, 0, 0, BackGroundScale_x, BackGroundScale_y)
     love.graphics.draw(StartingWindowText.Name, love.graphics.getWidth()*.5 - 200, 125)
     love.graphics.draw(StartingWindowText.MadeWith, love.graphics.getWidth()*.5 - 175, 200)
+    love.graphics.draw(StartingWindowText.Version, 10, 15)
 
 end
 
