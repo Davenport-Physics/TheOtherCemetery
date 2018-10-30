@@ -67,6 +67,12 @@ local TextBetweenHenryAndMom =
 }
 local DialogBetweenHenryAndMom = DialogClass:new(TextBetweenHenryAndMom, 3.25)
 
+local function CheckIfSpeakingToMomShouldToggleSaveData()
+    if DialogBetweenHenryAndMom:IsFinished() then
+        DataToSave["Day1Events"].SpokeWithMomAfterSchool = true
+    end
+end
+
 local function DrawTextFromAnna()
 
     if not DataToSave["Day1Events"].WentToSchool then
@@ -75,6 +81,7 @@ local function DrawTextFromAnna()
         SecondaryConversationStarted = true
     elseif not DialogBetweenHenryAndMom:IsFinished() then
         DialogBetweenHenryAndMom:Draw()
+        CheckIfSpeakingToMomShouldToggleSaveData()
     end
 
 end

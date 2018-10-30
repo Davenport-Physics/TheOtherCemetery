@@ -15,10 +15,10 @@ local TiledMap       = TiledMapClass:new(MapData)
 
 local BackgroundSound = getSoundFromCache("sound/ambiance/home/home.mp3")
 
-local HenryChar = CharacterClass:new("tiles/Characters/Males/M_08.png", 3*16, 5*16, 16, 17, 6, .05); HenryChar:WalkRight(true);
+local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 3*16, 5*16, 16, 17, 6, .05); Henry:WalkRight(true);
 
-local RoomWorld  = WorldClass:new(TiledMap, {}, HenryChar, TiledMap:GetCollisionObjects())
-RoomWorld:SetEntityToTrackForCamera(HenryChar)
+local RoomWorld  = WorldClass:new(TiledMap, {}, Henry, TiledMap:GetCollisionObjects())
+RoomWorld:SetEntityToTrackForCamera(Henry)
 
 local Door_LeaveBedroom = DoorClass:new(7*16, 3*16, 16, 16, "src/levels/day1/scenes/home-lobby", 2*16, 6*16)
 
@@ -32,9 +32,28 @@ local function UpdateSounds()
     end
 
 end
+
+local HomeworkText = TextBubbleClass:new(Henry, "pics/share/text/TextBubbleSpeaking.png", "I don't feel like doing\n homework...")
+
+local function CheckIfNearBooksForHomeworkText()
+
+    if math.sqrt((Henry.x_pos - 4*16)^2 + (Henry.y_pos - 5*16)^2) <= 16 then
+        HomeworkText:Draw()
+    end
+
+end
+
+local function CheckIfShouldDrawHomeworkText()
+
+    if DataToSave["Day1Events"].SpokeWithMomAfterSchool then
+        CheckIfNearBooksForHomeworkText()
+    end
+
+end
+
 function Scene.Update()
 
-    transition = Door_LeaveBedroom:CheckForCollision(HenryChar:GetCenterPosition())
+    transition = Door_LeaveBedroom:CheckForCollision(Henry:GetCenterPosition())
     if type(transition) == "table" then
         DataToSave.CurrentScene = transition[1]
     end
@@ -52,6 +71,7 @@ end
 function Scene.Draw()
 
     RoomWorld:Draw()
+    CheckIfShouldDrawHomeworkText()
 
 end
 
@@ -59,15 +79,16 @@ end
 function Scene.HandleInput()
 
     RoomWorld:HandleInput()
+    CheckIfShouldDrawHomeworkText()
 
 end
 
 function Scene.SetPlayerCharPosition(x_pos, y_pos)
 
     transition = false
-    HenryChar.x_pos = x_pos
-    HenryChar.y_pos = y_pos
-    HenryChar:WalkDown(true)
+    Henry.x_pos = x_pos
+    Henry.y_pos = y_pos
+    Henry:WalkDown(true)
 
 end
 
