@@ -1,4 +1,5 @@
 
+require("src/intro/intro")
 require("src/startmenu/startmenu")
 require("src/credits/credits")
 require("src/newgame/newgame")
@@ -17,7 +18,8 @@ local CONTEXT_INDEX =
     LOAD_GAME       = 3,
     GAME            = 4,
     CREDITS         = 5,
-    OPTIONS         = 6
+    OPTIONS         = 6,
+    INTRO           = 7
 
 }
 
@@ -29,11 +31,12 @@ local CONTEXT_FUNCTIONS =
     {Draw = LoadGameHandler_Draw , Input = LoadGameHandler_Input     , Update = LoadGameHandler_Update},
     {Draw = Game_Draw            , Input = Game_HandleInput          , Update = Game_Update},
     {Draw = DrawCreditsScene     , Input = HandleInput_Credits       , Update = function() end},
-    {Draw = function() end       , Input = function() end            , Update = function() end}
+    {Draw = function() end       , Input = function() end            , Update = function() end},
+    {Draw = DrawIntroSequence    , Input = function() end            , Update = function() end}
 
 }
 
-local CURRENT_CONTEXT = CONTEXT_INDEX.STARTING_WINDOW
+local CURRENT_CONTEXT = CONTEXT_INDEX.INTRO
 
 local CANVAS = love.graphics.newCanvas(2000, 2000)
 
@@ -96,7 +99,7 @@ function love.load()
     collectgarbage("setpause", 75)
     LoadSettings()
     love.graphics.setDefaultFilter( "nearest", "nearest", 16 )
-    StartMenuMusic_Start()
+    InitIntroIconCallback(InStartMenu)
     InitializeLoadGame_CallBackFunctions(InStartMenu, Game)
     InitializeNewGame_CallBackFunctions(InStartMenu , Game)
     InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, Credits, Quit)
