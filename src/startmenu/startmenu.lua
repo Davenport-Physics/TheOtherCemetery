@@ -14,7 +14,8 @@ local Buttons =
     Quit     = ButtonClass:newImage("pics/startmenu/quit.png", 625, 20),
     Twitter  = ButtonClass:newImage("pics/social/twitter.png", 175, 550),
     YouTube  = ButtonClass:newImage("pics/social/youtube.png", 350, 542.5),
-    Website  = ButtonClass:newImage("pics/social/Website.png", 450, 544)
+    Website  = ButtonClass:newImage("pics/social/Website.png", 450, 544),
+    About    = ButtonClass:newImage("pics/about.png", 550, 544)
 
 }
 Buttons.NewGame:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
@@ -24,6 +25,7 @@ Buttons.Options:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.Twitter:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.YouTube:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.Website:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+Buttons.About:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
 function StartMenuMusic_Start()
 
@@ -46,6 +48,7 @@ function InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, 
     Buttons.Twitter:SetCallback(function() love.system.openURL("https://twitter.com/DSectorStudios") end)
     Buttons.Website:SetCallback(function() love.system.openURL("https://www.darksectorstudios.com/") end)
     Buttons.YouTube:SetCallback(function() love.system.openURL("https://www.youtube.com/channel/UCIW4bSzn44v08ttyRMT5z2w?view_as=subscriber") end)
+    Buttons.About:SetCallback(function() print("file://"..love.filesystem.getWorkingDirectory().."/LoveGame/about/index.html") love.system.openURL("file:///"..love.filesystem.getWorkingDirectory().."/LoveGame/about/index.html") end)
 
 end
 
@@ -59,6 +62,7 @@ function HandleInput_StartingWindow()
     Buttons.Twitter:HandleMouseClick()
     Buttons.YouTube:HandleMouseClick()
     Buttons.Website:HandleMouseClick()
+    Buttons.About:HandleMouseClick()
 
 end
 
@@ -87,6 +91,7 @@ local function DrawButtons()
     Buttons.Twitter:Draw()
     Buttons.YouTube:Draw()
     Buttons.Website:Draw()
+    Buttons.About:Draw()
 
 end
 
@@ -105,6 +110,7 @@ function Update_StartMenu()
     Buttons.Twitter.x_pos  = Buttons.NewGame.x_pos  + 150
     Buttons.YouTube.x_pos  = Buttons.Twitter.x_pos  + 175
     Buttons.Website.x_pos  = Buttons.YouTube.x_pos  + 125
+    Buttons.About.x_pos    = Buttons.Website.x_pos  + 100
 
 end
 
