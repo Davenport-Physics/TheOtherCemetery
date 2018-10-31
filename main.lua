@@ -96,7 +96,6 @@ end
 
 function love.load()
 
-    collectgarbage("setpause", 75)
     LoadSettings()
     love.graphics.setDefaultFilter( "nearest", "nearest", 16 )
     InitIntroIconCallback(InStartMenu)

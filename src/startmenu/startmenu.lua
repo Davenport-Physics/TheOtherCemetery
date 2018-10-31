@@ -12,10 +12,10 @@ local Buttons =
     Credits  = ButtonClass:newImage("pics/startmenu/credits.png", 375, 450),
     Options  = ButtonClass:newImage("pics/startmenu/options.png", 550, 450),
     Quit     = ButtonClass:newImage("pics/startmenu/quit.png", 625, 20),
-    Twitter  = ButtonClass:newImage("pics/social/twitter.png", 175, 550),
-    YouTube  = ButtonClass:newImage("pics/social/youtube.png", 350, 542.5),
-    Website  = ButtonClass:newImage("pics/social/Website.png", 450, 544),
-    About    = ButtonClass:newImage("pics/about.png", 550, 544)
+    Twitter  = ButtonClass:newImage("pics/social/twitter.png", 100, 550),
+    YouTube  = ButtonClass:newImage("pics/social/youtube.png", 250, 542.5),
+    Website  = ButtonClass:newImage("pics/social/Website.png", 350, 544),
+    About    = ButtonClass:newImage("pics/about.png", 450, 544)
 
 }
 Buttons.NewGame:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
@@ -107,8 +107,8 @@ function Update_StartMenu()
     Buttons.Options.x_pos  = Buttons.Credits.x_pos  + 175
     Buttons.Quit.x_pos     = Buttons.Options.x_pos
 
-    Buttons.Twitter.x_pos  = Buttons.NewGame.x_pos  + 150
-    Buttons.YouTube.x_pos  = Buttons.Twitter.x_pos  + 175
+    Buttons.Twitter.x_pos  = Buttons.NewGame.x_pos  + 75
+    Buttons.YouTube.x_pos  = Buttons.Twitter.x_pos  + 150
     Buttons.Website.x_pos  = Buttons.YouTube.x_pos  + 125
     Buttons.About.x_pos    = Buttons.Website.x_pos  + 100
 
