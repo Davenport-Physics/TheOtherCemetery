@@ -1,16 +1,14 @@
 
-local DataToSave = require("src/save/savingdata")
+local DataToSave      = require("src/save/savingdata")
+local Settings = require("src/settings/settings")
 
 local Scene = {}
-
-local Settings = require("src/settings/settings")
 local IntroMusic = nil
-local AnnaDialog = nil
+--local AnnaDialog = nil
 local IntroVideo = nil
 
-local scale_x = 1
-local scale_y = 1
-
+local scale_x    = 1
+local scale_y    = 1
 local transition = false
 
 function Scene.Draw()
@@ -58,8 +56,8 @@ local function Intro_Update_CheckForPlayback()
     if not IntroVideo:isPlaying() then
 
         IntroVideo     = nil
-        AnnaDialog     = love.audio.newSource("sound/intro/anna-dialog/anna-intro.mp3", "static")
-        AnnaDialog:play()
+        --AnnaDialog     = love.audio.newSource("sound/intro/anna-dialog/anna-intro.mp3", "static")
+        --AnnaDialog:play()
         transition     = {"src/levels/day0/scenes/FuneralHome"}
         DataToSave.CurrentScene = "src/levels/day0/scenes/FuneralHome"
         Settings.GlobalScaleOn = true
@@ -87,7 +85,7 @@ end
 function Scene.Reset()
 
     IntroMusic = nil
-    AnnaDialog = nil
+    --AnnaDialog = nil
     IntroVideo = nil
     scale_x = 1
     scale_y = 1

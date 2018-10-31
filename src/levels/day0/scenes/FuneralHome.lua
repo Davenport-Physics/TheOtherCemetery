@@ -2,11 +2,13 @@ local DataToSave = require("src/save/savingdata")
 
 local Scene  = {}
 
-local Settings      = require("src/settings/settings")
-local EntityClass   = require("src/entity/entity")
-local WorldClass    = require("src/world/world")
-local CameraClass   = require("src/camera/camera")
-local TiledMapClass = require("src/map/tiledmap")
+local Settings        = require("src/settings/settings")
+local EntityClass     = require("src/entity/entity")
+local WorldClass      = require("src/world/world")
+local CameraClass     = require("src/camera/camera")
+local TiledMapClass   = require("src/map/tiledmap")
+local TextBubbleClass = require("src/character/textbubbles")
+local DialogClass     = require("src/dialog/dialog")
 
 local Camera        = CameraClass:new(144, 300, 0, -.2, .015)
 local CameraPanning = true
@@ -29,11 +31,28 @@ local chars = {HenryChar, RandomFemaleFirstRow, RandomFemaleSecondRow, RandomFem
 local FuneralWorld = WorldClass:new(FuneralHomeMap, chars, AnnaCharacter, FuneralHomeMap:GetCollisionObjects())
 FuneralWorld:SetEntityToTrackForCamera(Camera)
 
+
+local AnnaStationaryText = EntityClass:newMinimal(5*16, 14*16)
+local AnnaText =
+{
+
+    TextBubbleClass:new(AnnaStationaryText, "pics/share/text/TextBoxes.png", "Moving here was supposed to be a \nnew change for my family."),
+    TextBubbleClass:new(AnnaStationaryText, "pics/share/text/TextBoxes.png", "However, I never anticipated that it \nwould mean this..."),
+    TextBubbleClass:new(AnnaStationaryText, "pics/share/text/TextBoxes.png", "I wanted to thank all of you for \nbeing here. Most of you don’t know \nDuncan,"),
+    TextBubbleClass:new(AnnaStationaryText, "pics/share/text/TextBoxes.png", "but I am sure he would have \nappreciated it."),
+    TextBubbleClass:new(AnnaCharacter, "pics/share/text/TextBubbleSpeaking.png", "Thank you."),
+
+}
+
+local AnnaDialog = DialogClass:new(AnnaText, 4)
+
+
 local transition = false
 
 function Scene.Draw()
 
     FuneralWorld:Draw()
+    AnnaDialog:Draw()
 
 end
 
@@ -53,7 +72,6 @@ function Scene.Update()
     if CameraPanning then
         Camera:Update()
     end
-    --FuneralWorld:Update()
 
 end
 
