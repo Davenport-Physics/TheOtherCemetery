@@ -1,7 +1,7 @@
 
 require("src/shared/cache")
 local Settings = require("src/settings/settings")
-local StartMenuSound = love.audio.newSource("sound/startmenu/startmenu_slow.mp3", "static")
+local StartMenuSound = getStreamSoundFromCache("sound/startmenu/sadpiano.mp3")
 
 local ButtonClass = require("src/button/button")
 local Buttons =
@@ -29,7 +29,9 @@ Buttons.About:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
 function StartMenuMusic_Start()
 
-    love.audio.play(StartMenuSound)
+    StartMenuSound:setLooping(true)
+    StartMenuSound:setVolume(.5)
+    StartMenuSound:play()
 
 end
 
