@@ -2,6 +2,7 @@ local RandomWalkerClass = require("src/characterwalker/random-walker")
 local RunnerWalkerClass = require("src/characterwalker/runner-walker")
 local BattleWalkerClass = require("src/characterwalker/battle-walker")
 local PathWalkerClass   = require("src/characterwalker/path-walker")
+local TurnWalkerClass   = require("src/characterwalker/stationaryturn")
 
 local WalkerGeneric = {}
 WalkerGeneric.__index = WalkerGeneric
@@ -29,6 +30,8 @@ function WalkerGeneric:InitializeWalkerTypeObject()
         self.walker = BattleWalkerClass:new(self.char, self.walker_instructions)
     elseif self.type == "path-walker" then
         self.walker = PathWalkerClass:new(self.char, self.walker_instructions)
+    elseif self.type == "turn-walker" then
+        self.walker = TurnWalkerClass:new(self.char, self.walker_instructions)
     end
 
 end
@@ -54,9 +57,7 @@ end
 function WalkerGeneric:IsDistanceBetweenCharsAcceptable(otherchar)
 
     if math.abs(self.char.x_pos - otherchar.x_pos) <= 1 and math.abs(self.char.y_pos - otherchar.y_pos) <= 1 then
-
         return true
-
     end
 
     return false

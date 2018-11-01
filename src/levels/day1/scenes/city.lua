@@ -26,8 +26,9 @@ local NPCs =
 {
 
     CharacterClass:new("tiles/Characters/Males/M_05.png", 33*16, 62*16, 16, 17, 4, .05),   -- Key Person
-    CharacterClass:new("tiles/Characters/Females/F_08.png", 24*16, 43*16, 16, 17, 4, .05), -- Going To Work
-    CharacterClass:new("tiles/Characters/Females/F_07.png", 33*16, 39*16, 16, 17, 4, .05), -- Kid Going To School
+    CharacterClass:new("tiles/Characters/Females/F_08.png", 30*16, 43*16, 16, 17, 4, .05), -- Going To Work
+    CharacterClass:new("tiles/Characters/Females/F_07.png", 33*16, 43*16, 16, 17, 4, .05), -- Kid Going To School
+    CharacterClass:new("tiles/Characters/Females/F_05.png", 41*16, 42*16, 16, 17, 4, .05)  -- Lady turning
 
 }
 NPCs[1]:WalkLeft()
@@ -51,11 +52,18 @@ local KidGoingToSchoolWalkerInstructions =
     {x = 37*16, y = 6*16}
 }
 
+local TurnWalkerInstructions =
+{
+    CurrentDirection = "Down",
+    DirectionDt      = 1
+}
+
 local NPCWalkers =
 {
 
     WalkerClass:new(NPCs[2], "path-walker", FemaleGoingToWorkWalkerInstructions),
-    WalkerClass:new(NPCs[3], "path-walker", KidGoingToSchoolWalkerInstructions)
+    WalkerClass:new(NPCs[3], "path-walker", KidGoingToSchoolWalkerInstructions),
+    WalkerClass:new(NPCs[4], "turn-walker", TurnWalkerInstructions)
 
 }
 
@@ -116,6 +124,7 @@ end
 
 local function NPCUpdates()
 
+    NPCWalkers[3]:Update()
     NPCWalkerConditions()
     NPCWalkerUpdates()
 
@@ -187,7 +196,7 @@ local AdultGoingToWorkText = TextBubbleClass:new(NPCs[2], "pics/share/text/TextB
 local function DrawAdultTextIfPossible()
 
     if not NPCs[2].allow_drawing then return end
-    if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[2].x_pos, NPCs[2].y_pos, 100) and NPCs[2].allow_drawing then
+    if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[2].x_pos, NPCs[2].y_pos, 100) then
         AdultGoingToWorkText:Draw()
     end
 
@@ -197,8 +206,18 @@ local KidNPCText = TextBubbleClass:new(NPCs[3], "pics/share/text/TextBubbleSpeak
 local function DrawKidNPCTextIfPossible()
 
     if not NPCs[3].allow_drawing then return end
-    if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[3].x_pos, NPCs[3].y_pos, 100) and NPCs[3].allow_drawing then
+    if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[3].x_pos, NPCs[3].y_pos, 100) then
         KidNPCText:Draw()
+    end
+
+end
+
+local CrazyNPCText = TextBubbleClass:new(NPCs[4], "pics/share/text/TextBubbleSpeaking.png", "You and your mom are special.")
+local function DrawCrazyTextIfPossible()
+
+    if not NPCs[4].allow_drawing then return end
+    if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[4].x_pos, NPCs[4].y_pos, 48) then
+        CrazyNPCText:Draw()
     end
 
 end
@@ -208,6 +227,7 @@ local function DrawNPCTextIfPossible()
     DrawKeyNPCTextIfPossible()
     DrawAdultTextIfPossible()
     DrawKidNPCTextIfPossible()
+    DrawCrazyTextIfPossible()
 
 end
 

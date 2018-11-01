@@ -28,7 +28,7 @@ function Button:newWithoutImage(x_pos, y_pos, width, height, mouse_click_callbac
     obj.image_height = height
     obj.mouse_click_callback = mouse_click_callback or GenericCallBack
     obj.sound_thread = nil
-    obj.next_callback = love.timer.getTime() + 1
+    obj.next_callback = love.timer.getTime() + .25
     return obj
 
 end
