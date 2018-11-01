@@ -7,7 +7,7 @@ function PathWalker:new(char, walker_instructions)
     setmetatable(obj, PathWalker)
     obj.char = char
     obj.walker_instructions = walker_instructions
-    obj.point_threshold     = .5
+    obj.point_threshold     = 1
     obj:Init()
 
     return obj
