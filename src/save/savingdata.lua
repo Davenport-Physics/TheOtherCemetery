@@ -24,7 +24,8 @@ local DataToSave =
     ["Day1Events"] =
     {
         WentToSchool = false,
-        SpokeWithMomAfterSchool = false
+        SpokeWithMomAfterSchool = false,
+        HasSeenCultOutsideHouse = false
     },
 
     ["CurrentCharacter"]   = "Henry",

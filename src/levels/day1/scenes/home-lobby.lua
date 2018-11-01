@@ -25,6 +25,7 @@ World:SetEntityToTrackForCamera(Henry)
 
 local BedroomDoor    = DoorClass:new(2*16, 5*16, 16, 16, "src/levels/day1/scenes/henry-bedroom-scene", 7*16, 4*16)
 local LeaveHouseDoor = DoorClass:new(2*16, 8*16, 2*16, 16, "src/levels/day1/scenes/city", 49 * 16, 61 * 16)
+local LeaveHouseDoorAlternative = DoorClass:new(2*16, 8*16, 2*16, 16, "src/levels/day1/scenes/cult", 49 * 16, 61 * 16)
 
 local BackgroundSound = getSoundFromCache("sound/ambiance/home/home.mp3")
 
@@ -36,8 +37,10 @@ local function CheckDoorCollisions()
 
     if type(BedroomDoor:CheckForCollision(Henry:GetCenterPosition())) == "table" then
         transition = BedroomDoor:CheckForCollision(Henry:GetCenterPosition())
-    elseif type(LeaveHouseDoor:CheckForCollision(Henry:GetCenterPosition())) == "table" then
+    elseif not DataToSave["Day1Events"].SpokeWithMomAfterSchool and type(LeaveHouseDoor:CheckForCollision(Henry:GetCenterPosition())) == "table" then
         transition = LeaveHouseDoor:CheckForCollision(Henry:GetCenterPosition())
+    elseif DataToSave["Day1Events"].SpokeWithMomAfterSchool and type(LeaveHouseDoorAlternative:CheckForCollision(Henry:GetCenterPosition())) == "table" then
+        transition = LeaveHouseDoorAlternative:CheckForCollision(Henry:GetCenterPosition())
     end
 
     if type(transition) == table then

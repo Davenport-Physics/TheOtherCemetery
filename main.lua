@@ -9,7 +9,6 @@ require("src/gamehandler/gamehandler")
 
 
 local Settings = require("src/settings/settings")
-local quiting  = false
 
 local CONTEXT_INDEX =
 {
@@ -87,8 +86,6 @@ end
 
 local function Quit()
 
-    if quiting then return end
-    quiting = true
     love.audio.stop()
     StoreSettings()
     os.exit()

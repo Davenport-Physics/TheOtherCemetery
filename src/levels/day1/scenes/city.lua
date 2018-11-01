@@ -170,14 +170,42 @@ local DoNotGoInText =
     {x_pos = 74*16, y_pos = 6*16, text = TextBubbleClass:new( Henry, "pics/share/text/TextBubble.png", "Nothing here..."), range = 48},
 
 }
-local function DrawHenryStopTextBubblesIfPossible()
+local FamiliarPlace =
+{
 
-    for i = 1, #DoNotGoInText do
+    {x_pos = 74*16, y_pos = 7*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubble.png", "Have I seen this before?")},
 
+}
+local function DrawHenryStopTextBubblesAfterSchoolIfPossible()
+
+    for i = 1, #DoNotGoInText-1 do
         if Shared.IsNear(Henry.x_pos, Henry.y_pos, DoNotGoInText[i].x_pos, DoNotGoInText[i].y_pos, DoNotGoInText[i].range or 17) then
             DoNotGoInText[i].text:Draw()
         end
+    end
+    if Shared.IsNear(Henry.x_pos, Henry.y_pos, FamiliarPlace[1].x_pos, FamiliarPlace[1].y_pos, 48) then
+        FamiliarPlace[1].text:Draw()
+    end
 
+end
+
+local function DrawHenryStopTextBubblesBeforeSchoolIfPossible()
+
+    for i = 1, #DoNotGoInText do
+        if Shared.IsNear(Henry.x_pos, Henry.y_pos, DoNotGoInText[i].x_pos, DoNotGoInText[i].y_pos, DoNotGoInText[i].range or 17) then
+            DoNotGoInText[i].text:Draw()
+        end
+    end
+
+
+end
+
+local function DrawHenryStopTextBubblesIfPossible()
+
+    if not DataToSave["Day1Events"].WentToSchool then
+        DrawHenryStopTextBubblesBeforeSchoolIfPossible()
+    else
+        DrawHenryStopTextBubblesAfterSchoolIfPossible()
     end
 
 end
@@ -238,6 +266,7 @@ local function StopDrawingNPCs()
         NPCs[i+1]:AllowDrawing(false)
     end
     NPCs[1]:AllowDrawing(false)
+    NPCs[4]:AllowDrawing(false)
 
 end
 
