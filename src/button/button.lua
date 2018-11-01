@@ -3,7 +3,7 @@ require("src/shared/cache")
 local Button = {}
 Button.__index = Button
 
-local CALLBACK_TIME_TO_NEXT_DT = .1
+local CALLBACK_TIME_TO_NEXT_DT = .5
 
 local function GenericCallBack()
     print("Callback never set")
@@ -28,7 +28,7 @@ function Button:newWithoutImage(x_pos, y_pos, width, height, mouse_click_callbac
     obj.image_height = height
     obj.mouse_click_callback = mouse_click_callback or GenericCallBack
     obj.sound_thread = nil
-    obj.next_callback = love.timer.getTime()
+    obj.next_callback = love.timer.getTime() + 1
     return obj
 
 end

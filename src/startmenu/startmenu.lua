@@ -37,7 +37,7 @@ end
 
 function StartMenuMusic_Stop()
 
-    love.audio.stop(StartMenuSound)
+    StartMenuSound:stop()
 
 end
 

@@ -255,7 +255,7 @@ function ResetNewGame()
 
     DrawWriteText    = false
     PartialSaveData  = GetPartialDataFromSaves()
-    NextTimeForMouseClick = love.timer.getTime() + .1
+    NextTimeForMouseClick = love.timer.getTime() + 1
     DrawOverWrite    = false
     DrawWriteText    = false
     WriteTextIdx     = nil

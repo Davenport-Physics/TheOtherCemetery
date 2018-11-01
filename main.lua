@@ -9,6 +9,7 @@ require("src/gamehandler/gamehandler")
 
 
 local Settings = require("src/settings/settings")
+local quiting  = false
 
 local CONTEXT_INDEX =
 {
@@ -49,7 +50,6 @@ end
 
 local function StartNewGame()
 
-    love.audio.stop()
     ResetNewGame()
     CURRENT_CONTEXT = CONTEXT_INDEX.NEW_GAME
 
@@ -87,8 +87,9 @@ end
 
 local function Quit()
 
+    if quiting then return end
+    quiting = true
     love.audio.stop()
-    --love.event.quit()
     StoreSettings()
     os.exit()
 
@@ -118,7 +119,6 @@ local function CheckEventPool()
             Quit()
         end
     end
-    love.event.clear()
 
 end
 
