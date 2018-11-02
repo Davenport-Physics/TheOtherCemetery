@@ -10,6 +10,7 @@ local CharacterClass  = require("src/character/character")
 local TiledMapClass   = require("src/map/tiledmap")
 local WalkerClass     = require("src/characterwalker/walker-generic")
 local TextBubbleClass = require("src/character/textbubbles")
+local DialogClass     = require("src/dialog/dialog")
 
 local transition = false
 local Map        = TiledMapClass:new(require("src/levels/day1/maps/school"))
