@@ -26,6 +26,8 @@ function Button:newWithoutImage(x_pos, y_pos, width, height, mouse_click_callbac
     obj.y_pos        = y_pos
     obj.image_width  = width
     obj.image_height = height
+    obj.scale_x      = 1
+    obj.scale_y      = 1
     obj.mouse_click_callback = mouse_click_callback or GenericCallBack
     obj.sound_thread = nil
     obj.next_callback = love.timer.getTime() + .25
@@ -78,11 +80,11 @@ end
 
 function Button:CheckForMouseCollision()
 
-    if not self:IsBetweenRange(love.mouse.getX(), self.x_pos, self.x_pos + self.image_width) then
+    if not self:IsBetweenRange(love.mouse.getX(), self.x_pos, self.x_pos + self.scale_x*self.image_width) then
         return false
     end
 
-    if not self:IsBetweenRange(love.mouse.getY(), self.y_pos, self.y_pos + self.image_height) then
+    if not self:IsBetweenRange(love.mouse.getY(), self.y_pos, self.y_pos + self.scale_y*self.image_height) then
         return false
     end
 

@@ -113,6 +113,7 @@ local function CheckEventPool()
         if n == "startmenu" then
             InStartMenu()
         elseif n == "quit" then
+            print("Quiting")
             Quit()
         end
     end
