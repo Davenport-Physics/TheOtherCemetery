@@ -20,11 +20,12 @@ local MapData = require("src/levels/maps/city/city")
 local Map     = TiledMapClass:new(MapData)
 local Henry   = CharacterClass:new("tiles/Characters/Males/M_08.png", 49 * 16, 62 * 16, 16, 17, 6, .05);
 
-local HomeDoor    = DoorClass:new(49 * 16, 60 * 16, 16, 16,  "src/levels/day1/scenes/home/home-lobby", 2*16, 7*16)
-local SchoolDoor  = DoorClass:new(36 * 16, 5 * 16, 2*16, 16, "src/levels/day1/scenes/school/school",   7*16, 27*16)
-local GroceryDoor = DoorClass:new(42 * 16, 40 * 16, 16, 16, "src/levels/day1/scenes/interiors/grocery", 3*16, 7*16)
+local HomeDoor      = DoorClass:new(49 * 16, 60 * 16, 16, 16,  "src/levels/day1/scenes/home/home-lobby", 2*16, 7*16)
+local SchoolDoor    = DoorClass:new(36 * 16, 5 * 16, 2*16, 16, "src/levels/day1/scenes/school/school",   7*16, 27*16)
+local GroceryDoor   = DoorClass:new(42 * 16, 40 * 16, 16, 16, "src/levels/day1/scenes/interiors/grocery", 3*16, 7*16)
+local CollectorDoor = DoorClass:new(16 * 16, 40 * 16, 2*16, 16, "src/levels/day1/scenes/interiors/collector", 11*16, 12*16)
 
-local Doors = DoorsHandler:new({HomeDoor, SchoolDoor, GroceryDoor}, Henry)
+local Doors = DoorsHandler:new({HomeDoor, SchoolDoor, GroceryDoor, CollectorDoor}, Henry)
 
 local NPCs =
 {
