@@ -20,11 +20,14 @@ local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 3*16, 7*16, 
 local NPCs  =
 {
     CharacterClass:new("tiles/Characters/Males/M_12.png", 2*16, 4*16, 16, 17, 6, .05),
-    CharacterClass:new("tiles/Characters/Females/F_11.png", 2*16, 6*16, 16, 17, 6, .05)
+    CharacterClass:new("tiles/Characters/Females/F_11.png", 2*16, 6*16, 16, 17, 4, .05)
 }
+NPCs[2]:WalkUp()
 local World = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(StationaryEntity)
 World:SetHandleInputCallback(function() end)
+
+local ToCityDoor = DoorClass:new(2*16, 8*16, 2*16, 16, "src/levels/day1/scenes/city", 42*16, 41*16)
 
 local GrocerTextExchange =
 {
@@ -38,7 +41,7 @@ local GrocerDialogExchange = DialogClass:new(GrocerTextExchange, 4)
 local TextWhileWalking = TextBubbleClass:new(NPCs[2], "pics/share/text/TextBubbleSpeaking.png", "Hmph")
 local WomanWalkerIntructions =
 {
-    {2*16, 8*16}
+    {x = 2*16, y = 8*16}
 }
 local WomanWalker = WalkerClass:new(NPCs[2], "path-walker", WomanWalkerIntructions)
 
@@ -59,6 +62,12 @@ local GrocerGeneric = TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSp
 local ExchangeHad = false
 local WomanLeft   = false
 local GrocerHenry = false
+
+local function UpdateDoorTransition()
+
+    transition = ToCityDoor:CheckForCollision(Henry:GetCenterPosition())
+
+end
 
 local function UpdateExchangeHad()
 
