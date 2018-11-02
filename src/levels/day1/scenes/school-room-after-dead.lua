@@ -15,7 +15,7 @@ local TextBubbleClass = require("src/character/textbubbles")
 local DialogClass     = require("src/dialog/dialog")
 
 local transition       = false
-local Map              = TiledMapClass:new(require("src/levels/day1/maps/school-room"))
+local Map              = TiledMapClass:new(require("src/levels/maps/school/school-room"))
 local StationaryEntity = EntityClass:newMinimal(9*16, 10*16)
 
 local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 12*16, 9*16, 16, 17, 6, .05); Henry:WalkUp();

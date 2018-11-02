@@ -9,7 +9,7 @@ local WalkerClass  = require("src/characterwalker/walker-generic")
 local TextBubbleClass = require("src/character/textbubbles")
 
 local CharacterClass = require("src/character/character")
-local MapData        = require("src/levels/day0/maps/henry-bedroom")
+local MapData        = require("src/levels/maps/home/henry-bedroom")
 local TiledMapClass  = require("src/map/tiledmap")
 local TiledMap       = TiledMapClass:new(MapData)
 

@@ -13,7 +13,7 @@ local DialogClass     = require("src/dialog/dialog")
 local Camera        = CameraClass:new(144, 300, 0, -.2, .015)
 local CameraPanning = true
 
-local MapData        = require("src/levels/day0/maps/funeral")
+local MapData        = require("src/levels/maps/city/interiors/funeral")
 local FuneralHomeMap = TiledMapClass:new(MapData)
 
 local CharacterClass = require("src/character/character")

@@ -12,7 +12,7 @@ local TiledMapClass   = require("src/map/tiledmap")
 local TextBubbleClass = require("src/character/textbubbles")
 local DialogClass     = require("src/dialog/dialog")
 
-local MapData = require("src/levels/day0/maps/home-lobby")
+local MapData = require("src/levels/maps/home/home-lobby")
 local Map     = TiledMapClass:new(MapData)
 
 local StationaryEntity = EntityClass:newMinimal(7*16, 6*16)

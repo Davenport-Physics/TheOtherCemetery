@@ -13,7 +13,7 @@ local WalkerClass     = require("src/characterwalker/walker-generic")
 local TextBubbleClass = require("src/character/textbubbles")
 
 local transition = false
-local Map        = TiledMapClass:new(require("src/levels/day1/maps/school"))
+local Map        = TiledMapClass:new(require("src/levels/maps/school/school"))
 
 local BackgroundMusic = getStreamSoundFromCache("sound/ambiance/school/school.wav")
 

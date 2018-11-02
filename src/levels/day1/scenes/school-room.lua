@@ -17,7 +17,7 @@ local CameraClass     = require("src/camera/camera")
 local SleepCam        = nil --CameraClass:new(9*16, 10*16, .25, 0, .0125)
 
 local transition = false
-local Map        = TiledMapClass:new(require("src/levels/day1/maps/school-room"))
+local Map        = TiledMapClass:new(require("src/levels/maps/school/school-room"))
 
 local BackgroundMusic = getStreamSoundFromCache("sound/ambiance/school/school.wav")
 

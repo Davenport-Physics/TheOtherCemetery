@@ -28,7 +28,7 @@ local should_cameras_pan =
     true
 }
 local transition   = false
-local Map          = TiledMapClass:new(require("src/levels/day1/maps/city-ruined"))
+local Map          = TiledMapClass:new(require("src/levels/maps/city/city-ruined"))
 
 local NPCs  = {}
 local World = WorldClass:new(Map, NPCs, nil, Map:GetCollisionObjects())

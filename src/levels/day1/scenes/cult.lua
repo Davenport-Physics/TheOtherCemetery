@@ -14,8 +14,8 @@ local TextBubbleClass = require("src/character/textbubbles")
 local DialogClass     = require("src/dialog/dialog")
 
 local transition = false
-local Map        = TiledMapClass:new(require("src/levels/day0/maps/city"))
-local DeadMap    = TiledMapClass:new(require("src/levels/day1/maps/city-ruined"))
+local Map        = TiledMapClass:new(require("src/levels/maps/city/city"))
+local DeadMap    = TiledMapClass:new(require("src/levels/maps/city/city-ruined"))
 
 local BackgroundSound     = getStreamSoundFromCache("sound/ambiance/city-slow.wav")
 local BackgroundWindSound = getStreamSoundFromCache("sound/ambiance/creepy-wind/creepy-wind-a.wav")
