@@ -86,7 +86,6 @@ end
 
 local function Quit()
 
-    love.audio.stop()
     StoreSettings()
     os.exit()
 
@@ -113,7 +112,6 @@ local function CheckEventPool()
         if n == "startmenu" then
             InStartMenu()
         elseif n == "quit" then
-            print("Quiting")
             Quit()
         end
     end
@@ -165,6 +163,6 @@ end
 
 function love.quit()
 
-    print("Thanks for playing! Come back soon!")
+    os.exit()
 
 end
