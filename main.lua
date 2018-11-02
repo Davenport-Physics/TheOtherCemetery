@@ -120,6 +120,7 @@ end
 
 function love.update()
 
+    if love.window.isMinimized() then return end
     Settings.UpdateWindow()
     Settings.UpdateScale()
     CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Input()
@@ -148,6 +149,7 @@ end
 
 function love.draw()
 
+    if love.window.isMinimized() then return end
     if CURRENT_CONTEXT == CONTEXT_INDEX.GAME then
 
         SetCanvas()

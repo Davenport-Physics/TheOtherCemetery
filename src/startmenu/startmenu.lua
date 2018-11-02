@@ -47,10 +47,10 @@ function InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, 
     Buttons.LoadGame:SetCallback(LoadGame)
     Buttons.Credits:SetCallback(Credits)
     Buttons.Quit:SetCallback(Quit)
-    Buttons.Twitter:SetCallback(function() love.system.openURL("https://twitter.com/DSectorStudios") end)
-    Buttons.Website:SetCallback(function() love.system.openURL("https://www.darksectorstudios.com/") end)
-    Buttons.YouTube:SetCallback(function() love.system.openURL("https://www.youtube.com/channel/UCIW4bSzn44v08ttyRMT5z2w?view_as=subscriber") end)
-    Buttons.About:SetCallback(function() print("file://"..love.filesystem.getWorkingDirectory().."/LoveGame/about/index.html") love.system.openURL("file:///"..love.filesystem.getWorkingDirectory().."/LoveGame/about/index.html") end)
+    Buttons.Twitter:SetCallback(function() love.window.minimize(); love.system.openURL("https://twitter.com/DSectorStudios") end)
+    Buttons.Website:SetCallback(function() love.window.minimize(); love.system.openURL("https://www.darksectorstudios.com/") end)
+    Buttons.YouTube:SetCallback(function() love.window.minimize(); love.system.openURL("https://www.youtube.com/channel/UCIW4bSzn44v08ttyRMT5z2w?view_as=subscriber") end)
+    Buttons.About:SetCallback(function()   love.window.minimize(); love.system.openURL("file:///"..love.filesystem.getWorkingDirectory().."/LoveGame/about/index.html") end)
 
 end
 
