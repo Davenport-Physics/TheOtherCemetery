@@ -1,4 +1,5 @@
 require("src/shared/cache")
+local Settings = require("src/settings/settings")
 
 local TextBubble = {}
 TextBubble.__index = TextBubble
@@ -11,9 +12,9 @@ function TextBubble:new(char, image, text, fontsize)
     obj.char          = char
     obj.image         = getImageFromCache(image)
     obj.text          = text
-    obj.fontsize      = fontsize or 7
+    obj.fontsize      = 7--fontsize or 21
     obj.font          = love.graphics.newFont(obj.fontsize)
-    obj.font:setFilter("nearest", "nearest", 16)
+    obj.font:setFilter("nearest", "nearest", 1)
     obj.allow_drawing = true
 
     return obj
