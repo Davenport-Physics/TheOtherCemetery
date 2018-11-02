@@ -240,7 +240,7 @@ local function DrawKidNPCTextIfPossible()
 
 end
 
-local CrazyNPCText = TextBubbleClass:new(NPCs[4], "pics/share/text/TextBubbleSpeaking.png", "You and your mom are special.")
+local CrazyNPCText = TextBubbleClass:new(NPCs[4], "pics/share/text/TextBubbleSpeaking.png", "You and your mom are \nspecial.")
 local function DrawCrazyTextIfPossible()
 
     if not NPCs[4].allow_drawing then return end

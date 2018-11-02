@@ -94,7 +94,7 @@ end
 function love.load()
 
     LoadSettings()
-    love.graphics.setDefaultFilter( "nearest", "nearest", 16 )
+    love.graphics.setDefaultFilter( "linear", "nearest", 16 )
     InitIntroIconCallback(InStartMenu)
     InitializeLoadGame_CallBackFunctions(InStartMenu, Game)
     InitializeNewGame_CallBackFunctions(InStartMenu , Game)
@@ -140,7 +140,7 @@ local function SetCanvas()
     if Settings.GlobalScaleOn then
 
         love.graphics.translate(Settings.X_Canvas_Translation, Settings.Y_Canvas_Translation)
-        love.graphics.scale(Settings.Scale, Settings.Scale)
+        love.graphics.scale(Settings.Scale_x, Settings.Scale_y)
 
     end
 

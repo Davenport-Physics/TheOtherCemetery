@@ -12,9 +12,9 @@ function TextBubble:new(char, image, text, fontsize)
     obj.char          = char
     obj.image         = getImageFromCache(image)
     obj.text          = text
-    obj.fontsize      = 7--fontsize or 21
+    obj.fontsize      = fontsize or 8
     obj.font          = love.graphics.newFont(obj.fontsize)
-    obj.font:setFilter("nearest", "nearest", 1)
+    obj.font:setFilter("linear", "nearest", 16)
     obj.allow_drawing = true
 
     return obj
@@ -32,7 +32,7 @@ function TextBubble:Draw()
     if self.allow_drawing then
         love.graphics.draw(self.image, self.char.x_pos+12, self.char.y_pos-26)
         love.graphics.setFont(self.font)
-        love.graphics.print({{0,0,0,1} ,self.text}, self.char.x_pos+16, self.char.y_pos-21)
+        love.graphics.print({{0,0,0,1} ,self.text}, self.char.x_pos+15, self.char.y_pos-22)
     end
 
 end

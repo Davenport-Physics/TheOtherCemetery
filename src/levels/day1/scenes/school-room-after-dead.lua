@@ -31,7 +31,8 @@ World:SetHandleInputCallback(function() end)
 local TextAfterWakingUp =
 {
     TextBubbleClass:new(Henry,   "pics/share/text/TextBubbleSpeaking.png", "AHHHH!!!"),
-    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Henry it's alright. \nYou were just sleeping"),
+    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Henry it's alright."),
+    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "You were just \nsleeping."),
     TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Go home Henry."),
 }
 local Dialog = DialogClass:new(TextAfterWakingUp, 3)

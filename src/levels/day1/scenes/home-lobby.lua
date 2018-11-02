@@ -49,15 +49,15 @@ local function CheckDoorCollisions()
 
 end
 
-local LoveYouText = TextBubbleClass:new(Anna, "pics/share/text/TextBubbleSpeaking.png", "Have a good day at school!", 7)
+local LoveYouText = TextBubbleClass:new(Anna, "pics/share/text/TextBubbleSpeaking.png", "Have a good day at \nschool!")
 
 local TextBetweenHenryAndMom =
 {
 
     TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "Hey! Did you have a good \nday at school?"),
-    TextBubbleClass:new(Henry, "pics/share/text/TextBubbleSpeaking.png", "It. . . was okay."),
+    TextBubbleClass:new(Henry, "pics/share/text/TextBubbleSpeaking.png", "It ... was okay."),
     TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "Well that’s good to hear."),
-    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I had a fairly weird day myself."),
+    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I had a fairly weird day \nmyself."),
     TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I went to the grocery store \nto get some food and"),
     TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "as I was going to checkout,"),
     TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I realized there wasn’t anyone \nin the store"),

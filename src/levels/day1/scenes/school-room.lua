@@ -35,7 +35,7 @@ for i = 2, #NPCs do
     NPCs[i]:WalkUp()
 end
 
-local StationaryEntity = EntityClass:newMinimal(9*16, 10*16)
+local StationaryEntity = EntityClass:newMinimal(10*16, 9*16)
 local World            = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(StationaryEntity)
 World:SetHandleInputCallback(function() end)
@@ -46,7 +46,7 @@ local TextBubbles =
 
     TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "He is next..."),
     TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "OH! Henry, why are you \nhere today?"),
-    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Shouldn’t you be at home \nresting after what happened?"),
+    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Shouldn’t you be at home \nresting?"),
     TextBubbleClass:new(Henry,   "pics/share/text/TextBubble.png", "Who was he talking about..."),
     TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Well, take your seat Henry"),
 
@@ -59,10 +59,10 @@ local TextBoxEntity = EntityClass:newMinimal(16, 13*16)
 local TextBox =
 {
     TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "Our great founding fathers \nmade a deal..."),
-    TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "This deal has kept our town of \nwillowstead safe for over a century."),
-    TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "Now, who they made a deal with \nstill remains a mystery, although \nwe have our theories."),
+    TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "This deal has kept our town of \nwillowstead safe for over \na century."),
+    TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "Now, who they made a deal \nwith still remains a mystery, \nalthough we have our theories."),
     TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "It could be natives that had \ninhabited this region before"),
-    TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "or maybe another force entirely..."),
+    TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "or maybe another force \nentirely..."),
 
 }
 local TextBoxDialog = DialogClass:new(TextBox, 4)
