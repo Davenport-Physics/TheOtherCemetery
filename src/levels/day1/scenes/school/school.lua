@@ -22,8 +22,8 @@ local NPCs  = {}
 local World = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)
 
-local ClassroomDoor      = DoorClass:new(7 * 16, 11 * 16, 16, 16, "src/levels/day1/scenes/school-room", 10 * 16, 13 * 16)
-local ExitDoor           = DoorClass:new(6 * 16, 28 * 16, 3*16, 16, "src/levels/day1/scenes/city", 37*16, 6*16)
+local ClassroomDoor      = DoorClass:new(7 * 16, 11 * 16, 16, 16, "src/levels/day1/scenes/school/school-room", 10 * 16, 13 * 16)
+local ExitDoor           = DoorClass:new(6 * 16, 28 * 16, 3*16, 16, "src/levels/day1/scenes/city/city", 37*16, 6*16)
 
 local function CheckClassroomDoor()
     if type(ClassroomDoor:CheckForCollision(Henry:GetCenterPosition())) == "table" then

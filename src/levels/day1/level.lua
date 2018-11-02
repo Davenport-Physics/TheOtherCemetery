@@ -4,9 +4,9 @@ local Level = {}
 local Scene_idx = 1
 local Scenes =
 {
-    "src/levels/day1/scenes/henry-bedroom-scene",
-    "src/levels/day1/scenes/home-lobby",
-    "src/levels/day1/scenes/city"
+    "src/levels/day1/scenes/home/henry-bedroom-scene",
+    "src/levels/day1/scenes/home/home-lobby",
+    "src/levels/day1/scenes/city/city"
 }
 
 local Scene = require(Scenes[1])

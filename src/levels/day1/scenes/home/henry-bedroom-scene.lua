@@ -20,7 +20,7 @@ local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 3*16, 5*16, 
 local RoomWorld  = WorldClass:new(TiledMap, {}, Henry, TiledMap:GetCollisionObjects())
 RoomWorld:SetEntityToTrackForCamera(Henry)
 
-local Door_LeaveBedroom = DoorClass:new(7*16, 3*16, 16, 16, "src/levels/day1/scenes/home-lobby", 2*16, 6*16)
+local Door_LeaveBedroom = DoorClass:new(7*16, 3*16, 16, 16, "src/levels/day1/scenes/home/home-lobby", 2*16, 6*16)
 
 local transition = false
 

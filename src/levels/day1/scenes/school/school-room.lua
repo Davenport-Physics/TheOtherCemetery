@@ -39,7 +39,7 @@ local StationaryEntity = EntityClass:newMinimal(10*16, 9*16)
 local World            = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(StationaryEntity)
 World:SetHandleInputCallback(function() end)
-local ExitDoor         = DoorClass:new(9*16, 14*16, 3*16, 16, "src/levels/day1/scenes/school", 7*16, 12*16)
+local ExitDoor         = DoorClass:new(9*16, 14*16, 3*16, 16, "src/levels/day1/scenes/school/school", 7*16, 12*16)
 
 local TextBubbles =
 {
@@ -111,7 +111,7 @@ end
 local function HandleTransitionIfTeacherIsDoneTalkingAgain()
 
     if TextBoxDialog:IsFinished() then
-        transition = {"src/levels/day1/scenes/deadworld-view"}
+        transition = {"src/levels/day1/scenes/city/deadworld-view"}
     end
 
 end

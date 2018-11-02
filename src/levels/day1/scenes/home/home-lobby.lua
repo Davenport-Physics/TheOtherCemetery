@@ -23,9 +23,9 @@ local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 2 * 16, 6 * 
 local World = WorldClass:new(Map, {Anna}, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)
 
-local BedroomDoor    = DoorClass:new(2*16, 5*16, 16, 16, "src/levels/day1/scenes/henry-bedroom-scene", 7*16, 4*16)
-local LeaveHouseDoor = DoorClass:new(2*16, 8*16, 2*16, 16, "src/levels/day1/scenes/city", 49 * 16, 61 * 16)
-local LeaveHouseDoorAlternative = DoorClass:new(2*16, 8*16, 2*16, 16, "src/levels/day1/scenes/cult", 49 * 16, 61 * 16)
+local BedroomDoor    = DoorClass:new(2*16, 5*16, 16, 16, "src/levels/day1/scenes/home/henry-bedroom-scene", 7*16, 4*16)
+local LeaveHouseDoor = DoorClass:new(2*16, 8*16, 2*16, 16, "src/levels/day1/scenes/city/city", 49 * 16, 61 * 16)
+local LeaveHouseDoorAlternative = DoorClass:new(2*16, 8*16, 2*16, 16, "src/levels/day1/scenes/city/cult", 49 * 16, 61 * 16)
 
 local BackgroundSound = getSoundFromCache("sound/ambiance/home/home.mp3")
 
@@ -60,7 +60,7 @@ local TextBetweenHenryAndMom =
     TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I had a fairly weird day \nmyself."),
     TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I went to the grocery store \nto get some food and"),
     TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "as I was going to checkout,"),
-    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I realized there wasn’t anyone \nin the store"),
+    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I realized there wasn’t \nanyone in the store"),
     TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I thought I had saw a clerk or \ntwo when I entered,"),
     TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "but I don’t know. . ."),
     TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "Anyways, I’m going to \nmake dinner in an hour."),

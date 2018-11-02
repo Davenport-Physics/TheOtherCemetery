@@ -66,7 +66,7 @@ local function MoveCameras()
     elseif should_cameras_pan[2] then
         MoveCameraTwo()
     else
-        transition = {"src/levels/day1/scenes/school-room-after-dead"}
+        transition = {"src/levels/day1/scenes/school/school-room-after-dead"}
     end
 
 end

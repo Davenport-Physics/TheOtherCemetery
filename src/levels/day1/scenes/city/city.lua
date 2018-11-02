@@ -15,12 +15,12 @@ local TextBubbleClass = require("src/character/textbubbles")
 local BackgroundSound = getStreamSoundFromCache("sound/ambiance/city.wav")
 local SchoolBell      = nil--
 
-local MapData = require("src/levels/day0/maps/city")
+local MapData = require("src/levels/maps/city/city")
 local Map     = TiledMapClass:new(MapData)
 local Henry   = CharacterClass:new("tiles/Characters/Males/M_08.png", 49 * 16, 62 * 16, 16, 17, 6, .05);
 
-local HomeDoor   = DoorClass:new(49 * 16, 60 * 16, 16, 16,  "src/levels/day1/scenes/home-lobby", 2*16, 7*16)
-local SchoolDoor = DoorClass:new(36 * 16, 5 * 16, 2*16, 16, "src/levels/day1/scenes/school",   7*16, 27*16)
+local HomeDoor   = DoorClass:new(49 * 16, 60 * 16, 16, 16,  "src/levels/day1/scenes/home/home-lobby", 2*16, 7*16)
+local SchoolDoor = DoorClass:new(36 * 16, 5 * 16, 2*16, 16, "src/levels/day1/scenes/school/school",   7*16, 27*16)
 
 local NPCs =
 {

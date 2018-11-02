@@ -38,7 +38,7 @@ local TextAfterWakingUp =
 local Dialog = DialogClass:new(TextAfterWakingUp, 3)
 local CameraTrackingChanged = false
 
-local ExitDoor = DoorClass:new(9*16, 14*16, 3*16, 16, "src/levels/day1/scenes/school", 7*16, 12*16)
+local ExitDoor = DoorClass:new(9*16, 14*16, 3*16, 16, "src/levels/day1/scenes/school/school", 7*16, 12*16)
 
 local function CheckForDoorTransitions()
 

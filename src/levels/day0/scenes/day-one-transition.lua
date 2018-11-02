@@ -23,7 +23,7 @@ function Scene.Update()
     if video ~= nil and not video:isPlaying() then
         Settings.GlobalScaleOn = true
         transition = true
-        DataToSave.CurrentScene = "src/levels/day1/henry-bedroom-scene"
+        DataToSave.CurrentScene = "src/levels/day1/scenes/home/henry-bedroom-scene"
     end
 
 end
