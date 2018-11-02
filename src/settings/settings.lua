@@ -46,7 +46,7 @@ function Settings.UpdateScale()
         Settings.Window_Height_old = Settings.Window_Height
         Settings.Scale_x = 3 * (love.graphics.getWidth()/800)
         Settings.Scale_y = 3 * (love.graphics.getHeight()/600)
-        --Settings.Scale = 3 * (Settings.Window_Height/Settings.Window_Width)*(800/600)
+        Settings.Scale = 3 * (Settings.Window_Height/Settings.Window_Width)*(800/600)
 
     end
 
@@ -82,8 +82,8 @@ function Settings.DrawCameraFunctions(x_translation, y_translation)
     camera_x_offset = love.graphics.getWidth()  * .5
     camera_y_offset = love.graphics.getHeight() * .5
 
-    Settings.X_Canvas_Translation = -(x_translation * Settings.Scale_x) + camera_x_offset
-    Settings.Y_Canvas_Translation = -(y_translation * Settings.Scale_y) + camera_y_offset
+    Settings.X_Canvas_Translation = -(x_translation * Settings.Scale) + camera_x_offset
+    Settings.Y_Canvas_Translation = -(y_translation * Settings.Scale) + camera_y_offset
 
 end
 

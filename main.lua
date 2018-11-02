@@ -140,7 +140,7 @@ local function SetCanvas()
     if Settings.GlobalScaleOn then
 
         love.graphics.translate(Settings.X_Canvas_Translation, Settings.Y_Canvas_Translation)
-        love.graphics.scale(Settings.Scale_x, Settings.Scale_y)
+        love.graphics.scale(Settings.Scale, Settings.Scale)
 
     end
 
