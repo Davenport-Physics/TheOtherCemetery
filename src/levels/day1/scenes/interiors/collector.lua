@@ -49,6 +49,7 @@ local function UpdateDoorTransitions()
     transition = Doors:CheckForCollisions()
     if type(transition) == "table" then
         DataToSave.CurrentScene = transition[1]
+        return
     end
 
 end
