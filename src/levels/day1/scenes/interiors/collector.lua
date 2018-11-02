@@ -38,9 +38,9 @@ local World = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)
 
 local ExitDoor = DoorClass:new(10*16, 13*16, 3*16, 16, "src/levels/day1/scenes/city/city", 17*16, 41*16)
---local DeepDoor = DoorClass:new(12*16, 5*16, 16, 16, "")
+local DeepDoor = DoorClass:new(12*16, 5*16, 16, 16, "src/levels/day1/scenes/interiors/underneath-collector", 7*16, 27*16)
 
-local Doors = DoorsHandler:new({ExitDoor}, Henry)
+local Doors = DoorsHandler:new({ExitDoor, DeepDoor}, Henry)
 
 local WorkerText = TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Welcome!")
 
