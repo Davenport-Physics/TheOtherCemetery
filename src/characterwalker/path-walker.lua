@@ -70,13 +70,11 @@ end
 
 function PathWalker:CheckForSpecificPointMade(idx)
 
-    if math.abs(self.char.x_pos - self.path[idx].x) > self.point_threshold then
-        return
+    local x = (self.char.x_pos - self.path[idx].x)^2
+    local y = (self.char.y_pos - self.path[idx].y)^2
+    if math.sqrt(x + y) <= self.point_threshold then
+        self.point_made[idx] = true
     end
-    if math.abs(self.char.y_pos - self.path[idx].y) > self.point_threshold then
-        return
-    end
-    self.point_made[idx] = true
 
 end
 
