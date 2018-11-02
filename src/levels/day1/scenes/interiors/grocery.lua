@@ -1,3 +1,4 @@
+require("src/shared/cache")
 local DataToSave = require("src/save/savingdata")
 local Shared     = require("src/shared/shared")
 local Scene = {}
@@ -15,6 +16,10 @@ local DialogClass     = require("src/dialog/dialog")
 local transition = false
 local Map        = TiledMapClass:new(require("src/levels/maps/interiors/grocery/grocery"))
 
+local BackgroundSound = getStreamSoundFromCache("sound/ambiance/grocery/catchy.wav")
+BackgroundSound:setVolume(.5)
+BackgroundSound:setLooping(true)
+
 local StationaryEntity = EntityClass:newMinimal(3*16, 6*16)
 local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 3*16, 7*16, 16, 17, 6, .05); Henry:WalkUp();
 local NPCs  =
@@ -27,7 +32,7 @@ local World = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(StationaryEntity)
 World:SetHandleInputCallback(function() end)
 
-local ToCityDoor = DoorClass:new(2*16, 8*16, 2*16, 16, "src/levels/day1/scenes/city", 42*16, 41*16)
+local ToCityDoor = DoorClass:new(2*16, 8*16, 2*16, 16, "src/levels/day1/scenes/city/city", 42*16, 41*16)
 
 local GrocerTextExchange =
 {
@@ -49,15 +54,15 @@ local GrocerToHenry =
 {
     TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Ah, Henry is it?"),
     TextBubbleClass:new(Henry, "pics/share/text/TextBubbleSpeaking.png", "Yes ... sir."),
-    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "I'd be careful with the\n people"),
-    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "in this city. They'll \nsurely try to kill you"),
-    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Although they might do \nme in first"),
+    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "I'd be careful with the\n people in this city."),
+    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "They'll surely try to \nkill you,"),
+    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Although they might do \nme in first."),
     TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "HAHAHAHA"),
 
 }
 local GrocerToHenryDialog = DialogClass:new(GrocerToHenry, 4)
 
-local GrocerGeneric = TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Take what you like.")
+local GrocerGeneric = TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Take whatever you like.")
 
 local ExchangeHad = false
 local WomanLeft   = false
@@ -96,6 +101,8 @@ local function UpdateExchangeWithHenry()
     if GrocerHenry then return end
     if GrocerToHenryDialog:IsFinished() then
         GrocerHenry = true
+        World:SetEntityToTrackForCamera(Henry)
+        World:SetHandleInputCallback(nil)
     end
 
 end
@@ -119,7 +126,7 @@ end
 local function DrawExchangeWithHenryIfPossible()
 
     if WomanLeft and not GrocerHenry then
-        GrocerToHenry:Draw()
+        GrocerToHenryDialog:Draw()
     end
 
 end
@@ -138,6 +145,7 @@ function Scene.Update()
     UpdateExchangeHad()
     UpdateWomanLeft()
     UpdateExchangeWithHenry()
+    UpdateDoorTransition()
 
 end
 
@@ -159,11 +167,16 @@ end
 
 function Scene.CanTransition()
 
+    if type(transition) == "table" then
+        BackgroundSound:stop()
+    end
     return transition
 
 end
 
 function Scene.Reset()
+
+    BackgroundSound:play()
 
 end
 

@@ -32,7 +32,7 @@ local NPCs =
     CharacterClass:new("tiles/Characters/Males/M_05.png", 33*16, 62*16, 16, 17, 4, .05),   -- Key Person
     CharacterClass:new("tiles/Characters/Females/F_08.png", 30*16, 43*16, 16, 17, 4, .05), -- Going To Work
     CharacterClass:new("tiles/Characters/Females/F_07.png", 33*16, 43*16, 16, 17, 4, .05), -- Kid Going To School
-    CharacterClass:new("tiles/Characters/Females/F_05.png", 41*16, 42*16, 16, 17, 4, .05)  -- Lady turning
+    CharacterClass:new("tiles/Characters/Females/F_05.png", 39*16, 43*16, 16, 17, 4, .05)  -- Lady turning
 
 }
 NPCs[1]:WalkLeft()
@@ -165,7 +165,6 @@ local DoNotGoInText =
     {x_pos = 16*16, y_pos = 40*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubble.png", "I shouldn't go here")},
     {x_pos = 25*16, y_pos = 41*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubble.png", "I should go to school")},
     {x_pos = 53*16, y_pos = 37*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubble.png", "...")},
-    {x_pos = 42*16, y_pos = 40*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubble.png", "I should go to school")},
     {x_pos = 36*16, y_pos = 41*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubble.png", "I shouldn't go here")},
     {x_pos = 67*16, y_pos = 8*16, text = TextBubbleClass:new( Henry, "pics/share/text/TextBubble.png", "I shouldn't go here")},
     {x_pos = 74*16, y_pos = 6*16, text = TextBubbleClass:new( Henry, "pics/share/text/TextBubble.png", "Nothing here..."), range = 48},
