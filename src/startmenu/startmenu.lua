@@ -1,6 +1,6 @@
 
 require("src/shared/cache")
-local Settings = require("src/settings/settings")
+local Settings       = require("src/settings/settings")
 local StartMenuSound = getSoundFromCache("sound/startmenu/sadpiano.mp3")
 
 local ButtonClass = require("src/button/button")
@@ -14,7 +14,7 @@ local Buttons =
     Quit     = ButtonClass:newImage("pics/startmenu/quit.png", 625, 20),
     Twitter  = ButtonClass:newImage("pics/social/twitter.png", 100, 550),
     YouTube  = ButtonClass:newImage("pics/social/youtube.png", 250, 542.5),
-    Website  = ButtonClass:newImage("pics/social/Website.png", 350, 544),
+    Website  = ButtonClass:newImage("pics/social/website.png", 350, 544),
     About    = ButtonClass:newImage("pics/about.png", 450, 544)
 
 }
@@ -41,6 +41,15 @@ function StartMenuMusic_Stop()
 
 end
 
+local about_path = "file:///"..love.filesystem.getWorkingDirectory().."/LoveGame/about/index.html"
+local function SetAboutPath()
+
+    if Settings.BUILD then
+        about_path = "file:///"..love.filesystem.getWorkingDirectory().."/about/index.html"
+    end
+
+end
+
 function InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, Credits, Quit)
 
     Buttons.NewGame:SetCallback(StartNewGame)
@@ -50,7 +59,8 @@ function InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, 
     Buttons.Twitter:SetCallback(function() love.window.minimize(); love.system.openURL("https://twitter.com/DSectorStudios") end)
     Buttons.Website:SetCallback(function() love.window.minimize(); love.system.openURL("https://www.darksectorstudios.com/") end)
     Buttons.YouTube:SetCallback(function() love.window.minimize(); love.system.openURL("https://www.youtube.com/channel/UCIW4bSzn44v08ttyRMT5z2w?view_as=subscriber") end)
-    Buttons.About:SetCallback(function()   love.window.minimize(); love.system.openURL("file:///"..love.filesystem.getWorkingDirectory().."/LoveGame/about/index.html") end)
+    SetAboutPath()
+    Buttons.About:SetCallback(function()   love.window.minimize(); love.system.openURL(about_path) end)
 
 end
 
