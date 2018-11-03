@@ -19,13 +19,15 @@ local HenryChar = CharacterClass:new("tiles/Characters/Males/M_08.png", 3*16, 5*
 
 local AnnaPathWalkerInstructionsToHenry =
 {
-    {x = 7*16 , y = 5*16},
-    {x = 5*16 , y = 5*16}
+    path = 
+    {{x = 7*16 , y = 5*16},
+    {x = 5*16 , y = 5*16}}
 }
 local AnnaPathWalkerInstructionsAwayFromHenry =
 {
-    {x = 7*16 , y = 5*16},
-    {x = 7*16 , y = 4*16}
+    path =
+    {{x = 7*16 , y = 5*16},
+    {x = 7*16 , y = 4*16}}
 }
 local AnnaPathWalkerToHenry       = WalkerClass:new(AnnaChar, "path-walker", AnnaPathWalkerInstructionsToHenry)
 local AnnaPathWalkerAwayFromHenry = nil

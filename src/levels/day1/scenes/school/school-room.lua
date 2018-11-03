@@ -69,8 +69,11 @@ local TextBoxDialog = DialogClass:new(TextBox, 4)
 
 local HenryPathWalkerInstructions =
 {
-    {x = 12*16, y = 13*16},
-    {x = 12*16, y = 9*16}
+    threshold = 2,
+    path = {
+        {x = 12*16, y = 13*16},
+        {x = 12*16, y = 9*16}
+    }
 }
 local HenryPathWalker = WalkerClass:new(Henry, "path-walker", HenryPathWalkerInstructions)
 

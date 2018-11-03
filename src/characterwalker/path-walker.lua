@@ -7,7 +7,7 @@ function PathWalker:new(char, walker_instructions)
     setmetatable(obj, PathWalker)
     obj.char = char
     obj.walker_instructions = walker_instructions
-    obj.point_threshold     = 2
+    obj.point_threshold     = walker_instructions.threshold or 1
     obj:Init()
 
     return obj
@@ -17,7 +17,7 @@ end
 function PathWalker:Init()
 
     self.is_done_walking = false
-    self.path         = self.walker_instructions
+    self.path         = self.walker_instructions.path
     self.point_made   = {}
     self.current_walk = nil
 

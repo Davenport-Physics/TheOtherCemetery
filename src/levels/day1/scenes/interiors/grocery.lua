@@ -46,7 +46,9 @@ local GrocerDialogExchange = DialogClass:new(GrocerTextExchange, 4)
 local TextWhileWalking = TextBubbleClass:new(NPCs[2], "pics/share/text/TextBubbleSpeaking.png", "Hmph")
 local WomanWalkerIntructions =
 {
-    {x = 2*16, y = 8*16}
+    path = {
+        {x = 2*16, y = 8*16}
+    }
 }
 local WomanWalker = WalkerClass:new(NPCs[2], "path-walker", WomanWalkerIntructions)
 

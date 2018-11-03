@@ -42,19 +42,21 @@ NPCs[3]:WalkUp()
 
 local FemaleGoingToWorkWalkerInstructions =
 {
-    {x = 17*16, y = 43*16},
-    {x = 17*16, y = 41*16}
+    path = 
+    {{x = 17*16, y = 43*16},
+    {x = 17*16, y = 41*16}}
 }
 
 local KidGoingToSchoolWalkerInstructions =
 {
-    {x = 33*16, y = 22*16},
+    path = 
+    {{x = 33*16, y = 22*16},
     {x = 44*16, y = 22*16},
     {x = 44*16, y = 9*16},
     {x = 40*16, y = 9*16},
     {x = 40*16, y = 7*16},
     {x = 37*16, y = 7*16},
-    {x = 37*16, y = 6*16}
+    {x = 37*16, y = 6*16}}
 }
 
 local TurnWalkerInstructions =
