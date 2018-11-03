@@ -36,7 +36,7 @@ local AnnaStationaryText = EntityClass:newMinimal(5*16, 14*16)
 local AnnaText =
 {
 
-    TextBubbleClass:new(AnnaStationaryText, "pics/share/text/TextBoxes.png", "Moving here was supposed to be a \nnew change for my family."),
+    TextBubbleClass:new(AnnaStationaryText, "pics/share/text/TextBoxes.png", "Moving here was supposed \nto be a new change for \nmy family."),
     TextBubbleClass:new(AnnaStationaryText, "pics/share/text/TextBoxes.png", "However, I never anticipated \nthat it would mean this..."),
     TextBubbleClass:new(AnnaStationaryText, "pics/share/text/TextBoxes.png", "I wanted to thank all of you \nfor being here. Most of you \ndon’t know Duncan,"),
     TextBubbleClass:new(AnnaStationaryText, "pics/share/text/TextBoxes.png", "but I am sure he would have \nappreciated it."),
