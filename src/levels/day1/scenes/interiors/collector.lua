@@ -25,7 +25,7 @@ local NPCs  =
 local TurnWalkerIntructions =
 {
 
-    DirectionDt = 2,
+    DirectionDt = 1.5,
     CurrentDirection = "Down",
     SpecificTurns =
     {{dir = "Right", func =  NPCs[1].WalkDown, new_dir = "Down"},
@@ -40,9 +40,27 @@ World:SetEntityToTrackForCamera(Henry)
 local ExitDoor = DoorClass:new(10*16, 13*16, 3*16, 16, "src/levels/day1/scenes/city/city", 17*16, 41*16)
 local DeepDoor = DoorClass:new(12*16, 5*16, 16, 16, "src/levels/day1/scenes/interiors/underneath-collector", 7*16, 27*16)
 
-local Doors = DoorsHandler:new({ExitDoor, DeepDoor}, Henry)
+local Doors = DoorsHandler:new({ExitDoor}, Henry)
 
+local GetOutStationaryEntity = EntityClass:newMinimal(10*16, 5*16)
 local WorkerText = TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Welcome!")
+local GetOutText = TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Get OUT!")
+local ShouldDrawGetOutText = false
+local DrawGetOutTextFor    = nil
+
+local function CheckIfWomanIsLookingAtYou(temp_transition)
+
+    if ShouldDrawGetOutText then return end
+    if WorkerTurner.walker.current_dir == "Right" then
+        ShouldDrawGetOutText = true
+        DrawGetOutTextFor = love.timer.getTime() + 2
+        World:SetHandleInputCallback(function() end)
+        World:SetEntityToTrackForCamera(GetOutStationaryEntity)
+    else
+        transition = temp_transition
+    end
+
+end
 
 local function UpdateDoorTransitions()
 
@@ -51,19 +69,46 @@ local function UpdateDoorTransitions()
         DataToSave.CurrentScene = transition[1]
         return
     end
+    local temp = DeepDoor:CheckForCollision(Henry:GetCenterPosition())
+    if type(temp) == "table" then
+        CheckIfWomanIsLookingAtYou(temp)
+    end
 
 end
 
 local function UpdateWalker()
 
+    if ShouldDrawGetOutText then return end
     WorkerTurner:Update()
+
+end
+
+local function UpdateGetOutText()
+
+    if not ShouldDrawGetOutText then return end
+    if love.timer.getTime() >= DrawGetOutTextFor then
+        DrawGetOutTextFor    = nil
+        ShouldDrawGetOutText = false
+        transition = {"src/levels/day1/scenes/city/city", 17*16, 41*16}
+        World:SetHandleInputCallback(nil)
+        World:SetEntityToTrackForCamera(Henry)
+    end
 
 end
 
 local function DrawWorkerTextIfPossible()
 
+    if ShouldDrawGetOutText then return end
     if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[1].x_pos, NPCs[1].y_pos, 48) then
         WorkerText:Draw()
+    end
+
+end
+
+local function DrawGetOutTextIfPossible()
+
+    if ShouldDrawGetOutText then
+        GetOutText:Draw()
     end
 
 end
@@ -73,6 +118,7 @@ function Scene.Update()
     World:Update()
     UpdateDoorTransitions()
     UpdateWalker()
+    UpdateGetOutText()
 
 end
 
@@ -80,6 +126,7 @@ function Scene.Draw()
 
     World:Draw()
     DrawWorkerTextIfPossible()
+    DrawGetOutTextIfPossible()
 
 end
 
