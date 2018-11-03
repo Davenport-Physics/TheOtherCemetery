@@ -1,7 +1,7 @@
 
 require("src/shared/cache")
 local Settings = require("src/settings/settings")
-local StartMenuSound = getStreamSoundFromCache("sound/startmenu/sadpiano.mp3")
+local StartMenuSound = getSoundFromCache("sound/startmenu/sadpiano.mp3")
 
 local ButtonClass = require("src/button/button")
 local Buttons =

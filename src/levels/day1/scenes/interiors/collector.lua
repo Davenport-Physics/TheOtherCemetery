@@ -1,3 +1,4 @@
+require("src/shared/cache")
 local DataToSave = require("src/save/savingdata")
 local Shared     = require("src/shared/shared")
 local Scene = {}
@@ -13,6 +14,8 @@ local TextBubbleClass = require("src/character/textbubbles")
 local DialogClass     = require("src/dialog/dialog")
 local DoorsHandler    = require("src/entity/doorhandler")
 
+local BackgroundSound = getSoundFromCache("sound/ambiance/collector-slow.wav")
+
 local transition = false
 local Map        = TiledMapClass:new(require("src/levels/maps/interiors/collector/collector"))
 
@@ -25,7 +28,7 @@ local NPCs  =
 local TurnWalkerIntructions =
 {
 
-    DirectionDt = 1.5,
+    DirectionDt = 1.25,
     CurrentDirection = "Down",
     SpecificTurns =
     {{dir = "Right", func =  NPCs[1].WalkDown, new_dir = "Down"},
@@ -138,11 +141,18 @@ end
 
 function Scene.CanTransition()
 
+    if type(transition) == "table" then
+        BackgroundSound:stop()
+    end
     return transition
 
 end
 
 function Scene.Reset()
+
+    BackgroundSound:setVolume(.15)
+    BackgroundSound:setLooping(true)
+    BackgroundSound:play()
 
 end
 
