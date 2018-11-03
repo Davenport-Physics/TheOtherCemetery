@@ -59,7 +59,7 @@ local TextFromCultOutside =
 local DialogFromTextCultOutside = DialogClass:new(TextFromCultOutside, 4)
 
 local ShiftActiveWorldTimer = nil
-local ShiftActiveWorldDT    = 4
+local ShiftActiveWorldDT    = 2
 
 local function DrawTextFromCultOutside()
 
