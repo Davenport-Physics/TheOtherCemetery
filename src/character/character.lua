@@ -177,7 +177,11 @@ function Character:DisplaceCharacterAlongXWithCollisionCheck(displace_x)
     if displace_x > 0 then increment = -.05 end
     for dis = displace_x, 0, increment do
         temp_x = x_mid + dis
-        if not self:DoesCharacterCollide(temp_x, self.y_pos + self.height) then self.x_pos = self.x_pos + dis; break; end
+        if not self:DoesCharacterCollide(temp_x, self.y_pos + self.height) then
+            self.x_pos = self.x_pos + dis;
+            self.distance_walked_currently = self.distance_walked_currently + dis
+            break;
+        end
     end
 
 end
@@ -191,7 +195,11 @@ function Character:DisplaceCharacterAlongYWithCollisionCheck(displace_y)
     if displace_y > 0 then increment = -.05 end
     for dis = displace_y, 0, increment do
         temp_y = self.y_pos + self.height + dis
-        if not self:DoesCharacterCollide(x_mid, temp_y) then self.y_pos = self.y_pos + dis; break; end
+        if not self:DoesCharacterCollide(x_mid, temp_y) then
+            self.y_pos = self.y_pos + dis
+            self.distance_walked_currently = self.distance_walked_currently + dis
+            break
+        end
     end
 
 end
@@ -222,7 +230,10 @@ function Character:WalkGeneric(CorrectDirection, displace)
     if self.direction == CorrectDirection then
 
         self:DetermineNewPresentStance()
-        if displace then self.currently_walking = true end
+        if displace then
+            self.currently_walking = true
+            self.distance_walked_currently = 0
+        end
 
     else
 
@@ -340,7 +351,6 @@ end
 
 function Character:MakeMinisculeDisplacement()
     local mini_displacement = self.displacement*(love.timer.getDelta()/self.stance_change_time)
-    self.distance_walked_currently = self.distance_walked_currently + mini_displacement
     if self.direction == DIRECTION.RIGHT then
         self:DisplaceCharacterAlongXWithCollisionCheck(mini_displacement)
     end
@@ -357,13 +367,12 @@ end
 
 function Character:MinisculeDisplacement()
 
-    if math.abs(self.distance_walked_currently - self.displacement) <= .05 then
+    if math.abs(self.distance_walked_currently) >= math.abs(self.displacement) then
         self.distance_walked_currently = 0
         self.displace = false
         self.currently_walking = false
         return
     end
-    print("Moving")
     self:MakeMinisculeDisplacement()
 
 end
@@ -371,10 +380,6 @@ end
 function Character:Update()
 
     if not self.currently_walking or not self.displace then
-        print(self.currently_walking)
-        print(self.displace)
-        print("returning")
-        print("-----")
         return
     end
     self:MinisculeDisplacement()
