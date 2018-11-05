@@ -14,7 +14,7 @@ local MapData        = require("src/levels/maps/home/henry-bedroom")
 local TiledMapClass  = require("src/map/tiledmap")
 local TiledMap       = TiledMapClass:new(MapData)
 
-local AnnaChar  = CharacterClass:new("tiles/Characters/Females/F_01.png", 7*16, 4*16, 16, 17, 2, .05); AnnaChar:AllowDrawing(false);
+local AnnaChar  = CharacterClass:new("tiles/Characters/Females/F_01.png", 7*16, 4*16, 16, 17, 4, .1); AnnaChar:AllowDrawing(false);
 local HenryChar = CharacterClass:new("tiles/Characters/Males/M_08.png", 3*16, 5*16, 16, 17, 6, .05); HenryChar:WalkRight(true);
 
 local AnnaPathWalkerInstructionsToHenry =
