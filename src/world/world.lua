@@ -69,10 +69,6 @@ function World:SetHandleInputCallback(func)
 
 end
 
-function World:RandomWalker()
-
-end
-
 function World:UpdateEscapeMenuSaveObject(offset_x, offset_y)
 
     self.escape_menu_save_game.x_pos = self.escape_menu_x_pos + 20.5
@@ -105,9 +101,19 @@ function World:UpdateEscapeMenuObjects()
 
 end
 
+function World:UpdateCharacters()
+
+    self.player_character_obj:Update()
+    for i = 1, #self.character_objs do
+        self.character_objs[i]:Update()
+    end
+
+end
+
 function World:Update()
 
     self:UpdateEscapeMenuObjects()
+    self:UpdateCharacters()
 
 end
 

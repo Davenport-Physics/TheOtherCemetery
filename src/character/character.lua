@@ -40,6 +40,9 @@ function Character:new(character_image_file, x_pos, y_pos, width, height, displa
     obj.allow_drawing              = true
     obj.stance_change_time         = stance_change_time or MIN_DT_FOR_CHANGING_STANCES
     obj.health                     = 10
+    obj.currently_walking          = false
+    obj.displace                   = false
+    obj.distance_walked_currently  = 0
     obj:InitializeAnimationSet(displacement)
     obj:SetCollisionFunctions()
 
@@ -168,10 +171,10 @@ end
 function Character:DisplaceCharacterAlongXWithCollisionCheck(displace_x)
 
     local temp_x       = 0
-    local increment    = 1
+    local increment    = .05
     local x_mid, y_mid = self:GetCenterPosition()
 
-    if displace_x > 0 then increment = -1 end
+    if displace_x > 0 then increment = -.05 end
     for dis = displace_x, 0, increment do
         temp_x = x_mid + dis
         if not self:DoesCharacterCollide(temp_x, self.y_pos + self.height) then self.x_pos = self.x_pos + dis; break; end
@@ -182,10 +185,10 @@ end
 function Character:DisplaceCharacterAlongYWithCollisionCheck(displace_y)
 
     local temp_y       = 0
-    local increment    = 1
+    local increment    = .1
     local x_mid, y_mid = self:GetCenterPosition()
 
-    if displace_y > 0 then increment = -1 end
+    if displace_y > 0 then increment = -.05 end
     for dis = displace_y, 0, increment do
         temp_y = self.y_pos + self.height + dis
         if not self:DoesCharacterCollide(x_mid, temp_y) then self.y_pos = self.y_pos + dis; break; end
@@ -219,7 +222,7 @@ function Character:WalkGeneric(CorrectDirection, displace)
     if self.direction == CorrectDirection then
 
         self:DetermineNewPresentStance()
-        if displace then self:DisplaceCharacter() end
+        if displace then self.currently_walking = true end
 
     else
 
@@ -234,24 +237,28 @@ end
 
 function Character:WalkDown(displace)
 
+    self.displace = displace
     self:WalkGeneric(DIRECTION.DOWN, displace)
 
 end
 
 function Character:WalkUp(displace)
 
+    self.displace = displace
     self:WalkGeneric(DIRECTION.UP, displace)
 
 end
 
 function Character:WalkLeft(displace)
 
+    self.displace = displace
     self:WalkGeneric(DIRECTION.LEFT, displace)
 
 end
 
 function Character:WalkRight(displace)
 
+    self.displace = displace
     self:WalkGeneric(DIRECTION.RIGHT, displace)
 
 end
@@ -328,6 +335,49 @@ function Character:GetCenterPosition()
     local y_mid = self.y_pos + math.floor(self.height * .5)
 
     return x_mid, y_mid
+
+end
+
+function Character:MakeMinisculeDisplacement()
+    local mini_displacement = self.displacement*(love.timer.getDelta()/self.stance_change_time)
+    self.distance_walked_currently = self.distance_walked_currently + mini_displacement
+    if self.direction == DIRECTION.RIGHT then
+        self:DisplaceCharacterAlongXWithCollisionCheck(mini_displacement)
+    end
+    if self.direction == DIRECTION.LEFT then
+        self:DisplaceCharacterAlongXWithCollisionCheck(-mini_displacement)
+    end
+    if self.direction == DIRECTION.UP then
+        self:DisplaceCharacterAlongYWithCollisionCheck(-mini_displacement)
+    end
+    if self.direction == DIRECTION.DOWN then
+        self:DisplaceCharacterAlongYWithCollisionCheck(mini_displacement)
+    end
+end
+
+function Character:MinisculeDisplacement()
+
+    if math.abs(self.distance_walked_currently - self.displacement) <= .05 then
+        self.distance_walked_currently = 0
+        self.displace = false
+        self.currently_walking = false
+        return
+    end
+    print("Moving")
+    self:MakeMinisculeDisplacement()
+
+end
+
+function Character:Update()
+
+    if not self.currently_walking or not self.displace then
+        print(self.currently_walking)
+        print(self.displace)
+        print("returning")
+        print("-----")
+        return
+    end
+    self:MinisculeDisplacement()
 
 end
 
