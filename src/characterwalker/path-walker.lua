@@ -9,6 +9,7 @@ function PathWalker:new(char, walker_instructions)
     obj.walker_instructions = walker_instructions
     obj.point_threshold     = walker_instructions.threshold or 1
     obj.debug               = walker_instructions.debug or false
+    obj.idx                 = 1
     obj:Init()
 
     return obj
@@ -68,10 +69,12 @@ function PathWalker:CalculateNextWalkOrQuit(idx)
     end
     if self.path[idx+1].y ~= self.path[idx].y then
         self:SetNewWalkStanceY(self.path[idx].y, self.path[idx+1].y)
+        self.idx = idx + 1
         return
     end
     if self.path[idx+1].x ~= self.path[idx].x then
         self:SetNewWalkStanceX(self.path[idx].x, self.path[idx+1].x)
+        self.idx = idx + 1
         return
     end
 
@@ -81,16 +84,21 @@ function PathWalker:CheckForSpecificPointMade(idx)
 
     local char_d = nil
     local path_d = nil
+    local debug_v = nil
     if self.compare_x then
+        debug_v = "x"
         char_d = self.char.x_pos
         path_d = self.path[idx].x
     else
+        debug_v = "y"
         char_d = self.char.y_pos
         path_d =  self.path[idx].y
     end
     if self.new_pos_large_mag then
         if char_d >= path_d then
             if self.debug then
+                print("large")
+                print(debug_v)
                 print(char_d)
                 print(path_d)
                 print("----")
@@ -100,6 +108,8 @@ function PathWalker:CheckForSpecificPointMade(idx)
     else
         if char_d <= path_d then
             if self.debug then
+                print("small")
+                print(debug_v)
                 print(char_d)
                 print(path_d)
                 print("----")
@@ -112,11 +122,9 @@ end
 
 function PathWalker:CheckForPointsMade()
 
-    for i = 1, #self.point_made do
-        if not self.point_made[i] then
-            self:CheckForSpecificPointMade(i)
-            if self.point_made[i] then self:CalculateNextWalkOrQuit(i) end
-        end
+    if not self.point_made[self.idx] then
+        self:CheckForSpecificPointMade(self.idx)
+        if self.point_made[self.idx] then self:CalculateNextWalkOrQuit(self.idx) end
     end
 
 end
