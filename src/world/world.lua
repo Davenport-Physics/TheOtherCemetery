@@ -103,7 +103,9 @@ end
 
 function World:UpdateCharacters()
 
-    self.player_character_obj:Update()
+    if self.player_character_obj ~= nil then
+        self.player_character_obj:Update()
+    end
     for i = 1, #self.character_objs do
         self.character_objs[i]:Update()
     end

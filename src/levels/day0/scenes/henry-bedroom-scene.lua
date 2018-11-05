@@ -19,7 +19,7 @@ local HenryChar = CharacterClass:new("tiles/Characters/Males/M_08.png", 3*16, 5*
 
 local AnnaPathWalkerInstructionsToHenry =
 {
-    path = 
+    path =
     {{x = 7*16 , y = 5*16},
     {x = 5*16 , y = 5*16}}
 }
@@ -99,6 +99,8 @@ local function Update_AnnaMove()
         Update_Talk()
     end
     if anna_done_talking and AnnaPathWalkerAwayFromHenry == nil then
+        AnnaChar.x_pos = 5*16
+        AnnaChar.y_pos = 5*16
         AnnaPathWalkerAwayFromHenry = WalkerClass:new(AnnaChar, "path-walker", AnnaPathWalkerInstructionsAwayFromHenry)
     elseif anna_done_talking and not AnnaPathWalkerAwayFromHenry:IsDoneWalking() then
         AnnaPathWalkerAwayFromHenry:Update()

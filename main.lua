@@ -42,6 +42,9 @@ local CANVAS = love.graphics.newCanvas(2000, 2000)
 
 local function InStartMenu()
 
+    if CURRENT_CONTEXT == CONTEXT_INDEX.GAME then
+        love.audio.stop()
+    end
     StartMenuMusic_Start()
     CURRENT_CONTEXT = CONTEXT_INDEX.STARTING_WINDOW
 
