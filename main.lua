@@ -168,6 +168,7 @@ end
 
 function love.quit()
 
+    StoreSettings()
     os.exit()
 
 end

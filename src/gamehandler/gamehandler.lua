@@ -4,7 +4,7 @@ local Level_idx = 1
 local Levels    =
 {
 
-    --"src/levels/day0/level",
+    "src/levels/day0/level",
     "src/levels/day1/level"
 
 }

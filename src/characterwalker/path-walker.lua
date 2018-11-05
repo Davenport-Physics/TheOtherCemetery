@@ -84,36 +84,19 @@ function PathWalker:CheckForSpecificPointMade(idx)
 
     local char_d = nil
     local path_d = nil
-    local debug_v = nil
     if self.compare_x then
-        debug_v = "x"
         char_d = self.char.x_pos
         path_d = self.path[idx].x
     else
-        debug_v = "y"
         char_d = self.char.y_pos
         path_d =  self.path[idx].y
     end
     if self.new_pos_large_mag then
         if char_d >= path_d then
-            if self.debug then
-                print("large")
-                print(debug_v)
-                print(char_d)
-                print(path_d)
-                print("----")
-            end
             self.point_made[idx] = true
         end
     else
         if char_d <= path_d then
-            if self.debug then
-                print("small")
-                print(debug_v)
-                print(char_d)
-                print(path_d)
-                print("----")
-            end
             self.point_made[idx] = true
         end
     end

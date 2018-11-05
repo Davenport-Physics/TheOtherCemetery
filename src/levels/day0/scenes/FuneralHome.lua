@@ -97,8 +97,6 @@ function Scene.Reset()
     CameraPanning = true
     transition    = false
     Camera:ResetPosition()
-    print("Funeral Scene Reset")
-    print("Camera.y_pos = " .. Camera.y_pos)
 
 end
 
