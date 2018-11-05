@@ -6,6 +6,24 @@ TextBubble.__index = TextBubble
 
 function TextBubble:new(char, image, text, fontsize)
 
+    return TextBubble:initnew(char, image, text, fontsize)
+
+end
+
+function TextBubble:newSpeaking(char, text, fontsize)
+
+    return TextBubble:initnew(char, "pics/share/text/TextBubbleSpeaking.png", text, fontsize)
+
+end
+
+function TextBubble:newThought(char, text, fontsize)
+
+    return TextBubble:initnew(char, "pics/share/text/TextBubble.png", text, fontsize)
+
+end
+
+function TextBubble:initnew(char, image, text, fontsize)
+
     local obj = {}
     setmetatable(obj, TextBubble)
 
