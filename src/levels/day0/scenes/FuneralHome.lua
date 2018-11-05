@@ -40,7 +40,7 @@ local AnnaText =
     TextBubbleClass:new(AnnaStationaryText, "pics/share/text/TextBoxes.png", "However, I never anticipated \nthat it would mean this..."),
     TextBubbleClass:new(AnnaStationaryText, "pics/share/text/TextBoxes.png", "I wanted to thank all of you \nfor being here. Most of you \ndon’t know Duncan,"),
     TextBubbleClass:new(AnnaStationaryText, "pics/share/text/TextBoxes.png", "but I am sure he would have \nappreciated it."),
-    TextBubbleClass:new(AnnaCharacter, "pics/share/text/TextBubbleSpeaking.png", "Thank you."),
+    TextBubbleClass:newSpeaking(AnnaCharacter, "Thank you."),
 
 }
 

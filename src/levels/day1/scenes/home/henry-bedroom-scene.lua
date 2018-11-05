@@ -33,7 +33,7 @@ local function UpdateSounds()
 
 end
 
-local HomeworkText = TextBubbleClass:new(Henry, "pics/share/text/TextBubbleSpeaking.png", "I don't feel like doing\n homework...")
+local HomeworkText = TextBubbleClass:newSpeaking(Henry, "I don't feel like doing\n homework...")
 
 local function CheckIfNearBooksForHomeworkText()
 

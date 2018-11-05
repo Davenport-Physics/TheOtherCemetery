@@ -161,22 +161,22 @@ end
 
 local DoNotGoInText =
 {
-    {x_pos = 23*16, y_pos = 59*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubble.png", "Locked...")},
-    {x_pos = 29*16, y_pos = 59*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubble.png", "Locked...")},
-    {x_pos = 35*16, y_pos = 59*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubble.png", "Locked...")},
-    {x_pos = 41*16, y_pos = 59*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubble.png", "Locked...")},
-    {x_pos = 16*16, y_pos = 40*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubble.png", "I shouldn't go here")},
-    {x_pos = 25*16, y_pos = 41*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubble.png", "I should go to school")},
-    {x_pos = 53*16, y_pos = 37*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubble.png", "...")},
-    {x_pos = 36*16, y_pos = 41*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubble.png", "I shouldn't go here")},
-    {x_pos = 67*16, y_pos = 8*16, text = TextBubbleClass:new( Henry, "pics/share/text/TextBubble.png", "I shouldn't go here")},
-    {x_pos = 74*16, y_pos = 6*16, text = TextBubbleClass:new( Henry, "pics/share/text/TextBubble.png", "Nothing here..."), range = 48},
+    {x_pos = 23*16, y_pos = 59*16, text = TextBubbleClass:newThought(Henry, "Locked...")},
+    {x_pos = 29*16, y_pos = 59*16, text = TextBubbleClass:newThought(Henry, "Locked...")},
+    {x_pos = 35*16, y_pos = 59*16, text = TextBubbleClass:newThought(Henry, "Locked...")},
+    {x_pos = 41*16, y_pos = 59*16, text = TextBubbleClass:newThought(Henry, "Locked...")},
+    {x_pos = 16*16, y_pos = 40*16, text = TextBubbleClass:newThought(Henry, "I shouldn't go here")},
+    {x_pos = 25*16, y_pos = 41*16, text = TextBubbleClass:newThought(Henry, "I shouldn't go here")},
+    {x_pos = 53*16, y_pos = 37*16, text = TextBubbleClass:newThought(Henry, "...")},
+    {x_pos = 36*16, y_pos = 41*16, text = TextBubbleClass:newThought(Henry, "I shouldn't go here")},
+    {x_pos = 67*16, y_pos = 8*16, text = TextBubbleClass:newThought( Henry, "I shouldn't go here")},
+    {x_pos = 74*16, y_pos = 6*16, text = TextBubbleClass:newThought( Henry, "Nothing here..."), range = 48},
 
 }
 local FamiliarPlace =
 {
 
-    {x_pos = 74*16, y_pos = 7*16, text = TextBubbleClass:new(Henry, "pics/share/text/TextBubble.png", "Have I seen this before?")},
+    {x_pos = 74*16, y_pos = 7*16, text = TextBubbleClass:newThought(Henry, "Have I seen this before?")},
 
 }
 local function DrawHenryStopTextBubblesAfterSchoolIfPossible()

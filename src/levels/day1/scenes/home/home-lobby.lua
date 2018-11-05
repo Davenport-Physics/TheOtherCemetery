@@ -49,23 +49,23 @@ local function CheckDoorCollisions()
 
 end
 
-local LoveYouText = TextBubbleClass:new(Anna, "pics/share/text/TextBubbleSpeaking.png", "Have a good day at \nschool!")
+local LoveYouText = TextBubbleClass:newSpeaking(Anna, "Have a good day at \nschool!")
 
 local TextBetweenHenryAndMom =
 {
 
-    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "Hey! Did you have a good \nday at school?"),
-    TextBubbleClass:new(Henry, "pics/share/text/TextBubbleSpeaking.png", "It ... was okay."),
-    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "Well that’s good to hear."),
-    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I had a fairly weird day \nmyself."),
-    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I went to the grocery store \nto get some food and"),
-    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "as I was going to checkout,"),
-    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I realized there wasn’t \nanyone in the store"),
-    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "I thought I had saw a clerk or \ntwo when I entered,"),
-    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "but I don’t know. . ."),
-    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "Anyways, I’m going to \nmake dinner in an hour."),
-    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "So if you any homework \nor if you want to go"),
-    TextBubbleClass:new(Anna , "pics/share/text/TextBubbleSpeaking.png", "play outside, now’s your \nchance"),
+    TextBubbleClass:newSpeaking(Anna , "Hey! Did you have a good \nday at school?"),
+    TextBubbleClass:newSpeaking(Henry, "It ... was okay."),
+    TextBubbleClass:newSpeaking(Anna , "Well that’s good to hear."),
+    TextBubbleClass:newSpeaking(Anna , "I had a fairly weird day \nmyself."),
+    TextBubbleClass:newSpeaking(Anna , "I went to the grocery store \nto get some food and"),
+    TextBubbleClass:newSpeaking(Anna , "as I was going to checkout,"),
+    TextBubbleClass:newSpeaking(Anna , "I realized there wasn’t \nanyone in the store"),
+    TextBubbleClass:newSpeaking(Anna , "I thought I had saw a clerk or \ntwo when I entered,"),
+    TextBubbleClass:newSpeaking(Anna , "but I don’t know. . ."),
+    TextBubbleClass:newSpeaking(Anna , "Anyways, I’m going to \nmake dinner in an hour."),
+    TextBubbleClass:newSpeaking(Anna , "So if you any homework \nor if you want to go"),
+    TextBubbleClass:newSpeaking(Anna , "play outside, now’s your \nchance"),
 
 }
 local DialogBetweenHenryAndMom = DialogClass:new(TextBetweenHenryAndMom, 3.25)

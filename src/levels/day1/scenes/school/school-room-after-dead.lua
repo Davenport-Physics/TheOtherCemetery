@@ -30,10 +30,10 @@ World:SetHandleInputCallback(function() end)
 
 local TextAfterWakingUp =
 {
-    TextBubbleClass:new(Henry,   "pics/share/text/TextBubbleSpeaking.png", "AHHHH!!!"),
-    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Henry it's alright."),
-    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "You were just \nsleeping."),
-    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Go home Henry."),
+    TextBubbleClass:newSpeaking(Henry,   "AHHHH!!!"),
+    TextBubbleClass:newSpeaking(NPCs[1], "Henry it's alright."),
+    TextBubbleClass:newSpeaking(NPCs[1], "You were just \nsleeping."),
+    TextBubbleClass:newSpeaking(NPCs[1], "Go home Henry."),
 }
 local Dialog = DialogClass:new(TextAfterWakingUp, 3)
 local CameraTrackingChanged = false

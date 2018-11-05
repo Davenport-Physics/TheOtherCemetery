@@ -46,8 +46,8 @@ local DeepDoor = DoorClass:new(12*16, 5*16, 16, 16, "src/levels/day1/scenes/inte
 local Doors = DoorsHandler:new({ExitDoor}, Henry)
 
 local GetOutStationaryEntity = EntityClass:newMinimal(10*16, 5*16)
-local WorkerText = TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Welcome!")
-local GetOutText = TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Get OUT!")
+local WorkerText = TextBubbleClass:newSpeaking(NPCs[1], "Welcome!")
+local GetOutText = TextBubbleClass:newSpeaking(NPCs[1], "Get OUT!")
 local ShouldDrawGetOutText = false
 local DrawGetOutTextFor    = nil
 

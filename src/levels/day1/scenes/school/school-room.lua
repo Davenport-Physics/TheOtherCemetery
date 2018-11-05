@@ -44,11 +44,11 @@ local ExitDoor         = DoorClass:new(9*16, 14*16, 3*16, 16, "src/levels/day1/s
 local TextBubbles =
 {
 
-    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "He is next..."),
-    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "OH! Henry, why are you \nhere today?"),
-    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Shouldn’t you be at home \nresting?"),
-    TextBubbleClass:new(Henry,   "pics/share/text/TextBubble.png", "Who was he talking about..."),
-    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Well, take your seat Henry"),
+    TextBubbleClass:newSpeaking(NPCs[1], "He is next..."),
+    TextBubbleClass:newSpeaking(NPCs[1], "OH! Henry, why are you \nhere today?"),
+    TextBubbleClass:newSpeaking(NPCs[1], "Shouldn’t you be at home \nresting?"),
+    TextBubbleClass:newThought(Henry, "Who was he talking about..."),
+    TextBubbleClass:newSpeaking(NPCs[1], "Well, take your seat Henry"),
 
 }
 

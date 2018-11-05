@@ -36,14 +36,14 @@ local ToCityDoor = DoorClass:new(2*16, 8*16, 2*16, 16, "src/levels/day1/scenes/c
 
 local GrocerTextExchange =
 {
-    TextBubbleClass:new(NPCs[2], "pics/share/text/TextBubbleSpeaking.png", "Are you MAD?"),
-    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Not as much as you,\n love."),
-    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "NOW GET OUT!\n NOW!"),
+    TextBubbleClass:newSpeaking(NPCs[2], "Are you MAD?"),
+    TextBubbleClass:newSpeaking(NPCs[1], "Not as much as you,\n love."),
+    TextBubbleClass:newSpeaking(NPCs[1], "NOW GET OUT!\n NOW!"),
 
 }
 local GrocerDialogExchange = DialogClass:new(GrocerTextExchange, 4)
 
-local TextWhileWalking = TextBubbleClass:new(NPCs[2], "pics/share/text/TextBubbleSpeaking.png", "Hmph")
+local TextWhileWalking = TextBubbleClass:newSpeaking(NPCs[2], "Hmph")
 local WomanWalkerIntructions =
 {
     path = {
@@ -54,17 +54,17 @@ local WomanWalker = WalkerClass:new(NPCs[2], "path-walker", WomanWalkerIntructio
 
 local GrocerToHenry =
 {
-    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Ah, Henry is it?"),
-    TextBubbleClass:new(Henry, "pics/share/text/TextBubbleSpeaking.png", "Yes ... sir."),
-    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "I'd be careful with the\n people in this city."),
-    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "They'll surely try to \nkill you,"),
-    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Although they might do \nme in first."),
-    TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "HAHAHAHA"),
+    TextBubbleClass:newSpeaking(NPCs[1], "Ah, Henry is it?"),
+    TextBubbleClass:newSpeaking(Henry, "Yes ... sir."),
+    TextBubbleClass:newSpeaking(NPCs[1], "I'd be careful with the\n people in this city."),
+    TextBubbleClass:newSpeaking(NPCs[1], "They'll surely try to \nkill you,"),
+    TextBubbleClass:newSpeaking(NPCs[1], "Although they might do \nme in first."),
+    TextBubbleClass:newSpeaking(NPCs[1], "HAHAHAHA"),
 
 }
 local GrocerToHenryDialog = DialogClass:new(GrocerToHenry, 4)
 
-local GrocerGeneric = TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "Take whatever you like.")
+local GrocerGeneric = TextBubbleClass:newSpeaking(NPCs[1], "Take whatever you like.")
 
 local ExchangeHad = false
 local WomanLeft   = false
