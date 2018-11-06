@@ -12,6 +12,10 @@ function Scene.Draw()
 
 end
 
+function Scene.DrawText()
+
+end
+
 function Scene.Update()
 
     if video == nil then

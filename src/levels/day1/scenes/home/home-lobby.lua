@@ -134,6 +134,11 @@ end
 function Scene.Draw()
 
     World:Draw()
+
+end
+
+function Scene.DrawText()
+
     CheckIfPlayerIsCloseToAnna()
 
 end

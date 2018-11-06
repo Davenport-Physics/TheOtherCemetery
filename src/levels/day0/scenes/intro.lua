@@ -18,6 +18,10 @@ function Scene.Draw()
 
 end
 
+function Scene.DrawText()
+
+end
+
 function Scene.HandleInput()
 
     if love.keyboard.isDown("space") and IntroVideo ~= nil then

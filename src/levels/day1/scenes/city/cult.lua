@@ -132,6 +132,11 @@ end
 function Scene.Draw()
 
     ActiveWorld:Draw()
+
+end
+
+function Scene.DrawText()
+
     DrawTextFromCultOutside()
     DrawWhatTheTextIfPossible()
 

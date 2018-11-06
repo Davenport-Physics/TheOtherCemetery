@@ -74,6 +74,10 @@ function Scene.Draw()
 
 end
 
+function Scene.DrawText()
+
+end
+
 function Scene.HandleInput()
 
     World:HandleInput()

@@ -52,6 +52,11 @@ local transition = false
 function Scene.Draw()
 
     FuneralWorld:Draw()
+
+end
+
+function Scene.DrawText()
+
     AnnaDialog:Draw()
 
 end

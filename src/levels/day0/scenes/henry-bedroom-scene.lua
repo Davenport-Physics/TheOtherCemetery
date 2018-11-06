@@ -144,6 +144,11 @@ end
 function Scene.Draw()
 
     RoomWorld:Draw()
+
+end
+
+function Scene.DrawText()
+
     DrawText()
 
 end

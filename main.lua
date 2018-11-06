@@ -26,13 +26,55 @@ local CONTEXT_INDEX =
 local CONTEXT_FUNCTIONS =
 {
 
-    {Draw = DrawStartingWindow   , Input = HandleInput_StartingWindow, Update = Update_StartMenu},
-    {Draw = NewGameHandler_Draw  , Input = NewGameHandler_Input      , Update = NewGameHandler_Update},
-    {Draw = LoadGameHandler_Draw , Input = LoadGameHandler_Input     , Update = LoadGameHandler_Update},
-    {Draw = Game_Draw            , Input = Game_HandleInput          , Update = Game_Update},
-    {Draw = DrawCreditsScene     , Input = HandleInput_Credits       , Update = function() end},
-    {Draw = function() end       , Input = function() end            , Update = function() end},
-    {Draw = DrawIntroSequence    , Input = function() end            , Update = function() end}
+    -- Starting Window
+    {
+        Draw     = DrawStartingWindow,
+        DrawText = function() end,
+        Input    = HandleInput_StartingWindow,
+        Update   = Update_StartMenu
+    },
+    -- New Game
+    {
+        Draw     = NewGameHandler_Draw,
+        DrawText = function() end,
+        Input    = NewGameHandler_Input,
+        Update   = NewGameHandler_Update
+    },
+    -- Load Game
+    {
+        Draw     = LoadGameHandler_Draw,
+        DrawText = function() end,
+        Input    = LoadGameHandler_Input,
+        Update   = LoadGameHandler_Update
+    },
+    -- Game
+    {
+        Draw     = Game_Draw,
+        DrawText = Game_DrawText,
+        Input    = Game_HandleInput,
+        Update   = Game_Update
+    },
+    -- Credits
+    {
+        Draw     = DrawCreditsScene,
+        DrawText = function() end,
+        Input    = HandleInput_Credits,
+        Update   = function() end
+    },
+    -- Options
+    {
+        Draw     = function() end,
+        DrawText = function() end,
+        Input    = function() end,
+        Update   = function() end
+    },
+    -- Intro
+    {
+        Draw     = DrawIntroSequence,
+        DrawText = function() end,
+        Input    = function() end,
+        Update   = function() end
+    }
 
 }
 
@@ -133,20 +175,26 @@ function love.update()
 end
 
 local function SetCanvas()
-
+    love.graphics.push()
     love.graphics.setCanvas(CANVAS)
 
         love.graphics.clear()
         CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Draw()
 
     love.graphics.setCanvas()
-
     if Settings.GlobalScaleOn then
-
         love.graphics.translate(Settings.X_Canvas_Translation, Settings.Y_Canvas_Translation)
         love.graphics.scale(Settings.Scale, Settings.Scale)
-
     end
+    love.graphics.draw(CANVAS, 0, 0)
+    love.graphics.pop()
+end
+
+local function SetText()
+
+    if not Settings.GlobalScaleOn then return end
+    --love.graphics.translate(Settings.X_Canvas_Translation, Settings.Y_Canvas_Translation)
+    CONTEXT_FUNCTIONS[CURRENT_CONTEXT].DrawText()
 
 end
 
@@ -154,14 +202,10 @@ function love.draw()
 
     if love.window.isMinimized() then return end
     if CURRENT_CONTEXT == CONTEXT_INDEX.GAME then
-
         SetCanvas()
-        love.graphics.draw(CANVAS, 0, 0)
-
+        SetText()
     else
-
         CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Draw()
-
     end
 
 end

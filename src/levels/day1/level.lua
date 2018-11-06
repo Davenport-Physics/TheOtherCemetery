@@ -19,6 +19,13 @@ function Level.Draw()
 
 end
 
+function Level.DrawText()
+
+    if Scene == nil then return end
+    Scene.DrawText()
+
+end
+
 local CanTransition = nil
 local function SetUpTransition()
 

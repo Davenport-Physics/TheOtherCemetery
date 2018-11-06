@@ -128,9 +128,15 @@ end
 function Scene.Draw()
 
     World:Draw()
+
+
+end
+
+function Scene.DrawText()
+
     DrawWorkerTextIfPossible()
     DrawGetOutTextIfPossible()
-
+    
 end
 
 function Scene.HandleInput()

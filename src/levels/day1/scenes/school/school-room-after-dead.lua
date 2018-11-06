@@ -81,6 +81,11 @@ end
 function Scene.Draw()
 
     World:Draw()
+
+end
+
+function Scene.DrawText()
+
     DrawDialogIfPossible()
 
 end

@@ -71,10 +71,14 @@ end
 function Scene.Draw()
 
     RoomWorld:Draw()
-    CheckIfShouldDrawHomeworkText()
 
 end
 
+function Scene.DrawText()
+
+    CheckIfShouldDrawHomeworkText()
+
+end
 
 function Scene.HandleInput()
 

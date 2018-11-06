@@ -154,6 +154,11 @@ end
 function Scene.Draw()
 
     World:Draw()
+
+end
+
+function Scene.DrawText()
+
     DrawExchangeIfPossible()
     DrawWomanTextLeaving()
     DrawExchangeWithHenryIfPossible()

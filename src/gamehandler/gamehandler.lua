@@ -16,6 +16,12 @@ function Game_Draw()
 
 end
 
+function Game_DrawText()
+
+    Level.DrawText()
+
+end
+
 function Game_Update()
 
     local CanTransition = Level.CanTransition()
