@@ -272,6 +272,7 @@ end
 
 function Character:FaceGeneric(CorrectDirection)
 
+    self.displace     = false
     self.direction    = CorrectDirection
     self.stance       = STANCE.STANDING
     self.next_stance  = STANCE.WALKING_1

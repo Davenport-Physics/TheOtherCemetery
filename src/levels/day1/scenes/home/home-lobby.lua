@@ -56,16 +56,16 @@ local TextBetweenHenryAndMom =
 
     TextBubbleClass:newSpeaking(Anna , "Hey! Did you have a good \nday at school?"),
     TextBubbleClass:newSpeaking(Henry, "It ... was okay."),
-    TextBubbleClass:newSpeaking(Anna , "Well that’s good to hear."),
+    TextBubbleClass:newSpeaking(Anna , "Well that's good to hear."),
     TextBubbleClass:newSpeaking(Anna , "I had a fairly weird day \nmyself."),
     TextBubbleClass:newSpeaking(Anna , "I went to the grocery store \nto get some food and"),
     TextBubbleClass:newSpeaking(Anna , "as I was going to checkout,"),
-    TextBubbleClass:newSpeaking(Anna , "I realized there wasn’t \nanyone in the store"),
+    TextBubbleClass:newSpeaking(Anna , "I realized there wasn't \nanyone in the store"),
     TextBubbleClass:newSpeaking(Anna , "I thought I had saw a clerk or \ntwo when I entered,"),
-    TextBubbleClass:newSpeaking(Anna , "but I don’t know. . ."),
-    TextBubbleClass:newSpeaking(Anna , "Anyways, I’m going to \nmake dinner in an hour."),
+    TextBubbleClass:newSpeaking(Anna , "but I don't know. . ."),
+    TextBubbleClass:newSpeaking(Anna , "Anyways, I'm going to \nmake dinner in an hour."),
     TextBubbleClass:newSpeaking(Anna , "So if you any homework \nor if you want to go"),
-    TextBubbleClass:newSpeaking(Anna , "play outside, now’s your \nchance"),
+    TextBubbleClass:newSpeaking(Anna , "play outside, now's your \nchance"),
 
 }
 local DialogBetweenHenryAndMom = DialogClass:new(TextBetweenHenryAndMom, 3.25)

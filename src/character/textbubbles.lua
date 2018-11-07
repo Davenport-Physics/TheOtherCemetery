@@ -30,8 +30,10 @@ function TextBubble:initnew(char, image, text, fontsize)
     obj.char          = char
     obj.image         = getImageFromCache(image)
     obj.text          = text
+    obj.text_drawn    = ""
     obj.fontsize      = fontsize or 16
     obj.font          = love.graphics.newFont(obj.fontsize)
+    obj.time_to_next_char = nil
     obj.font:setFilter("linear", "nearest", 16)
     obj.allow_drawing = true
 
@@ -45,9 +47,36 @@ function TextBubble:SetText(text)
 
 end
 
-function TextBubble:Draw()
+function TextBubble:CheckForTimeInit()
+    if self.time_to_next_char == nil then
+        self.time_to_next_char = love.timer.getTime() + .15
+    end
+end
 
-    if not self.allow_drawing then return end
+function TextBubble:AddNewCharacterIfPossible()
+
+    if #self.text == nil then return end
+    if #self.text_drawn == #self.text then
+        return
+    end
+    if #self.text_drawn > #self.text then
+        self.text_drawn = ""
+    end
+    self.text_drawn = self.text_drawn .. self.text:sub(#self.text_drawn+1, #self.text_drawn+1)
+
+end
+
+function TextBubble:CheckTextDrawn()
+
+    self:CheckForTimeInit()
+    if love.timer.getTime() >= self.time_to_next_char then
+        self:AddNewCharacterIfPossible()
+    end
+
+end
+
+function TextBubble:DrawText()
+
     local x = nil
     local y = nil
     love.graphics.push()
@@ -61,8 +90,16 @@ function TextBubble:Draw()
         y = Settings.Y_Canvas_Translation + (self.char.y_pos-22)*Settings.Scale
         love.graphics.translate(x, y)
         love.graphics.setFont(self.font)
-        love.graphics.print({{0,0,0,1} ,self.text}, 0, 0)
+        love.graphics.print({{0,0,0,1} ,self.text_drawn}, 0, 0)
     love.graphics.pop()
+
+end
+
+function TextBubble:Draw()
+
+    if not self.allow_drawing then return end
+    self:CheckTextDrawn()
+    self:DrawText()
 
 end
 

@@ -46,7 +46,7 @@ local TextBubbles =
 
     TextBubbleClass:newSpeaking(NPCs[1], "He is next..."),
     TextBubbleClass:newSpeaking(NPCs[1], "OH! Henry, why are you \nhere today?"),
-    TextBubbleClass:newSpeaking(NPCs[1], "Shouldn’t you be at home \nresting?"),
+    TextBubbleClass:newSpeaking(NPCs[1], "Shouldn't you be at home \nresting?"),
     TextBubbleClass:newThought(Henry, "Who was he talking about..."),
     TextBubbleClass:newSpeaking(NPCs[1], "Well, take your seat Henry"),
 
