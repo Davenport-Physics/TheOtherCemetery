@@ -84,7 +84,7 @@ function Scene.SetPlayerCharPosition(x_pos, y_pos)
     transition = false
     Henry.x_pos = x_pos
     Henry.y_pos = y_pos
-    Henry:WalkUp(true)
+    Henry:FaceUp()
 
 end
 

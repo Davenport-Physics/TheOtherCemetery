@@ -104,7 +104,6 @@ end
 
 function Scene.HandleInput()
 
-    --World:HandleInput()
 
 end
 
