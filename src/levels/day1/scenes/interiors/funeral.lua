@@ -14,16 +14,25 @@ local DialogClass     = require("src/dialog/dialog")
 local DoorsHandler    = require("src/entity/doorhandler")
 
 local transition = false
-local Map        = TiledMapClass:new(require("src/levels/day1/maps/school"))
+local Map        = TiledMapClass:new(require("src/levels/maps/city/interiors/funeral"))
 
-local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 7*16, 27*16, 16, 17, 6, .05); Henry:WalkUp();
+local ExitDoor = DoorClass:new(8 * 16, 17 * 16, 2*16, 16, "src/levels/day1/scenes/city/city", 53*16, 38*16)
+
+local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 8*16, 16*16, 16, 17, 6, .05); Henry:WalkUp();
 local NPCs  = {}
 local World = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)
 
+local function UpdateDoorTransition()
+
+    transition = ExitDoor:CheckForCollision(Henry:GetCenterPosition())
+
+end
+
 function Scene.Update()
 
     World:Update()
+    UpdateDoorTransition()
 
 end
 
@@ -58,7 +67,7 @@ function Scene.SetPlayerCharPosition(x_pos, y_pos)
     transition = false
     Henry.x_pos = x_pos
     Henry.y_pos = y_pos
-    Henry:WalkDown(true)
+    Henry:WalkUp(true)
 
 end
 
