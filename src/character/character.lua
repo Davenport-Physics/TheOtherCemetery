@@ -246,6 +246,15 @@ function Character:WalkGeneric(CorrectDirection, displace)
 
 end
 
+function Character:FaceGeneric(CorrectDirection)
+
+    self.direction    = CorrectDirection
+    self.stance       = STANCE.STANDING
+    self.next_stance  = STANCE.WALKING_1
+    self.current_quad = self.quads[CorrectDirection][self.stance]
+
+end
+
 function Character:WalkDown(displace)
 
     self.displace = displace
@@ -271,6 +280,30 @@ function Character:WalkRight(displace)
 
     self.displace = displace
     self:WalkGeneric(DIRECTION.RIGHT, displace)
+
+end
+
+function Character:FaceUp()
+
+    self:FaceGeneric(DIRECTION.UP)
+
+end
+
+function Character:FaceDown()
+
+    self:FaceGeneric(DIRECTION.DOWN)
+
+end
+
+function Character:FaceLeft()
+
+    self:FaceGeneric(DIRECTION.LEFT)
+
+end
+
+function Character:FaceRight()
+
+    self:FaceGeneric(DIRECTION.RIGHT)
 
 end
 
