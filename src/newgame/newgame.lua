@@ -102,13 +102,34 @@ local function HandleNewGuiDrawing()
 
 end
 
+local BarTime   = .2
+local NoBarTime = 0
+local function FlickerBar()
+
+    if BarTime > 0 then
+        BarTime = BarTime - love.timer.getDelta()
+        if BarTime <= 0 then
+            NoBarTime = 1
+        end
+        return "|"
+    elseif NoBarTime > 0 then
+        NoBarTime = NoBarTime - love.timer.getDelta()
+        if NoBarTime <= 0 then
+            BarTime = .2
+        end
+        return ""
+    end
+    return ""
+
+end
+
 local function HandlePartialSaveDrawing()
 
     local SaveName = ""
     local PlayTime = ""
     for i = 1, 3 do
         if DrawWriteText and WriteTextIdx == i then
-            SaveName = DataToSave.SaveName
+            SaveName = DataToSave.SaveName .. FlickerBar()
             PlayTime = 0
         else
             SaveName = PartialSaveData[i].SaveName
