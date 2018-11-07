@@ -165,7 +165,6 @@ end
 
 function Character:DoesCharacterCollideWithObjects(new_x, new_y, idx)
 
-
     if self.DIRECTION ~= DIRECTION.DOWN then
         local width  = 8
         local height = self.height - 10
