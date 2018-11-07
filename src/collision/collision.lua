@@ -31,4 +31,17 @@ function Collision:CheckForCollision(x, y)
 
 end
 
+function Collision:CheckForCollisionAdvanced(x, y, width, height)
+
+    if (x + width < self.x_pos or x > self.x_pos + self.width) then
+        return false
+    end
+    if (y + height < self.y_pos or y > self.y_pos + self.height) then
+        return false
+    end
+
+    return true
+
+end
+
 return Collision

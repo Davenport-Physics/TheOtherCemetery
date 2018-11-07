@@ -155,11 +155,36 @@ function Character:DetermineNewPresentStance()
 
 end
 
+function Character:DoesCharacterCollideWithWall(new_x, new_y, idx)
+
+    if self.collision_objs[idx]:CheckForCollision(new_x, new_y) then
+        return true
+    end
+
+end
+
+function Character:DoesCharacterCollideWithObjects(new_x, new_y, idx)
+
+
+    if self.DIRECTION ~= DIRECTION.DOWN then
+        local width  = 8
+        local height = self.height - 10
+        new_x = new_x - 4
+        new_y = new_y - self.height + 10
+        return self.collision_objs[idx]:CheckForCollisionAdvanced(new_x, new_y, width, height)
+    else
+        return self.collision_objs[idx]:CheckForCollision(new_x, new_y)
+    end
+
+end
+
 function Character:DoesCharacterCollide(new_x, new_y)
 
     for i = 1, #self.collision_objs do
 
-        if self.collision_objs[i]:CheckForCollision(new_x, new_y) then
+        if self.collision_objs[i].name == "Wall" and self:DoesCharacterCollideWithWall(new_x, new_y, i) then
+            return true
+        elseif self.collision_objs[i].name == "Objects" and self:DoesCharacterCollideWithObjects(new_x, new_y, i) then
             return true
         end
 
