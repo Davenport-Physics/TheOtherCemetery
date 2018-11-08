@@ -111,12 +111,13 @@ end
 
 function TextBubble:SoundPause()
 
+    if self.sound_thread ~= nil and self.sound_thread:isRunning() then return end
     local sound_pause_data =
     [[
         require("love.audio")
         require("love.timer")
         sound = ...
-        time_to_stop = love.timer.getTime() + .15
+        time_to_stop = love.timer.getTime() + .2
         while love.timer.getTime() < time_to_stop do
             love.timer.sleep(.05)
         end
@@ -134,7 +135,7 @@ function TextBubble:Draw()
     self:CheckTextDrawn()
     self:DrawImage()
     self:DrawText()
-    --self:SoundPause()
+    self:SoundPause()
 
 end
 
