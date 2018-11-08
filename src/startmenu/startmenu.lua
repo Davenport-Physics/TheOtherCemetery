@@ -55,6 +55,7 @@ function InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, 
     Buttons.NewGame:SetCallback(StartNewGame)
     Buttons.LoadGame:SetCallback(LoadGame)
     Buttons.Credits:SetCallback(Credits)
+    Buttons.Options:SetCallback(Options)
     Buttons.Quit:SetCallback(Quit)
     Buttons.Twitter:SetCallback(function() love.window.minimize(); love.system.openURL("https://twitter.com/DSectorStudios") end)
     Buttons.Website:SetCallback(function() love.window.minimize(); love.system.openURL("https://www.darksectorstudios.com/") end)
