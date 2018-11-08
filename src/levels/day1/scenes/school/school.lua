@@ -17,7 +17,7 @@ local Map        = TiledMapClass:new(require("src/levels/maps/school/school"))
 
 local BackgroundMusic = getStreamSoundFromCache("sound/ambiance/school/school.wav")
 
-local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 7*16, 27*16, 16, 17, 6, .05); Henry:WalkUp();
+local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 7*16, 27*16, 16, 17, 9, .075); Henry:WalkUp();
 local NPCs  = {}
 local World = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)

@@ -19,7 +19,7 @@ local BackgroundSound = getSoundFromCache("sound/ambiance/collector-slow.wav")
 local transition = false
 local Map        = TiledMapClass:new(require("src/levels/maps/interiors/collector/collector"))
 
-local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 11*16, 12*16, 16, 17, 6, .05); Henry:WalkUp();
+local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 11*16, 12*16, 16, 17, 9, .075); Henry:WalkUp();
 local NPCs  =
 {
     CharacterClass:new("tiles/Characters/Females/F_08.png", 7*16, 5*16, 16, 17, 4, .05)

@@ -19,7 +19,7 @@ local BackgroundSound = getStreamSoundFromCache("sound/ambiance/creepy-wind/cree
 local transition = false
 local Map        = TiledMapClass:new(require("src/levels/maps/interiors/collector/underneath/shrinetodead"))
 
-local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 5*16, 7*16, 16, 17, 6, .05); Henry:WalkUp();
+local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 5*16, 7*16, 16, 17, 9, .075); Henry:WalkUp();
 local NPCs  = {}
 local World = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)

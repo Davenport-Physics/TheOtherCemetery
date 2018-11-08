@@ -26,7 +26,7 @@ BackgroundWindSound:setVolume(.5)
 BackgroundWindSound:setLooping(true)
 
 local EntityOutsideHouse = EntityClass:newMinimal(49*16, 63*16)
-local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 49*16, 61*16, 16, 17, 6, .05); Henry:WalkDown();
+local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 49*16, 61*16, 16, 17, 9, .075); Henry:WalkDown();
 local NPCs  =
 {
 

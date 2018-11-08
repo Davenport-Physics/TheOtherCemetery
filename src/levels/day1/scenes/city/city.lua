@@ -18,7 +18,7 @@ local SchoolBell      = nil--
 
 local MapData = require("src/levels/maps/city/city")
 local Map     = TiledMapClass:new(MapData)
-local Henry   = CharacterClass:new("tiles/Characters/Males/M_08.png", 49 * 16, 62 * 16, 16, 17, 6, .05);
+local Henry   = CharacterClass:new("tiles/Characters/Males/M_08.png", 49 * 16, 62 * 16, 16, 17, 9, .075);
 
 local Doors =
 {

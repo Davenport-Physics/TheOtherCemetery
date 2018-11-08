@@ -15,7 +15,7 @@ local TiledMap       = TiledMapClass:new(MapData)
 
 local BackgroundSound = getSoundFromCache("sound/ambiance/home/home.mp3")
 
-local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 3*16, 5*16, 16, 17, 6, .05); Henry:WalkRight(true);
+local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 3*16, 5*16, 16, 17, 9, .075); Henry:WalkRight(true);
 
 local RoomWorld  = WorldClass:new(TiledMap, {}, Henry, TiledMap:GetCollisionObjects())
 RoomWorld:SetEntityToTrackForCamera(Henry)

@@ -18,7 +18,7 @@ local Map        = TiledMapClass:new(require("src/levels/maps/city/interiors/fun
 
 local ExitDoor = DoorClass:new(8 * 16, 17 * 16, 2*16, 16, "src/levels/day1/scenes/city/city", 53*16, 38*16)
 
-local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 8*16, 16*16, 16, 17, 6, .05); Henry:WalkUp();
+local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 8*16, 16*16, 16, 17, 9, .075); Henry:WalkUp();
 local NPCs  = {}
 local World = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)

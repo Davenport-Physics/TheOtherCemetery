@@ -18,7 +18,7 @@ local transition       = false
 local Map              = TiledMapClass:new(require("src/levels/maps/school/school-room"))
 local StationaryEntity = EntityClass:newMinimal(9*16, 10*16)
 
-local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 12*16, 9*16, 16, 17, 6, .05); Henry:WalkUp();
+local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 12*16, 9*16, 16, 17, 9, .075); Henry:WalkUp();
 local NPCs  =
 {
     CharacterClass:new("tiles/Characters/Males/M_05.png"  , 11*16, 9*16, 16, 17, 4, .025),

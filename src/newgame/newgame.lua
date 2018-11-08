@@ -104,20 +104,32 @@ end
 
 local BarTime   = .2
 local NoBarTime = 0
+local function BarHandle()
+
+    BarTime = BarTime - love.timer.getDelta()
+    if BarTime <= 0 then
+        NoBarTime = 1
+    end
+    return "|"
+
+end
+
+local function NoBarHandle()
+
+    NoBarTime = NoBarTime - love.timer.getDelta()
+    if NoBarTime <= 0 then
+        BarTime = .375
+    end
+    return ""
+
+end
+
 local function FlickerBar()
 
     if BarTime > 0 then
-        BarTime = BarTime - love.timer.getDelta()
-        if BarTime <= 0 then
-            NoBarTime = 1
-        end
-        return "|"
+        return BarHandle()
     elseif NoBarTime > 0 then
-        NoBarTime = NoBarTime - love.timer.getDelta()
-        if NoBarTime <= 0 then
-            BarTime = .375
-        end
-        return ""
+        return NoBarHandle()
     end
     return ""
 

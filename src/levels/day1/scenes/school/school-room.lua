@@ -21,7 +21,7 @@ local Map        = TiledMapClass:new(require("src/levels/maps/school/school-room
 
 local BackgroundMusic = getStreamSoundFromCache("sound/ambiance/school/school.wav")
 
-local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 10*16, 13*16, 16, 17, 4, .025); Henry:WalkUp();
+local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 10*16, 13*16, 16, 17, 9, .075); Henry:WalkUp();
 local NPCs  =
 {
     CharacterClass:new("tiles/Characters/Males/M_05.png"  , 10*16, 7*16, 16, 17, 4, .025), -- Teacher

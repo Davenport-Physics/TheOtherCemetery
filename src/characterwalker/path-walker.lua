@@ -80,7 +80,7 @@ function PathWalker:CalculateNextWalkOrQuit(idx)
 
 end
 
-function PathWalker:CheckForSpecificPointMade(idx)
+function PathWalker:GetCharAndPathD(idx)
 
     local char_d = nil
     local path_d = nil
@@ -91,6 +91,12 @@ function PathWalker:CheckForSpecificPointMade(idx)
         char_d = self.char.y_pos
         path_d =  self.path[idx].y
     end
+    return char_d, path_d
+
+end
+
+function PathWalker:IsPointMade(char_d, path_d, idx)
+
     if self.new_pos_large_mag then
         if char_d >= path_d then
             self.point_made[idx] = true
@@ -100,6 +106,23 @@ function PathWalker:CheckForSpecificPointMade(idx)
             self.point_made[idx] = true
         end
     end
+
+end
+
+function PathWalker:SetCharacterPositionWithPointMade(idx)
+
+    if self.point_made[idx] == true then
+        self.char.x_pos = self.path[idx].x
+        self.char.y_pos = self.path[idx].y
+    end
+
+end
+
+function PathWalker:CheckForSpecificPointMade(idx)
+
+    local char_d, path_d = self:GetCharAndPathD(idx)
+    self:IsPointMade(char_d, path_d, idx)
+    self:SetCharacterPositionWithPointMade(idx)
 
 end
 

@@ -88,22 +88,23 @@ function TextBubble:CheckTextDrawn()
 
 end
 
+function TextBubble:DrawImage()
+
+    love.graphics.push()
+        local x = Settings.X_Canvas_Translation + (self.char.x_pos+12)*Settings.Scale
+        local y = Settings.Y_Canvas_Translation + (self.char.y_pos-26)*Settings.Scale
+        love.graphics.draw(self.image, x, y, 0, Settings.Scale, Settings.Scale)
+    love.graphics.pop()
+
+end
+
 function TextBubble:DrawText()
 
-    local x = nil
-    local y = nil
     love.graphics.push()
-        x = Settings.X_Canvas_Translation + (self.char.x_pos+12)*Settings.Scale
-        y = Settings.Y_Canvas_Translation + (self.char.y_pos-26)*Settings.Scale
-        love.graphics.translate(x, y)
-        love.graphics.draw(self.image, 0, 0, 0, Settings.Scale, Settings.Scale)
-    love.graphics.pop()
-    love.graphics.push()
-        x = Settings.X_Canvas_Translation + (self.char.x_pos+16)*Settings.Scale
-        y = Settings.Y_Canvas_Translation + (self.char.y_pos-22)*Settings.Scale
-        love.graphics.translate(x, y)
+        local x = Settings.X_Canvas_Translation + (self.char.x_pos+16)*Settings.Scale
+        local y = Settings.Y_Canvas_Translation + (self.char.y_pos-22)*Settings.Scale
         love.graphics.setFont(self.font)
-        love.graphics.print({{0,0,0,1} ,self.text_drawn}, 0, 0)
+        love.graphics.print({{0,0,0,1} ,self.text_drawn}, x, y)
     love.graphics.pop()
 
 end
@@ -112,6 +113,7 @@ function TextBubble:Draw()
 
     if not self.allow_drawing then return end
     self:CheckTextDrawn()
+    self:DrawImage()
     self:DrawText()
 
 end

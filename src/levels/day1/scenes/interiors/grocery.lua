@@ -21,7 +21,7 @@ BackgroundSound:setVolume(.5)
 BackgroundSound:setLooping(true)
 
 local StationaryEntity = EntityClass:newMinimal(3*16, 6*16)
-local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 3*16, 7*16, 16, 17, 6, .05); Henry:WalkUp();
+local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 3*16, 7*16, 16, 17, 9, .075); Henry:WalkUp();
 local NPCs  =
 {
     CharacterClass:new("tiles/Characters/Males/M_12.png", 2*16, 4*16, 16, 17, 6, .05),

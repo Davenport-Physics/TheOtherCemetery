@@ -18,7 +18,7 @@ local Map     = TiledMapClass:new(MapData)
 local StationaryEntity = EntityClass:newMinimal(7*16, 6*16)
 
 local Anna  = CharacterClass:new("tiles/Characters/Females/F_01.png", 7 * 16, 4 * 16, 16, 17, 2, .05);
-local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 2 * 16, 6 * 16, 16, 17, 6, .05);
+local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 2 * 16, 6 * 16, 16, 17, 9, .075);
 
 local World = WorldClass:new(Map, {Anna}, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)
