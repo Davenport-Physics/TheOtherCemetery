@@ -109,12 +109,32 @@ function TextBubble:DrawText()
 
 end
 
+function TextBubble:SoundPause()
+
+    local sound_pause_data =
+    [[
+        require("love.audio")
+        require("love.timer")
+        sound = ...
+        time_to_stop = love.timer.getTime() + .15
+        while love.timer.getTime() < time_to_stop do
+            love.timer.sleep(.05)
+        end
+        sound:pause()
+    ]]
+    self.sound_thread = nil
+    self.sound_thread = love.thread.newThread(sound_pause_data)
+    self.sound_thread:start(TEXTSOUND)
+
+end
+
 function TextBubble:Draw()
 
     if not self.allow_drawing then return end
     self:CheckTextDrawn()
     self:DrawImage()
     self:DrawText()
+    --self:SoundPause()
 
 end
 
