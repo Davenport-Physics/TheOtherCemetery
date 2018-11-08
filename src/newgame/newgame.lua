@@ -115,7 +115,7 @@ local function FlickerBar()
     elseif NoBarTime > 0 then
         NoBarTime = NoBarTime - love.timer.getDelta()
         if NoBarTime <= 0 then
-            BarTime = .2
+            BarTime = .375
         end
         return ""
     end

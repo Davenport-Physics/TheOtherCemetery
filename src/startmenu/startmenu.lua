@@ -84,7 +84,7 @@ local StartingWindowText =
 
     Name     = love.graphics.newText(love.graphics.newFont(65), "Disconnected"),
     MadeWith = love.graphics.newText(love.graphics.newFont(25), "A game made with Love"),
-    Version  = love.graphics.newText(love.graphics.newFont(25), "Alpha 2")
+    Version  = love.graphics.newText(love.graphics.newFont(25), "Alpha 3")
 
 }
 
