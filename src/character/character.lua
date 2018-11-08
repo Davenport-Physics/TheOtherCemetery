@@ -166,9 +166,9 @@ end
 function Character:DoesCharacterCollideWithObjects(new_x, new_y, idx)
 
     if self.DIRECTION ~= DIRECTION.DOWN then
-        local width  = 8
+        local width  = 6
         local height = self.height - 11
-        new_x = new_x - 4
+        new_x = new_x - 3
         new_y = new_y - self.height + 11
         return self.collision_objs[idx]:CheckForCollisionAdvanced(new_x, new_y, width, height)
     else
