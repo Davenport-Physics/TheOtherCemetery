@@ -27,6 +27,7 @@ function World:new(MapObj, CharacterObjs, PlayerCharacterObj, CollisionObjs, Set
     obj.Settings              = require("src/settings/settings")
     obj.entities              = {}
     obj:SetEscapeMenuObjects()
+    obj.time_cycle            = "Morning"
     if SetCollisionsForNPC == nil then SetCollisionsForNPC = true end
     obj.set_collision_for_npc = SetCollisionsForNPC
     obj.map_obj:SetScaleForBlending(obj.world_scale)
@@ -60,6 +61,12 @@ function World:GiveCharactersMapCollisionObjects()
             self.character_objs[i]:SetCollisionObjects(self.collision_objs)
         end
     end
+
+end
+
+function World:SetTimeCycle(time)
+
+    self.time_cycle = time
 
 end
 
@@ -231,12 +238,31 @@ function World:DrawEscapeMenu()
 
 end
 
+function World:DrawTimeCycleFilter()
+
+    if self.time_cycle == "Morning" then
+        return
+    elseif self.time_cycle == "Afternoon" then
+        love.graphics.push()
+            love.graphics.setColor(.82, .82, .82, 1)
+            love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+        love.graphics.pop()
+    elseif self.time_cycle == "Night" then
+        love.graphics.push()
+            love.graphics.setColor(.66, .66, .66, .1)
+            love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+        love.graphics.pop()
+    end
+
+end
+
 function World:Draw()
 
     if self.escape_menu_active then
         self:DrawEscapeMenu()
         return
     end
+    self:DrawTimeCycleFilter()
     if self.camera_tracking ~= nil then
         self.Settings.DrawCameraFunctions(self.camera_tracking.x_pos, self.camera_tracking.y_pos, self.world_scale)
     end
