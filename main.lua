@@ -147,7 +147,7 @@ function love.load()
     InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, Credits, Quit)
     InitializeCredits_CallBackFunctions(InStartMenu)
     love.window.setTitle("Diconnected")
-    love.window.setMode(Settings.Window_Width, Settings.Window_Height, {resizable=true, vsync=true, minwidth=800, minheight=600})
+    love.window.setMode(Settings.Window_Width, Settings.Window_Height, {resizable=true, vsync=true, minwidth=1152, minheight=648})
     --love.window.setFullscreen(true, "desktop")
 
 end
