@@ -5,6 +5,7 @@ require("src/credits/credits")
 require("src/newgame/newgame")
 require("src/save/saving")
 require("src/loadgame/loadgamehandler")
+require("src/options/options")
 require("src/gamehandler/gamehandler")
 
 
@@ -63,10 +64,10 @@ local CONTEXT_FUNCTIONS =
     },
     -- Options
     {
-        Draw     = function() end,
+        Draw     = Options_Draw,
         DrawText = function() end,
-        Input    = function() end,
-        Update   = function() end
+        Input    = Options_HandleInput,
+        Update   = Options_Update
     },
     -- Intro
     {
