@@ -186,7 +186,6 @@ function Character:DoesCharacterCollide(new_x, new_y)
         elseif self.collision_objs[i].name == "Objects" and self:DoesCharacterCollideWithObjects(new_x, new_y, i) then
             return true
         end
-
     end
     return false
 
