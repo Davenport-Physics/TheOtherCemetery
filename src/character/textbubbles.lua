@@ -1,5 +1,6 @@
 require("src/shared/cache")
-local Settings = require("src/settings/settings")
+local Settings  = require("src/settings/settings")
+local TEXTSOUND = getStreamSoundFromCache("sound/talk-slow.mp3")
 
 local TextBubble = {}
 TextBubble.__index = TextBubble
@@ -53,6 +54,17 @@ function TextBubble:CheckForTimeInit()
     end
 end
 
+function TextBubble:SoundHandler()
+
+    if #self.text_drawn == #self.text then
+        TEXTSOUND:stop()
+    elseif not TEXTSOUND:isPlaying() and self.allow_drawing then
+        TEXTSOUND:setVolume(.15)
+        TEXTSOUND:play()
+    end
+
+end
+
 function TextBubble:AddNewCharacterIfPossible()
 
     if #self.text == nil then return end
@@ -69,6 +81,7 @@ end
 function TextBubble:CheckTextDrawn()
 
     self:CheckForTimeInit()
+    self:SoundHandler()
     if love.timer.getTime() >= self.time_to_next_char then
         self:AddNewCharacterIfPossible()
     end
