@@ -31,6 +31,8 @@ Buttons.SoundEffectsSlider.avoid_callback_timer = true
 local MasterVolumeSlider_r_x = {349}
 local MusicVolumeSlider_r_x  = {349}
 local SoundEffectsSlider_r_x = {349}
+local CurrentSlider_r_x = nil
+local slider_moving = false
 
 --388.2
 local Sliders =
@@ -54,11 +56,13 @@ local fullscreen_queued = false
 
 function love.mousereleased(x, y, button)
 
-    if fullscreen_queued then
-        if button == 1 then
-            fullscreen_queued = false
-            love.window.setFullscreen(Settings.Fullscreen)
-        end
+    if fullscreen_queued and button == 1 then
+        fullscreen_queued = false
+        love.window.setFullscreen(Settings.Fullscreen)
+    end
+    if slider_moving and button == 1 then
+        slider_moving     = false
+        CurrentSlider_r_x = nil
     end
 
 end
@@ -97,7 +101,9 @@ Buttons.VideoMenuSwitch:SetCallback(ToggleCurrentMenuToVideo)
 Buttons.SoundMenuSwitch:SetCallback(ToggleCurrentMenuToSound)
 Buttons.ControlsMenuSwitch:SetCallback(ToggleCurrentMenuToControls)
 Buttons.Check:SetCallback(ToggleCheckFullScreen)
-Buttons.MasterVolumeSlider:SetCallback(function() MoveSlider(MasterVolumeSlider_r_x) end)
+Buttons.MasterVolumeSlider:SetCallback(function() MoveSlider(MasterVolumeSlider_r_x); CurrentSlider_r_x = MasterVolumeSlider_r_x; slider_moving = true end)
+Buttons.MusicVolumeSlider:SetCallback(function() MoveSlider(MusicVolumeSlider_r_x); CurrentSlider_r_x = MusicVolumeSlider_r_x; slider_moving = true end )
+Buttons.SoundEffectsSlider:SetCallback(function() MoveSlider(SoundEffectsSlider_r_x); CurrentSlider_r_x = SoundEffectsSlider_r_x; slider_moving = true end)
 
 local background_scale_x
 local background_scale_y
@@ -141,9 +147,9 @@ local function UpdateOffsetsSliders()
 
     Buttons.MasterVolumeSlider.x_pos = menu_x + MasterVolumeSlider_r_x[1]
     Buttons.MasterVolumeSlider.y_pos = menu_y + 179.8
-    Buttons.MusicVolumeSlider.x_pos  = menu_x + 349
+    Buttons.MusicVolumeSlider.x_pos  = menu_x + MusicVolumeSlider_r_x[1]
     Buttons.MusicVolumeSlider.y_pos  = menu_y + 288.9
-    Buttons.SoundEffectsSlider.x_pos = menu_x + 349
+    Buttons.SoundEffectsSlider.x_pos = menu_x + SoundEffectsSlider_r_x[1]
     Buttons.SoundEffectsSlider.y_pos = menu_y + 393
 
 end
@@ -172,6 +178,15 @@ local function UpdateOffsets()
 
 end
 
+local function UpdateSliders()
+
+    if slider_moving then
+        CurrentSlider_r_x[1] = love.mouse.getX() - menu_x
+        ConstrainSliderPosition(CurrentSlider_r_x)
+    end
+
+end
+
 local function HandleInputVideo()
 
     Buttons.Check:HandleMouseClick()
@@ -182,9 +197,12 @@ end
 
 local function HandleInputSound()
 
+    if slider_moving then return end
     Buttons.VideoMenuSwitch:HandleMouseClick()
     Buttons.ControlsMenuSwitch:HandleMouseClick()
     Buttons.MasterVolumeSlider:HandleMouseClick()
+    Buttons.MusicVolumeSlider:HandleMouseClick()
+    Buttons.SoundEffectsSlider:HandleMouseClick()
 
 end
 
@@ -217,6 +235,7 @@ end
 function Options_Update()
 
     UpdateOffsets()
+    UpdateSliders()
 
 end
 
