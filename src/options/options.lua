@@ -17,12 +17,14 @@ local Buttons =
     ControlsMenuSwitch = ButtonClass:newWithoutImage(432.5, 10.5, 211, 92),
     MasterVolumeSlider = ButtonClass:newImage("pics/options/sliderbutton.png", 349, 184.8),
     MusicVolumeSlider  = ButtonClass:newImage("pics/options/sliderbutton.png", 349, 293.9),
-    SoundEffectsSlider = ButtonClass:newImage("pics/options/sliderbutton.png", 349, 398)
+    SoundEffectsSlider = ButtonClass:newImage("pics/options/sliderbutton.png", 349, 398),
+    BackButton         = ButtonClass:newImage("pics/share/buttons/backbutton.png", 10, 10, .25, .25)
 }
 Buttons.VideoMenuSwitch:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.SoundMenuSwitch:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.ControlsMenuSwitch:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.Check:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+Buttons.BackButton:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
 Buttons.MasterVolumeSlider.avoid_callback_timer = true
 Buttons.MusicVolumeSlider.avoid_callback_timer  = true
@@ -104,6 +106,7 @@ Buttons.Check:SetCallback(ToggleCheckFullScreen)
 Buttons.MasterVolumeSlider:SetCallback(function() MoveSlider(MasterVolumeSlider_r_x); CurrentSlider_r_x = MasterVolumeSlider_r_x; slider_moving = true end)
 Buttons.MusicVolumeSlider:SetCallback(function() MoveSlider(MusicVolumeSlider_r_x); CurrentSlider_r_x = MusicVolumeSlider_r_x; slider_moving = true end )
 Buttons.SoundEffectsSlider:SetCallback(function() MoveSlider(SoundEffectsSlider_r_x); CurrentSlider_r_x = SoundEffectsSlider_r_x; slider_moving = true end)
+Buttons.BackButton:SetCallback(function() love.event.push("startmenu") end)
 
 local background_scale_x
 local background_scale_y
@@ -215,6 +218,7 @@ end
 
 local function HandleInputOfAppropriateButtons()
 
+    Buttons.BackButton:HandleMouseClick()
     if CurrentMenu == MENUS.VIDEO then
         HandleInputVideo()
     elseif CurrentMenu == MENUS.SOUND then
@@ -229,6 +233,7 @@ function Options_Draw()
 
     DrawBackground()
     DrawMenu()
+    Buttons.BackButton:Draw()
 
 end
 
