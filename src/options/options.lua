@@ -19,6 +19,7 @@ local Buttons =
 Buttons.VideoMenuSwitch:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.SoundMenuSwitch:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.ControlsMenuSwitch:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+Buttons.Check:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
 local Sliders =
 {
@@ -34,6 +35,19 @@ local MENUS =
     CONTROLS = 3
 }
 
+local fullscreen_queued = false
+
+function love.mousereleased(x, y, button)
+
+    if fullscreen_queued then
+        if button == 1 then
+            fullscreen_queued = false
+            love.window.setFullscreen(Settings.Fullscreen)
+        end
+    end
+
+end
+
 local CurrentMenu = MENUS.VIDEO
 local function ToggleCurrentMenuToVideo()
     CurrentMenu = MENUS.VIDEO
@@ -44,9 +58,14 @@ end
 local function ToggleCurrentMenuToControls()
     CurrentMenu = MENUS.CONTROLS
 end
+local function ToggleCheckFullScreen()
+    Settings.Fullscreen = not Settings.Fullscreen
+    fullscreen_queued = true
+end
 Buttons.VideoMenuSwitch:SetCallback(ToggleCurrentMenuToVideo)
 Buttons.SoundMenuSwitch:SetCallback(ToggleCurrentMenuToSound)
 Buttons.ControlsMenuSwitch:SetCallback(ToggleCurrentMenuToControls)
+Buttons.Check:SetCallback(ToggleCheckFullScreen)
 
 local background_scale_x
 local background_scale_y
@@ -58,11 +77,20 @@ end
 
 local menu_x = 0
 local menu_y = 0
+
+local function DrawVideoMenu()
+
+    love.graphics.draw(VideoMenu, menu_x, menu_y)
+    if Settings.Fullscreen then
+        love.graphics.draw(CheckMark, menu_x+552.3, menu_y+176.4)
+    end
+
+end
+
 local function DrawMenu()
 
-
     if CurrentMenu == MENUS.VIDEO then
-        love.graphics.draw(VideoMenu, menu_x, menu_y)
+        DrawVideoMenu()
     elseif CurrentMenu == MENUS.SOUND then
         love.graphics.draw(SoundMenu, menu_x, menu_y)
     elseif CurrentMenu == MENUS.CONTROLS then

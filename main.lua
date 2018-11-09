@@ -148,7 +148,7 @@ function love.load()
     InitializeCredits_CallBackFunctions(InStartMenu)
     love.window.setTitle("Diconnected")
     love.window.setMode(Settings.Window_Width, Settings.Window_Height, {resizable=true, vsync=true, minwidth=1152, minheight=648})
-    --love.window.setFullscreen(true, "desktop")
+    love.window.setFullscreen(Settings.Fullscreen)
 
 end
 
@@ -194,7 +194,6 @@ end
 local function SetText()
 
     if not Settings.GlobalScaleOn then return end
-    --love.graphics.translate(Settings.X_Canvas_Translation, Settings.Y_Canvas_Translation)
     CONTEXT_FUNCTIONS[CURRENT_CONTEXT].DrawText()
 
 end
