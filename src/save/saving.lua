@@ -3,10 +3,16 @@ local Settings    = require("src/settings/settings")
 require("src/save/savingpersistence")
 
 local separator = package.config:sub(1,1)
+local Path
+if Settings.BUILD then
+    Path = love.filesystem.getSourceBaseDirectory() .. "/saves"
+else
+    Path = love.filesystem.getWorkingDirectory() .. "/saves"
+end
 
 local function CheckIfSaveDirectoryExists()
 
-    local f, err = io.open(".." .. separator .. "saves" .. separator .. "temp", "w")
+    local f, err = io.open(Path .. separator .. "temp", "w")
     if f then
 
         f:write("stuff")
@@ -20,7 +26,8 @@ end
 
 local function Makedirectory()
 
-    os.execute("mkdir saves")
+    print(Path)
+    os.execute("mkdir " .. Path)
 
 end
 
@@ -36,14 +43,14 @@ function StoreSaveData(filename)
 
     HandleDirectoryChecksAndCreation()
     if filename == nil then filename = DataToSave["File"] end
-    persistence.store("saves" .. separator .. filename, DataToSave)
+    persistence.store(Path .. separator .. filename, DataToSave)
 
 end
 
 function LoadSaveData(filename)
 
     local err
-    DataToSave, err = persistence.load("saves" .. separator .. filename)
+    DataToSave, err = persistence.load(Path .. separator .. filename)
     if DataToSave == nil then
         return "SaveDidNotExist"
     end
