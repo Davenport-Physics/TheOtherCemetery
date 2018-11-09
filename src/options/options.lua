@@ -14,7 +14,10 @@ local Buttons =
     Check              = ButtonClass:newWithoutImage(553.3, 176.4, 25, 25),
     VideoMenuSwitch    = ButtonClass:newWithoutImage(10.5, 10.5, 211, 93.5),
     SoundMenuSwitch    = ButtonClass:newWithoutImage(221.5, 10.5, 211, 92),
-    ControlsMenuSwitch = ButtonClass:newWithoutImage(432.5, 10.5, 211, 92)
+    ControlsMenuSwitch = ButtonClass:newWithoutImage(432.5, 10.5, 211, 92),
+    MasterVolumeSlider = ButtonClass:newImage("pics/options/sliderbutton.png", 349, 184.8),
+    MusicVolumeSlider  = ButtonClass:newImage("pics/options/sliderbutton.png", 349, 293.9),
+    SoundEffectsSlider = ButtonClass:newImage("pics/options/sliderbutton.png", 349, 398)
 }
 Buttons.VideoMenuSwitch:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.SoundMenuSwitch:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
@@ -87,15 +90,35 @@ local function DrawVideoMenu()
 
 end
 
+local function DrawSoundMenu()
+
+    love.graphics.draw(SoundMenu, menu_x, menu_y)
+    Buttons.MasterVolumeSlider:Draw()
+    Buttons.MusicVolumeSlider:Draw()
+    Buttons.SoundEffectsSlider:Draw()
+
+end
+
 local function DrawMenu()
 
     if CurrentMenu == MENUS.VIDEO then
         DrawVideoMenu()
     elseif CurrentMenu == MENUS.SOUND then
-        love.graphics.draw(SoundMenu, menu_x, menu_y)
+        DrawSoundMenu()
     elseif CurrentMenu == MENUS.CONTROLS then
         love.graphics.draw(ControlsMenu, menu_x, menu_y)
     end
+
+end
+
+local function UpdateOffsetsSliders()
+
+    Buttons.MasterVolumeSlider.x_pos = menu_x + 349
+    Buttons.MasterVolumeSlider.y_pos = menu_y + 179.8
+    Buttons.MusicVolumeSlider.x_pos  = menu_x + 349
+    Buttons.MusicVolumeSlider.y_pos  = menu_y + 288.9
+    Buttons.SoundEffectsSlider.x_pos = menu_x + 349
+    Buttons.SoundEffectsSlider.y_pos = menu_y + 393
 
 end
 
@@ -119,6 +142,7 @@ local function UpdateOffsets()
     menu_x = love.graphics.getWidth()*.5  - VideoMenu:getWidth()*.5
     menu_y = love.graphics.getHeight()*.5 - VideoMenu:getHeight()*.5
     UpdateOffsetsButtons()
+    UpdateOffsetsSliders()
 
 end
 
