@@ -23,7 +23,8 @@ Settings.GlobalScaleOn        = true
 Settings.X_Canvas_Translation = 0
 Settings.Y_Canvas_Translation = 0
 Settings.MasterVolume         = 1
-Settings.MusicVolume          = 1
+Settings.MusicVolume          = .5
+Settings.SoundEffectsVolume   = .5
 Settings.Fullscreen           = false
 Settings.BUILD                = false
 

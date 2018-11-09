@@ -30,19 +30,13 @@ Buttons.MasterVolumeSlider.avoid_callback_timer = true
 Buttons.MusicVolumeSlider.avoid_callback_timer  = true
 Buttons.SoundEffectsSlider.avoid_callback_timer = true
 
-local MasterVolumeSlider_r_x = {349}
-local MusicVolumeSlider_r_x  = {349}
-local SoundEffectsSlider_r_x = {349}
+local MasterVolumeSlider_r_x = {Settings.MasterVolume*(349+368)}
+local MusicVolumeSlider_r_x  = {Settings.MusicVolume*(349+368)}
+local SoundEffectsSlider_r_x = {Settings.SoundEffectsVolume*(349+368)}
 local CurrentSlider_r_x = nil
 local slider_moving = false
 
 --388.2
-local Sliders =
-{
-    MasterVolume = 1,
-    MusicVolume  = .5,
-    SoundEffects = .5
-}
 
 local MENUS =
 {
@@ -55,14 +49,20 @@ local menu_x = 0
 local menu_y = 0
 
 local fullscreen_queued = false
+local function UpdateSettings()
+
+    Settings.MasterVolume = math.min(1, tonumber(string.format("%.2f", 2*(MasterVolumeSlider_r_x[1]-349)/(349+368))))
+    Settings.MusicVolume  = math.min(1, tonumber(string.format("%.2f", 2*(MusicVolumeSlider_r_x[1]-349)/(349+368))))
+    Settings.SoundEffectsVolume = math.min(1, tonumber(string.format("%.2f", 2*(SoundEffectsSlider_r_x[1]-349)/(349+368))))
+
+end
 
 function love.mousereleased(x, y, button)
 
     if fullscreen_queued and button == 1 then
         fullscreen_queued = false
         love.window.setFullscreen(Settings.Fullscreen)
-    end
-    if slider_moving and button == 1 then
+    elseif slider_moving and button == 1 then
         slider_moving     = false
         CurrentSlider_r_x = nil
     end
@@ -125,12 +125,25 @@ local function DrawVideoMenu()
 
 end
 
+local VolumeFont = love.graphics.newFont(14)
+local function DrawVolumeText()
+
+    love.graphics.push()
+        love.graphics.setFont(VolumeFont)
+        love.graphics.print({{0,0,0,1} ,Settings.MasterVolume*100}, menu_x + 349 + 400, Buttons.MasterVolumeSlider.y_pos)
+        love.graphics.print({{0,0,0,1} ,Settings.MusicVolume*100}, menu_x + 349 + 400, Buttons.MusicVolumeSlider.y_pos)
+        love.graphics.print({{0,0,0,1} ,Settings.SoundEffectsVolume*100}, menu_x + 349 + 400, Buttons.SoundEffectsSlider.y_pos)
+    love.graphics.pop()
+
+end
+
 local function DrawSoundMenu()
 
     love.graphics.draw(SoundMenu, menu_x, menu_y)
     Buttons.MasterVolumeSlider:Draw()
     Buttons.MusicVolumeSlider:Draw()
     Buttons.SoundEffectsSlider:Draw()
+    DrawVolumeText()
 
 end
 
@@ -186,6 +199,7 @@ local function UpdateSliders()
     if slider_moving then
         CurrentSlider_r_x[1] = love.mouse.getX() - menu_x
         ConstrainSliderPosition(CurrentSlider_r_x)
+        UpdateSettings()
     end
 
 end
