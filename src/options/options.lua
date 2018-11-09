@@ -24,6 +24,15 @@ Buttons.SoundMenuSwitch:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.ControlsMenuSwitch:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.Check:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
+Buttons.MasterVolumeSlider.avoid_callback_timer = true
+Buttons.MusicVolumeSlider.avoid_callback_timer  = true
+Buttons.SoundEffectsSlider.avoid_callback_timer = true
+
+local MasterVolumeSlider_r_x = {349}
+local MusicVolumeSlider_r_x  = {349}
+local SoundEffectsSlider_r_x = {349}
+
+--388.2
 local Sliders =
 {
     MasterVolume = 1,
@@ -37,6 +46,9 @@ local MENUS =
     SOUND = 2,
     CONTROLS = 3
 }
+
+local menu_x = 0
+local menu_y = 0
 
 local fullscreen_queued = false
 
@@ -65,10 +77,27 @@ local function ToggleCheckFullScreen()
     Settings.Fullscreen = not Settings.Fullscreen
     fullscreen_queued = true
 end
+
+local function ConstrainSliderPosition(slider)
+
+    if slider[1] < 349 then
+        slider[1] = 349
+    elseif slider[1] > 349 + 368 then
+        slider[1] = 349 + 368
+    end
+
+end
+local function MoveSlider(slider)
+
+    slider[1] = love.mouse.getX() - menu_x - SliderButton:getWidth()*.5
+    ConstrainSliderPosition(slider)
+
+end
 Buttons.VideoMenuSwitch:SetCallback(ToggleCurrentMenuToVideo)
 Buttons.SoundMenuSwitch:SetCallback(ToggleCurrentMenuToSound)
 Buttons.ControlsMenuSwitch:SetCallback(ToggleCurrentMenuToControls)
 Buttons.Check:SetCallback(ToggleCheckFullScreen)
+Buttons.MasterVolumeSlider:SetCallback(function() MoveSlider(MasterVolumeSlider_r_x) end)
 
 local background_scale_x
 local background_scale_y
@@ -77,9 +106,6 @@ local function DrawBackground()
     love.graphics.draw(Background, 0, 0, 0, background_scale_x, background_scale_y)
 
 end
-
-local menu_x = 0
-local menu_y = 0
 
 local function DrawVideoMenu()
 
@@ -113,7 +139,7 @@ end
 
 local function UpdateOffsetsSliders()
 
-    Buttons.MasterVolumeSlider.x_pos = menu_x + 349
+    Buttons.MasterVolumeSlider.x_pos = menu_x + MasterVolumeSlider_r_x[1]
     Buttons.MasterVolumeSlider.y_pos = menu_y + 179.8
     Buttons.MusicVolumeSlider.x_pos  = menu_x + 349
     Buttons.MusicVolumeSlider.y_pos  = menu_y + 288.9
@@ -158,6 +184,7 @@ local function HandleInputSound()
 
     Buttons.VideoMenuSwitch:HandleMouseClick()
     Buttons.ControlsMenuSwitch:HandleMouseClick()
+    Buttons.MasterVolumeSlider:HandleMouseClick()
 
 end
 

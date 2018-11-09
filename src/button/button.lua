@@ -47,6 +47,7 @@ function Button:InitializeButtonAttributes(image_file, x_pos, y_pos, scale_x, sc
     self.mouse_click_callback = mouse_click_callback or GenericCallBack
     self.sound_thread = nil
     self.next_callback = love.timer.getTime()
+    self.avoid_callback_timer = false
 
 end
 
@@ -127,7 +128,7 @@ function Button:DoCallBackIfPossible()
     if self.mouse_click_callback == nil then
         return
     end
-    if self.next_callback > love.timer.getTime() then
+    if self.next_callback > love.timer.getTime() and not self.avoid_callback_timer then
         return
     end
     self.mouse_click_callback()
