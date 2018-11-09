@@ -30,11 +30,12 @@ Buttons.MasterVolumeSlider.avoid_callback_timer = true
 Buttons.MusicVolumeSlider.avoid_callback_timer  = true
 Buttons.SoundEffectsSlider.avoid_callback_timer = true
 
-local MasterVolumeSlider_r_x = {Settings.MasterVolume*(349+368)}
-local MusicVolumeSlider_r_x  = {Settings.MusicVolume*(349+368)}
-local SoundEffectsSlider_r_x = {Settings.SoundEffectsVolume*(349+368)}
+local MasterVolumeSlider_r_x = {349 + Settings.MasterVolume*368}
+local MusicVolumeSlider_r_x  = {349 + Settings.MusicVolume*368}
+local SoundEffectsSlider_r_x = {349 + Settings.SoundEffectsVolume*368}
 local CurrentSlider_r_x = nil
-local slider_moving = false
+local slider_moving  = false
+local did_not_update = true
 
 --388.2
 
@@ -161,6 +162,12 @@ end
 
 local function UpdateOffsetsSliders()
 
+    if did_not_update then
+        MasterVolumeSlider_r_x[1] = 349 + Settings.MasterVolume*368
+        MusicVolumeSlider_r_x[1]  = 349 + Settings.MusicVolume*368
+        SoundEffectsSlider_r_x[1] = 349 + Settings.SoundEffectsVolume*368
+        did_not_update = false
+    end
     Buttons.MasterVolumeSlider.x_pos = menu_x + MasterVolumeSlider_r_x[1]
     Buttons.MasterVolumeSlider.y_pos = menu_y + 179.8
     Buttons.MusicVolumeSlider.x_pos  = menu_x + MusicVolumeSlider_r_x[1]

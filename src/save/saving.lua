@@ -80,11 +80,12 @@ local function GetRelevantSettingData()
     local temp =
     {
 
-        ["Controls"]      = Settings.Controls,
-        ["Window_Width"]  = Settings.Window_Width,
-        ["Window_Height"] = Settings.Window_Height,
-        ["MasterVolume"]  = Settings.MasterVolume,
-        ["MusicVolume"]   = Settings.MusicVolume
+        ["Controls"]           = Settings.Controls,
+        ["Window_Width"]       = Settings.Window_Width,
+        ["Window_Height"]      = Settings.Window_Height,
+        ["MasterVolume"]       = Settings.MasterVolume,
+        ["MusicVolume"]        = Settings.MusicVolume,
+        ["SoundEffectsVolume"] = Settings.SoundEffectsVolume
 
     }
 
@@ -102,11 +103,12 @@ function LoadSettings()
 
     local temp = persistence.load("settings.lua")
     if temp then
-        Settings.Controls      = temp.Controls
-        Settings.Window_Width  = temp.Window_Width
-        Settings.Window_Height = temp.Window_Height
-        Settings.MasterVolume  = temp.MasterVolume
-        Settings.MusicVolume   = temp.MusicVolume
+        Settings.Controls           = temp.Controls
+        Settings.Window_Width       = temp.Window_Width
+        Settings.Window_Height      = temp.Window_Height
+        Settings.MasterVolume       = temp.MasterVolume
+        Settings.MusicVolume        = temp.MusicVolume
+        Settings.SoundEffectsVolume = temp.SoundEffectsVolume
     end
 
 end
