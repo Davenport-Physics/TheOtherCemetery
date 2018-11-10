@@ -18,13 +18,21 @@ local Buttons =
     MasterVolumeSlider = ButtonClass:newImage("pics/options/sliderbutton.png", 349, 184.8),
     MusicVolumeSlider  = ButtonClass:newImage("pics/options/sliderbutton.png", 349, 293.9),
     SoundEffectsSlider = ButtonClass:newImage("pics/options/sliderbutton.png", 349, 398),
-    BackButton         = ButtonClass:newImage("pics/share/buttons/backbutton.png", 10, 10, .25, .25)
+    BackButton         = ButtonClass:newImage("pics/share/buttons/backbutton.png", 10, 10, .25, .25),
+    UpButton           = ButtonClass:newWithoutImage(431, 148.4, 97.5, 78.6),
+    DownButton         = ButtonClass:newWithoutImage(431, 243.6, 97.5, 78.6),
+    LeftButton         = ButtonClass:newWithoutImage(431, 339.2, 97.5, 78.6),
+    RightButton        = ButtonClass:newWithoutImage(431, 432.5, 97.5, 78.6)
 }
 Buttons.VideoMenuSwitch:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.SoundMenuSwitch:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.ControlsMenuSwitch:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.Check:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.BackButton:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+Buttons.UpButton:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+Buttons.DownButton:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+Buttons.LeftButton:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+Buttons.RightButton:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
 Buttons.MasterVolumeSlider.avoid_callback_timer = true
 Buttons.MusicVolumeSlider.avoid_callback_timer  = true
@@ -36,6 +44,9 @@ local SoundEffectsSlider_r_x = {349 + Settings.SoundEffectsVolume*368}
 local CurrentSlider_r_x = nil
 local slider_moving  = false
 local did_not_update = true
+
+local GetText         = false
+local ControlToChange = false
 
 --388.2
 
@@ -70,6 +81,14 @@ function love.mousereleased(x, y, button)
 
 end
 
+function love.keypressed(key, scancode, isrepeat)
+
+    if key ~= "return" then return end
+    if not GetText then return end
+    GetText = false
+
+end
+
 local CurrentMenu = MENUS.VIDEO
 local function ToggleCurrentMenuToVideo()
     CurrentMenu = MENUS.VIDEO
@@ -100,6 +119,12 @@ local function MoveSlider(slider)
     ConstrainSliderPosition(slider)
 
 end
+local function ToggleGetText(control)
+
+    GetText = true
+    ControlToChange = control
+
+end
 Buttons.VideoMenuSwitch:SetCallback(ToggleCurrentMenuToVideo)
 Buttons.SoundMenuSwitch:SetCallback(ToggleCurrentMenuToSound)
 Buttons.ControlsMenuSwitch:SetCallback(ToggleCurrentMenuToControls)
@@ -108,6 +133,11 @@ Buttons.MasterVolumeSlider:SetCallback(function() MoveSlider(MasterVolumeSlider_
 Buttons.MusicVolumeSlider:SetCallback(function() MoveSlider(MusicVolumeSlider_r_x); CurrentSlider_r_x = MusicVolumeSlider_r_x; slider_moving = true end )
 Buttons.SoundEffectsSlider:SetCallback(function() MoveSlider(SoundEffectsSlider_r_x); CurrentSlider_r_x = SoundEffectsSlider_r_x; slider_moving = true end)
 Buttons.BackButton:SetCallback(function() love.event.push("startmenu") end)
+
+Buttons.UpButton:SetCallback(function() ToggleGetText("Up") end)
+Buttons.DownButton:SetCallback(function() ToggleGetText("Down") end)
+Buttons.RightButton:SetCallback(function() ToggleGetText("Right") end)
+Buttons.LeftButton:SetCallback(function() ToggleGetText("Left") end)
 
 local background_scale_x
 local background_scale_y
@@ -148,20 +178,35 @@ local function DrawSoundMenu()
 
 end
 
+local LargeFont = love.graphics.newFont(40)
 local function DrawControlText()
 
-    --[[
-    love.graphics.print()
-    love.graphics.print()
-    love.graphics.print()
-    love.graphics.print()
-    ]]--
-    
+    love.graphics.push()
+        love.graphics.setFont(LargeFont)
+        love.graphics.print({{0,0,0,1}, Settings.Controls.UP}, 431 + menu_x + 35, 148.4 + menu_y + 15)
+        love.graphics.print({{0,0,0,1}, Settings.Controls.DOWN}, 431 + menu_x + 35, 243.6 + menu_y + 15)
+        love.graphics.print({{0,0,0,1}, Settings.Controls.LEFT}, 431 + menu_x + 35, 339.2 + menu_y + 15)
+        love.graphics.print({{0,0,0,1}, Settings.Controls.RIGHT}, 431 + menu_x + 35, 432.5 + menu_y + 15)
+    love.graphics.pop()
+
+end
+
+local MediumFont = love.graphics.newFont(30)
+local function DrawPressEnterText()
+
+    if not GetText then return end
+    love.graphics.push()
+        love.graphics.setFont(MediumFont)
+        love.graphics.print("Press enter to set new key", 300 + menu_x, 525 + menu_y)
+    love.graphics.pop()
+
 end
 
 local function DrawControlsMenu()
 
     love.graphics.draw(ControlsMenu, menu_x, menu_y)
+    DrawControlText()
+    DrawPressEnterText()
 
 end
 
@@ -174,6 +219,19 @@ local function DrawMenu()
     elseif CurrentMenu == MENUS.CONTROLS then
         DrawControlsMenu()
     end
+
+end
+
+local function UpdateOffsetsControls()
+
+    Buttons.UpButton.x_pos    = 431 + menu_x
+    Buttons.UpButton.y_pos    = 148.4 + menu_y
+    Buttons.DownButton.x_pos  = 431 + menu_x
+    Buttons.DownButton.y_pos  = 243.6 + menu_y
+    Buttons.LeftButton.x_pos  = 431 + menu_x
+    Buttons.LeftButton.y_pos  = 339.2 + menu_y
+    Buttons.RightButton.x_pos = 431 + menu_x
+    Buttons.RightButton.y_pos = 432.5 + menu_y
 
 end
 
@@ -215,6 +273,7 @@ local function UpdateOffsets()
     menu_y = love.graphics.getHeight()*.5 - VideoMenu:getHeight()*.5
     UpdateOffsetsButtons()
     UpdateOffsetsSliders()
+    UpdateOffsetsControls()
 
 end
 
@@ -251,6 +310,10 @@ local function HandleInputControls()
 
     Buttons.SoundMenuSwitch:HandleMouseClick()
     Buttons.VideoMenuSwitch:HandleMouseClick()
+    Buttons.UpButton:HandleMouseClick()
+    Buttons.DownButton:HandleMouseClick()
+    Buttons.LeftButton:HandleMouseClick()
+    Buttons.RightButton:HandleMouseClick()
 
 end
 
