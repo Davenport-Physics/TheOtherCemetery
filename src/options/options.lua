@@ -1,4 +1,5 @@
 require("src/shared/cache")
+local utf8 = require("utf8")
 local Settings    = require("src/settings/settings")
 local ButtonClass = require("src/button/button")
 
@@ -81,11 +82,58 @@ function love.mousereleased(x, y, button)
 
 end
 
-function love.keypressed(key, scancode, isrepeat)
+local new_control = ""
 
-    if key ~= "return" then return end
-    if not GetText then return end
+local function AnyControlRepeats()
+
+    for key, value in pairs(Settings.Controls) do
+        if new_control == value then return true end
+    end
+
+end
+
+local function SwitchControl()
+
+    if ControlToChange == "Up" then
+        Settings.Controls.UP = new_control
+    elseif ControlToChange == "Down" then
+        Settings.Controls.DOWN = new_control
+    elseif ControlToChange == "Left" then
+        Settings.Controls.LEFT = new_control
+    elseif ControlToChange == "Right" then
+        Settings.Controls.RIGHT = new_control
+    end
+
+end
+
+local function HandleControlChange()
+
+    if #new_control ~= 1 then return end
+    if AnyControlRepeats() then return end
+    SwitchControl()
     GetText = false
+    ControlToChange = ""
+
+end
+
+function Options_keypressed(key, scancode, isrepeat)
+
+    if not GetText then return end
+    if key == "backspace" then
+        local byteoffset = utf8.offset(new_control, -1)
+        if byteoffset then
+            new_control = string.sub(new_control, 1, byteoffset - 1)
+        end
+    elseif key == "return" then
+        HandleControlChange()
+    end
+
+end
+
+function Options_textinput(t)
+
+    if #new_control >= 1 and key > 1 then return end
+    new_control = new_control .. key
 
 end
 
@@ -123,6 +171,7 @@ local function ToggleGetText(control)
 
     GetText = true
     ControlToChange = control
+    new_control = ""
 
 end
 Buttons.VideoMenuSwitch:SetCallback(ToggleCurrentMenuToVideo)
@@ -178,15 +227,58 @@ local function DrawSoundMenu()
 
 end
 
+local BarTime   = .2
+local NoBarTime = 0
+local function BarHandle()
+
+    BarTime = BarTime - love.timer.getDelta()
+    if BarTime <= 0 then
+        NoBarTime = 1
+    end
+    return "|"
+
+end
+
+local function NoBarHandle()
+
+    NoBarTime = NoBarTime - love.timer.getDelta()
+    if NoBarTime <= 0 then
+        BarTime = .375
+    end
+    return ""
+
+end
+
+local function FlickerBar()
+
+    if BarTime > 0 then
+        return BarHandle()
+    elseif NoBarTime > 0 then
+        return NoBarHandle()
+    end
+    return ""
+
+end
+
+local function DrawCorrectControlText(control, ctrl_str, x, y)
+
+    if ControlToChange == ctrl_str then
+        love.graphics.print({{0,0,0,1}, new_control .. FlickerBar()}, x, y)
+    else
+        love.graphics.print({{0,0,0,1}, control}, x, y)
+    end
+
+end
+
 local LargeFont = love.graphics.newFont(40)
 local function DrawControlText()
 
     love.graphics.push()
         love.graphics.setFont(LargeFont)
-        love.graphics.print({{0,0,0,1}, Settings.Controls.UP}, 431 + menu_x + 35, 148.4 + menu_y + 15)
-        love.graphics.print({{0,0,0,1}, Settings.Controls.DOWN}, 431 + menu_x + 35, 243.6 + menu_y + 15)
-        love.graphics.print({{0,0,0,1}, Settings.Controls.LEFT}, 431 + menu_x + 35, 339.2 + menu_y + 15)
-        love.graphics.print({{0,0,0,1}, Settings.Controls.RIGHT}, 431 + menu_x + 35, 432.5 + menu_y + 15)
+        DrawCorrectControlText(Settings.Controls.UP, "Up", 431 + menu_x + 35, 148.4 + menu_y + 15)
+        DrawCorrectControlText(Settings.Controls.DOWN, "Down", 431 + menu_x + 35, 243.6 + menu_y + 15)
+        DrawCorrectControlText(Settings.Controls.LEFT, "Left", 431 + menu_x + 35, 339.2 + menu_y + 15)
+        DrawCorrectControlText(Settings.Controls.RIGHT, "Right", 431 + menu_x + 35, 432.5 + menu_y + 15)
     love.graphics.pop()
 
 end

@@ -219,7 +219,7 @@ function NewGameHandler_Update()
 end
 
 
-function love.textinput(t)
+function NewGame_textinput(t)
 
     if not DrawWriteText then return end
     if #DataToSave.SaveName >= 10 then return end
@@ -239,7 +239,7 @@ local function HandleReturnKeyPressed()
 
 end
 
-function love.keypressed(key)
+function NewGame_keypressed(key)
 
     if not DrawWriteText then return end
     if key == "backspace" then
