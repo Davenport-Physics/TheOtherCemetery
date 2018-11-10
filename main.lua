@@ -29,52 +29,66 @@ local CONTEXT_FUNCTIONS =
 
     -- Starting Window
     {
-        Draw     = DrawStartingWindow,
-        DrawText = function() end,
-        Input    = HandleInput_StartingWindow,
-        Update   = Update_StartMenu
+        Draw       = DrawStartingWindow,
+        DrawText   = function() end,
+        Input      = HandleInput_StartingWindow,
+        TextInput  = function() end,
+        KeyPressed = function() end,
+        Update     = Update_StartMenu
     },
     -- New Game
     {
-        Draw     = NewGameHandler_Draw,
-        DrawText = function() end,
-        Input    = NewGameHandler_Input,
-        Update   = NewGameHandler_Update
+        Draw       = NewGameHandler_Draw,
+        DrawText   = function() end,
+        Input      = NewGameHandler_Input,
+        TextInput  = NewGame_textinput,
+        KeyPressed = NewGame_keypressed,
+        Update     = NewGameHandler_Update
     },
     -- Load Game
     {
-        Draw     = LoadGameHandler_Draw,
-        DrawText = function() end,
-        Input    = LoadGameHandler_Input,
-        Update   = LoadGameHandler_Update
+        Draw       = LoadGameHandler_Draw,
+        DrawText   = function() end,
+        Input      = LoadGameHandler_Input,
+        TextInput  = function() end,
+        KeyPressed = function() end,
+        Update     = LoadGameHandler_Update
     },
     -- Game
     {
-        Draw     = Game_Draw,
-        DrawText = Game_DrawText,
-        Input    = Game_HandleInput,
-        Update   = Game_Update
+        Draw       = Game_Draw,
+        DrawText   = Game_DrawText,
+        Input      = Game_HandleInput,
+        TextInput  = function() end,
+        KeyPressed = function() end,
+        Update     = Game_Update
     },
     -- Credits
     {
-        Draw     = DrawCreditsScene,
-        DrawText = function() end,
-        Input    = HandleInput_Credits,
-        Update   = function() end
+        Draw       = DrawCreditsScene,
+        DrawText   = function() end,
+        Input      = HandleInput_Credits,
+        TextInput  = function() end,
+        KeyPressed = function() end,
+        Update     = function() end
     },
     -- Options
     {
-        Draw     = Options_Draw,
-        DrawText = function() end,
-        Input    = Options_HandleInput,
-        Update   = Options_Update
+        Draw       = Options_Draw,
+        DrawText   = function() end,
+        Input      = Options_HandleInput,
+        TextInput  = function() end,
+        KeyPressed = Options_keypressed,
+        Update     = Options_Update
     },
     -- Intro
     {
-        Draw     = DrawIntroSequence,
-        DrawText = function() end,
-        Input    = function() end,
-        Update   = function() end
+        Draw       = DrawIntroSequence,
+        DrawText   = function() end,
+        Input      = function() end,
+        TextInput  = function() end,
+        KeyPressed = function() end,
+        Update     = function() end
     }
 
 }
@@ -172,6 +186,18 @@ function love.update()
     CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Input()
     CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Update()
     CheckEventPool()
+
+end
+
+function love.textinput(t)
+
+    CONTEXT_FUNCTIONS[CURRENT_CONTEXT].TextInput(t)
+
+end
+
+function love.keypressed(key)
+
+    CONTEXT_FUNCTIONS[CURRENT_CONTEXT].KeyPressed(key)
 
 end
 
