@@ -148,6 +148,23 @@ local function DrawSoundMenu()
 
 end
 
+local function DrawControlText()
+
+    --[[
+    love.graphics.print()
+    love.graphics.print()
+    love.graphics.print()
+    love.graphics.print()
+    ]]--
+    
+end
+
+local function DrawControlsMenu()
+
+    love.graphics.draw(ControlsMenu, menu_x, menu_y)
+
+end
+
 local function DrawMenu()
 
     if CurrentMenu == MENUS.VIDEO then
@@ -155,7 +172,7 @@ local function DrawMenu()
     elseif CurrentMenu == MENUS.SOUND then
         DrawSoundMenu()
     elseif CurrentMenu == MENUS.CONTROLS then
-        love.graphics.draw(ControlsMenu, menu_x, menu_y)
+        DrawControlsMenu()
     end
 
 end
