@@ -77,7 +77,7 @@ local CONTEXT_FUNCTIONS =
         Draw       = Options_Draw,
         DrawText   = function() end,
         Input      = Options_HandleInput,
-        TextInput  = function() end,
+        TextInput  = Options_textinput,
         KeyPressed = Options_keypressed,
         Update     = Options_Update
     },

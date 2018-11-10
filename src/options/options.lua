@@ -132,8 +132,8 @@ end
 
 function Options_textinput(t)
 
-    if #new_control >= 1 and key > 1 then return end
-    new_control = new_control .. key
+    if #new_control >= 1 and t > 1 then return end
+    new_control = new_control .. t
 
 end
 
