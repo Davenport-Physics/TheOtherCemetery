@@ -181,7 +181,7 @@ end
 local function IncrementPlayTimer(dt)
 
     if CURRENT_CONTEXT == CONTEXT_INDEX.GAME then
-        DataToSave.PlayTime = DataToSave.PlayTime + tonumber(string.format("%.2f", dt))
+        DataToSave.PlayTime = tonumber(string.format("%.2f", DataToSave.PlayTime + dt))
     end
 
 end

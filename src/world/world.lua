@@ -258,7 +258,7 @@ function World:DrawTimeCycleFilter()
         love.graphics.pop()
     elseif self.time_cycle == "Night" then
         love.graphics.push()
-            love.graphics.setColor(.66, .66, .66, .1)
+            love.graphics.setColor(.66, .66, .66, 1)
             love.graphics.rectangle("fill", 0, 0, self.world_width, self.world_height)
         love.graphics.pop()
     end
