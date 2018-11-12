@@ -27,7 +27,7 @@ function World:new(MapObj, CharacterObjs, PlayerCharacterObj, CollisionObjs, Set
     obj.Settings              = require("src/settings/settings")
     obj.entities              = {}
     obj:SetEscapeMenuObjects()
-    obj.time_cycle            = "Night"
+    obj.time_cycle            = "Morning"
     obj.fade_out              = nil
     if SetCollisionsForNPC == nil then SetCollisionsForNPC = true end
     obj.set_collision_for_npc = SetCollisionsForNPC
