@@ -27,7 +27,7 @@ function World:new(MapObj, CharacterObjs, PlayerCharacterObj, CollisionObjs, Set
     obj.Settings              = require("src/settings/settings")
     obj.entities              = {}
     obj:SetEscapeMenuObjects()
-    obj.time_cycle            = "Morning"
+    obj.time_cycle            = "Night"
     obj.fade_out              = nil
     if SetCollisionsForNPC == nil then SetCollisionsForNPC = true end
     obj.set_collision_for_npc = SetCollisionsForNPC
@@ -274,7 +274,7 @@ function World:FadeToBlack()
         self.color_fade = .1
     end
     love.graphics.push()
-        love.graphics.setColor(self.color_fade, self.color_fade, self.color_fade, .1)
+        love.graphics.setColor(self.color_fade, self.color_fade, self.color_fade, 1)
         love.graphics.rectangle("fill", 0, 0, self.world_width, self.world_height)
     love.graphics.pop()
     self.color_fade = tonumber(string.format("%.2f", self.color_fade + .01))
