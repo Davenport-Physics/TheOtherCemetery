@@ -8,8 +8,8 @@ require("src/loadgame/loadgamehandler")
 require("src/options/options")
 require("src/gamehandler/gamehandler")
 
-
-local Settings = require("src/settings/settings")
+local DataToSave = require("src/save/savingdata") 
+local Settings   = require("src/settings/settings")
 
 local CONTEXT_INDEX =
 {
@@ -178,7 +178,15 @@ local function CheckEventPool()
 
 end
 
-function love.update()
+local function IncrementPlayTimer(dt)
+
+    if CURRENT_CONTEXT == CONTEXT_INDEX.GAME then
+        DataToSave.PlayTime = DataToSave.PlayTime + tonumber(string.format("%.2f", dt))
+    end
+
+end
+
+function love.update(dt)
 
     if love.window.isMinimized() then return end
     Settings.UpdateWindow()
@@ -186,6 +194,7 @@ function love.update()
     CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Input()
     CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Update()
     CheckEventPool()
+    IncrementPlayTimer(dt)
 
 end
 
@@ -204,10 +213,8 @@ end
 local function SetCanvas()
     love.graphics.push()
     love.graphics.setCanvas(CANVAS)
-
         love.graphics.clear()
         CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Draw()
-
     love.graphics.setCanvas()
     if Settings.GlobalScaleOn then
         love.graphics.translate(Settings.X_Canvas_Translation, Settings.Y_Canvas_Translation)

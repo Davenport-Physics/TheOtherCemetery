@@ -28,6 +28,7 @@ local DataToSave =
         HasSeenCultOutsideHouse = false
     },
 
+    ["PlayTime"]           = 0,
     ["CurrentCharacter"]   = "Henry",
     ["CurrentCoordinates"] = {x_pos = nil, y_pos = nil},
     ["CurrentScene"]       = "levels/day0/scenes/intro",

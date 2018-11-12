@@ -28,12 +28,21 @@ function World:new(MapObj, CharacterObjs, PlayerCharacterObj, CollisionObjs, Set
     obj.entities              = {}
     obj:SetEscapeMenuObjects()
     obj.time_cycle            = "Morning"
+    obj.fade_out              = nil
     if SetCollisionsForNPC == nil then SetCollisionsForNPC = true end
     obj.set_collision_for_npc = SetCollisionsForNPC
     obj.map_obj:SetScaleForBlending(obj.world_scale)
     obj:GiveCharactersMapCollisionObjects()
+    obj:SetWorldDimensions()
 
     return obj
+
+end
+
+function World:SetWorldDimensions()
+
+    self.world_width  = self.map_obj.tiled_map.width  * self.map_obj.tiled_map.tilewidth
+    self.world_height = self.map_obj.tiled_map.height * self.map_obj.tiled_map.tileheight
 
 end
 
@@ -245,14 +254,43 @@ function World:DrawTimeCycleFilter()
     elseif self.time_cycle == "Afternoon" then
         love.graphics.push()
             love.graphics.setColor(.82, .82, .82, 1)
-            love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+            love.graphics.rectangle("fill", 0, 0, self.world_width, self.world_height)
         love.graphics.pop()
     elseif self.time_cycle == "Night" then
         love.graphics.push()
             love.graphics.setColor(.66, .66, .66, .1)
-            love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+            love.graphics.rectangle("fill", 0, 0, self.world_width, self.world_height)
         love.graphics.pop()
     end
+
+end
+
+function World:FadeToBlack()
+
+    if self.fade_out == nil or self.color_fade >= 1 then
+        return
+    end
+    if self.color_fade == nil then
+        self.color_fade = .1
+    end
+    love.graphics.push()
+        love.graphics.setColor(self.color_fade, self.color_fade, self.color_fade, .1)
+        love.graphics.rectangle("fill", 0, 0, self.world_width, self.world_height)
+    love.graphics.pop()
+    self.color_fade = tonumber(string.format("%.2f", self.color_fade + .01))
+
+end
+
+function World:FadeToBlackFinished()
+
+    return self.color_fade >= 1
+
+end
+
+function World:ResetFadeToBlack()
+
+    self.fade_out   = nil
+    self.color_fade = nil
 
 end
 
@@ -263,6 +301,7 @@ function World:Draw()
         return
     end
     self:DrawTimeCycleFilter()
+    self:FadeToBlack()
     if self.camera_tracking ~= nil then
         self.Settings.DrawCameraFunctions(self.camera_tracking.x_pos, self.camera_tracking.y_pos, self.world_scale)
     end
