@@ -178,10 +178,32 @@ local function CheckEventPool()
 
 end
 
+local function CheckForHourIncrement()
+
+    local temp_t = DataToSave.PlayTime.minutes/60
+    if temp_t >= 1 then
+        DataToSave.PlayTime.hours   = DataToSave.PlayTime.hours + 1
+        DataToSave.PlayTime.minutes = temp_t
+    end
+
+end
+
+local function CheckForMinuteIncrement()
+
+    local temp_t = DataToSave.PlayTime.seconds/60
+    if temp_t >= 1 then
+        DataToSave.PlayTime.minutes  = DataToSave.PlayTime.minutes + 1
+        DataToSave.PlayTime.seconds  = temp_t
+    end
+
+end
+
 local function IncrementPlayTimer(dt)
 
     if CURRENT_CONTEXT == CONTEXT_INDEX.GAME then
-        DataToSave.PlayTime = tonumber(string.format("%.2f", DataToSave.PlayTime + dt))
+        DataToSave.PlayTime.seconds = tonumber(string.format("%.2f", DataToSave.PlayTime.seconds + dt))
+        CheckForMinuteIncrement()
+        CheckForHourIncrement()
     end
 
 end

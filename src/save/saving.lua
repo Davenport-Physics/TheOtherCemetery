@@ -60,7 +60,7 @@ end
 function GetPartialDataFromSaves()
 
     local s_start  = "saves" .. separator
-    local filename = ""
+    local filename
     local p_saves = {}
     for i = 1, 3 do
         filename = s_start .. "save" .. tostring(i) .. ".lua"
@@ -68,7 +68,7 @@ function GetPartialDataFromSaves()
         if s ~= nil then
             p_saves[i] = {["SaveName"] = s["SaveName"], ["PlayTime"] = s["PlayTime"], ["File"] = "save" .. tostring(i) .. ".lua"}
         else
-            p_saves[i] = {["SaveName"] = "empty", ["PlayTime"] = 0, ["File"] = "save" .. tostring(i) .. ".lua"}
+            p_saves[i] = {["SaveName"] = "empty", ["PlayTime"] = {hours = 0, minutes = 0, seconds = 0}, ["File"] = "save" .. tostring(i) .. ".lua"}
         end
     end
     return p_saves

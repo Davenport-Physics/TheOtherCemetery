@@ -28,7 +28,7 @@ local DataToSave =
         HasSeenCultOutsideHouse = false
     },
 
-    ["PlayTime"]           = 0,
+    ["PlayTime"]           = {hours = 0, minutes = 0, seconds = 0},
     ["CurrentCharacter"]   = "Henry",
     ["CurrentCoordinates"] = {x_pos = nil, y_pos = nil},
     ["CurrentScene"]       = "levels/day0/scenes/intro",
@@ -39,7 +39,7 @@ local DataToSave =
 function DataToSave.ResetValues()
 
     DataToSave["SaveName"] = ""
-    DataToSave["PlayTime"] = 0
+    DataToSave["PlayTime"] = {hours = 0, minutes = 0, seconds = 0}
 
     DataToSave["level"].day0 = false
     DataToSave["level"].day1 = false

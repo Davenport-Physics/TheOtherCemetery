@@ -137,18 +137,19 @@ end
 
 local function HandlePartialSaveDrawing()
 
-    local SaveName = ""
-    local PlayTime = ""
+    local SaveName
+    local PlayTime
     for i = 1, 3 do
         if DrawWriteText and WriteTextIdx == i then
             SaveName = DataToSave.SaveName .. FlickerBar()
-            PlayTime = 0
+            PlayTime = {hours = 0, minutes = 0, seconds = 0}
         else
             SaveName = PartialSaveData[i].SaveName
             PlayTime = PartialSaveData[i].PlayTime
         end
+        local playtime_string = table.concat({"Play time: ", PlayTime.hours, ":", PlayTime.minutes, ":", tonumber(string.format("%.f",PlayTime.seconds))})
         love.graphics.print("Save file: " .. SaveName, NewGameGui_x_pos + 50, NewGameGui_y_pos + 160 * (i) - 20 *(i - 1))
-        love.graphics.print("Play time: " .. PlayTime, NewGameGui_x_pos + 400, NewGameGui_y_pos + 160 * (i) - 20 *(i - 1))
+        love.graphics.print(playtime_string, NewGameGui_x_pos + 400, NewGameGui_y_pos + 160 * (i) - 20 *(i - 1))
     end
 
 end
