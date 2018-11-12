@@ -30,10 +30,12 @@ local GameHandlerCallback = nil
 
 local function SaveGameButtonsCallback(save_idx)
 
+    print(PartialSaveData[save_idx].SaveName)
     if PartialSaveData[save_idx].SaveName == "empty" then
         print("Save to load does not exist STUB: SaveGameButtonsCallback")
         return
     end
+    print(PartialSaveData[save_idx].File)
     LoadSaveData(PartialSaveData[save_idx].File)
     GameHandlerCallback()
 
@@ -67,9 +69,13 @@ end
 
 local function HandlePartialSaveDrawing()
 
+    local PlayTime
+    local playtime_string
     for i = 1, 3 do
+        PlayTime        = PartialSaveData[i].PlayTime
+        playtime_string = table.concat({"Play time: ", PlayTime.hours, ":", PlayTime.minutes, ":", tonumber(string.format("%.f",PlayTime.seconds))})
         love.graphics.print("Save file: " .. PartialSaveData[i].SaveName, LoadGameGui_x_pos + 50, LoadGameGui_y_pos + 160 * (i) - 20 *(i - 1))
-        love.graphics.print("Play time: " .. PartialSaveData[i].PlayTime, LoadGameGui_x_pos + 400, LoadGameGui_y_pos + 160 * (i) - 20 *(i - 1))
+        love.graphics.print(playtime_string, LoadGameGui_x_pos + 400, LoadGameGui_y_pos + 160 * (i) - 20 *(i - 1))
     end
 
 end

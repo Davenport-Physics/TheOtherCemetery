@@ -2,17 +2,8 @@ local DataToSave =
 {
 
     ["SaveName"] = "",
-    ["PlayTime"] = 0,
 
-    ["level"] =
-    {
-
-        day0 = false,
-        day1 = false,
-        day2 = false,
-        day3 = false
-
-    },
+    ["level"] = "src/levels/day0/level",
 
     ["Day0Events"] =
     {
@@ -31,29 +22,48 @@ local DataToSave =
     ["PlayTime"]           = {hours = 0, minutes = 0, seconds = 0},
     ["CurrentCharacter"]   = "Henry",
     ["CurrentCoordinates"] = {x_pos = nil, y_pos = nil},
-    ["CurrentScene"]       = "levels/day0/scenes/intro",
+    ["CurrentScene"]       = "src/levels/day0/scenes/intro",
     ["File"] = ""
 
 }
+
+function DataToSave.SetValues(temp)
+
+    DataToSave["SaveName"] = temp["SaveName"]
+    DataToSave["PlayTime"] = temp["PlayTime"]
+
+    DataToSave["level"] = temp["level"]
+
+    DataToSave["Day0Events"].IntroPlayed             = temp["Day0Events"].IntroPlayed
+    DataToSave["Day0Events"].FuneralScenePlayed      = temp["Day0Events"].FuneralScenePlayed
+    DataToSave["Day0Events"].BedroomSceneConveration = temp["Day0Events"].BedroomSceneConveration
+
+    DataToSave["Day1Events"].WentToSchool            = temp["Day1Events"].WentToSchool
+    DataToSave["Day1Events"].SpokeWithMomAfterSchool = temp["Day1Events"].SpokeWithMomAfterSchool
+    DataToSave["Day1Events"].HasSeenCultOutsideHouse = temp["Day1Events"].HasSeenCultOutsideHouse
+
+    DataToSave["CurrentCharacter"]         = temp["CurrentCharacter"]
+    DataToSave["CurrentCoordinates"].x_pos = temp["CurrentCoordinates"].x_pos
+    DataToSave["CurrentCoordinates"].y_pos = temp["CurrentCoordinates"].y_pos
+    DataToSave["CurrentScene"]             = temp["CurrentScene"]
+    DataToSave["File"]                     = temp["File"]
+
+end
 
 function DataToSave.ResetValues()
 
     DataToSave["SaveName"] = ""
     DataToSave["PlayTime"] = {hours = 0, minutes = 0, seconds = 0}
 
-    DataToSave["level"].day0 = false
-    DataToSave["level"].day1 = false
-    DataToSave["level"].day2 = false
-    DataToSave["level"].day3 = false
+    DataToSave["level"] = "src/levels/day0/level"
 
     DataToSave["Day0Events"].IntroPlayed             = false
     DataToSave["Day0Events"].FuneralScenePlayed      = false
     DataToSave["Day0Events"].BedroomSceneConveration = false
 
-    DataToSave["Day1Events"].GrabbedLunch = false
     DataToSave["Day1Events"].WentToSchool = false
-    DataToSave["Day1Events"].LostToBully  = false
-    DataToSave["Day1Events"].DayTime      = true
+    DataToSave["Day1Events"].SpokeWithMomAfterSchool = false
+    DataToSave["Day1Events"].HasSeenCultOutsideHouse = false
 
     DataToSave["CurrentCharacter"]         = "Henry"
     DataToSave["CurrentCoordinates"].x_pos = 0

@@ -31,6 +31,7 @@ end
 local CanTransition = nil
 local function SetUpTransition()
 
+    DataToSave.CurrentScene = CanTransition[1]
     Scene = require(CanTransition[1])
     Scene.Reset()
     if #CanTransition == 3 then
@@ -42,13 +43,8 @@ end
 local function DetermineSceneFromSaveData()
 
     local temp_idx
-    for i = 1, #Scenes do
-        if DataToSave.CurrentScene == Scenes[i] then
-            Scene = require(Scenes[i])
-            Scene.Reset()
-            return
-        end
-    end
+    Scene = require(DataToSave.CurrentScene)
+    Scene.Reset()
 
 end
 

@@ -1,4 +1,5 @@
-local SaveData = require("src/save/savingdata")
+local DataToSave = require("src/save/savingdata")
+local inspect    = require("src/debug/inspect")
 
 local Level_idx = 1
 local Levels    =
@@ -26,7 +27,6 @@ function Game_Update()
 
     local CanTransition = Level.CanTransition()
     if CanTransition then
-        print("Transitioning to " .. Level_idx + 1)
         if Level ~= nil then Level.Reset() end
         Level_idx = Level_idx + 1
         Level     = require(Levels[Level_idx])
@@ -43,15 +43,8 @@ end
 
 local function DetermineCurrentLevel()
 
-    for i = 0, #SaveData.level do
-        if not SaveData.level["day" .. tostring(i)] then
-            print("starting on day " .. i)
-            Level = require(Levels[i+1])
-            Level.Reset()
-            return
-        end
-    end
-    print("Warning: All Levels seem to be complete with selected save")
+    Level = require(DataToSave.level)
+    Level.Reset()
 
 end
 

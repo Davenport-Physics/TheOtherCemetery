@@ -1,5 +1,6 @@
 local DataToSave  = require("src/save/savingdata")
 local Settings    = require("src/settings/settings")
+local inspect     = require("src/debug/inspect")
 require("src/save/savingpersistence")
 
 local separator = package.config:sub(1,1)
@@ -49,11 +50,8 @@ end
 
 function LoadSaveData(filename)
 
-    local err
-    DataToSave, err = persistence.load(Path .. separator .. filename)
-    if DataToSave == nil then
-        return "SaveDidNotExist"
-    end
+    local temp, err = persistence.load(Path .. separator .. filename)
+    DataToSave.SetValues(temp)
 
 end
 

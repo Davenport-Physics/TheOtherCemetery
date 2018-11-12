@@ -10,9 +10,7 @@ local Scenes =
 }
 
 local Scene = require(Scenes[1])
-
 local transition_to_next_level = false
-
 function Level.Draw()
 
     Scene.Draw()
@@ -29,6 +27,7 @@ end
 local CanTransition = nil
 local function SetUpTransition()
 
+    SaveData.CurrentScene = CanTransition[1]
     Scene = require(CanTransition[1])
     Scene.Reset()
     if #CanTransition == 3 then
@@ -39,14 +38,8 @@ end
 
 local function DetermineSceneFromSaveData()
 
-    local temp_idx
-    for i = 1, #Scenes do
-        if SaveData.CurrentScene == Scenes[i] then
-            Scene = require(Scenes[i])
-            Scene.Reset()
-            return
-        end
-    end
+    Scene = require(SaveData.CurrentScene)
+    Scene.Reset()
 
 end
 
