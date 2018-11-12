@@ -294,6 +294,12 @@ function World:ResetFadeToBlack()
 
 end
 
+function World:DrawCameraTracking()
+    if self.camera_tracking ~= nil then
+        self.Settings.DrawCameraFunctions(self.camera_tracking.x_pos, self.camera_tracking.y_pos, self.world_scale)
+    end
+end
+
 function World:Draw()
 
     if self.escape_menu_active then
@@ -302,9 +308,7 @@ function World:Draw()
     end
     self:DrawTimeCycleFilter()
     self:FadeToBlack()
-    if self.camera_tracking ~= nil then
-        self.Settings.DrawCameraFunctions(self.camera_tracking.x_pos, self.camera_tracking.y_pos, self.world_scale)
-    end
+    self:DrawCameraTracking()
     self:DrawMapIfPossible()
     self:DrawCharactersIfPossible()
     self:DrawPlayerCharacterIfPossible()
