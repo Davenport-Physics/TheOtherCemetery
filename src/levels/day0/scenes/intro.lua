@@ -60,8 +60,6 @@ local function Intro_Update_CheckForPlayback()
     if not IntroVideo:isPlaying() then
 
         IntroVideo     = nil
-        --AnnaDialog     = love.audio.newSource("sound/intro/anna-dialog/anna-intro.mp3", "static")
-        --AnnaDialog:play()
         transition     = {"src/levels/day0/scenes/FuneralHome"}
         DataToSave.CurrentScene = "src/levels/day0/scenes/FuneralHome"
         Settings.GlobalScaleOn = true
