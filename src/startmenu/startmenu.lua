@@ -85,7 +85,7 @@ local StartingWindowText =
 
     Name     = getImageFromCache("pics/startmenu/startmenutext.png"),
     MadeWith = love.graphics.newText(love.graphics.newFont(25), "A game made with LÖVE"),
-    Version  = love.graphics.newText(love.graphics.newFont(25), "Alpha 3")
+    Version  = love.graphics.newText(love.graphics.newFont(25), "Beta 1")
 
 }
 

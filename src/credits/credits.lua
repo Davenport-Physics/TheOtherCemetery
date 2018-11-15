@@ -5,15 +5,6 @@ local CreditMusic     = love.audio.newSource("sound/credits/credits.ogg", "strea
 local next_time_to_draw_scrawl = love.timer.getTime()
 local Font                     = love.graphics.newFont(15)
 
-local CharacterClass  = require("src/character/character")
-local FemaleCharacter = CharacterClass:new("tiles/Characters/Females/F_01.png", 300, 300, 16, 17)
-local function DrawCharacter()
-
-    FemaleCharacter:WalkRight(true)
-    FemaleCharacter:Draw()
-
-end
-
 local ButtonClass = require("src/button/button")
 local BackButton  = ButtonClass:newImage("pics/share/buttons/backbutton.png", 10, 10, .2, .2)
 BackButton:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
@@ -29,7 +20,6 @@ function InitializeCredits_CallBackFunctions(StartMenu)
     StartMenu_CallBack = function()
 
         StartMenu()
-        FemaleCharacter:ResetPositionToOriginal()
         ResetCreditsPositionText()
         love.audio.stop(CreditMusic)
 
@@ -102,7 +92,6 @@ function DrawCreditsScene()
     DrawBackground()
     DrawCreditsScrawl()
     DrawBackButton()
-    DrawCharacter()
 
 end
 

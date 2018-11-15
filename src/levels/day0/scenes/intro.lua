@@ -4,7 +4,6 @@ local Settings = require("src/settings/settings")
 
 local Scene = {}
 local IntroMusic = nil
---local AnnaDialog = nil
 local IntroVideo = nil
 
 local scale_x    = 1
@@ -87,7 +86,6 @@ end
 function Scene.Reset()
 
     IntroMusic = nil
-    --AnnaDialog = nil
     IntroVideo = nil
     scale_x = 1
     scale_y = 1
