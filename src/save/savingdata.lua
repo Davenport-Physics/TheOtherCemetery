@@ -14,9 +14,10 @@ local DataToSave =
 
     ["Day1Events"] =
     {
-        WentToSchool = false,
-        SpokeWithMomAfterSchool = false,
-        HasSeenCultOutsideHouse = false
+        WentToSchool              = false,
+        SpokeWithMomAfterSchool   = false,
+        NeighbourConversationSeen = false,
+        HasSeenCultOutsideHouse   = false
     },
 
     ["PlayTime"]           = {hours = 0, minutes = 0, seconds = 0},
@@ -34,13 +35,14 @@ function DataToSave.SetValues(temp)
 
     DataToSave["level"] = temp["level"]
 
-    DataToSave["Day0Events"].IntroPlayed             = temp["Day0Events"].IntroPlayed
-    DataToSave["Day0Events"].FuneralScenePlayed      = temp["Day0Events"].FuneralScenePlayed
-    DataToSave["Day0Events"].BedroomSceneConveration = temp["Day0Events"].BedroomSceneConveration
+    DataToSave["Day0Events"].IntroPlayed               = temp["Day0Events"].IntroPlayed
+    DataToSave["Day0Events"].FuneralScenePlayed        = temp["Day0Events"].FuneralScenePlayed
+    DataToSave["Day0Events"].BedroomSceneConveration   = temp["Day0Events"].BedroomSceneConveration
 
-    DataToSave["Day1Events"].WentToSchool            = temp["Day1Events"].WentToSchool
-    DataToSave["Day1Events"].SpokeWithMomAfterSchool = temp["Day1Events"].SpokeWithMomAfterSchool
-    DataToSave["Day1Events"].HasSeenCultOutsideHouse = temp["Day1Events"].HasSeenCultOutsideHouse
+    DataToSave["Day1Events"].WentToSchool              = temp["Day1Events"].WentToSchool
+    DataToSave["Day1Events"].SpokeWithMomAfterSchool   = temp["Day1Events"].SpokeWithMomAfterSchool
+    DataToSave["Day1Events"].NeighbourConversationSeen = temp["Day1Events"].SpokeWithMomAfterSchool
+    DataToSave["Day1Events"].HasSeenCultOutsideHouse   = temp["Day1Events"].HasSeenCultOutsideHouse
 
     DataToSave["CurrentCharacter"]         = temp["CurrentCharacter"]
     DataToSave["CurrentCoordinates"].x_pos = temp["CurrentCoordinates"].x_pos
@@ -61,9 +63,10 @@ function DataToSave.ResetValues()
     DataToSave["Day0Events"].FuneralScenePlayed      = false
     DataToSave["Day0Events"].BedroomSceneConveration = false
 
-    DataToSave["Day1Events"].WentToSchool = false
-    DataToSave["Day1Events"].SpokeWithMomAfterSchool = false
-    DataToSave["Day1Events"].HasSeenCultOutsideHouse = false
+    DataToSave["Day1Events"].WentToSchool              = false
+    DataToSave["Day1Events"].SpokeWithMomAfterSchool   = false
+    DataToSave["Day1Events"].NeighbourConversationSeen = false
+    DataToSave["Day1Events"].HasSeenCultOutsideHouse   = false
 
     DataToSave["CurrentCharacter"]         = "Henry"
     DataToSave["CurrentCoordinates"].x_pos = 0
