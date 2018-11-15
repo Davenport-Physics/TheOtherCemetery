@@ -48,6 +48,8 @@ local ConversationText =
 }
 local DialogConversationHandler = DialogClass:new(ConversationText, 3)
 
+local ShouldLeaveText = TextBubbleClass:newSpeaking(NPCs[2], "You should leave.")
+
 local function DoorCollisionChecks()
 
     transition = DoorHandler:CheckForCollisions()
@@ -61,6 +63,8 @@ local function GiveControlToHenryIfPossible()
 
     if not DataToSave["Day1Events"].NeighbourConversationSeen and DialogConversationHandler:IsFinished() then
 
+        NPCs[1]:FaceDown()
+        NPCs[2]:FaceDown()
         DataToSave["Day1Events"].NeighbourConversationSeen = true
         World:SetHandleInputCallback(nil)
         World:SetEntityToTrackForCamera(Henry)
@@ -74,6 +78,15 @@ local function DrawConversationBetweenManAndWoman()
     if not DataToSave["Day1Events"].NeighbourConversationSeen then
         DialogConversationHandler:Draw()
     end
+
+end
+
+local function DrawYouShouldLeaveIfPossible()
+
+    if not Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[1].x_pos, NPCs[1].y_pos, 64) then
+        return
+    end
+    ShouldLeaveText:Draw()
 
 end
 
@@ -94,6 +107,7 @@ end
 function Scene.DrawText()
 
     DrawConversationBetweenManAndWoman()
+    DrawYouShouldLeaveIfPossible()
 
 end
 

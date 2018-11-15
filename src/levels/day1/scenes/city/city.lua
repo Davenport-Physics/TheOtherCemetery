@@ -169,7 +169,6 @@ local DoNotGoInText =
     {x_pos = 23*16, y_pos = 59*16, text = TextBubbleClass:newThought(Henry, "Locked...")},
     {x_pos = 29*16, y_pos = 59*16, text = TextBubbleClass:newThought(Henry, "Locked...")},
     {x_pos = 35*16, y_pos = 59*16, text = TextBubbleClass:newThought(Henry, "Locked...")},
-    {x_pos = 41*16, y_pos = 59*16, text = TextBubbleClass:newThought(Henry, "Locked...")},
     {x_pos = 16*16, y_pos = 40*16, text = TextBubbleClass:newThought(Henry, "I shouldn't go here")},
     {x_pos = 25*16, y_pos = 41*16, text = TextBubbleClass:newThought(Henry, "I shouldn't go here")},
     {x_pos = 53*16, y_pos = 37*16, text = TextBubbleClass:newThought(Henry, "...")},
