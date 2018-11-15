@@ -83,8 +83,8 @@ end
 local StartingWindowText =
 {
 
-    Name     = love.graphics.newText(love.graphics.newFont(65), "Disconnected"),
-    MadeWith = love.graphics.newText(love.graphics.newFont(25), "A game made with Love"),
+    Name     = getImageFromCache("pics/startmenu/startmenutext.png"),
+    MadeWith = love.graphics.newText(love.graphics.newFont(25), "A game made with LÖVE"),
     Version  = love.graphics.newText(love.graphics.newFont(25), "Alpha 3")
 
 }
@@ -93,6 +93,8 @@ local StartingWindowPics  =
 {
     BackGround = getImageFromCache("tiles/autumn-platformer-tileset/png/elements/background.png"),
 }
+
+local BackgroundVideo = love.graphics.newVideo("video/StartMenuVideo.ogv")
 
 local function DrawButtons()
 
@@ -112,8 +114,8 @@ local BackGroundScale_x = 1
 local BackGroundScale_y = 1
 function Update_StartMenu()
 
-    BackGroundScale_x = love.graphics.getWidth()/StartingWindowPics.BackGround:getWidth()
-    BackGroundScale_y = love.graphics.getHeight()/StartingWindowPics.BackGround:getHeight()
+    BackGroundScale_x = love.graphics.getWidth()/BackgroundVideo:getWidth()
+    BackGroundScale_y = love.graphics.getHeight()/BackgroundVideo:getHeight()
     Buttons.NewGame.x_pos  = love.graphics.getWidth()*.5 - (25 + 350)
     Buttons.LoadGame.x_pos = Buttons.NewGame.x_pos  + 175
     Buttons.Credits.x_pos  = Buttons.LoadGame.x_pos + 175
@@ -127,17 +129,28 @@ function Update_StartMenu()
 
 end
 
+local function DrawBackgroundVideo()
+
+    if not BackgroundVideo:isPlaying() then
+        BackgroundVideo:rewind()
+        BackgroundVideo:play()
+    end
+    love.graphics.draw(BackgroundVideo, 0, 0, 0, BackGroundScale_x, BackGroundScale_y)
+
+end
+
 local function DrawMisc()
 
-    love.graphics.draw(StartingWindowPics.BackGround, 0, 0, 0, BackGroundScale_x, BackGroundScale_y)
-    love.graphics.draw(StartingWindowText.Name, love.graphics.getWidth()*.5 - 200, 125)
-    love.graphics.draw(StartingWindowText.MadeWith, love.graphics.getWidth()*.5 - 175, 200)
+    love.graphics.draw(StartingWindowText.Name, love.graphics.getWidth()*.5 - 375, 125, 0, .2, .2)
     love.graphics.draw(StartingWindowText.Version, 10, 15)
 
 end
 
+
+
 function DrawStartingWindow()
 
+    DrawBackgroundVideo()
     DrawMisc()
     DrawButtons()
 
