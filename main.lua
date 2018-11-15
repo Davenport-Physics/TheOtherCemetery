@@ -160,7 +160,7 @@ function love.load()
     InitializeNewGame_CallBackFunctions(InStartMenu , Game)
     InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, Credits, Quit)
     InitializeCredits_CallBackFunctions(InStartMenu)
-    love.window.setTitle("Diconnected")
+    love.window.setTitle("The Other Cemetery")
     love.window.setMode(Settings.Window_Width, Settings.Window_Height, {resizable=true, vsync=true, minwidth=1152, minheight=648})
     love.window.setFullscreen(Settings.Fullscreen)
 
