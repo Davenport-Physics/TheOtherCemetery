@@ -27,6 +27,8 @@ Buttons.YouTube:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.Website:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.About:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
+local BackgroundVideo = love.graphics.newVideo("video/StartMenuVideo.ogv")
+
 function StartMenuMusic_Start()
 
     StartMenuSound:setLooping(true)
@@ -52,14 +54,14 @@ end
 
 function InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, Credits, Quit)
 
-    Buttons.NewGame:SetCallback(StartNewGame)
-    Buttons.LoadGame:SetCallback(LoadGame)
-    Buttons.Credits:SetCallback(Credits)
-    Buttons.Options:SetCallback(Options)
-    Buttons.Quit:SetCallback(Quit)
-    Buttons.Twitter:SetCallback(function() love.window.minimize(); love.system.openURL("https://twitter.com/DSectorStudios") end)
-    Buttons.Website:SetCallback(function() love.window.minimize(); love.system.openURL("https://www.darksectorstudios.com/") end)
-    Buttons.YouTube:SetCallback(function() love.window.minimize(); love.system.openURL("https://www.youtube.com/channel/UCIW4bSzn44v08ttyRMT5z2w?view_as=subscriber") end)
+    Buttons.NewGame:SetCallback(function() BackgroundVideo:pause(); StartNewGame() end)
+    Buttons.LoadGame:SetCallback(function() BackgroundVideo:pause(); LoadGame() end)
+    Buttons.Credits:SetCallback(function() BackgroundVideo:pause(); Credits() end)
+    Buttons.Options:SetCallback(function() BackgroundVideo:pause(); Options() end)
+    Buttons.Quit:SetCallback(function() BackgroundVideo:pause(); Quit() end)
+    Buttons.Twitter:SetCallback(function() BackgroundVideo:pause(); love.window.minimize(); love.system.openURL("https://twitter.com/DSectorStudios") end)
+    Buttons.Website:SetCallback(function() BackgroundVideo:pause(); love.window.minimize(); love.system.openURL("https://www.darksectorstudios.com/") end)
+    Buttons.YouTube:SetCallback(function() BackgroundVideo:pause(); love.window.minimize(); love.system.openURL("https://www.youtube.com/channel/UCIW4bSzn44v08ttyRMT5z2w?view_as=subscriber") end)
     SetAboutPath()
     Buttons.About:SetCallback(function()   love.window.minimize(); love.system.openURL(about_path) end)
 
@@ -93,8 +95,6 @@ local StartingWindowPics  =
 {
     BackGround = getImageFromCache("tiles/autumn-platformer-tileset/png/elements/background.png"),
 }
-
-local BackgroundVideo = love.graphics.newVideo("video/StartMenuVideo.ogv")
 
 local function DrawButtons()
 
