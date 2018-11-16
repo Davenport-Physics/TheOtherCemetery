@@ -88,10 +88,8 @@ end
 
 function Scene.HandleInput()
 
-    if not CameraPanning then
-
-        FuneralWorld:HandleInput()
-
+    if love.keyboard.isDown("space") then
+        Camera.y_pos = -200
     end
 
 end
