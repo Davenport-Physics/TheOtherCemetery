@@ -147,7 +147,7 @@ function Scene:SetResetCallback(func)
 
 end
 
-function SetPlayerCharCallback(func)
+function Scene:SetPlayerCharCallback(func)
 
     self.playerchar_callback = func
 
