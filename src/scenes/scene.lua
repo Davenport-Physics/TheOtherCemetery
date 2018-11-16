@@ -11,16 +11,40 @@ local TextBubbleClass = require("src/character/textbubbles")
 local DialogClass     = require("src/dialog/dialog")
 local DoorsHandler    = require("src/entity/doorhandler")
 
+local CHAR_DIR = "tiles/Characters/"
+
+local function GetCharLoc(char)
+    return CHAR_DIR .. char
+end
+
 local CHARS =
 {
-    ["Henry"] = "tiles/Characters/Males/M_08.png",
-    ["Anna"]  = "tiles/Characters/Females/F_01.png"
+    ["Henry"]    = GetCharLoc("Males/M_08.png"),
+    ["Anna"]     = GetCharLoc("Females/F_01.png"),
+    ["PaulOwen"] = GetCharLoc("Males/M_12.png"),
+    ["Cheri"]    = GetCharLoc("Females/F_11.png"),
+    ["Teacher"]  = GetCharLoc("Males/M_05.png")
 }
+
+local MAPS_DIR = "src/levels/maps/"
+
+local function GetMapLoc(map)
+    return MAPS_DIR .. map
+end
 
 local MAPS =
 {
-    ["FuneralHome"] = "",
-    ["HomeLobby"] = ""
+    ["City"]            = GetMapLoc("city/city"),
+    ["CityRuined"]      = GetMapLoc("city/city-ruined.lua"),
+    ["FuneralHome"]     = GetMapLoc("city/interiors/funeral"),
+    ["HomeLobby"]       = GetMapLoc("home/home-lobby"),
+    ["HenryBedroom"]    = GetMapLoc("home/henry-bedroom"),
+    ["Grocery"]         = GetMapLoc("interiors/grocery/grocery"),
+    ["Collector"]       = GetMapLoc("interiors/collector/collector"),
+    ["UnderCollector"]  = GetMapLoc("interiors/collector/underneath/underneath"),
+    ["CollectorShrine"] = GetMapLoc("interiors/collector/underneath/shrinetodead"),
+    ["School"]          = GetMapLoc("school/school"),
+    ["SchoolRoom"]      = GetMapLoc("school/school-room.lua")
 }
 
 local Scene = {}
