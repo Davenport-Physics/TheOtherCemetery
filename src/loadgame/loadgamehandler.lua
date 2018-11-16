@@ -4,7 +4,7 @@ local ButtonClass = require("src/button/button")
 
 local BackgroundVideo    = love.graphics.newVideo("video/menus/NewLoadMenu.ogv")
 local LoadGameBackground = getImageFromCache("tiles/autumn-platformer-tileset/png/elements/background.png")
-local LoadGameGui        = getImageFromCache("pics/loadgame/LoadGame.png")
+local LoadGameGui        = getImageFromCache("pics/loadgame/LoadGame-2.png")
 
 local Background_sx = love.graphics.getWidth()/BackgroundVideo:getWidth()
 local Background_sy = love.graphics.getHeight()/BackgroundVideo:getHeight()
@@ -75,10 +75,10 @@ local function HandlePartialSaveDrawing()
     for i = 1, 3 do
         PlayTime        = PartialSaveData[i].PlayTime
         playtime_string = table.concat({"Play time: ", PlayTime.hours, ":", PlayTime.minutes, ":", tonumber(string.format("%.f",PlayTime.seconds))})
-        love.graphics.print("Save file: " .. PartialSaveData[i].SaveName, LoadGameGui_x_pos + 50, LoadGameGui_y_pos + 160 * (i) - 20 *(i - 1))
-        love.graphics.print(playtime_string, LoadGameGui_x_pos + 400, LoadGameGui_y_pos + 160 * (i) - 20 *(i - 1))
+        love.graphics.print("Save file: " .. PartialSaveData[i].SaveName, LoadGameGui_x_pos + 50, LoadGameGui_y_pos + 140 * (i))
+        love.graphics.print(playtime_string, LoadGameGui_x_pos + 400, LoadGameGui_y_pos + 140 * (i))
     end
-
+    
 end
 
 function LoadGameHandler_Draw()
