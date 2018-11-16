@@ -17,6 +17,7 @@ local DataToSave =
         WentToSchool              = false,
         SpokeWithMomAfterSchool   = false,
         NeighbourConversationSeen = false,
+        HeardSpeechFromPriest     = false,
         HasSeenCultOutsideHouse   = false
     },
 
@@ -41,7 +42,8 @@ function DataToSave.SetValues(temp)
 
     DataToSave["Day1Events"].WentToSchool              = temp["Day1Events"].WentToSchool
     DataToSave["Day1Events"].SpokeWithMomAfterSchool   = temp["Day1Events"].SpokeWithMomAfterSchool
-    DataToSave["Day1Events"].NeighbourConversationSeen = temp["Day1Events"].SpokeWithMomAfterSchool
+    DataToSave["Day1Events"].NeighbourConversationSeen = temp["Day1Events"].NeighbourConversationSeen
+    DataToSave["Day1Events"].HeardSpeechFromPriest     = temp["Day1Events"].HeardSpeechFromPriest
     DataToSave["Day1Events"].HasSeenCultOutsideHouse   = temp["Day1Events"].HasSeenCultOutsideHouse
 
     DataToSave["CurrentCharacter"]         = temp["CurrentCharacter"]
@@ -66,6 +68,7 @@ function DataToSave.ResetValues()
     DataToSave["Day1Events"].WentToSchool              = false
     DataToSave["Day1Events"].SpokeWithMomAfterSchool   = false
     DataToSave["Day1Events"].NeighbourConversationSeen = false
+    DataToSave["Day1Events"].HeardSpeechFromPriest     = false
     DataToSave["Day1Events"].HasSeenCultOutsideHouse   = false
 
     DataToSave["CurrentCharacter"]         = "Henry"

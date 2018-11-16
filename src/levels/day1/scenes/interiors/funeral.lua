@@ -18,10 +18,27 @@ local Map        = TiledMapClass:new(require("src/levels/maps/city/interiors/fun
 
 local ExitDoor = DoorClass:new(8 * 16, 17 * 16, 2*16, 16, "src/levels/day1/scenes/city/city", 53*16, 38*16)
 
+local StationaryEntity = EntityClass:newMinimal(8*16, 3*16)
 local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 8*16, 16*16, 16, 17, 9, .075); Henry:WalkUp();
-local NPCs  = {}
+local NPCs  =
+{
+    CharacterClass:new("tiles/Characters/Males/M_11.png", 8*16, 3*16, 16, 17, 4, .05)
+}
+NPCs[1]:FaceUp()
 local World = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)
+
+local HearingSpeech = false
+local SpeechText =
+{
+    TextBubbleClass:newSpeaking(NPCs[1], "Ahh Henry, How are you \nfeeling?"),
+    TextBubbleClass:newSpeaking(Henry, "I-I don't know why I'm here..."),
+    TextBubbleClass:newSpeaking(NPCs[1],"Well there surely must \nbe a reason."),
+    TextBubbleClass:newSpeaking(NPCs[1], "Everything always has \na reason."),
+    TextBubbleClass:newSpeaking(NPCs[1], "Don't you think Henry?"),
+    TextBubbleClass:newSpeaking(Henry, "I... suppose")
+}
+local SpeechDialog = DialogClass:new(SpeechText, 3)
 
 local function UpdateDoorTransition()
 
@@ -29,10 +46,39 @@ local function UpdateDoorTransition()
 
 end
 
+local function UpdateSpeechIfPossible()
+
+    if not DataToSave["Day1Events"].NeighbourConversationSeen and SpeechDialog:IsFinished() then
+        DataToSave["Day1Events"].NeighbourConversationSeen = true
+        World:SetHandleInputCallback(nil)
+        World:SetEntityToTrackForCamera(Henry)
+        NPCs[1]:FaceUp()
+        HearingSpeech = false
+    end
+    if DataToSave["Day1Events"].NeighbourConversationSeen then return end
+    if HearingSpeech then return end
+    if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[1].x_pos, NPCs[1].y_pos, 64) then
+        HearingSpeech = true
+        World:SetHandleInputCallback(function() end)
+        World:SetEntityToTrackForCamera(StationaryEntity)
+        NPCs[1]:FaceDown()
+    end
+
+end
+
+local function DrawSpeechIfPossible()
+
+    if HearingSpeech then
+        SpeechDialog:Draw()
+    end
+
+end
+
 function Scene.Update()
 
     World:Update()
     UpdateDoorTransition()
+    UpdateSpeechIfPossible()
 
 end
 
@@ -43,6 +89,8 @@ function Scene.Draw()
 end
 
 function Scene.DrawText()
+
+    DrawSpeechIfPossible()
 
 end
 
