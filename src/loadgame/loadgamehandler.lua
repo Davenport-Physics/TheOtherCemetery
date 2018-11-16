@@ -2,11 +2,12 @@ require("src/shared/cache")
 local Saves       = require("src/save/saving")
 local ButtonClass = require("src/button/button")
 
+local BackgroundVideo    = love.graphics.newVideo("video/menus/NewLoadMenu.ogv")
 local LoadGameBackground = getImageFromCache("tiles/autumn-platformer-tileset/png/elements/background.png")
 local LoadGameGui        = getImageFromCache("pics/loadgame/LoadGame.png")
 
-local LoadGameBackground_sx = love.graphics.getWidth()/LoadGameBackground:getWidth()
-local LoadGameBackground_sy = love.graphics.getHeight()/LoadGameBackground:getHeight()
+local Background_sx = love.graphics.getWidth()/BackgroundVideo:getWidth()
+local Background_sy = love.graphics.getHeight()/BackgroundVideo:getHeight()
 
 local LoadGameGui_x_pos = 0
 local LoadGameGui_y_pos = 0
@@ -57,7 +58,7 @@ end
 
 local function HandleBackgroundDrawing()
 
-    love.graphics.draw(LoadGameBackground, 0, 0, 0, LoadGameBackground_sx, LoadGameBackground_sy)
+    love.graphics.draw(BackgroundVideo, 0, 0, 0, Background_sx, Background_sx)
 
 end
 
@@ -104,13 +105,25 @@ local function UpdateSaveButtonPositions()
 
 end
 
+local function UpdateBackgroundVideo()
+
+    if not BackgroundVideo:isPlaying() then
+
+        BackgroundVideo:rewind()
+        BackgroundVideo:play()
+
+    end
+
+end
+
 function LoadGameHandler_Update()
 
-    LoadGameGui_x_pos     = love.graphics.getWidth()*.5  - LoadGameGui:getWidth()*.5
-    LoadGameGui_y_pos     = love.graphics.getHeight()*.5 - LoadGameGui:getHeight()*.5
-    LoadGameBackground_sx = love.graphics.getWidth()/LoadGameBackground:getWidth()
-    LoadGameBackground_sy = love.graphics.getHeight()/LoadGameBackground:getHeight()
+    LoadGameGui_x_pos = love.graphics.getWidth()*.5  - LoadGameGui:getWidth()*.5
+    LoadGameGui_y_pos = love.graphics.getHeight()*.5 - LoadGameGui:getHeight()*.5
+    Background_sx     = love.graphics.getWidth()/BackgroundVideo:getWidth()
+    Background_sy     = love.graphics.getHeight()/BackgroundVideo:getHeight()
     UpdateSaveButtonPositions()
+    UpdateBackgroundVideo()
 
 end
 
@@ -129,8 +142,8 @@ end
 
 function InitializeLoadGame_CallBackFunctions(InStartMenu, game)
 
-    BackButton:SetCallback(InStartMenu)
-    GameHandlerCallback = game
+    BackButton:SetCallback(function() BackgroundVideo:pause(); InStartMenu(); end)
+    GameHandlerCallback = function()  BackgroundVideo:pause(); game(); end
 
 end
 
