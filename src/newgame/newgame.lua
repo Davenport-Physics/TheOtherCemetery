@@ -5,6 +5,9 @@ local DataToSave  = require("src/save/savingdata")
 local Saves       = require("src/save/saving")
 local ButtonClass = require("src/button/button")
 
+local BackgroundVideo_s_x = 1
+local BackgroundVideo_s_y = 1
+local BackgroundVideo     = love.graphics.newVideo("video/menus/NewLoadMenu.ogv")
 local NewGameBackground = getImageFromCache("tiles/autumn-platformer-tileset/png/elements/background.png")
 local NewGameGui        = getImageFromCache("pics/newgame/newgame.png")
 
@@ -92,7 +95,8 @@ end
 
 local function HandleBackgroundDrawing()
 
-    love.graphics.draw(NewGameBackground, 0, 0, 0, NewGameBackground_sx, NewGameBackground_sy)
+    love.graphics.draw(BackgroundVideo, 0, 0, 0, BackgroundVideo_s_x, BackgroundVideo_s_y)
+    --love.graphics.draw(NewGameBackground, 0, 0, 0, NewGameBackground_sx, NewGameBackground_sy)
 
 end
 
@@ -208,6 +212,17 @@ local function UpdateOverWriteButtons()
 
 end
 
+local function UpdateBackgroundVideo()
+
+    if not BackgroundVideo:isPlaying() then
+        BackgroundVideo:rewind()
+        BackgroundVideo:play()
+    end
+    BackgroundVideo_s_x = love.graphics.getWidth()/BackgroundVideo:getWidth()
+    BackgroundVideo_s_y = love.graphics.getHeight()/BackgroundVideo:getHeight()
+
+end
+
 function NewGameHandler_Update()
 
     NewGameGui_x_pos     = love.graphics.getWidth()*.5  - NewGameGui:getWidth()*.5
@@ -216,6 +231,7 @@ function NewGameHandler_Update()
     NewGameBackground_sy = love.graphics.getHeight()/NewGameBackground:getHeight()
     UpdateSaveButtonPositions()
     UpdateOverWriteButtons()
+    UpdateBackgroundVideo()
 
 end
 
@@ -280,8 +296,8 @@ end
 
 function InitializeNewGame_CallBackFunctions(InStartMenu, GameHandle)
 
-    BackButton:SetCallback(InStartMenu)
-    GameHandlerCallback = GameHandle
+    BackButton:SetCallback(function() BackgroundVideo:pause(); InStartMenu() end)
+    GameHandlerCallback = function() BackgroundVideo:pause(); GameHandle() end
 
 end
 
@@ -295,5 +311,7 @@ function ResetNewGame()
     WriteTextIdx     = nil
     NewGameGui_x_pos = 0
     NewGameGui_y_pos = 0
+    BackgroundVideo:rewind()
+    BackgroundVideo:play()
 
 end
