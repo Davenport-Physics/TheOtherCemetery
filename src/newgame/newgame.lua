@@ -8,11 +8,8 @@ local ButtonClass = require("src/button/button")
 local BackgroundVideo_s_x = 1
 local BackgroundVideo_s_y = 1
 local BackgroundVideo     = love.graphics.newVideo("video/menus/NewLoadMenu.ogv")
-local NewGameBackground = getImageFromCache("tiles/autumn-platformer-tileset/png/elements/background.png")
 local NewGameGui        = getImageFromCache("pics/newgame/newgame.png")
 
-local NewGameBackground_sx = love.graphics.getWidth()/NewGameBackground:getWidth()
-local NewGameBackground_sy = love.graphics.getHeight()/NewGameBackground:getHeight()
 
 local NewGameGui_x_pos = 0
 local NewGameGui_y_pos = 0
@@ -96,7 +93,6 @@ end
 local function HandleBackgroundDrawing()
 
     love.graphics.draw(BackgroundVideo, 0, 0, 0, BackgroundVideo_s_x, BackgroundVideo_s_y)
-    --love.graphics.draw(NewGameBackground, 0, 0, 0, NewGameBackground_sx, NewGameBackground_sy)
 
 end
 
@@ -227,8 +223,6 @@ function NewGameHandler_Update()
 
     NewGameGui_x_pos     = love.graphics.getWidth()*.5  - NewGameGui:getWidth()*.5
     NewGameGui_y_pos     = love.graphics.getHeight()*.5 - NewGameGui:getHeight()*.5
-    NewGameBackground_sx = love.graphics.getWidth()/NewGameBackground:getWidth()
-    NewGameBackground_sy = love.graphics.getHeight()/NewGameBackground:getHeight()
     UpdateSaveButtonPositions()
     UpdateOverWriteButtons()
     UpdateBackgroundVideo()
