@@ -249,6 +249,8 @@ end
 
 function World:DrawTimeCycleFilter()
 
+    if fade_out ~= nil then return end
+
     if self.time_cycle == "Morning" then
         love.graphics.push()
             love.graphics.setColor(1,1,1,1)
@@ -267,22 +269,28 @@ end
 
 function World:FadeToBlack()
 
-    if self.fade_out == nil or self.color_fade >= 1 then
+    if self.fade_out == nil then
         return
     end
     if self.color_fade == nil then
-        self.color_fade = .1
+        self.color_fade = 1
     end
     love.graphics.push()
         love.graphics.setColor(self.color_fade, self.color_fade, self.color_fade, 1)
     love.graphics.pop()
-    self.color_fade = tonumber(string.format("%.2f", self.color_fade + .01))
+    if self.color_fade > 0 and love.timer.getTime() >= self.fade_out_timer then
+        self.color_fade = tonumber(string.format("%.2f", self.color_fade - .01))
+        self.fade_out_timer = love.timer.getTime() + .03
+    end
 
 end
 
 function World:FadeToBlackFinished()
 
-    return self.color_fade >= 1
+    if self.color_fade == nil then
+        return false
+    end
+    return self.color_fade <= 0
 
 end
 
@@ -290,7 +298,14 @@ function World:ResetFadeToBlack()
 
     self.fade_out   = nil
     self.color_fade = nil
+    self.fade_out_timer = nil
 
+end
+
+function World:SetFadeToBlack(val)
+
+    self.fade_out = val
+    self.fade_out_timer = love.timer.getTime() + .03
 end
 
 function World:DrawCameraTracking()

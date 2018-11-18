@@ -14,8 +14,7 @@ local TextBubbleClass = require("src/character/textbubbles")
 local DialogClass     = require("src/dialog/dialog")
 local CameraClass     = require("src/camera/camera")
 
-local SleepCam        = nil --CameraClass:new(9*16, 10*16, .25, 0, .0125)
-
+local SetFadeOut = false
 local transition = false
 local Map        = TiledMapClass:new(require("src/levels/maps/school/school-room"))
 
@@ -113,7 +112,7 @@ end
 
 local function HandleTransitionIfTeacherIsDoneTalkingAgain()
 
-    if TextBoxDialog:IsFinished() then
+    if World:FadeToBlackFinished() then
         transition = {"src/levels/day1/scenes/city/deadworld-view"}
     end
 
@@ -122,12 +121,11 @@ end
 local function UpdateSleepCam()
 
     if not HenryPathWalker:IsDoneWalking() then return end
-    if SleepCam == nil then
-        SleepCam = CameraClass:new(9*16, 10*16, .1, 0, .0125)
-        World:SetEntityToTrackForCamera(SleepCam)
+    if SetFadeOut then
+        return
     end
-    SleepCam:Update()
-
+    World:SetFadeToBlack(true)
+    SetFadeOut = true
 
 end
 
