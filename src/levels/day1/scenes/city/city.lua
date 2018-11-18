@@ -146,6 +146,7 @@ local function SoundUpdates()
         BackgroundSound:setLooping(true)
         BackgroundSound:play()
     elseif not BackgroundSound:isPlaying() and DataToSave["Day1Events"].WentToSchool then
+        World:SetTimeCycle("Afternoon")
         BackgroundSound = getStreamSoundFromCache("sound/ambiance/city-slow.wav")
         BackgroundSound:setVolume(.5)
         BackgroundSound:setLooping(true)
@@ -217,7 +218,7 @@ local function DrawHenryStopTextBubblesIfPossible()
 
 end
 
-local KeyNPCText = TextBubbleClass:new(NPCs[1], "pics/share/text/TextBubbleSpeaking.png", "What is wrong ... OPEN!")
+local KeyNPCText = TextBubbleClass:newSpeaking(NPCs[1], "What is wrong ... OPEN!")
 local function DrawKeyNPCTextIfPossible()
 
     if not NPCs[1].allow_drawing then return end
@@ -227,7 +228,7 @@ local function DrawKeyNPCTextIfPossible()
 
 end
 
-local AdultGoingToWorkText = TextBubbleClass:new(NPCs[2], "pics/share/text/TextBubbleSpeaking.png", "NEED COFFEE")
+local AdultGoingToWorkText = TextBubbleClass:newSpeaking(NPCs[2], "NEED COFFEE")
 local function DrawAdultTextIfPossible()
 
     if not NPCs[2].allow_drawing then return end
@@ -237,7 +238,7 @@ local function DrawAdultTextIfPossible()
 
 end
 
-local KidNPCText = TextBubbleClass:new(NPCs[3], "pics/share/text/TextBubbleSpeaking.png", "Gahh, I'm going to be late!")
+local KidNPCText = TextBubbleClass:newSpeaking(NPCs[3], "Gahh, I'm going to be late!")
 local function DrawKidNPCTextIfPossible()
 
     if not NPCs[3].allow_drawing then return end
@@ -247,7 +248,7 @@ local function DrawKidNPCTextIfPossible()
 
 end
 
-local CrazyNPCText = TextBubbleClass:new(NPCs[4], "pics/share/text/TextBubbleSpeaking.png", "You and your mom are \nspecial.")
+local CrazyNPCText = TextBubbleClass:newSpeaking(NPCs[4], "You and your mom are \nspecial.")
 local function DrawCrazyTextIfPossible()
 
     if not NPCs[4].allow_drawing then return end

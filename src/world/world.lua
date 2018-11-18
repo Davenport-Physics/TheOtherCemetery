@@ -250,16 +250,16 @@ end
 function World:DrawTimeCycleFilter()
 
     if self.time_cycle == "Morning" then
-        return
+        love.graphics.push()
+            love.graphics.setColor(1,1,1,1)
+        love.graphics.pop()
     elseif self.time_cycle == "Afternoon" then
         love.graphics.push()
             love.graphics.setColor(.82, .82, .82, 1)
-            love.graphics.rectangle("fill", 0, 0, self.world_width, self.world_height)
         love.graphics.pop()
     elseif self.time_cycle == "Night" then
         love.graphics.push()
             love.graphics.setColor(.66, .66, .66, 1)
-            love.graphics.rectangle("fill", 0, 0, self.world_width, self.world_height)
         love.graphics.pop()
     end
 
@@ -275,7 +275,6 @@ function World:FadeToBlack()
     end
     love.graphics.push()
         love.graphics.setColor(self.color_fade, self.color_fade, self.color_fade, 1)
-        love.graphics.rectangle("fill", 0, 0, self.world_width, self.world_height)
     love.graphics.pop()
     self.color_fade = tonumber(string.format("%.2f", self.color_fade + .01))
 
