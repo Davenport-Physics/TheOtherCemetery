@@ -28,7 +28,6 @@ local NPCs  =
     CharacterClass:new("tiles/Characters/Females/F_06.png", 6*16, 7*16, 16, 17, 4, .025),
     CharacterClass:new("tiles/Characters/Males/M_10.png"  , 4*16, 9*16, 16, 17, 4, .025),
     CharacterClass:new("tiles/Characters/Males/M_04.png"  , 6*16, 11*16, 16, 17, 4, .025)
-
 }
 for i = 2, #NPCs do
     NPCs[i]:WalkUp()
@@ -42,19 +41,16 @@ local ExitDoor         = DoorClass:new(9*16, 14*16, 3*16, 16, "src/levels/day1/s
 
 local TextBubbles =
 {
-
     TextBubbleClass:newSpeaking(NPCs[1], "He is next..."),
     TextBubbleClass:newSpeaking(NPCs[1], "OH! Henry, why are you \nhere today?"),
     TextBubbleClass:newSpeaking(NPCs[1], "Shouldn't you be at home \nresting?"),
     TextBubbleClass:newThought(Henry, "Who was he talking about..."),
     TextBubbleClass:newSpeaking(NPCs[1], "Well, take your seat Henry"),
-
 }
 
 local Dialog = DialogClass:new(TextBubbles, 3)
 
 local TextBoxEntity = EntityClass:newMinimal(16, 13*16)
---"Now, who they made a deal with still remains a mystery, although we have our theories. It could be natives that had inhabited this region before, or maybe another force they had reckoned with. . ."
 local TextBox =
 {
     TextBubbleClass:new(TextBoxEntity, "pics/share/text/TextBoxes.png", "Our great founding fathers \nmade a deal..."),
