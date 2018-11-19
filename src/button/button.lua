@@ -53,7 +53,7 @@ end
 
 function Button:SetSoundWhenClicked(sound_file)
 
-    self.sound = getSoundFromCache(sound_file, "static")
+    self.sound = love.audio.newSource(sound_file, "static")
 
 end
 
