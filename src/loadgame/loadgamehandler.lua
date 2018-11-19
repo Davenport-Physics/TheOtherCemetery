@@ -81,12 +81,21 @@ local function HandlePartialSaveDrawing()
     
 end
 
+local function DrawButtons()
+
+    for i = 1, #SaveGameButtons do
+        SaveGameButtons[i]:Draw()
+    end
+
+end
+
 function LoadGameHandler_Draw()
 
     love.graphics.setFont(Font)
     HandleBackgroundDrawing()
     HandleLoadGuiDrawing()
     DrawBackButton()
+    DrawButtons()
     HandlePartialSaveDrawing()
 
 end
@@ -94,14 +103,14 @@ end
 local SaveGameButtonsx_pos = 0
 local function UpdateSaveButtonPositions()
 
-    SaveGameButtonsx_pos     = LoadGameGui_x_pos + 24
+    SaveGameButtonsx_pos     = LoadGameGui_x_pos
     SaveGameButtons[1].x_pos = SaveGameButtonsx_pos
     SaveGameButtons[2].x_pos = SaveGameButtonsx_pos
-    SaveGameButtons[3].x_pos = SaveGameButtonsx_pos
+    SaveGameButtons[3].x_pos = SaveGameButtonsx_pos + 1
 
-    SaveGameButtons[1].y_pos = LoadGameGui_y_pos + 120
-    SaveGameButtons[2].y_pos = LoadGameGui_y_pos + 257
-    SaveGameButtons[3].y_pos = LoadGameGui_y_pos + 402
+    SaveGameButtons[1].y_pos = LoadGameGui_y_pos + 104
+    SaveGameButtons[2].y_pos = LoadGameGui_y_pos + 241
+    SaveGameButtons[3].y_pos = LoadGameGui_y_pos + 386
 
 end
 

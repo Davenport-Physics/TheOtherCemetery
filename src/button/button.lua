@@ -145,10 +145,35 @@ function Button:HandleMouseClick()
 
 end
 
+function Button:DrawWithFilter()
+
+    love.graphics.setColor(.66, .66, .66, 1)
+    love.graphics.draw(self.image, self.x_pos, self.y_pos, 0, self.scale_x, self.scale_y)
+    love.graphics.setColor(1, 1, 1, 1)
+
+end
+
+function Button:DrawRectangleWithFilterIfPossible()
+
+    love.graphics.setColor(.66, .66, .66, 1)
+    love.graphics.rectangle("fill", self.x_pos, self.y_pos, self.image_width, self.image_height)
+    love.graphics.setColor(1,1,1,1)
+
+end
+
 function Button:Draw()
 
-    if self.image == nil then return end
-    love.graphics.draw(self.image, self.x_pos, self.y_pos, 0, self.scale_x, self.scale_y)
+    if self.image == nil then
+        if self:CheckForMouseCollision() then
+            self:DrawRectangleWithFilterIfPossible()
+        end
+        return 
+    end
+    if self:CheckForMouseCollision() then
+        self:DrawWithFilter()
+    else
+        love.graphics.draw(self.image, self.x_pos, self.y_pos, 0, self.scale_x, self.scale_y)
+    end
 
 end
 
