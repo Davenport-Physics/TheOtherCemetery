@@ -87,8 +87,8 @@ end
 
 function World:UpdateEscapeMenuSaveObject(offset_x, offset_y)
 
-    self.escape_menu_save_game.x_pos = self.escape_menu_x_pos + 20.5
-    self.escape_menu_save_game.y_pos = self.escape_menu_y_pos + 125.5
+    self.escape_menu_save_game.x_pos = self.escape_menu_x_pos + 13
+    self.escape_menu_save_game.y_pos = self.escape_menu_y_pos + 110
     self.escape_menu_save_game.image_width  = 303
     self.escape_menu_save_game.image_height = 105
 
@@ -97,8 +97,8 @@ end
 function World:UpdateEscapeMenuQuitObject(offset_x, offset_y)
 
 
-    self.escape_menu_quit_game.x_pos = self.escape_menu_x_pos + 20.5
-    self.escape_menu_quit_game.y_pos = self.escape_menu_y_pos + 395.5
+    self.escape_menu_quit_game.x_pos = self.escape_menu_x_pos + 13
+    self.escape_menu_quit_game.y_pos = self.escape_menu_y_pos + 225
     self.escape_menu_quit_game.image_width  = 303
     self.escape_menu_quit_game.image_height = 105
 
