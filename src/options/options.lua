@@ -39,9 +39,9 @@ Buttons.MasterVolumeSlider.avoid_callback_timer = true
 Buttons.MusicVolumeSlider.avoid_callback_timer  = true
 Buttons.SoundEffectsSlider.avoid_callback_timer = true
 
-local MasterVolumeSlider_r_x = {349 + Settings.MasterVolume*368}
-local MusicVolumeSlider_r_x  = {349 + Settings.MusicVolume*368}
-local SoundEffectsSlider_r_x = {349 + Settings.SoundEffectsVolume*368}
+local MasterVolumeSlider_r_x = {349 + Settings.MasterVolume*349}
+local MusicVolumeSlider_r_x  = {349 + Settings.MusicVolume*349}
+local SoundEffectsSlider_r_x = {349 + Settings.SoundEffectsVolume*349}
 local CurrentSlider_r_x = nil
 local slider_moving  = false
 local did_not_update = true
@@ -64,9 +64,9 @@ local menu_y = 0
 local fullscreen_queued = false
 local function UpdateSettings()
 
-    Settings.MasterVolume = math.min(1, tonumber(string.format("%.2f", 2*(MasterVolumeSlider_r_x[1]-349)/(349+368))))
-    Settings.MusicVolume  = math.min(1, tonumber(string.format("%.2f", 2*(MusicVolumeSlider_r_x[1]-349)/(349+368))))
-    Settings.SoundEffectsVolume = math.min(1, tonumber(string.format("%.2f", 2*(SoundEffectsSlider_r_x[1]-349)/(349+368))))
+    Settings.MasterVolume = math.min(1, tonumber(string.format("%.2f", 2*(MasterVolumeSlider_r_x[1]-349)/(349+349))))
+    Settings.MusicVolume  = math.min(1, tonumber(string.format("%.2f", 2*(MusicVolumeSlider_r_x[1]-349)/(349+349))))
+    Settings.SoundEffectsVolume = math.min(1, tonumber(string.format("%.2f", 2*(SoundEffectsSlider_r_x[1]-349)/(349+349))))
 
 end
 
@@ -156,8 +156,8 @@ local function ConstrainSliderPosition(slider)
 
     if slider[1] < 349 then
         slider[1] = 349
-    elseif slider[1] > 349 + 368 then
-        slider[1] = 349 + 368
+    elseif slider[1] > 349 + 349 then
+        slider[1] = 349 + 349
     end
 
 end
@@ -326,9 +326,9 @@ end
 local function UpdateOffsetsSliders()
 
     if did_not_update then
-        MasterVolumeSlider_r_x[1] = 349 + Settings.MasterVolume*368
-        MusicVolumeSlider_r_x[1]  = 349 + Settings.MusicVolume*368
-        SoundEffectsSlider_r_x[1] = 349 + Settings.SoundEffectsVolume*368
+        MasterVolumeSlider_r_x[1] = 349 + Settings.MasterVolume*349
+        MusicVolumeSlider_r_x[1]  = 349 + Settings.MusicVolume*349
+        SoundEffectsSlider_r_x[1] = 349 + Settings.SoundEffectsVolume*349
         did_not_update = false
     end
     Buttons.MasterVolumeSlider.x_pos = menu_x + MasterVolumeSlider_r_x[1]
