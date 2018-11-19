@@ -181,7 +181,7 @@ Buttons.Check:SetCallback(ToggleCheckFullScreen)
 Buttons.MasterVolumeSlider:SetCallback(function() MoveSlider(MasterVolumeSlider_r_x); CurrentSlider_r_x = MasterVolumeSlider_r_x; slider_moving = true end)
 Buttons.MusicVolumeSlider:SetCallback(function() MoveSlider(MusicVolumeSlider_r_x); CurrentSlider_r_x = MusicVolumeSlider_r_x; slider_moving = true end )
 Buttons.SoundEffectsSlider:SetCallback(function() MoveSlider(SoundEffectsSlider_r_x); CurrentSlider_r_x = SoundEffectsSlider_r_x; slider_moving = true end)
-Buttons.BackButton:SetCallback(function() BackgroundVideo:pause() love.event.push("startmenu") end)
+Buttons.BackButton:SetCallback(function() BackgroundVideo:pause(); love.event.push("startmenu"); end)
 
 Buttons.UpButton:SetCallback(function() ToggleGetText("Up") end)
 Buttons.DownButton:SetCallback(function() ToggleGetText("Down") end)
