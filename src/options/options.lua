@@ -10,6 +10,8 @@ local ControlsMenu    = getImageFromCache("pics/options/Controls.png")
 local CheckMark       = getImageFromCache("pics/options/checkmark.png")
 local SliderButton    = getImageFromCache("pics/options/sliderbutton.png")
 
+local startmenu_callback
+
 local Buttons =
 {
     Check              = ButtonClass:newWithoutImage(553.3, 176.4, 25, 25),
@@ -181,7 +183,7 @@ Buttons.Check:SetCallback(ToggleCheckFullScreen)
 Buttons.MasterVolumeSlider:SetCallback(function() MoveSlider(MasterVolumeSlider_r_x); CurrentSlider_r_x = MasterVolumeSlider_r_x; slider_moving = true end)
 Buttons.MusicVolumeSlider:SetCallback(function() MoveSlider(MusicVolumeSlider_r_x); CurrentSlider_r_x = MusicVolumeSlider_r_x; slider_moving = true end )
 Buttons.SoundEffectsSlider:SetCallback(function() MoveSlider(SoundEffectsSlider_r_x); CurrentSlider_r_x = SoundEffectsSlider_r_x; slider_moving = true end)
-Buttons.BackButton:SetCallback(function() BackgroundVideo:pause(); love.event.push("startmenu"); end)
+Buttons.BackButton:SetCallback(function() BackgroundVideo:pause(); startmenu_callback() end)
 
 Buttons.UpButton:SetCallback(function() ToggleGetText("Up") end)
 Buttons.DownButton:SetCallback(function() ToggleGetText("Down") end)
@@ -458,5 +460,11 @@ end
 function Options_HandleInput()
 
     HandleInputOfAppropriateButtons()
+
+end
+
+function InitializeOptions_CallBackkFunctions(func)
+
+    startmenu_callback = func
 
 end
