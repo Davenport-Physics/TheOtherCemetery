@@ -14,7 +14,7 @@ local LoadGameGui_y_pos = 0
 
 local PartialSaveData = nil
 
-local BackButton  = ButtonClass:newImage("pics/share/buttons/backbutton.png", 10, 10, .2, .2)
+local BackButton  = ButtonClass:newImage("pics/share/buttons/backbutton.png", 10, 10, .3, .3)
 BackButton:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
 local SaveGameButtons =

@@ -6,7 +6,7 @@ local next_time_to_draw_scrawl = love.timer.getTime()
 local Font                     = love.graphics.newFont(15)
 
 local ButtonClass = require("src/button/button")
-local BackButton  = ButtonClass:newImage("pics/share/buttons/backbutton.png", 10, 10, .2, .2)
+local BackButton  = ButtonClass:newImage("pics/share/buttons/backbutton.png", 10, 10, .3, .3)
 BackButton:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 local function DrawBackButton()
 

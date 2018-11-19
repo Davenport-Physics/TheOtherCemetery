@@ -273,13 +273,11 @@ end
 local LargeFont = love.graphics.newFont(40)
 local function DrawControlText()
 
-    love.graphics.push()
-        love.graphics.setFont(LargeFont)
-        DrawCorrectControlText(Settings.Controls.UP, "Up", 431 + menu_x + 35, 148.4 + menu_y + 15)
-        DrawCorrectControlText(Settings.Controls.DOWN, "Down", 431 + menu_x + 35, 243.6 + menu_y + 15)
-        DrawCorrectControlText(Settings.Controls.LEFT, "Left", 431 + menu_x + 35, 339.2 + menu_y + 15)
-        DrawCorrectControlText(Settings.Controls.RIGHT, "Right", 431 + menu_x + 35, 432.5 + menu_y + 15)
-    love.graphics.pop()
+    love.graphics.setFont(LargeFont)
+    DrawCorrectControlText(Settings.Controls.UP, "Up", 431 + menu_x + 35, 148.4 + menu_y + 15)
+    DrawCorrectControlText(Settings.Controls.DOWN, "Down", 431 + menu_x + 35, 243.6 + menu_y + 15)
+    DrawCorrectControlText(Settings.Controls.LEFT, "Left", 431 + menu_x + 35, 339.2 + menu_y + 15)
+    DrawCorrectControlText(Settings.Controls.RIGHT, "Right", 431 + menu_x + 35, 432.5 + menu_y + 15)
 
 end
 
@@ -287,10 +285,8 @@ local MediumFont = love.graphics.newFont(30)
 local function DrawPressEnterText()
 
     if not GetText then return end
-    love.graphics.push()
-        love.graphics.setFont(MediumFont)
-        love.graphics.print("Press enter to set new key", 300 + menu_x, 525 + menu_y)
-    love.graphics.pop()
+    love.graphics.setFont(MediumFont)
+    love.graphics.print("Press enter to set new key", 300 + menu_x, 525 + menu_y)
 
 end
 
