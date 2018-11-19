@@ -418,6 +418,16 @@ local function HandleInputOfAppropriateButtons()
 
 end
 
+local StartMenuMusic = nil
+local function UpdateStartMenuSounds()
+
+    if StartMenuMusic == nil then
+        StartMenuMusic = getSoundFromCache("sound/startmenu/sadpiano.mp3")
+    end
+    StartMenuMusic:setVolume(Settings.MasterVolume * Settings.MusicVolume)
+
+end
+
 function Options_Draw()
 
     DrawBackground()
@@ -430,6 +440,7 @@ function Options_Update()
 
     UpdateOffsets()
     UpdateSliders()
+    UpdateStartMenuSounds()
 
 end
 

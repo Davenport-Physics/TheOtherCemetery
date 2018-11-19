@@ -1,6 +1,6 @@
 
 local DataToSave      = require("src/save/savingdata")
-local Settings = require("src/settings/settings")
+local Settings        = require("src/settings/settings")
 
 local Scene = {}
 local IntroMusic = nil
@@ -46,8 +46,8 @@ local function Intro_Update_CheckForNil()
         IntroMusic = love.audio.newSource("sound/intro/Mournful_Departure.mp3", "static")
         IntroVideo:play()
         IntroMusic:play()
-        IntroMusic:setVolume(.25)
-        IntroVideo:getSource():setVolume(.5)
+        IntroMusic:setVolume(Settings.MasterVolume * Settings.MusicVolume * .5)
+        IntroVideo:getSource():setVolume(Settings.MasterVolume * Settings.MusicVolume)
         Settings.GlobalScaleOn = false
 
     end

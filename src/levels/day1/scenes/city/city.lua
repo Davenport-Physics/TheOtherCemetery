@@ -92,7 +92,7 @@ local function CheckIfNearSchoolDoor()
     if math.sqrt((Henry.x_pos - 36 * 16)^2 + (Henry.y_pos - 5 * 16)^2) < 200 then
 
         SchoolBell = getSoundFromCache("sound/shorts/school-bell.wav")
-        SchoolBell:setVolume(.5)
+        SchoolBell:setVolume(Settings.MasterVolume * Settings.MusicVolume)
         SchoolBell:play()
 
     end
@@ -142,13 +142,13 @@ end
 local function SoundUpdates()
     if not BackgroundSound:isPlaying() and not DataToSave["Day1Events"].WentToSchool then
         BackgroundSound = getStreamSoundFromCache("sound/ambiance/city.wav")
-        BackgroundSound:setVolume(.5)
+        BackgroundSound:setVolume(Settings.MasterVolume * Settings.MusicVolume)
         BackgroundSound:setLooping(true)
         BackgroundSound:play()
     elseif not BackgroundSound:isPlaying() and DataToSave["Day1Events"].WentToSchool then
         World:SetTimeCycle("Afternoon")
         BackgroundSound = getStreamSoundFromCache("sound/ambiance/city-slow.wav")
-        BackgroundSound:setVolume(.5)
+        BackgroundSound:setVolume(Settings.MasterVolume * Settings.MusicVolume)
         BackgroundSound:setLooping(true)
         BackgroundSound:play()
     end

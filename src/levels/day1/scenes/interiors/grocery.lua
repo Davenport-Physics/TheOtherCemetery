@@ -17,7 +17,7 @@ local transition = false
 local Map        = TiledMapClass:new(require("src/levels/maps/interiors/grocery/grocery"))
 
 local BackgroundSound = getStreamSoundFromCache("sound/ambiance/grocery/catchy.wav")
-BackgroundSound:setVolume(.5)
+BackgroundSound:setVolume(Settings.MasterVolume * Settings.MusicVolume)
 BackgroundSound:setLooping(true)
 
 local StationaryEntity = EntityClass:newMinimal(3*16, 6*16)

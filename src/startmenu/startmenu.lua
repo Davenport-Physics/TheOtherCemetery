@@ -32,7 +32,7 @@ local BackgroundVideo = love.graphics.newVideo("video/StartMenuVideo.ogv")
 function StartMenuMusic_Start()
 
     StartMenuSound:setLooping(true)
-    StartMenuSound:setVolume(.5)
+    StartMenuSound:setVolume( Settings.MasterVolume * Settings.MusicVolume)
     StartMenuSound:play()
 
 end

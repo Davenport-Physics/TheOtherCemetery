@@ -136,7 +136,7 @@ function Scene.DrawText()
 
     DrawWorkerTextIfPossible()
     DrawGetOutTextIfPossible()
-    
+
 end
 
 function Scene.HandleInput()
@@ -156,7 +156,7 @@ end
 
 function Scene.Reset()
 
-    BackgroundSound:setVolume(.15)
+    BackgroundSound:setVolume(Settings.MasterVolume * Settings.MusicVolume * .5)
     BackgroundSound:setLooping(true)
     BackgroundSound:play()
 

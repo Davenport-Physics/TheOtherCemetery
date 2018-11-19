@@ -74,7 +74,7 @@ end
 
 function Scene.Reset()
 
-    BackgroundSound:setVolume(.25)
+    BackgroundSound:setVolume(Settings.MasterVolume * Settings.MusicVolume * .5)
     BackgroundSound:play()
 
 end

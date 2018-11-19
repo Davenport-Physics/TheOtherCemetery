@@ -27,7 +27,7 @@ local transition = false
 local function UpdateSounds()
 
     if not BackgroundSound:isPlaying() then
-        BackgroundSound:setVolume(.5)
+        BackgroundSound:setVolume(Settings.MasterVolume * Settings.MusicVolume)
         BackgroundSound:play()
     end
 

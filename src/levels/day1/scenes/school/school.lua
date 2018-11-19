@@ -52,7 +52,7 @@ end
 local function UpdateSounds()
 
     if not BackgroundMusic:isPlaying() then
-        BackgroundMusic:setVolume(1)
+        BackgroundMusic:setVolume(Settings.MasterVolume * Settings.MusicVolume)
         BackgroundMusic:setLooping(true)
         BackgroundMusic:play()
     end

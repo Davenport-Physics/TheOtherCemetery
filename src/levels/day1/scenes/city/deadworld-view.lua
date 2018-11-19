@@ -49,7 +49,7 @@ local function MoveCameraTwo()
     cameras[2]:Update()
     if cameras[2].y_pos <= 12*16 and Knocking == nil then
         Knocking = getSoundFromCache("sound/shorts/knock-with-urgency.wav")
-        Knocking:setVolume(.5)
+        Knocking:setVolume(Settings.MasterVolume * Settings.MusicVolume)
         Knocking:setLooping(true)
         Knocking:play()
     end
@@ -74,11 +74,11 @@ end
 local function UpdateSounds()
 
     if not BackgroundWindSound:isPlaying() then
-        BackgroundWindSound:setVolume(.5)
+        BackgroundWindSound:setVolume(Settings.MasterVolume * Settings.MusicVolume)
         BackgroundWindSound:play()
     end
     if not should_cameras_pan[1] and not BackgroundDeadSound:isPlaying() then
-        BackgroundDeadSound:setVolume(.35)
+        BackgroundDeadSound:setVolume(Settings.MasterVolume * Settings.MusicVolume * Settings.SoundEffectsVolume)
         BackgroundDeadSound:play()
     end
 

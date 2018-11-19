@@ -1,4 +1,5 @@
 require("src/shared/cache")
+local Settings        = require("src/settings/settings")
 local BackGroundImage = getImageFromCache("tiles/autumn-platformer-tileset/png/elements/background.png")
 local CreditMusic     = love.audio.newSource("sound/credits/credits.ogg", "stream")
 
@@ -103,7 +104,8 @@ end
 
 function StartCreditMusic()
 
-    love.audio.play(CreditMusic)
+    CreditMusic:setVolume(Settings.MasterVolume * Settings.MusicVolume)
+    CreditMusic:play()
 
 end
 

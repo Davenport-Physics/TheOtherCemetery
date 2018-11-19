@@ -21,7 +21,7 @@ function Scene.Update()
     if video == nil then
         video = love.graphics.newVideo("video/daytransitions/DayOne.ogv")
         video:play()
-        video:getSource():setVolume(.2)
+        video:getSource():setVolume(Settings.MasterVolume * Settings.MusicVolume * Settings.SoundEffectsVolume)
         Settings.GlobalScaleOn = false
     end
     if video ~= nil and not video:isPlaying() then
