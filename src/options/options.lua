@@ -3,12 +3,12 @@ local utf8 = require("utf8")
 local Settings    = require("src/settings/settings")
 local ButtonClass = require("src/button/button")
 
-local Background   = getImageFromCache("tiles/autumn-platformer-tileset/png/elements/background.png")
-local VideoMenu    = getImageFromCache("pics/options/Video.png")
-local SoundMenu    = getImageFromCache("pics/options/Sound.png")
-local ControlsMenu = getImageFromCache("pics/options/Controls.png")
-local CheckMark    = getImageFromCache("pics/options/checkmark.png")
-local SliderButton = getImageFromCache("pics/options/sliderbutton.png")
+local BackgroundVideo = love.graphics.newVideo("video/RandomSequence.ogv")
+local VideoMenu       = getImageFromCache("pics/options/Video.png")
+local SoundMenu       = getImageFromCache("pics/options/Sound.png")
+local ControlsMenu    = getImageFromCache("pics/options/Controls.png")
+local CheckMark       = getImageFromCache("pics/options/checkmark.png")
+local SliderButton    = getImageFromCache("pics/options/sliderbutton.png")
 
 local Buttons =
 {
@@ -181,7 +181,7 @@ Buttons.Check:SetCallback(ToggleCheckFullScreen)
 Buttons.MasterVolumeSlider:SetCallback(function() MoveSlider(MasterVolumeSlider_r_x); CurrentSlider_r_x = MasterVolumeSlider_r_x; slider_moving = true end)
 Buttons.MusicVolumeSlider:SetCallback(function() MoveSlider(MusicVolumeSlider_r_x); CurrentSlider_r_x = MusicVolumeSlider_r_x; slider_moving = true end )
 Buttons.SoundEffectsSlider:SetCallback(function() MoveSlider(SoundEffectsSlider_r_x); CurrentSlider_r_x = SoundEffectsSlider_r_x; slider_moving = true end)
-Buttons.BackButton:SetCallback(function() love.event.push("startmenu") end)
+Buttons.BackButton:SetCallback(function() BackgroundVideo:pause() love.event.push("startmenu") end)
 
 Buttons.UpButton:SetCallback(function() ToggleGetText("Up") end)
 Buttons.DownButton:SetCallback(function() ToggleGetText("Down") end)
@@ -192,7 +192,7 @@ local background_scale_x
 local background_scale_y
 local function DrawBackground()
 
-    love.graphics.draw(Background, 0, 0, 0, background_scale_x, background_scale_y)
+    love.graphics.draw(BackgroundVideo, 0, 0, 0, background_scale_x, background_scale_y)
 
 end
 
@@ -355,8 +355,8 @@ end
 
 local function UpdateOffsets()
 
-    background_scale_x = love.graphics.getWidth()/Background:getWidth()
-    background_scale_y = love.graphics.getHeight()/love.graphics.getHeight()
+    background_scale_x = love.graphics.getWidth()/BackgroundVideo:getWidth()
+    background_scale_y = love.graphics.getHeight()/BackgroundVideo:getHeight()
     menu_x = love.graphics.getWidth()*.5  - VideoMenu:getWidth()*.5
     menu_y = love.graphics.getHeight()*.5 - VideoMenu:getHeight()*.5
     UpdateOffsetsButtons()
@@ -418,6 +418,16 @@ local function HandleInputOfAppropriateButtons()
 
 end
 
+
+local function UpdateBackgroundVideo()
+
+    if not BackgroundVideo:isPlaying() then
+        BackgroundVideo:rewind()
+        BackgroundVideo:play()
+    end
+
+end
+
 local StartMenuMusic = nil
 local function UpdateStartMenuSounds()
 
@@ -441,6 +451,7 @@ function Options_Update()
     UpdateOffsets()
     UpdateSliders()
     UpdateStartMenuSounds()
+    UpdateBackgroundVideo()
 
 end
 

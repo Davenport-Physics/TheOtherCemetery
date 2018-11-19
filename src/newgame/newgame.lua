@@ -7,7 +7,7 @@ local ButtonClass = require("src/button/button")
 
 local BackgroundVideo_s_x = 1
 local BackgroundVideo_s_y = 1
-local BackgroundVideo     = love.graphics.newVideo("video/menus/NewLoadMenu.ogv")
+local BackgroundVideo     = love.graphics.newVideo("video/RandomSequence.ogv")
 local NewGameGui          = getImageFromCache("pics/newgame/newgame-2.png")
 
 

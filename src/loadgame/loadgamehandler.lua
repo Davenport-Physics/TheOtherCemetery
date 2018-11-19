@@ -2,7 +2,7 @@ require("src/shared/cache")
 local Saves       = require("src/save/saving")
 local ButtonClass = require("src/button/button")
 
-local BackgroundVideo    = love.graphics.newVideo("video/menus/NewLoadMenu.ogv")
+local BackgroundVideo    = love.graphics.newVideo("video/RandomSequence.ogv")
 local LoadGameBackground = getImageFromCache("tiles/autumn-platformer-tileset/png/elements/background.png")
 local LoadGameGui        = getImageFromCache("pics/loadgame/LoadGame-2.png")
 
