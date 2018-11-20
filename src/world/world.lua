@@ -267,13 +267,25 @@ function World:DrawTimeCycleFilter()
 
 end
 
+function World:GetColorFadeValue()
+
+    if self.time_cycle == "Morning" then
+        return 1
+    elseif self.time_cycle == "Afternoon" then
+        return .82
+    elseif self.time_cycle == "Night" then
+        return .66
+    end
+
+end
+
 function World:FadeToBlack()
 
     if self.fade_out == nil then
         return
     end
     if self.color_fade == nil then
-        self.color_fade = 1
+        self.color_fade = self:GetColorFadeValue()
     end
     love.graphics.push()
         love.graphics.setColor(self.color_fade, self.color_fade, self.color_fade, 1)
