@@ -13,8 +13,7 @@ local DialogClass     = require("src/dialog/dialog")
 local Camera        = CameraClass:new(144, 300, 0, -.2, .015)
 local CameraPanning = true
 
-local MapData        = require("src/levels/maps/city/interiors/funeral")
-local FuneralHomeMap = TiledMapClass:new(MapData)
+local FuneralHomeMap = TiledMapClass:new(require("src/levels/maps/city/interiors/funeral"))
 
 local CharacterClass = require("src/character/character")
 local AnnaCharacter  = CharacterClass:new("tiles/Characters/Females/F_01.png", 128, 102, 16, 17, 6)
@@ -94,8 +93,18 @@ function Scene.HandleInput()
 
 end
 
+function Scene.Clean()
+
+    FuneralHomeMap = nil
+    FuneralWorld   = nil
+
+end
+
 function Scene.Reset()
 
+    FuneralHomeMap = TiledMapClass:new(require("src/levels/maps/city/interiors/funeral"))
+    FuneralWorld   = WorldClass:new(FuneralHomeMap, chars, AnnaCharacter, FuneralHomeMap:GetCollisionObjects())
+    FuneralWorld:SetEntityToTrackForCamera(Camera)
     Camera:ResetPosition()
     CameraPanning = true
     transition    = false

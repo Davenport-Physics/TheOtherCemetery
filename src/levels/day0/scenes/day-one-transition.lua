@@ -43,6 +43,13 @@ function Scene.CanTransition()
 
 end
 
+function Scene.Clean()
+
+    transition = false
+    video      = nil
+
+end
+
 function Scene.Reset()
 
     transition = false

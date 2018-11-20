@@ -171,6 +171,14 @@ function Scene.SetPlayerCharPosition(x_pos, y_pos)
 
 end
 
+function Scene.Clean()
+
+    RoomWorld = nil
+    TiledMap  = nil
+    MapData   = nil
+
+end
+
 function Scene.Reset()
 
     transition         = false
@@ -185,6 +193,9 @@ function Scene.Reset()
     AnnaPathWalkerAwayFromHenry = nil
     TextTime = love.timer.getTime()
     Textidx  = 0
+    MapData        = require("src/levels/maps/home/henry-bedroom")
+    TiledMap       = TiledMapClass:new(MapData)
+    RoomWorld  = WorldClass:new(TiledMap, {AnnaChar}, HenryChar, TiledMap:GetCollisionObjects())
     RoomWorld:SetEntityToTrackForCamera(RoomEntity)
 
 end

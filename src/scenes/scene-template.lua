@@ -43,6 +43,10 @@ function Scene.HandleInput()
 
 end
 
+function Scene.Clean()
+
+end
+
 function Scene.CanTransition()
 
     return transition

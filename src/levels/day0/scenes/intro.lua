@@ -83,10 +83,15 @@ function Scene.CanTransition()
 
 end
 
-function Scene.Reset()
+function Scene.Clean()
 
     IntroMusic = nil
     IntroVideo = nil
+
+end
+
+function Scene.Reset()
+
     scale_x = 1
     scale_y = 1
     transition = false
