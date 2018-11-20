@@ -92,8 +92,8 @@ end
 function TextBubble:CheckScale()
 
     if Settings.Scale ~= self.current_scale then
-        self.fontsize = 8 * Settings.Scale
-        self.font     = love.graphics.newFont(self.fontsize)
+        self.fontsize      = 8 * Settings.Scale
+        self.font          = love.graphics.newFont(self.fontsize)
         self.current_scale = Settings.Scale
     end
 

@@ -141,13 +141,51 @@ local function DrawGenericText()
 
 end
 
-function Scene.Update()
+local function DrawTextBeforeSchool()
 
-    World:Update()
+    if DataToSave["Day1Events"].WentToSchool then
+        return
+    end
+
+    DrawExchangeIfPossible()
+    DrawWomanTextLeaving()
+    DrawExchangeWithHenryIfPossible()
+    DrawGenericText()
+
+end
+
+local function UpdateBeforeSchool()
+
+    if DataToSave["Day1Events"].WentToSchool then
+        return
+    end
+
     UpdateExchangeHad()
     UpdateWomanLeft()
     UpdateExchangeWithHenry()
     UpdateDoorTransition()
+
+end
+
+local function UpdateAfterSchool()
+
+    if not DataToSave["Day1Events"].WentToSchool then
+        return
+    end
+    UpdateDoorTransition()
+    if not NPCs[1].allow_drawing then return end
+    NPCs[1]:AllowDrawing(false)
+    NPCs[2]:AllowDrawing(false)
+    World:SetEntityToTrackForCamera(Henry)
+    World:SetHandleInputCallback(nil)
+
+end
+
+function Scene.Update()
+
+    World:Update()
+    UpdateBeforeSchool()
+    UpdateAfterSchool()
 
 end
 
@@ -159,10 +197,7 @@ end
 
 function Scene.DrawText()
 
-    DrawExchangeIfPossible()
-    DrawWomanTextLeaving()
-    DrawExchangeWithHenryIfPossible()
-    DrawGenericText()
+    DrawTextBeforeSchool()
 
 end
 
