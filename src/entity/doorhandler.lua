@@ -7,22 +7,40 @@ function DoorHandler:new(doors, character)
     setmetatable(obj, DoorHandler)
     obj.doors = doors
     obj.char  = character
+    obj:InitEnabled()
 
     return obj
 
 end
 
+function DoorHandler:InitEnabled()
+
+    self.enabled = {}
+    for i = 1, #self.doors do
+        self.enabled[i] = true
+    end
+
+end
+
+function DoorHandler:ToggleDoor(idx, val)
+
+    self.enabled[idx] = val
+
+end
+
 function DoorHandler:CheckForCollisions()
 
-    local transition = false
+    local transition
     for i = 1, #self.doors do
-        transition = self.doors[i]:CheckForCollision(self.char:GetCenterPosition())
-        if type(transition) == "table" then
-            return transition
+        if self.enabled[i] then
+            transition = self.doors[i]:CheckForCollision(self.char:GetCenterPosition())
+            if type(transition) == "table" then
+                return transition
+            end
         end
     end
 
-    return transition
+    return false
 
 end
 

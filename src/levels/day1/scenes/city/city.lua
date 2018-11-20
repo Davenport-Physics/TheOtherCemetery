@@ -154,9 +154,18 @@ local function SoundUpdates()
     end
 end
 
+local function UpdateAfterSchool()
+
+    if not DataToSave["Day1Events"].WentToSchool then return end
+    if not DoorHandler.enabled[4] then return end
+    DoorHandler:ToggleDoor(4, false)
+
+end
+
 function Scene.Update()
 
     World:Update()
+    UpdateAfterSchool()
     DoorCollisionChecks()
     NPCUpdates()
     SoundUpdates()
