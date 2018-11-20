@@ -102,6 +102,7 @@ local function UpdateExchangeWithHenry()
 
     if GrocerHenry then return end
     if GrocerToHenryDialog:IsFinished() then
+        DataToSave["Day1Events"].WentToGrocerBeforeSchool = true
         GrocerHenry = true
         World:SetEntityToTrackForCamera(Henry)
         World:SetHandleInputCallback(nil)
@@ -135,7 +136,7 @@ end
 
 local function DrawGenericText()
 
-    if GrocerHenry then
+    if DataToSave["Day1Events"].WentToGrocerBeforeSchool then
         GrocerGeneric:Draw()
     end
 
@@ -147,9 +148,11 @@ local function DrawTextBeforeSchool()
         return
     end
 
-    DrawExchangeIfPossible()
-    DrawWomanTextLeaving()
-    DrawExchangeWithHenryIfPossible()
+    if not DataToSave["Day1Events"].WentToGrocerBeforeSchool then
+        DrawExchangeIfPossible()
+        DrawWomanTextLeaving()
+        DrawExchangeWithHenryIfPossible()
+    end
     DrawGenericText()
 
 end
@@ -158,6 +161,12 @@ local function UpdateBeforeSchool()
 
     if DataToSave["Day1Events"].WentToSchool then
         return
+    end
+
+    if DataToSave["Day1Events"].WentToGrocerBeforeSchool and NPCs[2].allow_drawing then
+        NPCs[2]:AllowDrawing(false)
+        World:SetHandleInputCallback(nil)
+        World:SetEntityToTrackForCamera(Henry)
     end
 
     UpdateExchangeHad()
@@ -178,6 +187,7 @@ local function UpdateAfterSchool()
     NPCs[2]:AllowDrawing(false)
     World:SetEntityToTrackForCamera(Henry)
     World:SetHandleInputCallback(nil)
+    DataToSave["Day1Events"].WentToGrocerAfterSchool = true
 
 end
 

@@ -15,9 +15,11 @@ local DataToSave =
     ["Day1Events"] =
     {
         WentToSchool              = false,
+        WentToGrocerBeforeSchool  = false,
         SpokeWithMomAfterSchool   = false,
         NeighbourConversationSeen = false,
         HeardSpeechFromPriest     = false,
+        WentToGrocerAfterSchool   = false,
         HasSeenCultOutsideHouse   = false
     },
 
@@ -41,10 +43,12 @@ function DataToSave.SetValues(temp)
     DataToSave["Day0Events"].BedroomSceneConveration   = temp["Day0Events"].BedroomSceneConveration
 
     DataToSave["Day1Events"].WentToSchool              = temp["Day1Events"].WentToSchool
+    DataToSave["Day1Events"].WentToGrocerBeforeSchool  = temp["Day1Events"].WentToGrocerBeforeSchool
     DataToSave["Day1Events"].SpokeWithMomAfterSchool   = temp["Day1Events"].SpokeWithMomAfterSchool
     DataToSave["Day1Events"].NeighbourConversationSeen = temp["Day1Events"].NeighbourConversationSeen
     DataToSave["Day1Events"].HeardSpeechFromPriest     = temp["Day1Events"].HeardSpeechFromPriest
     DataToSave["Day1Events"].HasSeenCultOutsideHouse   = temp["Day1Events"].HasSeenCultOutsideHouse
+    DataToSave["Day1Events"].WentToGrocerAfterSchool   = temp["Day1Events"].WentToGrocerAfterSchool
 
     DataToSave["CurrentCharacter"]         = temp["CurrentCharacter"]
     DataToSave["CurrentCoordinates"].x_pos = temp["CurrentCoordinates"].x_pos
@@ -70,6 +74,8 @@ function DataToSave.ResetValues()
     DataToSave["Day1Events"].NeighbourConversationSeen = false
     DataToSave["Day1Events"].HeardSpeechFromPriest     = false
     DataToSave["Day1Events"].HasSeenCultOutsideHouse   = false
+    DataToSave["Day1Events"].WentToGrocerAfterSchool   = false
+    DataToSave["Day1Events"].WentToGrocerBeforeSchool  = false
 
     DataToSave["CurrentCharacter"]         = "Henry"
     DataToSave["CurrentCoordinates"].x_pos = 0
