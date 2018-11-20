@@ -37,6 +37,7 @@ function TextBubble:initnew(char, image, text, fontsize)
     obj.time_to_next_char = nil
     obj.font:setFilter("linear", "nearest", 16)
     obj.allow_drawing = true
+    obj.current_scale = Settings.Scale
 
     return obj
 
@@ -88,24 +89,30 @@ function TextBubble:CheckTextDrawn()
 
 end
 
+function TextBubble:CheckScale()
+
+    if Settings.Scale ~= self.current_scale then
+        self.fontsize = 8 * Settings.Scale
+        self.font     = love.graphics.newFont(self.fontsize)
+        self.current_scale = Settings.Scale
+    end
+
+end
+
 function TextBubble:DrawImage()
 
-    love.graphics.push()
-        local x = Settings.X_Canvas_Translation + (self.char.x_pos+12)*Settings.Scale
-        local y = Settings.Y_Canvas_Translation + (self.char.y_pos-26)*Settings.Scale
-        love.graphics.draw(self.image, x, y, 0, Settings.Scale, Settings.Scale)
-    love.graphics.pop()
+    local x = Settings.X_Canvas_Translation + (self.char.x_pos+12)*Settings.Scale
+    local y = Settings.Y_Canvas_Translation + (self.char.y_pos-26)*Settings.Scale
+    love.graphics.draw(self.image, x, y, 0, Settings.Scale, Settings.Scale)
 
 end
 
 function TextBubble:DrawText()
 
-    love.graphics.push()
-        local x = Settings.X_Canvas_Translation + (self.char.x_pos+16)*Settings.Scale
-        local y = Settings.Y_Canvas_Translation + (self.char.y_pos-22)*Settings.Scale
-        love.graphics.setFont(self.font)
-        love.graphics.print({{0,0,0,1} ,self.text_drawn}, x, y)
-    love.graphics.pop()
+    local x = Settings.X_Canvas_Translation + (self.char.x_pos+16)*Settings.Scale
+    local y = Settings.Y_Canvas_Translation + (self.char.y_pos-22)*Settings.Scale
+    love.graphics.setFont(self.font)
+    love.graphics.print({{0,0,0,1} ,self.text_drawn}, x, y)
 
 end
 
@@ -132,6 +139,7 @@ end
 function TextBubble:Draw()
 
     if not self.allow_drawing then return end
+    self:CheckScale()
     self:CheckTextDrawn()
     self:DrawImage()
     self:DrawText()
