@@ -35,7 +35,7 @@ local TextTime = love.timer.getTime()
 local Textidx  = 0
 local Text =
 {
-    TextBubbleClass:newSpeaking(AnnaChar, "Hey Bud, how are you feeling?"),
+    TextBubbleClass:newSpeaking(AnnaChar, "Hey Bud, how are you \nfeeling?"),
     TextBubbleClass:newSpeaking(HenryChar, "..."),
     TextBubbleClass:newSpeaking(AnnaChar, "Yeah, me too. I miss them."),
     TextBubbleClass:newSpeaking(AnnaChar, "Well . . . try to get some \nsleep tonight alright?"),

@@ -20,6 +20,7 @@ local DataToSave =
         NeighbourConversationSeen = false,
         HeardSpeechFromPriest     = false,
         WentToGrocerAfterSchool   = false,
+        SeenCoupleBickeringOutsideGrocer = false,
         HasSeenCultOutsideHouse   = false
     },
 
@@ -49,6 +50,7 @@ function DataToSave.SetValues(temp)
     DataToSave["Day1Events"].HeardSpeechFromPriest     = temp["Day1Events"].HeardSpeechFromPriest
     DataToSave["Day1Events"].HasSeenCultOutsideHouse   = temp["Day1Events"].HasSeenCultOutsideHouse
     DataToSave["Day1Events"].WentToGrocerAfterSchool   = temp["Day1Events"].WentToGrocerAfterSchool
+    DataToSave["Day1Events"].SeenCoupleBickeringOutsideGrocer   = temp["Day1Events"].SeenCoupleBickeringOutsideGrocer
 
     DataToSave["CurrentCharacter"]         = temp["CurrentCharacter"]
     DataToSave["CurrentCoordinates"].x_pos = temp["CurrentCoordinates"].x_pos
@@ -76,6 +78,7 @@ function DataToSave.ResetValues()
     DataToSave["Day1Events"].HasSeenCultOutsideHouse   = false
     DataToSave["Day1Events"].WentToGrocerAfterSchool   = false
     DataToSave["Day1Events"].WentToGrocerBeforeSchool  = false
+    DataToSave["Day1Events"].SeenCoupleBickeringOutsideGrocer = false
 
     DataToSave["CurrentCharacter"]         = "Henry"
     DataToSave["CurrentCoordinates"].x_pos = 0

@@ -408,7 +408,7 @@ end
 
 function Character:MakeMinisculeDisplacement()
 
-    local mini_displacement = tonumber(string.format("%.0f", self.displacement*(love.timer.getDelta()/self.stance_change_time)))
+    local mini_displacement = tonumber(string.format("%.3f", self.displacement*(love.timer.getDelta()/self.stance_change_time)))
     if self.direction == DIRECTION.RIGHT then
         self:DisplaceCharacterAlongXWithCollisionCheck(mini_displacement)
     end

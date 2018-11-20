@@ -11,6 +11,7 @@ local CharacterClass  = require("src/character/character")
 local TiledMapClass   = require("src/map/tiledmap")
 local WalkerClass     = require("src/characterwalker/walker-generic")
 local TextBubbleClass = require("src/character/textbubbles")
+local DialogClass     = require("src/dialog/dialog")
 local DoorsHandler    = require("src/entity/doorhandler")
 
 local BackgroundSound = getStreamSoundFromCache("sound/ambiance/city.wav")
@@ -34,15 +35,22 @@ local DoorHandler = DoorsHandler:new(Doors, Henry)
 local NPCs =
 {
 
-    CharacterClass:new("tiles/Characters/Males/M_05.png", 33*16, 62*16, 16, 17, 4, .05),   -- Key Person
-    CharacterClass:new("tiles/Characters/Females/F_08.png", 30*16, 43*16, 16, 17, 4, .05), -- Going To Work
-    CharacterClass:new("tiles/Characters/Females/F_07.png", 33*16, 43*16, 16, 17, 4, .05), -- Kid Going To School
-    CharacterClass:new("tiles/Characters/Females/F_05.png", 39*16, 43*16, 16, 17, 4, .05)  -- Lady turning
+    CharacterClass:new("tiles/Characters/Males/M_05.png", 33*16, 62*16, 16, 17, 4, .05),    -- Key Person
+    CharacterClass:new("tiles/Characters/Females/F_08.png", 30*16, 43*16, 16, 17, 4, .05),  -- Going To Work
+    CharacterClass:new("tiles/Characters/Females/F_07.png", 33*16, 43*16, 16, 17, 4, .05),  -- Kid Going To School
+    CharacterClass:new("tiles/Characters/Females/F_05.png", 39*16, 43*16, 16, 17, 4, .05),  -- Lady turning
+    CharacterClass:new("tiles/Characters/Females/F_03.png", 41*16, 46*16, 16, 17, 4, .05),  -- Couple Bickering
+    CharacterClass:new("tiles/Characters/Females/F_10.png", 42*16, 46*16, 16, 17, 4, .05)   -- Coupler Bickering
 
 }
-NPCs[1]:WalkLeft()
-NPCs[2]:WalkLeft()
-NPCs[3]:WalkUp()
+NPCs[1]:FaceLeft()
+NPCs[2]:FaceLeft()
+NPCs[3]:FaceUp()
+NPCs[5]:FaceRight()
+NPCs[6]:FaceLeft()
+
+NPCs[5]:AllowDrawing(false)
+NPCs[6]:AllowDrawing(false)
 
 local FemaleGoingToWorkWalkerInstructions =
 {
@@ -162,6 +170,55 @@ local function UpdateAfterSchool()
 
 end
 
+local StartCoupleBickering = false
+local CoupleBickeringText =
+{
+    TextBubbleClass:newSpeaking(NPCs[5], "Why do I have to go?"),
+    TextBubbleClass:newSpeaking(NPCs[6], "Everyone has to do their \npart."),
+    TextBubbleClass:newSpeaking(NPCs[6], "Now come on!"),
+}
+local CoupleBickeringDialog = DialogClass:new(CoupleBickeringText, 3.25)
+local BickeringCoupleEntity = EntityClass:newMinimal(42*16, 45*16)
+local function ToggleBickeringCouple()
+
+    World:SetHandleInputCallback(function() end)
+    World:SetEntityToTrackForCamera(BickeringCoupleEntity)
+    NPCs[5]:AllowDrawing(true)
+    NPCs[6]:AllowDrawing(true)
+    StartCoupleBickering = true
+
+end
+
+local function ToggleFadeToBlack()
+
+    if World.fade_out == nil then
+        World:SetFadeToBlack(true)
+        NPCs[6]:FaceRight()
+    end
+    if World:FadeToBlackFinished() then
+        DataToSave["Day1Events"].SeenCoupleBickeringOutsideGrocer = true
+        World:ResetFadeToBlack()
+        NPCs[5]:AllowDrawing(false)
+        NPCs[6]:AllowDrawing(false)
+        World:SetHandleInputCallback(nil)
+        World:SetEntityToTrackForCamera(Henry)
+    end
+
+end
+
+local function UpdateGrocerAfterSchoolEntrace()
+
+    if not DataToSave["Day1Events"].WentToGrocerAfterSchool then return end
+    if DataToSave["Day1Events"].SeenCoupleBickeringOutsideGrocer then return end
+    if not NPCs[5].allow_drawing then
+        ToggleBickeringCouple()
+    end
+    if CoupleBickeringDialog:IsFinished() then
+        ToggleFadeToBlack()
+    end
+
+end
+
 function Scene.Update()
 
     World:Update()
@@ -170,6 +227,15 @@ function Scene.Update()
     NPCUpdates()
     SoundUpdates()
     CheckIfNearSchoolDoor()
+    UpdateGrocerAfterSchoolEntrace()
+
+end
+
+local function DrawCoupleBickeringText()
+
+    if not StartCoupleBickering then return end
+    if DataToSave["Day1Events"].SeenCoupleBickeringOutsideGrocer then return end
+    CoupleBickeringDialog:Draw()
 
 end
 
@@ -297,6 +363,7 @@ function Scene.DrawText()
 
     DrawHenryStopTextBubblesIfPossible()
     DrawNPCTextIfPossible()
+    DrawCoupleBickeringText()
 
 end
 
