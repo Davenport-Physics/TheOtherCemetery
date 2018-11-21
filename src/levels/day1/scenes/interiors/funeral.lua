@@ -1,3 +1,4 @@
+require("src/shared/cache")
 local DataToSave = require("src/save/savingdata")
 local Shared     = require("src/shared/shared")
 local Scene = {}
@@ -12,6 +13,8 @@ local WalkerClass     = require("src/characterwalker/walker-generic")
 local TextBubbleClass = require("src/character/textbubbles")
 local DialogClass     = require("src/dialog/dialog")
 local DoorsHandler    = require("src/entity/doorhandler")
+
+local BackgroundSound = getStreamSoundFromCache("sound/ambiance/piano-loop-1.mp3")
 
 local transition = false
 local Map        = TiledMapClass:new(require("src/levels/maps/city/interiors/funeral"))
@@ -102,11 +105,18 @@ end
 
 function Scene.CanTransition()
 
+    if type(transition) == "table" then
+        BackgroundSound:stop()
+    end
     return transition
 
 end
 
 function Scene.Reset()
+
+    BackgroundSound:setLooping(true)
+    BackgroundSound:setVolume(Settings.MasterVolume * Settings.MusicVolume)
+    BackgroundSound:play()
 
 end
 
