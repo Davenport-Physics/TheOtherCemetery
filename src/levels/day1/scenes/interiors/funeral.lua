@@ -48,14 +48,14 @@ end
 
 local function UpdateSpeechIfPossible()
 
-    if not DataToSave["Day1Events"].NeighbourConversationSeen and SpeechDialog:IsFinished() then
-        DataToSave["Day1Events"].NeighbourConversationSeen = true
+    if not DataToSave["Day1Events"].HeardSpeechFromPriest and SpeechDialog:IsFinished() then
+        DataToSave["Day1Events"].HeardSpeechFromPriest = true
         World:SetHandleInputCallback(nil)
         World:SetEntityToTrackForCamera(Henry)
         NPCs[1]:FaceUp()
         HearingSpeech = false
     end
-    if DataToSave["Day1Events"].NeighbourConversationSeen then return end
+    if DataToSave["Day1Events"].HeardSpeechFromPriest then return end
     if HearingSpeech then return end
     if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[1].x_pos, NPCs[1].y_pos, 64) then
         HearingSpeech = true
