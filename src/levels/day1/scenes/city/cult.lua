@@ -115,6 +115,12 @@ end
 local function CultOutsideHouseUpdate()
 
     if DataToSave["Day1Events"].HasSeenCultOutsideHouse then
+        if NPCs[1].allow_drawing then
+            for i = 1, 3 do
+                NPCs[i]:AllowDrawing(false)
+            end
+            World:SetHandleInputCallback(nil)
+        end
         return
     end
     CultOutsideLogic()
