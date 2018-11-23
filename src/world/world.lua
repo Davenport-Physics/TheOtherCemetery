@@ -10,8 +10,6 @@ local ESCAPE_MENU_QUIT_GAME_BUTTON = ButtonClass:newWithoutImage(-100,-100, 1, 1
 ESCAPE_MENU_QUIT_GAME_BUTTON:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 ESCAPE_MENU_SAVE_GAME_BUTTON:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
-ESCAPE_MENU_QUIT_GAME_BUTTON:SetCallback(function() love.event.push("startmenu") end)
-
 local World = {}
 World.__index = World
 
@@ -56,6 +54,7 @@ function World:SetEscapeMenuObjects()
     self.escape_menu_active     = false
     self.escape_menu_save_game  = ESCAPE_MENU_SAVE_GAME_BUTTON
     self.escape_menu_quit_game  = ESCAPE_MENU_QUIT_GAME_BUTTON
+    self.escape_menu_quit_game:SetCallback(function() self.escape_menu_active = false; self.Settings.GlobalScaleOn = true; love.event.push("startmenu"); end)
     self.escape_menu_save_game:SetCallback(function() StoreSaveData(); self.escape_menu_active = false; self.Settings.GlobalScaleOn = true; end)
 
 end
