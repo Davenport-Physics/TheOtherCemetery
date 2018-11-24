@@ -78,6 +78,7 @@ local function DrawWhatTheTextIfPossible()
         WhatTheText:Draw()
     else
         WhatTheTimer = nil
+        transition   = {"src/levels/day1/scenes/transitions/betaending"}
     end
 
 end
