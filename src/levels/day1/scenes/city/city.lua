@@ -69,7 +69,6 @@ local KidGoingToSchoolWalkerInstructions =
     {x = 40*16, y = 7*16},
     {x = 37*16, y = 7*16},
     {x = 37*16, y = 6*16}},
-    debug = true
 }
 
 local TurnWalkerInstructions =
