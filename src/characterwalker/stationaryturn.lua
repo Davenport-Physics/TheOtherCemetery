@@ -18,16 +18,16 @@ end
 function StationaryTurn:GenericDirection()
     if self.current_dir == "Down" then
         self.current_dir = "Left"
-        self.char:WalkLeft()
+        self.char:FaceLeft()
     elseif self.current_dir == "Left" then
         self.current_dir = "Up"
-        self.char:WalkUp()
+        self.char:FaceUp()
     elseif self.current_dir == "Up" then
         self.current_dir = "Right"
-        self.char:WalkRight()
+        self.char:FaceRight()
     elseif self.current_dir == "Right" then
         self.current_dir = "Down"
-        self.char:WalkDown()
+        self.char:FaceDown()
     end
 end
 
