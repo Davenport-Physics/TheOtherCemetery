@@ -250,6 +250,7 @@ end
 local function SetText()
 
     if not Settings.GlobalScaleOn then return end
+    love.graphics.setColor(1, 1, 1, 1)
     CONTEXT_FUNCTIONS[CURRENT_CONTEXT].DrawText()
 
 end
