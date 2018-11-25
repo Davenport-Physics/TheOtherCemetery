@@ -87,7 +87,7 @@ local NPCWalkers =
 }
 local NPCTurners =
 {
-    WalkerClass:new(NPCs[2], "turn-walker", {CurrentDirection = "Left", DirectionDt = 2}),
+    WalkerClass:new(NPCs[2], "turn-walker", {CurrentDirection = "Left", DirectionDt = 1.5}),
     WalkerClass:new(NPCs[3], "turn-walker", {CurrentDirection = "Up", DirectionDt = 2})
 }
 

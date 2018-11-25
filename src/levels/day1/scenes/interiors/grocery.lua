@@ -57,9 +57,9 @@ local GrocerToHenry =
     TextBubbleClass:newSpeaking(NPCs[1], "Ah, Henry is it?"),
     TextBubbleClass:newSpeaking(Henry, "Yes ... sir."),
     TextBubbleClass:newSpeaking(NPCs[1], "I'd be careful with the\n people in this city."),
-    TextBubbleClass:newSpeaking(NPCs[1], "They'll surely try to \nkill you,"),
-    TextBubbleClass:newSpeaking(NPCs[1], "Although they might do \nme in first."),
-    TextBubbleClass:newSpeaking(NPCs[1], "HAHAHAHA"),
+    TextBubbleClass:newSpeaking(NPCs[1], "They're quite nutty and\n I have a sneaking"),
+    TextBubbleClass:newSpeaking(NPCs[1], "suspicion they might do\n me in one day!"),
+    TextBubbleClass:newSpeaking(NPCs[1], "Ha!"),
 
 }
 local GrocerToHenryDialog = DialogClass:new(GrocerToHenry, 4)
