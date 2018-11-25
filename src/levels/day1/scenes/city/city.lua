@@ -85,6 +85,11 @@ local NPCWalkers =
     WalkerClass:new(NPCs[4], "turn-walker", TurnWalkerInstructions)
 
 }
+local NPCTurners =
+{
+    WalkerClass:new(NPCs[2], "turn-walker", {CurrentDirection = "Left", DirectionDt = 2}),
+    WalkerClass:new(NPCs[3], "turn-walker", {CurrentDirection = "Up", DirectionDt = 2})
+}
 
 local NPCWalkersCanWalk = {false, false}
 
@@ -138,9 +143,20 @@ local function NPCWalkerConditions()
 
 end
 
+local function TurnNPCs()
+
+    for i = 1, #NPCTurners do
+        if not NPCWalkersCanWalk[i] then
+            NPCTurners[i]:Update()
+        end
+    end
+
+end
+
 local function NPCUpdates()
 
     NPCWalkers[3]:Update()
+    TurnNPCs()
     NPCWalkerConditions()
     NPCWalkerUpdates()
 
