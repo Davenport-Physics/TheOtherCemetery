@@ -1,14 +1,6 @@
 require("src/shared/cache")
+require("src/save/saving")
 local ButtonClass = require("src/button/button")
-local Save        = require("src/save/saving")
-
-local ESCAPE_MENU_IMAGE_CACHE      = getImageFromCache("pics/ingame/ingame.png")
-local ESCAPE_MENU_IMAGE_BACKGROUND = getImageFromCache("tiles/autumn-platformer-tileset/png/elements/background.png")
-local ESCAPE_MENU_SAVE_GAME_BUTTON = ButtonClass:newWithoutImage(-100,-100, 1, 1, 0, 0)
-local ESCAPE_MENU_QUIT_GAME_BUTTON = ButtonClass:newWithoutImage(-100,-100, 1, 1, 0, 0)
-
-ESCAPE_MENU_QUIT_GAME_BUTTON:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
-ESCAPE_MENU_SAVE_GAME_BUTTON:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
 local World = {}
 World.__index = World
@@ -49,11 +41,13 @@ function World:SetEscapeMenuObjects()
     self.escape_menu_x_pos      = -100
     self.escape_menu_y_pos      = -100
     self.escape_menu_call_time  = love.timer.getTime()
-    self.escape_menu            = ESCAPE_MENU_IMAGE_CACHE
-    self.escape_menu_background = ESCAPE_MENU_IMAGE_BACKGROUND
+    self.escape_menu            = getImageFromCache("pics/ingame/ingame.png")
+    self.escape_menu_background = getImageFromCache("tiles/autumn-platformer-tileset/png/elements/background.png")
     self.escape_menu_active     = false
-    self.escape_menu_save_game  = ESCAPE_MENU_SAVE_GAME_BUTTON
-    self.escape_menu_quit_game  = ESCAPE_MENU_QUIT_GAME_BUTTON
+    self.escape_menu_save_game  = ButtonClass:newWithoutImage(-100,-100, 1, 1, 0, 0)
+    self.escape_menu_quit_game  = ButtonClass:newWithoutImage(-100,-100, 1, 1, 0, 0)
+    self.escape_menu_save_game:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+    self.escape_menu_quit_game:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
     self.escape_menu_quit_game:SetCallback(function() self.escape_menu_active = false; self.Settings.GlobalScaleOn = true; love.event.push("startmenu"); end)
     self.escape_menu_save_game:SetCallback(function() StoreSaveData(); self.escape_menu_active = false; self.Settings.GlobalScaleOn = true; end)
 

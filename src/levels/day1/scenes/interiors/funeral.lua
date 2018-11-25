@@ -43,6 +43,8 @@ local SpeechText =
 }
 local SpeechDialog = DialogClass:new(SpeechText, 3)
 
+local GenericText = TextBubbleClass:newSpeaking(NPCs[1], "Uo il Atised...")
+
 local function UpdateDoorTransition()
 
     transition = ExitDoor:CheckForCollision(Henry:GetCenterPosition())
@@ -77,6 +79,15 @@ local function DrawSpeechIfPossible()
 
 end
 
+local function DrawGenericTextIfPossible()
+
+    if HearingSpeech then return end
+    if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[1].x_pos, NPCs[1].y_pos, 32) then
+        GenericText:Draw()
+    end
+
+end
+
 function Scene.Update()
 
     World:Update()
@@ -94,6 +105,7 @@ end
 function Scene.DrawText()
 
     DrawSpeechIfPossible()
+    DrawGenericTextIfPossible()
 
 end
 
