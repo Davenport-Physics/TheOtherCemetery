@@ -4,6 +4,7 @@ local Shared     = require("src/shared/shared")
 local Scene = {}
 
 local Settings        = require("src/settings/settings")
+local CameraClass     = require("src/camera/camera")
 local EntityClass     = require("src/entity/entity")
 local WorldClass      = require("src/world/world")
 local DoorClass       = require("src/entity/door")
@@ -28,9 +29,11 @@ local Doors =
     DoorClass:new(42 * 16, 40 * 16, 16, 16, "src/levels/day1/scenes/interiors/grocery", 3*16, 7*16),
     DoorClass:new(16 * 16, 40 * 16, 2*16, 16, "src/levels/day1/scenes/interiors/collector", 11*16, 12*16),
     DoorClass:new(53 * 16, 37 * 16, 2*16, 16, "src/levels/day1/scenes/interiors/funeral", 8*16, 16*16),
-    DoorClass:new(41 * 16, 59 * 16, 16, 16, "src/levels/day1/scenes/interiors/neighbour", 2*16, 7*16)
+    DoorClass:new(41 * 16, 59 * 16, 16, 16, "src/levels/day1/scenes/interiors/neighbour", 2*16, 7*16),
+    DoorClass:new(19 * 16, 3 * 16, 2*16, 16, "placeholder", 0, 0)
 }
 local DoorHandler = DoorsHandler:new(Doors, Henry)
+DoorHandler:ToggleDoor(7, false)
 
 local NPCs =
 {
@@ -182,6 +185,7 @@ local function UpdateAfterSchool()
     if not DataToSave["Day1Events"].WentToSchool then return end
     if not DoorHandler.enabled[4] then return end
     DoorHandler:ToggleDoor(4, false)
+    DoorHandler:ToggleDoor(7, true)
 
 end
 
@@ -234,6 +238,54 @@ local function UpdateGrocerAfterSchoolEntrace()
 
 end
 
+local CameraEntity = nil
+local PersonFromShack = CharacterClass:new("tiles/Characters/Females/F_05.png", 20*16, 4*16, 16, 17, 4, .05)
+PersonFromShack:AllowDrawing(false)
+local function InitCameraEntityIfNeeded()
+
+    if CameraEntity == nil then
+        CameraEntity = CameraClass:new(36*16, 6*16, -2, 0, .01)
+        World:SetEntityToTrackForCamera(CameraEntity)
+        World:SetHandleInputCallback(function() end)
+    end
+
+end
+
+local settofade = false
+local function FadeToBlackIfCameraEntityFinished()
+
+    if CameraEntity.x_pos < 20*16 and not settofade then
+        PersonFromShack:AllowDrawing(true)
+        World:SetFadeToBlack(true)
+        settofade = true
+    end
+
+end
+
+local function UpdateCameraEntity()
+
+    if World.fade_out == nil then
+        CameraEntity:Update()
+    elseif World:FadeToBlackFinished() then
+        PersonFromShack:AllowDrawing(false)
+        World:SetEntityToTrackForCamera(Henry)
+        World:SetHandleInputCallback(nil)
+        World:ResetFadeToBlack()
+        DataToSave["Day1Events"].SawPersonComingFromShack = true
+    end
+
+end
+
+local function UpdateManFromShack()
+
+    if DataToSave["Day1Events"].SawPersonComingFromShack then return end
+    if not DataToSave["Day1Events"].WentToSchool then return end
+    InitCameraEntityIfNeeded()
+    FadeToBlackIfCameraEntityFinished()
+    UpdateCameraEntity()
+
+end
+
 function Scene.Update()
 
     World:Update()
@@ -243,6 +295,13 @@ function Scene.Update()
     SoundUpdates()
     CheckIfNearSchoolDoor()
     UpdateGrocerAfterSchoolEntrace()
+    UpdateManFromShack()
+
+end
+
+local function DrawPersonFromShackIfPossible()
+
+    PersonFromShack:Draw()
 
 end
 
@@ -371,6 +430,7 @@ end
 function Scene.Draw()
 
     World:Draw()
+    DrawPersonFromShackIfPossible()
 
 end
 
