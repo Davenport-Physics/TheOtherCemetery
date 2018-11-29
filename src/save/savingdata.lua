@@ -23,6 +23,7 @@ local DataToSave =
         SawPersonComingFromShack  = false,
         WentUnderneathCollector   = false,
         SeenCoupleBickeringOutsideGrocer = false,
+        DialogInButcherySeen      = false,
         HasSeenCultOutsideHouse   = false
     },
 
@@ -55,6 +56,7 @@ function DataToSave.SetValues(temp)
     DataToSave["Day1Events"].SawPersonComingFromShack  = temp["Day1Events"].SawPersonComingFromShack
     DataToSave["Day1Events"].SeenCoupleBickeringOutsideGrocer   = temp["Day1Events"].SeenCoupleBickeringOutsideGrocer
     DataToSave["Day1Events"].WentUnderneathCollector   = temp["Day1Events"].WentUnderneathCollector
+    DataToSave["Day1Events"].DialogInButcherySeen      = temp["Day1Events"].DialogInButcherySeen
 
     DataToSave["CurrentCharacter"]         = temp["CurrentCharacter"]
     DataToSave["CurrentCoordinates"].x_pos = temp["CurrentCoordinates"].x_pos
@@ -85,6 +87,7 @@ function DataToSave.ResetValues()
     DataToSave["Day1Events"].SeenCoupleBickeringOutsideGrocer = false
     DataToSave["Day1Events"].WentUnderneathCollector  = false
     DataToSave["Day1Events"].SawPersonComingFromShack = false
+    DataToSave["Day1Events"].DialogInButcherySeen     = false
 
     DataToSave["CurrentCharacter"]         = "Henry"
     DataToSave["CurrentCoordinates"].x_pos = 0

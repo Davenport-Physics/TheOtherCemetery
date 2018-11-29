@@ -50,6 +50,20 @@ function Character:new(character_image_file, x_pos, y_pos, width, height, displa
 
 end
 
+function Character:newFemale(character_image_file, x_pos, y_pos, displacement, stance_change_time)
+
+    character_image_file = "tiles/Characters/Females/" .. character_image_file .. ".png"
+    return Character:new(character_image_file, x_pos*16, y_pos*16, 16, 17, displacement or 4, stance_change_time or .05)
+
+end
+
+function Character:newMale(character_image_file, x_pos, y_pos, displacement, stance_change_time)
+
+    character_image_file = "tiles/Characters/Males/" .. character_image_file .. ".png"
+    return Character:new(character_image_file, x_pos*16, y_pos*16, 16, 17, displacement or 4, stance_change_time or .05)
+
+end
+
 function Character:AllowDrawing(allow_drawing)
 
     self.allow_drawing = allow_drawing

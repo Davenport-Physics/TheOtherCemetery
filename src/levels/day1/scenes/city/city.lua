@@ -30,7 +30,7 @@ local Doors =
     DoorClass:new(16 * 16, 40 * 16, 2*16, 16, "src/levels/day1/scenes/interiors/collector", 11*16, 12*16),
     DoorClass:new(53 * 16, 37 * 16, 2*16, 16, "src/levels/day1/scenes/interiors/funeral", 8*16, 16*16),
     DoorClass:new(41 * 16, 59 * 16, 16, 16, "src/levels/day1/scenes/interiors/neighbour", 2*16, 7*16),
-    DoorClass:new(19 * 16, 3 * 16, 2*16, 16, "placeholder", 0, 0)
+    DoorClass:new(19 * 16, 3 * 16, 2*16, 16, "src/levels/day1/scenes/school/butchery", 5*16, 7*16)
 }
 local DoorHandler = DoorsHandler:new(Doors, Henry)
 DoorHandler:ToggleDoor(7, false)
@@ -241,12 +241,14 @@ end
 local CameraEntity = nil
 local PersonFromShack = CharacterClass:new("tiles/Characters/Females/F_05.png", 20*16, 4*16, 16, 17, 4, .05)
 PersonFromShack:AllowDrawing(false)
+local TimeBeforePan = nil
 local function InitCameraEntityIfNeeded()
 
     if CameraEntity == nil then
         CameraEntity = CameraClass:new(36*16, 6*16, -2, 0, .01)
         World:SetEntityToTrackForCamera(CameraEntity)
         World:SetHandleInputCallback(function() end)
+        TimeBeforePan = love.timer.getTime() + .5
     end
 
 end
@@ -264,7 +266,7 @@ end
 
 local function UpdateCameraEntity()
 
-    if World.fade_out == nil then
+    if World.fade_out == nil and love.timer.getTime() >= TimeBeforePan then
         CameraEntity:Update()
     elseif World:FadeToBlackFinished() then
         PersonFromShack:AllowDrawing(false)
@@ -286,6 +288,15 @@ local function UpdateManFromShack()
 
 end
 
+local function LockButcheryIfPossible()
+
+    if not DoorHandler.enabled[7] then return end
+    if DataToSave["Day1Events"].DialogInButcherySeen then
+        DoorHandler:ToggleDoor(7, false)
+    end
+
+end
+
 function Scene.Update()
 
     World:Update()
@@ -296,6 +307,7 @@ function Scene.Update()
     CheckIfNearSchoolDoor()
     UpdateGrocerAfterSchoolEntrace()
     UpdateManFromShack()
+    LockButcheryIfPossible()
 
 end
 
