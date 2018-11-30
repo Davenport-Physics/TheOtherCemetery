@@ -24,9 +24,22 @@ local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 5*16, 7*16, 
 local World = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)
 
+local door = DoorClass:new(2*16, 8*16, 2*16, 16, "src/levels/day1/scenes/city/city", 23*16, 60*16)
+local DoorHandler = DoorsHandler:new({door}, Henry)
+
+local function UpdateDoorTransition()
+
+    transition = DoorHandler:CheckForCollisions()
+    if type(transition) == "table" then
+        DataToSave.CurrentScene = transition[1]
+    end
+
+end
+
 function Scene.Update()
 
     World:Update()
+    UpdateDoorTransition()
 
 end
 
@@ -65,7 +78,7 @@ function Scene.SetPlayerCharPosition(x_pos, y_pos)
     transition = false
     Henry.x_pos = x_pos
     Henry.y_pos = y_pos
-    Henry:FaceDown()
+    Henry:FaceUp()
 
 end
 

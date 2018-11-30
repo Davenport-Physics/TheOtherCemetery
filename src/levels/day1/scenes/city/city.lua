@@ -30,7 +30,8 @@ local Doors =
     DoorClass:new(16 * 16, 40 * 16, 2*16, 16, "src/levels/day1/scenes/interiors/collector", 11*16, 12*16),
     DoorClass:new(53 * 16, 37 * 16, 2*16, 16, "src/levels/day1/scenes/interiors/funeral", 8*16, 16*16),
     DoorClass:new(41 * 16, 59 * 16, 16, 16, "src/levels/day1/scenes/interiors/neighbour", 2*16, 7*16),
-    DoorClass:new(19 * 16, 3 * 16, 2*16, 16, "src/levels/day1/scenes/school/butchery", 5*16, 7*16)
+    DoorClass:new(19 * 16, 3 * 16, 2*16, 16, "src/levels/day1/scenes/school/butchery", 5*16, 7*16),
+    DoorClass:new(23 * 16, 59 * 16, 16, 16, "src/levels/day1/scenes/interiors/neighbour2", 2*16, 7*16)
 }
 local DoorHandler = DoorsHandler:new(Doors, Henry)
 DoorHandler:ToggleDoor(7, false)
