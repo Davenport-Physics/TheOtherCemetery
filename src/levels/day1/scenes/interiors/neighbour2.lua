@@ -14,9 +14,11 @@ local DialogClass     = require("src/dialog/dialog")
 local DoorsHandler    = require("src/entity/doorhandler")
 
 local transition = false
-local Map        = TiledMapClass:new(require("src/levels/day1/maps/school/butchery"))
-
-local NPCs = {}
+local Map        = TiledMapClass:new(require("src/levels/maps/interiors/neighbour/lobby2"))
+local NPCs =
+{
+    CharacterClass:newFemale("F_03", 2, 6)
+}; NPCs[1]:FaceDown();
 
 local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 5*16, 7*16, 16, 17, 9, .075); Henry:FaceUp();
 local World = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
