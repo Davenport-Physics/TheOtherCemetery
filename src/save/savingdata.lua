@@ -42,21 +42,22 @@ function DataToSave.SetValues(temp)
 
     DataToSave["level"] = temp["level"]
 
-    DataToSave["Day0Events"].IntroPlayed               = temp["Day0Events"].IntroPlayed
-    DataToSave["Day0Events"].FuneralScenePlayed        = temp["Day0Events"].FuneralScenePlayed
-    DataToSave["Day0Events"].BedroomSceneConveration   = temp["Day0Events"].BedroomSceneConveration
+    DataToSave["Day0Events"].IntroPlayed                = temp["Day0Events"].IntroPlayed
+    DataToSave["Day0Events"].FuneralScenePlayed         = temp["Day0Events"].FuneralScenePlayed
+    DataToSave["Day0Events"].BedroomSceneConveration    = temp["Day0Events"].BedroomSceneConveration
 
-    DataToSave["Day1Events"].WentToSchool              = temp["Day1Events"].WentToSchool
-    DataToSave["Day1Events"].WentToGrocerBeforeSchool  = temp["Day1Events"].WentToGrocerBeforeSchool
-    DataToSave["Day1Events"].SpokeWithMomAfterSchool   = temp["Day1Events"].SpokeWithMomAfterSchool
-    DataToSave["Day1Events"].NeighbourConversationSeen = temp["Day1Events"].NeighbourConversationSeen
-    DataToSave["Day1Events"].HeardSpeechFromPriest     = temp["Day1Events"].HeardSpeechFromPriest
-    DataToSave["Day1Events"].HasSeenCultOutsideHouse   = temp["Day1Events"].HasSeenCultOutsideHouse
-    DataToSave["Day1Events"].WentToGrocerAfterSchool   = temp["Day1Events"].WentToGrocerAfterSchool
-    DataToSave["Day1Events"].SawPersonComingFromShack  = temp["Day1Events"].SawPersonComingFromShack
+    DataToSave["Day1Events"].WentToSchool               = temp["Day1Events"].WentToSchool
+    DataToSave["Day1Events"].WentToGrocerBeforeSchool   = temp["Day1Events"].WentToGrocerBeforeSchool
+    DataToSave["Day1Events"].SpokeWithMomAfterSchool    = temp["Day1Events"].SpokeWithMomAfterSchool
+    DataToSave["Day1Events"].NeighbourConversationSeen  = temp["Day1Events"].NeighbourConversationSeen
+    DataToSave["Day1Events"].NeighbourConversationSeen2 = temp["Day1Events"].NeighbourConversationSeen2
+    DataToSave["Day1Events"].HeardSpeechFromPriest      = temp["Day1Events"].HeardSpeechFromPriest
+    DataToSave["Day1Events"].HasSeenCultOutsideHouse    = temp["Day1Events"].HasSeenCultOutsideHouse
+    DataToSave["Day1Events"].WentToGrocerAfterSchool    = temp["Day1Events"].WentToGrocerAfterSchool
+    DataToSave["Day1Events"].SawPersonComingFromShack   = temp["Day1Events"].SawPersonComingFromShack
     DataToSave["Day1Events"].SeenCoupleBickeringOutsideGrocer   = temp["Day1Events"].SeenCoupleBickeringOutsideGrocer
-    DataToSave["Day1Events"].WentUnderneathCollector   = temp["Day1Events"].WentUnderneathCollector
-    DataToSave["Day1Events"].DialogInButcherySeen      = temp["Day1Events"].DialogInButcherySeen
+    DataToSave["Day1Events"].WentUnderneathCollector    = temp["Day1Events"].WentUnderneathCollector
+    DataToSave["Day1Events"].DialogInButcherySeen       = temp["Day1Events"].DialogInButcherySeen
 
     DataToSave["CurrentCharacter"]         = temp["CurrentCharacter"]
     DataToSave["CurrentCoordinates"].x_pos = temp["CurrentCoordinates"].x_pos
@@ -77,17 +78,18 @@ function DataToSave.ResetValues()
     DataToSave["Day0Events"].FuneralScenePlayed      = false
     DataToSave["Day0Events"].BedroomSceneConveration = false
 
-    DataToSave["Day1Events"].WentToSchool              = false
-    DataToSave["Day1Events"].SpokeWithMomAfterSchool   = false
-    DataToSave["Day1Events"].NeighbourConversationSeen = false
-    DataToSave["Day1Events"].HeardSpeechFromPriest     = false
-    DataToSave["Day1Events"].HasSeenCultOutsideHouse   = false
-    DataToSave["Day1Events"].WentToGrocerAfterSchool   = false
-    DataToSave["Day1Events"].WentToGrocerBeforeSchool  = false
+    DataToSave["Day1Events"].WentToSchool               = false
+    DataToSave["Day1Events"].SpokeWithMomAfterSchool    = false
+    DataToSave["Day1Events"].NeighbourConversationSeen  = false
+    DataToSave["Day1Events"].NeighbourConversationSeen2 = false
+    DataToSave["Day1Events"].HeardSpeechFromPriest      = false
+    DataToSave["Day1Events"].HasSeenCultOutsideHouse    = false
+    DataToSave["Day1Events"].WentToGrocerAfterSchool    = false
+    DataToSave["Day1Events"].WentToGrocerBeforeSchool   = false
     DataToSave["Day1Events"].SeenCoupleBickeringOutsideGrocer = false
-    DataToSave["Day1Events"].WentUnderneathCollector  = false
-    DataToSave["Day1Events"].SawPersonComingFromShack = false
-    DataToSave["Day1Events"].DialogInButcherySeen     = false
+    DataToSave["Day1Events"].WentUnderneathCollector    = false
+    DataToSave["Day1Events"].SawPersonComingFromShack   = false
+    DataToSave["Day1Events"].DialogInButcherySeen       = false
 
     DataToSave["CurrentCharacter"]         = "Henry"
     DataToSave["CurrentCoordinates"].x_pos = 0
