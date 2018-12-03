@@ -64,6 +64,7 @@ end
 
 local function UpdateSpeechIfPossible()
 
+    if DataToSave["Day1Events"].WentToSchool then return end
     if not DataToSave["Day1Events"].HeardSpeechFromPriest and SpeechDialog:IsFinished() then
         DataToSave["Day1Events"].HeardSpeechFromPriest = true
         World:SetHandleInputCallback(nil)
