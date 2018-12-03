@@ -21,6 +21,7 @@ local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 7*16, 27*16,
 local NPCs  = {}
 local World = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)
+World:TogglePlayerLighting(false)
 
 local ClassroomDoor      = DoorClass:new(7 * 16, 11 * 16, 16, 16, "src/levels/day1/scenes/school/school-room", 10 * 16, 13 * 16)
 local ExitDoor           = DoorClass:new(6 * 16, 28 * 16, 3*16, 16, "src/levels/day1/scenes/city/city", 37*16, 6*16)

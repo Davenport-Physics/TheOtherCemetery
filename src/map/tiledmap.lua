@@ -16,6 +16,7 @@ function TiledMap:new(tiled_map)
     obj:InitializeLayers()
     obj.tile_cache     = {}
     obj.sheet_id_cache = {}
+    obj.draw_lighting  = false
     obj.scale = 1
 
     return obj
@@ -52,6 +53,12 @@ function TiledMap:InitializeSpriteSheet()
 
     end
 
+
+end
+
+function TiledMap:TogglePlayerLighting(val)
+
+    self.draw_lighting = val
 
 end
 
@@ -188,7 +195,7 @@ end
 function TiledMap:DrawTileInView(ra_x, ra_y, sprite_sheet_idx, x, y, angle, sx, sy, real_id)
 
     if Shared.IsBetweenRange(x, ra_x-self.d_lx, ra_x+self.d_lx) and Shared.IsBetweenRange(y, ra_y-self.d_ly, ra_y+self.d_ly) then
-        if self:ShouldSetColor(x, y, ra_x, ra_y) then
+        if self.draw_lighting and self:ShouldSetColor(x, y, ra_x, ra_y) then
             local r,g,b,a = love.graphics.getColor()
             love.graphics.setColor(1, 1, 1, 1)
             love.graphics.draw(self.sprite_sheet[sprite_sheet_idx], self.quads[real_id], x, y, angle, sx, sy)

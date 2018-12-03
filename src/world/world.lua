@@ -78,6 +78,12 @@ function World:SetHandleInputCallback(func)
 
 end
 
+function World:TogglePlayerLighting(val)
+
+    self.map_obj:TogglePlayerLighting(val)
+
+end
+
 function World:UpdateEscapeMenuSaveObject(offset_x, offset_y)
 
     self.escape_menu_save_game.x_pos = self.escape_menu_x_pos + 13
