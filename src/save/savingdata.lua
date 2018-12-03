@@ -14,6 +14,7 @@ local DataToSave =
 
     ["Day1Events"] =
     {
+        SawControlText            = false,
         WentToSchool              = false,
         WentToGrocerBeforeSchool  = false,
         SpokeWithMomAfterSchool   = false,
@@ -46,6 +47,7 @@ function DataToSave.SetValues(temp)
     DataToSave["Day0Events"].FuneralScenePlayed         = temp["Day0Events"].FuneralScenePlayed
     DataToSave["Day0Events"].BedroomSceneConveration    = temp["Day0Events"].BedroomSceneConveration
 
+    DataToSave["Day1Events"].SawControlText             = temp["Day1Events"].SawControlText
     DataToSave["Day1Events"].WentToSchool               = temp["Day1Events"].WentToSchool
     DataToSave["Day1Events"].WentToGrocerBeforeSchool   = temp["Day1Events"].WentToGrocerBeforeSchool
     DataToSave["Day1Events"].SpokeWithMomAfterSchool    = temp["Day1Events"].SpokeWithMomAfterSchool
@@ -78,6 +80,7 @@ function DataToSave.ResetValues()
     DataToSave["Day0Events"].FuneralScenePlayed      = false
     DataToSave["Day0Events"].BedroomSceneConveration = false
 
+    DataToSave["Day1Events"].SawControlText             = false
     DataToSave["Day1Events"].WentToSchool               = false
     DataToSave["Day1Events"].SpokeWithMomAfterSchool    = false
     DataToSave["Day1Events"].NeighbourConversationSeen  = false

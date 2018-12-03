@@ -2,6 +2,7 @@ require("src/shared/cache")
 local DataToSave = require("src/save/savingdata")
 local Scene      = {}
 
+local EntityClass  = require("src/entity/entity")
 local Settings     = require("src/settings/settings")
 local WorldClass   = require("src/world/world")
 local DoorClass    = require("src/entity/door")
@@ -33,8 +34,20 @@ local function UpdateSounds()
 
 end
 
-local HomeworkText = TextBubbleClass:newSpeaking(Henry, "I don't feel like doing\n homework...")
+local text_timer = nil
+local function UpdateControlText()
 
+    if DataToSave["Day1Events"].SawControlText then return end
+    if text_timer == nil then
+        text_timer = love.timer.getTime() + 4
+    end
+    if love.timer.getTime() >= text_timer then
+        DataToSave["Day1Events"].SawControlText = true
+    end
+
+end
+
+local HomeworkText = TextBubbleClass:newSpeaking(Henry, "I don't feel like doing\n homework...")
 local function CheckIfNearBooksForHomeworkText()
 
     if math.sqrt((Henry.x_pos - 4*16)^2 + (Henry.y_pos - 5*16)^2) <= 16 then
@@ -51,6 +64,15 @@ local function CheckIfShouldDrawHomeworkText()
 
 end
 
+local control_pos  = EntityClass:newMinimal(0, 8*16)
+local control_text = TextBubbleClass:new(control_pos, "pics/share/text/TextBoxes.png", "W - Up\tS - Down\nA - Left\tD - Right\nEscape - Menu")
+local function DrawControlTextIfPossible()
+
+    if DataToSave["Day1Events"].SawControlText then return end
+    control_text:Draw()
+
+end
+
 function Scene.Update()
 
     transition = Door_LeaveBedroom:CheckForCollision(Henry:GetCenterPosition())
@@ -59,11 +81,15 @@ function Scene.Update()
     end
     RoomWorld:Update()
     UpdateSounds()
+    UpdateControlText()
 
 end
 
 function Scene.CanTransition()
 
+    if type(transition) == "table" then
+        DataToSave["Day1Events"].SawControlText = true
+    end
     return transition
 
 end
@@ -77,6 +103,7 @@ end
 function Scene.DrawText()
 
     CheckIfShouldDrawHomeworkText()
+    DrawControlTextIfPossible()
 
 end
 
