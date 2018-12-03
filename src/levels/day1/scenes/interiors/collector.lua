@@ -48,6 +48,9 @@ local Doors = DoorsHandler:new({ExitDoor}, Henry)
 local GetOutStationaryEntity = EntityClass:newMinimal(10*16, 5*16)
 local WorkerText = TextBubbleClass:newSpeaking(NPCs[1], "Welcome!")
 local GetOutText = TextBubbleClass:newSpeaking(NPCs[1], "Get OUT!")
+local WorkerTextAfterSchool = TextBubbleClass:newSpeaking(NPCs[1], "Shouldn't you be at home?")
+local GetOutTextAfterSchool = TextBubbleClass:newSpeaking(NPCs[1], "GO HOME HENRY!")
+
 local ShouldDrawGetOutText = false
 local DrawGetOutTextFor    = nil
 
@@ -81,7 +84,7 @@ end
 
 local function UpdateWalker()
 
-    if ShouldDrawGetOutText then return end
+    if ShouldDrawGetOutText or DataToSave["Day1Events"].WentToSchool then return end
     WorkerTurner:Update()
 
 end
@@ -99,18 +102,31 @@ local function UpdateGetOutText()
 
 end
 
+local function DrawWorkerText()
+
+    if DataToSave["Day1Events"].WentToSchool then
+        WorkerTextAfterSchool:Draw()
+    else
+        WorkerText:Draw()
+    end
+
+end
+
 local function DrawWorkerTextIfPossible()
 
     if ShouldDrawGetOutText then return end
     if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[1].x_pos, NPCs[1].y_pos, 48) then
-        WorkerText:Draw()
+        DrawWorkerText()
     end
 
 end
 
 local function DrawGetOutTextIfPossible()
 
-    if ShouldDrawGetOutText then
+    if not ShouldDrawGetOutText then return end
+    if DataToSave["Day1Events"].WentToSchool then
+        GetOutTextAfterSchool:Draw()
+    else
         GetOutText:Draw()
     end
 
@@ -159,6 +175,11 @@ function Scene.Reset()
     BackgroundSound:setVolume(Settings.MasterVolume * Settings.MusicVolume * .5)
     BackgroundSound:setLooping(true)
     BackgroundSound:play()
+
+    if DataToSave["Day1Events"].WentToSchool then
+        NPCs[1]:FaceRight()
+        WorkerTurner.walker.current_dir = "Right"
+    end
 
 end
 
