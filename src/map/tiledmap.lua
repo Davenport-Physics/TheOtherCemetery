@@ -176,20 +176,40 @@ function TiledMap:FromRealIDGetSpriteSheetIndex(real_id)
 
 end
 
+function TiledMap:ShouldSetColor(x, y, ra_x, ra_y)
+
+    if Shared.IsNear(x, y, ra_x, ra_y, 64) then
+        return true
+    end
+    return false
+
+end
+
+function TiledMap:DrawTileInView(ra_x, ra_y, sprite_sheet_idx, x, y, angle, sx, sy, real_id)
+
+    if Shared.IsBetweenRange(x, ra_x-self.d_lx, ra_x+self.d_lx) and Shared.IsBetweenRange(y, ra_y-self.d_ly, ra_y+self.d_ly) then
+        if self:ShouldSetColor(x, y, ra_x, ra_y) then
+            local r,g,b,a = love.graphics.getColor()
+            love.graphics.setColor(1, 1, 1, 1)
+            love.graphics.draw(self.sprite_sheet[sprite_sheet_idx], self.quads[real_id], x, y, angle, sx, sy)
+            love.graphics.setColor(r, g, b, a)
+        else
+            love.graphics.draw(self.sprite_sheet[sprite_sheet_idx], self.quads[real_id], x, y, angle, sx, sy)
+        end
+    end
+
+end
+
 function TiledMap:DrawTile(layer_data, tiles_drawn_along_row, current_y_offset, ra_x, ra_y)
 
     if layer_data == 0 then return end
     local real_id, angle, x_off, y_off, sx, sy = self:GetRotation(layer_data)
-
     local x = (tiles_drawn_along_row) * self.width[1] + x_off
     local y = current_y_offset + y_off
-
     local sprite_sheet_idx = self:FromRealIDGetSpriteSheetIndex(real_id)
 
     if ra_x ~= nil and ra_y ~= nil then
-        if Shared.IsBetweenRange(x, ra_x-self.d_lx, ra_x+self.d_lx) and Shared.IsBetweenRange(y, ra_y-self.d_ly, ra_y+self.d_ly) then
-            love.graphics.draw(self.sprite_sheet[sprite_sheet_idx], self.quads[real_id], x, y, angle, sx, sy)
-        end
+        self:DrawTileInView(ra_x, ra_y, sprite_sheet_idx, x, y, angle, sx, sy, real_id)
     else
         love.graphics.draw(self.sprite_sheet[sprite_sheet_idx], self.quads[real_id], x, y, angle, sx, sy)
     end
