@@ -116,7 +116,7 @@ function Update_StartMenu()
 
     BackGroundScale_x = love.graphics.getWidth()/BackgroundVideo:getWidth()
     BackGroundScale_y = love.graphics.getHeight()/BackgroundVideo:getHeight()
-    Buttons.NewGame.x_pos  = love.graphics.getWidth()*.5 - (25 + 350)
+    Buttons.NewGame.x_pos  = love.graphics.getWidth()*.5 - (25 + 300)
     Buttons.LoadGame.x_pos = Buttons.NewGame.x_pos  + 175
     Buttons.Credits.x_pos  = Buttons.LoadGame.x_pos + 175
     Buttons.Options.x_pos  = Buttons.Credits.x_pos  + 175
@@ -141,7 +141,7 @@ end
 
 local function DrawMisc()
 
-    love.graphics.draw(StartingWindowText.Name, love.graphics.getWidth()*.5 - 375, 125, 0, .2, .2)
+    love.graphics.draw(StartingWindowText.Name, love.graphics.getWidth()*.5 - 325, 125, 0, .2, .2)
     love.graphics.draw(StartingWindowText.Version, 10, 15)
 
 end
