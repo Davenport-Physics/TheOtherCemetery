@@ -1,4 +1,5 @@
 require("src/shared/cache")
+local Settings = require("src/settings/settings")
 
 local Button = {}
 Button.__index = Button
@@ -109,17 +110,19 @@ function Button:PlayMouseClickSoundIfPossible()
     [[
         require("love.audio")
         require("love.timer")
-        sound = ...
-        love.audio.play(sound)
+        sound, volume = ...
+
+        sound:setVolume(volume)
+        sound:play()
         love.timer.sleep(.4)
-        love.audio.stop(sound)
+        sound:stop()
     ]]
     if self.sound_thread ~= nil and self.sound_thread:isRunning() then
         return
     end
     self.sound_thread = nil
     self.sound_thread = love.thread.newThread(sound_thread_data)
-    self.sound_thread:start(self.sound)
+    self.sound_thread:start(self.sound, Settings.MasterVolume * Settings.SoundEffectsVolume)
 
 end
 

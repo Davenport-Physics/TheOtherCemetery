@@ -94,7 +94,7 @@ end
 local function DrawGenericTextIfPossible()
 
     if HearingSpeech then return end
-    if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[1].x_pos, NPCs[1].y_pos, 32) then
+    if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[1].x_pos, NPCs[1].y_pos, 48) then
         GenericText:Draw()
     end
 

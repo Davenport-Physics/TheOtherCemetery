@@ -60,7 +60,7 @@ function TextBubble:SoundHandler()
     if #self.text_drawn == #self.text then
         TEXTSOUND:stop()
     elseif not TEXTSOUND:isPlaying() and self.allow_drawing then
-        TEXTSOUND:setVolume(.15)
+        TEXTSOUND:setVolume(Settings.MasterVolume * Settings.SoundEffectsVolume)
         TEXTSOUND:play()
     end
 
