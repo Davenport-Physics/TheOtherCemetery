@@ -25,12 +25,23 @@ local StationaryEntity = EntityClass:newMinimal(8*16, 3*16)
 local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 8*16, 16*16, 16, 17, 9, .075); Henry:WalkUp();
 local NPCs  =
 {
-    CharacterClass:new("tiles/Characters/Males/M_11.png", 8*16, 3*16, 16, 17, 4, .05)
-}
-NPCs[1]:FaceUp()
+
+    CharacterClass:new("tiles/Characters/Males/M_11.png", 8*16, 3*16, 16, 17, 4, .05), -- Member
+    CharacterClass:newFemale("F_03", 6, 10.5),
+    CharacterClass:newFemale("F_10", 7, 10.5),
+    CharacterClass:newMale("M_08", 10, 10.5),
+    CharacterClass:newFemale("F_11", 11, 10.5),
+    CharacterClass:newMale("M_05", 7, 12.5)
+
+}; NPCs[1]:FaceUp()
+
+for i = 2, #NPCs do
+    NPCs[i]:FaceUp()
+    NPCs[i]:AllowDrawing(false)
+end
+
 local World = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)
-
 local HearingSpeech = false
 local SpeechText =
 {
@@ -88,6 +99,21 @@ local function DrawGenericTextIfPossible()
 
 end
 
+local function SetCharactersForDrawingIfNecessary()
+
+    if not DataToSave["Day1Events"].WentToSchool then return end
+    local start_idx = 4
+    if DataToSave["Day1Events"].WentToGrocerAfterSchool then
+        start_idx = 2
+    end
+    for i = start_idx, #NPCs do
+        NPCs[i]:AllowDrawing(true)
+    end
+    NPCs[1]:SetPos(9*16, 8*16)
+    NPCs[1]:FaceDown()
+
+end
+
 function Scene.Update()
 
     World:Update()
@@ -129,6 +155,8 @@ function Scene.Reset()
     BackgroundSound:setLooping(true)
     BackgroundSound:setVolume(Settings.MasterVolume * Settings.MusicVolume)
     BackgroundSound:play()
+    SetCharactersForDrawingIfNecessary()
+
 
 end
 

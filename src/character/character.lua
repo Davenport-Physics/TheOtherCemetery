@@ -412,6 +412,13 @@ function Character:SetYPos(y_pos)
 
 end
 
+function Character:SetPos(x_pos, y_pos)
+
+    self:SetXPos(x_pos)
+    self:SetYPos(y_pos)
+
+end
+
 function Character:GetCenterPosition()
 
     local x_mid = self.x_pos + math.floor(self.width  * .5)
