@@ -83,7 +83,8 @@ local function GetRelevantSettingData()
         ["Window_Height"]      = Settings.Window_Height,
         ["MasterVolume"]       = Settings.MasterVolume,
         ["MusicVolume"]        = Settings.MusicVolume,
-        ["SoundEffectsVolume"] = Settings.SoundEffectsVolume
+        ["SoundEffectsVolume"] = Settings.SoundEffectsVolume,
+        ["Fullscreen"]         = Settings.Fullscreen
 
     }
 
@@ -107,6 +108,7 @@ function LoadSettings()
         Settings.MasterVolume       = temp.MasterVolume
         Settings.MusicVolume        = temp.MusicVolume
         Settings.SoundEffectsVolume = temp.SoundEffectsVolume
+        Settings.Fullscreen         = temp.Fullscreen
     end
 
 end
