@@ -234,7 +234,7 @@ return {
     {
       type = "tilelayer",
       id = 13,
-      name = "Object Detail",
+      name = "Objects Detail",
       x = 0,
       y = 0,
       width = 16,
