@@ -174,7 +174,7 @@ local function DrawMenuButtons()
     if DrawOverWrite then
         YesOverwrite:Draw()
         NoOverwrite:Draw()
-        return 
+        return
     end
     for i = 1, #SaveGameButtons do
         SaveGameButtons[i]:Draw()
@@ -292,11 +292,10 @@ function NewGameHandler_Input()
         for i = 1, 3 do
             SaveGameButtons[i]:HandleMouseClick()
         end
-        NextTimeForMouseClick = love.timer.getTime() + .05
-    end
-    if DrawOverWrite then
-        NextTimeForMouseClick = love.timer.getTime() + 1
+        NextTimeForMouseClick = love.timer.getTime() + .15
+    elseif DrawOverWrite and love.timer.getTime() > NextTimeForMouseClick then
         HandleOverwriteInput()
+        NextTimeForMouseClick = love.timer.getTime() + .1
     end
 
 end
