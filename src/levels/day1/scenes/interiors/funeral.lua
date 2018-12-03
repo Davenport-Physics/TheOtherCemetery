@@ -54,7 +54,10 @@ local SpeechText =
 }
 local SpeechDialog = DialogClass:new(SpeechText, 3)
 
-local GenericText = TextBubbleClass:newSpeaking(NPCs[1], "Uo il Atised...")
+local GenericText = {}
+for i = 1, #NPCs do
+    GenericText[i] = TextBubbleClass:newSpeaking(NPCs[i], "Uo il Atised...")
+end
 
 local function UpdateDoorTransition()
 
@@ -95,7 +98,13 @@ local function DrawGenericTextIfPossible()
 
     if HearingSpeech then return end
     if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[1].x_pos, NPCs[1].y_pos, 48) then
-        GenericText:Draw()
+        GenericText[1]:Draw()
+    end
+    if not DataToSave["Day1Events"].WentToSchool then return end
+    for i = 2, #NPCs do
+        if NPCs[i].allow_drawing and Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[i].x_pos, NPCs[i].y_pos, 64) then
+            GenericText[i]:Draw()
+        end
     end
 
 end
