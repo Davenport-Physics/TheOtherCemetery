@@ -20,7 +20,7 @@ end
 
 function Collision:CheckIfNearby(x, y)
 
-    return sqrt((self.x_pos - x) ^ 2 + (self.y_pos - y)) <= 64
+    return sqrt((self.x_pos - x) ^ 2 + (self.y_pos - y)^2) <= 32
 
 end
 

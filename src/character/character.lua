@@ -174,27 +174,19 @@ function Character:DoesCharacterCollideWithWall(new_x, new_y, idx)
 
     if self.direction == DIRECTION.LEFT then
         new_x = new_x - 6
-        return self.collision_objs[idx]:CheckForCollision(new_x, new_y)
     elseif self.direction == DIRECTION.RIGHT then
         new_x = new_x + 6
-        return self.collision_objs[idx]:CheckForCollision(new_x, new_y)
-    else
-        return self.collision_objs[idx]:CheckForCollision(new_x, new_y)
     end
+    return self.collision_objs[idx]:CheckForCollision(new_x, new_y)
 
 end
 
 function Character:DoesCharacterCollideWithObjects(new_x, new_y, idx)
 
     if self.direction ~= DIRECTION.DOWN then
-        local width  = 6
-        local height = self.height - 11
-        new_x = new_x - 3
-        new_y = new_y - self.height + 11
-        return self.collision_objs[idx]:CheckForCollisionAdvanced(new_x, new_y, width, height)
-    else
-        return self.collision_objs[idx]:CheckForCollision(new_x, new_y)
+        return self.collision_objs[idx]:CheckForCollisionAdvanced(new_x-3, new_y-self.height+11, 6, self.height-11)
     end
+    return self.collision_objs[idx]:CheckForCollision(new_x, new_y)
 
 end
 
@@ -202,10 +194,12 @@ function Character:DoesCharacterCollide(new_x, new_y)
 
     for i = 1, #self.collision_objs do
 
-        if self.collision_objs[i].name == "Wall" and self:DoesCharacterCollideWithWall(new_x, new_y, i) then
-            return true
-        elseif self.collision_objs[i].name == "Objects" and self:DoesCharacterCollideWithObjects(new_x, new_y, i) then
-            return true
+        if self.collision_objs[i]:CheckIfNearby(new_x, new_y) then
+            if self.collision_objs[i].name == "Wall" and self:DoesCharacterCollideWithWall(new_x, new_y, i) then
+                return true
+            elseif self.collision_objs[i].name == "Objects" and self:DoesCharacterCollideWithObjects(new_x, new_y, i) then
+                return true
+            end
         end
 
     end
