@@ -1,14 +1,6 @@
 local DataToSave = require("src/save/savingdata")
 local Level = {}
 
-local Scene_idx = 1
-local Scenes =
-{
-    "src/levels/day1/scenes/home/henry-bedroom-scene",
-    "src/levels/day1/scenes/home/home-lobby",
-    "src/levels/day1/scenes/city/city"
-}
-
 local Scene = nil
 local transition_to_next_level = false
 function Level.Draw()
@@ -72,7 +64,6 @@ end
 
 function Level.Reset()
 
-    Scene_idx = 1
     transition_to_next_level = false
     CanTransition = nil
 
