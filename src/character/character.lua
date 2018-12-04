@@ -172,15 +172,21 @@ end
 
 function Character:DoesCharacterCollideWithWall(new_x, new_y, idx)
 
-    if self.collision_objs[idx]:CheckForCollision(new_x, new_y) then
-        return true
+    if self.direction == DIRECTION.LEFT then
+        new_x = new_x - 6
+        return self.collision_objs[idx]:CheckForCollision(new_x, new_y)
+    elseif self.direction == DIRECTION.RIGHT then
+        new_x = new_x + 6
+        return self.collision_objs[idx]:CheckForCollision(new_x, new_y)
+    else
+        return self.collision_objs[idx]:CheckForCollision(new_x, new_y)
     end
 
 end
 
 function Character:DoesCharacterCollideWithObjects(new_x, new_y, idx)
 
-    if self.DIRECTION ~= DIRECTION.DOWN then
+    if self.direction ~= DIRECTION.DOWN then
         local width  = 6
         local height = self.height - 11
         new_x = new_x - 3
@@ -208,7 +214,7 @@ end
 
 function Character:DisplaceCharacterAlongXWithCollisionCheck(displace_x)
 
-    local temp_x       = 0
+    local temp_x
     local increment    = .05
     local x_mid, y_mid = self:GetCenterPosition()
 
@@ -226,7 +232,7 @@ end
 
 function Character:DisplaceCharacterAlongYWithCollisionCheck(displace_y)
 
-    local temp_y       = 0
+    local temp_y
     local increment    = .1
     local x_mid, y_mid = self:GetCenterPosition()
 
