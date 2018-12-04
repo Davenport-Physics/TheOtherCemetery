@@ -1,4 +1,4 @@
-local SaveData = require("src/save/savingdata")
+local DataToSave = require("src/save/savingdata")
 local Level = {}
 
 local Scene_idx = 1
@@ -27,7 +27,8 @@ end
 local CanTransition = nil
 local function SetUpTransition()
 
-    SaveData.CurrentScene = CanTransition[1]
+    DataToSave.CurrentScene = CanTransition[1]
+    DataToSave.CurrentScene   = CanTransition[1]
     Scene = require(CanTransition[1])
     Scene.Reset()
     if #CanTransition == 3 then
@@ -36,9 +37,9 @@ local function SetUpTransition()
 
 end
 
-local function DetermineSceneFromSaveData()
+local function DetermineSceneFromDataToSave()
 
-    Scene = require(SaveData.CurrentScene)
+    Scene = require(DataToSave.CurrentScene)
     Scene.Reset()
 
 end
