@@ -2,6 +2,7 @@ local Collision = {}
 Collision.__index = Collision
 
 local Shared = require("src/shared/shared")
+local sqrt = math.sqrt
 
 function Collision:new(x_pos, y_pos, width, height, name)
 
@@ -14,6 +15,12 @@ function Collision:new(x_pos, y_pos, width, height, name)
     obj.name   = name or ""
 
     return obj
+
+end
+
+function Collision:CheckIfNearby(x, y)
+
+    return sqrt((self.x_pos - x) ^ 2 + (self.y_pos - y)) <= 64
 
 end
 
