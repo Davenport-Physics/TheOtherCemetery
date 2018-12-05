@@ -218,6 +218,7 @@ function love.update(dt)
     CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Update()
     CheckEventPool()
     IncrementPlayTimer(dt)
+    print(love.timer.getFPS())
 
 end
 
