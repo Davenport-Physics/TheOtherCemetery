@@ -18,7 +18,7 @@ function TiledMap:new(tiled_map)
     obj.sheet_id_cache = {}
     obj.draw_lighting  = false
     obj.scale = 1
-    obj.batch = love.graphics.newSpriteBatch()
+    --obj.batch = love.graphics.newSpriteBatch()
 
     return obj
 end
