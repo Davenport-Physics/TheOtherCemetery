@@ -1,8 +1,8 @@
 require("src/shared/cache")
+local bit = require("bit")
 
 local Character = {}
 Character.__index = Character
-
 
 local DIRECTION =
 {
@@ -190,17 +190,25 @@ function Character:DoesCharacterCollideWithObjects(new_x, new_y, idx)
 
 end
 
+function Character:HandleCollisionType(new_x, new_y, i)
+
+    if self.collision_objs[i].name == "Wall" and self:DoesCharacterCollideWithWall(new_x, new_y, i) then
+        return true
+    elseif self.collision_objs[i].name == "Objects" and self:DoesCharacterCollideWithObjects(new_x, new_y, i) then
+        return true
+    end
+
+end
+
 function Character:DoesCharacterCollide(new_x, new_y)
 
     for i = 1, #self.collision_objs do
 
-        if self.collision_objs[i]:CheckIfNearby(new_x, new_y) then
-            if self.collision_objs[i].name == "Wall" and self:DoesCharacterCollideWithWall(new_x, new_y, i) then
-                return true
-            elseif self.collision_objs[i].name == "Objects" and self:DoesCharacterCollideWithObjects(new_x, new_y, i) then
-                return true
-            end
+        if not self.collision_objs[i]:CheckIfNearby(new_x, new_y) then
+            goto next
         end
+        if self:HandleCollisionType(new_x, new_y, i) then return true end
+        ::next::
 
     end
     return false
@@ -422,8 +430,8 @@ end
 
 function Character:GetCenterPosition()
 
-    local x_mid = self.x_pos + math.floor(self.width  * .5)
-    local y_mid = self.y_pos + math.floor(self.height * .5)
+    local x_mid = self.x_pos + bit.rshift(self.width, 1)
+    local y_mid = self.y_pos + bit.rshift(self.height, 1)
 
     return x_mid, y_mid
 

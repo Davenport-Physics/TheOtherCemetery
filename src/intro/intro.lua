@@ -1,9 +1,10 @@
 local introsequence = nil
+local Settings = require("src/settings/settings")
 
 local function InitIntroSequence()
 
     introsequence = love.graphics.newVideo("video/introicon.ogv")
-    introsequence:getSource():setVolume(.5)
+    introsequence:getSource():setVolume(Settings.MasterVolume * Settings.MusicVolume)
     introsequence:play()
 
 

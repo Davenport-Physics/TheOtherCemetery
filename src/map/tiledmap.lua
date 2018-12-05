@@ -3,6 +3,7 @@ require("src/shared/cache")
 local TiledMap = {}
 TiledMap.__index = TiledMap
 
+local bit = require("bit")
 local Settings = require("src/settings/settings")
 local Shared   = require("src/shared/shared")
 
@@ -234,8 +235,8 @@ function TiledMap:DrawLayer(layer, ra_x, ra_y)
     local tiles_drawn_along_row = 0
     local current_y_offset      = 0
 
-    self.d_lx = GraphicsWidth() *.5 + 40
-    self.d_ly = GraphicsHeight()*.5 + 40
+    self.d_lx = bit.rshift(GraphicsWidth(), 1) + 40
+    self.d_ly = bit.rshift(GraphicsHeight(), 1) + 40
     for i = 1, #layer.data do
 
         if (tiles_drawn_along_row > (TilesAlongX - 1)) then
