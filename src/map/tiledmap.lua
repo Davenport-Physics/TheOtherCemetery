@@ -149,7 +149,7 @@ function TiledMap:RotationConditions(layer_data)
         temp_id = temp_id - bit29
         sx = -1*sx
         sy = -1*sy
-        angle = angle + (-sx*math.pi/2)
+        angle = angle + (-sx*math.pi*.5)
         x_off = x_off - self.width[1]
     end
     return {temp_id, angle, x_off, y_off, sx, sy}
@@ -159,14 +159,12 @@ end
 function TiledMap:GetRotation(layer_data)
 
     if self.tile_cache[layer_data] ~= nil then
-
         return unpack(self.tile_cache[layer_data])
-
     end
 
     self.tile_cache[layer_data] = self:RotationConditions(layer_data)
-
     return unpack(self.tile_cache[layer_data])
+
 end
 
 function TiledMap:FromRealIDGetSpriteSheetIndex(real_id)
@@ -230,8 +228,6 @@ local GraphicsWidth  = love.graphics.getWidth
 function TiledMap:DrawLayer(layer, ra_x, ra_y)
 
     local TilesAlongX = layer.width
-    local TilesAlongY = layer.height
-
     local tiles_drawn_along_row = 0
     local current_y_offset      = 0
 
@@ -258,12 +254,16 @@ function TiledMap:DrawMaps(DrawObjects, ra_x, ra_y)
     for i = 1, #self.layers_tile_layer do
 
         name = self.layers_tile_layer[i].name
-        if not DrawObjects and name ~= "Objects" and name ~= "Objects Detail" then
-            self:DrawLayer(self.layers_tile_layer[i], ra_x, ra_y)
-        elseif DrawObjects and name == "Objects" and name ~= "Objects Detail" then
-            self:DrawLayer(self.layers_tile_layer[i], ra_x, ra_y)
-        elseif DrawObjects and name == "Objects Detail" then
-            self:DrawLayer(self.layers_tile_layer[i], ra_x, ra_y)
+        if not DrawObjects then
+            if name ~= "Objects" and name ~= "Objects Detail" then
+                self:DrawLayer(self.layers_tile_layer[i], ra_x, ra_y)
+            end
+        else
+            if name == "Objects" then
+                self:DrawLayer(self.layers_tile_layer[i], ra_x, ra_y)
+            elseif name == "Objects Detail" then
+                self:DrawLayer(self.layers_tile_layer[i], ra_x, ra_y)
+            end
         end
 
     end

@@ -235,7 +235,7 @@ end
 
 function World:DrawEscapeMenu()
 
-    self.escape_menu_x_pos =  love.graphics.getWidth()*.5 -  self.escape_menu:getWidth()*.5
+    self.escape_menu_x_pos = love.graphics.getWidth()*.5  - self.escape_menu:getWidth()*.5
     self.escape_menu_y_pos = love.graphics.getHeight()*.5 - self.escape_menu:getHeight()*.5
 
     local b_s_x = love.graphics.getWidth()/self.escape_menu_background:getWidth()
@@ -251,7 +251,7 @@ function World:DrawTimeCycleFilter()
     if fade_out ~= nil then return end
 
     if self.time_cycle == "Morning" then
-        love.graphics.setColor(1,1,1,1)
+        love.graphics.setColor(1, 1, 1, 1)
     elseif self.time_cycle == "Afternoon" then
         love.graphics.setColor(.82, .82, .82, 1)
     elseif self.time_cycle == "Night" then
