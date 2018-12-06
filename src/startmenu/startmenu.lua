@@ -1,4 +1,5 @@
 
+local bit = require("bit")
 require("src/shared/cache")
 local Settings       = require("src/settings/settings")
 local StartMenuSound = getSoundFromCache("sound/startmenu/sadpiano.mp3")
@@ -14,8 +15,9 @@ local Buttons =
     Quit     = ButtonClass:newImage("pics/startmenu/quit.png", 625, 20),
     Twitter  = ButtonClass:newImage("pics/social/twitter.png", 100, 550),
     YouTube  = ButtonClass:newImage("pics/social/youtube.png", 250, 542.5),
-    Website  = ButtonClass:newImage("pics/social/website.png", 350, 544),
-    About    = ButtonClass:newImage("pics/about.png", 450, 544)
+    Discord  = ButtonClass:newImage("pics/social/discord-alt.png", 300, 555),
+    Website  = ButtonClass:newImage("pics/social/website.png", 450, 544),
+    About    = ButtonClass:newImage("pics/about.png", 550, 544)
 
 }
 Buttons.NewGame:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
@@ -26,6 +28,7 @@ Buttons.Twitter:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.YouTube:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.Website:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.About:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
+Buttons.Discord:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
 local BackgroundVideo = love.graphics.newVideo("video/StartMenuVideo.ogv")
 
@@ -62,6 +65,7 @@ function InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, 
     Buttons.Twitter:SetCallback(function() BackgroundVideo:pause(); love.window.minimize(); love.system.openURL("https://twitter.com/DSectorStudios") end)
     Buttons.Website:SetCallback(function() BackgroundVideo:pause(); love.window.minimize(); love.system.openURL("https://www.darksectorstudios.com/") end)
     Buttons.YouTube:SetCallback(function() BackgroundVideo:pause(); love.window.minimize(); love.system.openURL("https://www.youtube.com/channel/UCIW4bSzn44v08ttyRMT5z2w?view_as=subscriber") end)
+    Buttons.Discord:SetCallback(function() BackgroundVideo:pause(); love.window.minimize(); love.system.openURL("https://discord.gg/nCJBmsJ") end)
     SetAboutPath()
     Buttons.About:SetCallback(function()   love.window.minimize(); love.system.openURL(about_path) end)
 
@@ -76,6 +80,7 @@ function HandleInput_StartingWindow()
     Buttons.Quit:HandleMouseClick()
     Buttons.Twitter:HandleMouseClick()
     Buttons.YouTube:HandleMouseClick()
+    Buttons.Discord:HandleMouseClick()
     Buttons.Website:HandleMouseClick()
     Buttons.About:HandleMouseClick()
 
@@ -105,6 +110,7 @@ local function DrawButtons()
     Buttons.Quit:Draw()
     Buttons.Twitter:Draw()
     Buttons.YouTube:Draw()
+    Buttons.Discord:Draw()
     Buttons.Website:Draw()
     Buttons.About:Draw()
 
@@ -116,15 +122,16 @@ function Update_StartMenu()
 
     BackGroundScale_x = love.graphics.getWidth()/BackgroundVideo:getWidth()
     BackGroundScale_y = love.graphics.getHeight()/BackgroundVideo:getHeight()
-    Buttons.NewGame.x_pos  = love.graphics.getWidth()*.5 - (25 + 300)
+    Buttons.NewGame.x_pos  = bit.rshift(love.graphics.getWidth(), 1) - (25 + 300)
     Buttons.LoadGame.x_pos = Buttons.NewGame.x_pos  + 175
     Buttons.Credits.x_pos  = Buttons.LoadGame.x_pos + 175
     Buttons.Options.x_pos  = Buttons.Credits.x_pos  + 175
     Buttons.Quit.x_pos     = Buttons.Options.x_pos
 
-    Buttons.Twitter.x_pos  = Buttons.NewGame.x_pos  + 75
-    Buttons.YouTube.x_pos  = Buttons.Twitter.x_pos  + 150
-    Buttons.Website.x_pos  = Buttons.YouTube.x_pos  + 125
+    Buttons.Twitter.x_pos  = Buttons.NewGame.x_pos
+    Buttons.YouTube.x_pos  = Buttons.Twitter.x_pos  + 160
+    Buttons.Discord.x_pos  = bit.rshift(love.graphics.getWidth(), 1) - bit.rshift(Buttons.Discord.image_width, 1) + 15
+    Buttons.Website.x_pos  = Buttons.Discord.x_pos  + 150
     Buttons.About.x_pos    = Buttons.Website.x_pos  + 100
 
 end
