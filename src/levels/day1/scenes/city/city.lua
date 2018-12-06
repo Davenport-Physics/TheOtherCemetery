@@ -174,6 +174,7 @@ local function SoundUpdates()
         BackgroundSound:play()
     elseif not BackgroundSound:isPlaying() and DataToSave["Day1Events"].WentToSchool then
         World:SetTimeCycle("Afternoon")
+        World:TogglePlayerLighting(true)
         BackgroundSound = getStreamSoundFromCache("sound/ambiance/city-slow.wav")
         BackgroundSound:setVolume(Settings.MasterVolume * Settings.MusicVolume)
         BackgroundSound:setLooping(true)
@@ -184,8 +185,18 @@ end
 local function UpdateAfterSchool()
 
     if not DataToSave["Day1Events"].WentToSchool then return end
-    if not DoorHandler.enabled[7] then return end
+    if DataToSave["Day1Events"].DialogInButcherySeen then return end
+    if DoorHandler.enabled[7] then return end
     DoorHandler:ToggleDoor(7, true)
+
+end
+
+local function LockButcheryIfPossible()
+
+    if not DataToSave["Day1Events"].WentToSchool then return end
+    if not DataToSave["Day1Events"].DialogInButcherySeen then return end
+    if not DoorHandler.enabled[7] then return end
+    DoorHandler:ToggleDoor(7, false)
 
 end
 
@@ -285,15 +296,6 @@ local function UpdateManFromShack()
     InitCameraEntityIfNeeded()
     FadeToBlackIfCameraEntityFinished()
     UpdateCameraEntity()
-
-end
-
-local function LockButcheryIfPossible()
-
-    if not DoorHandler.enabled[7] then return end
-    if DataToSave["Day1Events"].DialogInButcherySeen then
-        DoorHandler:ToggleDoor(7, false)
-    end
 
 end
 

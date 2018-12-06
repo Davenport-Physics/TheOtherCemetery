@@ -71,6 +71,7 @@ local function ThrowHenryOutIfPossible()
 
     if dialogtoHenry:IsFinished() then
         DataToSave["Day1Events"].DialogInButcherySeen = true
+        print(DataToSave["Day1Events"].DialogInButcherySeen)
         transition = {"src/levels/day1/scenes/city/city", 20*16, 4*16}
     end
 
