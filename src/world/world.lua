@@ -1,5 +1,6 @@
 require("src/shared/cache")
 require("src/save/saving")
+local bit = require("bit")
 local ButtonClass = require("src/button/button")
 
 local World = {}
@@ -235,8 +236,8 @@ end
 
 function World:DrawEscapeMenu()
 
-    self.escape_menu_x_pos = love.graphics.getWidth()*.5  - self.escape_menu:getWidth()*.5
-    self.escape_menu_y_pos = love.graphics.getHeight()*.5 - self.escape_menu:getHeight()*.5
+    self.escape_menu_x_pos = bit.rshift(love.graphics.getWidth(), 1) - bit.rshift(self.escape_menu:getWidth(), 1)
+    self.escape_menu_y_pos = bit.rshift(love.graphics.getHeight(),1) - bit.rshift(self.escape_menu:getHeight(),1)
 
     local b_s_x = love.graphics.getWidth()/self.escape_menu_background:getWidth()
     local b_s_y = love.graphics.getHeight()/self.escape_menu_background:getHeight()

@@ -291,17 +291,13 @@ function TiledMap:MakeCollisionObj(tile, tiles_drawn_along_row, current_y_offset
     local x = (tiles_drawn_along_row) * self.width[1]
     local y
 
-    if full_mesh then
-        y = current_y_offset
-    else
-        y = current_y_offset + 10
-    end
-
     local name
     if full_mesh then
         name = "Wall"
+        y = current_y_offset
     else
         name = "Objects"
+        y = current_y_offset + 10
     end
 
     self.collision_objs[#self.collision_objs + 1] = CollisionClass:new(x, y, self.width[1], self.height[1], name)
