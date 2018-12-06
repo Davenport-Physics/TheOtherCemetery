@@ -24,6 +24,7 @@ BackgroundSound:setVolume(Settings.MasterVolume * Settings.MusicVolume)
 BackgroundSound:setLooping(true)
 BackgroundWindSound:setVolume(Settings.MasterVolume * Settings.MusicVolume)
 BackgroundWindSound:setLooping(true)
+BackgroundDeadSound:setVolume(Settings.MasterVolume * Settings.MusicVolume)
 
 local EntityOutsideHouse = EntityClass:newMinimal(49*16, 63*16)
 local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 49*16, 61*16, 16, 17, 9, .075); Henry:WalkDown();
