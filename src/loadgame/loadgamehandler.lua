@@ -32,12 +32,9 @@ local GameHandlerCallback = nil
 
 local function SaveGameButtonsCallback(save_idx)
 
-    print(PartialSaveData[save_idx].SaveName)
     if PartialSaveData[save_idx].SaveName == "empty" then
-        print("Save to load does not exist STUB: SaveGameButtonsCallback")
         return
     end
-    print(PartialSaveData[save_idx].File)
     LoadSaveData(PartialSaveData[save_idx].File)
     GameHandlerCallback()
 
