@@ -1,4 +1,5 @@
 require("src/shared/cache")
+local bit  = require("bit")
 local utf8 = require("utf8")
 
 local DataToSave  = require("src/save/savingdata")
@@ -156,15 +157,15 @@ end
 
 local function HandleWriteDrawing()
     if DrawWriteText then
-        love.graphics.print(WriteText, NewGameGui_x_pos + NewGameGui:getWidth()*.5, NewGameGui_y_pos + NewGameGui:getHeight())
+        love.graphics.print(WriteText, NewGameGui_x_pos + bit.rshift(NewGameGui:getWidth(), 1), NewGameGui_y_pos + NewGameGui:getHeight())
     end
 end
 
 local function HandleOverWriteDrawing()
 
     if not DrawOverWrite then return end
-    local t_width  = NewGameGui_x_pos + NewGameGui:getWidth()*.5 - OverWrite:getWidth()*.5
-    local t_height = NewGameGui_y_pos + NewGameGui:getHeight()*.5 - OverWrite:getHeight()*.5
+    local t_width  = NewGameGui_x_pos + bit.rshift(NewGameGui:getWidth(), 1) - bit.rshift(OverWrite:getWidth(), 1)
+    local t_height = NewGameGui_y_pos + bit.rshift(NewGameGui:getHeight(),1) - bit.rshift(OverWrite:getHeight(),1)
     love.graphics.draw(OverWrite, t_width, t_height)
 
 end
@@ -211,8 +212,8 @@ end
 local function UpdateOverWriteButtons()
 
     if not DrawOverWrite then return end
-    local t_x = NewGameGui_x_pos + NewGameGui:getWidth()*.5  - OverWrite:getWidth()*.5 + 4
-    local t_y = NewGameGui_y_pos + NewGameGui:getHeight()*.5 - OverWrite:getHeight()*.5 + 56
+    local t_x = NewGameGui_x_pos + bit.rshift(NewGameGui:getWidth(),1)  - bit.rshift(OverWrite:getWidth(), 1) + 4
+    local t_y = NewGameGui_y_pos + bit.rshift(NewGameGui:getHeight(),1) - bit.rshift(OverWrite:getHeight(),1) + 56
 
     YesOverwrite.x_pos = t_x
     YesOverwrite.y_pos = t_y
@@ -234,8 +235,8 @@ end
 
 function NewGameHandler_Update()
 
-    NewGameGui_x_pos     = love.graphics.getWidth()*.5  - NewGameGui:getWidth()*.5
-    NewGameGui_y_pos     = love.graphics.getHeight()*.5 - NewGameGui:getHeight()*.5
+    NewGameGui_x_pos     = bit.rshift(love.graphics.getWidth(),1)  - bit.rshift(NewGameGui:getWidth(),1)
+    NewGameGui_y_pos     = bit.rshift(love.graphics.getHeight(),1) - bit.rshift(NewGameGui:getHeight(),1)
     UpdateSaveButtonPositions()
     UpdateOverWriteButtons()
     UpdateBackgroundVideo()

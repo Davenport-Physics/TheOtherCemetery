@@ -1,4 +1,5 @@
 require("src/shared/cache")
+local bit  = require("bit")
 local Saves       = require("src/save/saving")
 local ButtonClass = require("src/button/button")
 
@@ -127,8 +128,8 @@ end
 
 function LoadGameHandler_Update()
 
-    LoadGameGui_x_pos = love.graphics.getWidth()*.5  - LoadGameGui:getWidth()*.5
-    LoadGameGui_y_pos = love.graphics.getHeight()*.5 - LoadGameGui:getHeight()*.5
+    LoadGameGui_x_pos = bit.rshift(love.graphics.getWidth(), 1) - bit.rshift(LoadGameGui:getWidth(),1)
+    LoadGameGui_y_pos = bit.rshift(love.graphics.getHeight(),1) - bit.rshift(LoadGameGui:getHeight(),1)
     Background_sx     = love.graphics.getWidth()/BackgroundVideo:getWidth()
     Background_sy     = love.graphics.getHeight()/BackgroundVideo:getHeight()
     UpdateSaveButtonPositions()
@@ -138,7 +139,6 @@ end
 
 function LoadGameHandler_Input()
 
-    -- TODO ADD DELAY FOR MOUSE CLICK HANDLING
     BackButton:HandleMouseClick()
     if love.timer.getTime() >= NextTimeForMouseClick then
         for i = 1, 3 do

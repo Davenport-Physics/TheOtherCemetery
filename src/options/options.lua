@@ -1,4 +1,5 @@
 require("src/shared/cache")
+local bit  = require("bit")
 local utf8 = require("utf8")
 local Settings    = require("src/settings/settings")
 local ButtonClass = require("src/button/button")
@@ -165,7 +166,7 @@ local function ConstrainSliderPosition(slider)
 end
 local function MoveSlider(slider)
 
-    slider[1] = love.mouse.getX() - menu_x - SliderButton:getWidth()*.5
+    slider[1] = love.mouse.getX() - menu_x - bit.rshift(SliderButton:getWidth(), 1)
     ConstrainSliderPosition(slider)
 
 end
@@ -359,8 +360,8 @@ local function UpdateOffsets()
 
     background_scale_x = love.graphics.getWidth()/BackgroundVideo:getWidth()
     background_scale_y = love.graphics.getHeight()/BackgroundVideo:getHeight()
-    menu_x = love.graphics.getWidth()*.5  - VideoMenu:getWidth()*.5
-    menu_y = love.graphics.getHeight()*.5 - VideoMenu:getHeight()*.5
+    menu_x = bit.rshift(love.graphics.getWidth(), 1)  - bit.rshift(VideoMenu:getWidth(), 1)
+    menu_y = bit.rshift(love.graphics.getHeight(),1) - bit.rshift(VideoMenu:getHeight(),1)
     UpdateOffsetsButtons()
     UpdateOffsetsSliders()
     UpdateOffsetsControls()

@@ -148,7 +148,7 @@ end
 
 local function DrawMisc()
 
-    love.graphics.draw(StartingWindowText.Name, love.graphics.getWidth()*.5 - 325, 125, 0, .2, .2)
+    love.graphics.draw(StartingWindowText.Name, bit.rshift(love.graphics.getWidth(), 1) - 325, 125, 0, .2, .2)
     love.graphics.draw(StartingWindowText.Version, 10, 15)
 
 end

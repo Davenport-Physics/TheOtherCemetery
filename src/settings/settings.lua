@@ -28,7 +28,7 @@ Settings.MasterVolume         = 1
 Settings.MusicVolume          = .5
 Settings.SoundEffectsVolume   = .5
 Settings.Fullscreen           = false
-Settings.BUILD                = false
+Settings.BUILD                = true
 
 function Settings.CheckIfResolutionChanged()
 
