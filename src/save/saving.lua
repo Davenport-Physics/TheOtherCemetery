@@ -3,6 +3,7 @@ local Settings    = require("src/settings/settings")
 local inspect     = require("src/debug/inspect")
 require("src/save/savingpersistence")
 
+local OS        = love.system.getOS()
 local separator = package.config:sub(1,1)
 local Path
 if Settings.BUILD then
@@ -27,7 +28,6 @@ end
 
 local function Makedirectory()
 
-    print(Path)
     os.execute("mkdir " .. Path)
 
 end
