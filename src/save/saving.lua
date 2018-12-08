@@ -4,37 +4,37 @@ local inspect     = require("src/debug/inspect")
 require("src/save/savingpersistence")
 
 --local OS        = love.system.getOS()
-local separator = package.config:sub(1,1)
+local separator = "/"
 local Path
 local SavePath
 if Settings.BUILD then
-    Path = love.filesystem.getSaveDirectory() .. "/TheOtherCemetery"
+    Path = love.filesystem.getSaveDirectory()
 else
     Path = love.filesystem.getWorkingDirectory()
 end
-SavePath = Path .. separator .. "saves"
+SavePath = Path
 
 
 local function CheckIfDirectoryExists(dir)
 
-    print(dir)
     return love.filesystem.getInfo(dir, "directory")
 
 end
 
 local function Makedirectory(path)
 
-    os.execute("mkdir " .. path)
+    return love.filesystem.createDirectory(path)
 
 end
 
 local function HandleDirectoryChecksAndCreation()
 
-    if not CheckIfDirectoryExists(Path) then
-        Makedirectory(Path)
+    if not Settings.BUILD then return end
+    if CheckIfDirectoryExists(SavePath) ~= nil then
+        return
     end
-    if not CheckIfDirectoryExists(SavePath) then
-        Makedirectory(SavePath)
+    if not Makedirectory(SavePath) then
+
     end
 
 end
@@ -56,7 +56,7 @@ end
 
 function GetPartialDataFromSaves()
 
-    local s_start  = SavePath .. separator .. "saves" .. separator
+    local s_start  = SavePath .. separator
     local filename
     local p_saves = {}
     for i = 1, 3 do
@@ -93,6 +93,7 @@ end
 
 function StoreSettings()
 
+    HandleDirectoryChecksAndCreation()
     persistence.store(Path .. separator .. "settings.lua", GetRelevantSettingData())
 
 end
