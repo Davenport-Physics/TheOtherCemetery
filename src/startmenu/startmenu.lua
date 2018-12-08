@@ -1,6 +1,7 @@
 
 local bit = require("bit")
 require("src/shared/cache")
+local OS = love.system.getOS()
 local Settings       = require("src/settings/settings")
 local StartMenuSound = getSoundFromCache("sound/startmenu/sadpiano.mp3")
 
@@ -55,19 +56,28 @@ local function SetAboutPath()
 
 end
 
+local function CallbackOSHandler()
+
+    if OS == "Linux" then
+        BackgroundVideo:pause()
+        love.window.minimize()
+    end
+
+end
+
 function InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, Credits, Quit)
 
+    SetAboutPath()
     Buttons.NewGame:SetCallback(function() BackgroundVideo:pause(); StartNewGame() end)
     Buttons.LoadGame:SetCallback(function() BackgroundVideo:pause(); LoadGame() end)
     Buttons.Credits:SetCallback(function() BackgroundVideo:pause(); Credits() end)
     Buttons.Options:SetCallback(function() BackgroundVideo:pause(); Options() end)
     Buttons.Quit:SetCallback(function() BackgroundVideo:pause(); Quit() end)
-    Buttons.Twitter:SetCallback(function() BackgroundVideo:pause(); love.window.minimize(); love.system.openURL("https://twitter.com/DSectorStudios") end)
-    Buttons.Website:SetCallback(function() BackgroundVideo:pause(); love.window.minimize(); love.system.openURL("https://www.darksectorstudios.com/") end)
-    Buttons.YouTube:SetCallback(function() BackgroundVideo:pause(); love.window.minimize(); love.system.openURL("https://www.youtube.com/channel/UCIW4bSzn44v08ttyRMT5z2w?view_as=subscriber") end)
-    Buttons.Discord:SetCallback(function() BackgroundVideo:pause(); love.window.minimize(); love.system.openURL("https://discord.gg/nCJBmsJ") end)
-    SetAboutPath()
-    Buttons.About:SetCallback(function()   love.window.minimize(); love.system.openURL(about_path) end)
+    Buttons.Twitter:SetCallback(function() CallbackOSHandler(); love.system.openURL("https://twitter.com/DSectorStudios") end)
+    Buttons.Website:SetCallback(function() CallbackOSHandler(); love.system.openURL("https://www.darksectorstudios.com/") end)
+    Buttons.YouTube:SetCallback(function() CallbackOSHandler(); love.system.openURL("https://www.youtube.com/channel/UCIW4bSzn44v08ttyRMT5z2w?view_as=subscriber") end)
+    Buttons.Discord:SetCallback(function() CallbackOSHandler(); love.system.openURL("https://discord.gg/nCJBmsJ") end)
+    Buttons.About:SetCallback(function()   CallbackOSHandler(); love.system.openURL(about_path) end)
 
 end
 
