@@ -58,7 +58,7 @@ end
 
 local function CallbackOSHandler()
 
-    if OS == "Linux" then
+    if OS ~= "Linux" then
         BackgroundVideo:pause()
         love.window.minimize()
     end
