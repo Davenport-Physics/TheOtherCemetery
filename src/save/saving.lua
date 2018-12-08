@@ -3,39 +3,38 @@ local Settings    = require("src/settings/settings")
 local inspect     = require("src/debug/inspect")
 require("src/save/savingpersistence")
 
-local OS        = love.system.getOS()
+--local OS        = love.system.getOS()
 local separator = package.config:sub(1,1)
 local Path
+local SavePath
 if Settings.BUILD then
-    Path = love.filesystem.getSourceBaseDirectory() .. "/saves"
+    Path = love.filesystem.getSaveDirectory() .. "/TheOtherCemetery"
 else
-    Path = love.filesystem.getWorkingDirectory() .. "/saves"
+    Path = love.filesystem.getWorkingDirectory()
 end
+SavePath = Path .. separator .. "saves"
 
-local function CheckIfSaveDirectoryExists()
 
-    local f, err = io.open(Path .. separator .. "temp", "w")
-    if f then
+local function CheckIfDirectoryExists(dir)
 
-        f:write("stuff")
-        f:close()
-        return true
-
-    end
-    return false
+    print(dir)
+    return love.filesystem.getInfo(dir, "directory")
 
 end
 
-local function Makedirectory()
+local function Makedirectory(path)
 
-    os.execute("mkdir " .. Path)
+    os.execute("mkdir " .. path)
 
 end
 
 local function HandleDirectoryChecksAndCreation()
 
-    if not CheckIfSaveDirectoryExists() then
-        Makedirectory()
+    if not CheckIfDirectoryExists(Path) then
+        Makedirectory(Path)
+    end
+    if not CheckIfDirectoryExists(SavePath) then
+        Makedirectory(SavePath)
     end
 
 end
@@ -44,20 +43,20 @@ function StoreSaveData(filename)
 
     HandleDirectoryChecksAndCreation()
     if filename == nil then filename = DataToSave["File"] end
-    persistence.store(Path .. separator .. filename, DataToSave)
+    persistence.store(SavePath .. separator .. filename, DataToSave)
 
 end
 
 function LoadSaveData(filename)
 
-    local temp, err = persistence.load(Path .. separator .. filename)
+    local temp, err = persistence.load(SavePath .. separator .. filename)
     DataToSave.SetValues(temp)
 
 end
 
 function GetPartialDataFromSaves()
 
-    local s_start  = "saves" .. separator
+    local s_start  = SavePath .. separator .. "saves" .. separator
     local filename
     local p_saves = {}
     for i = 1, 3 do
@@ -94,13 +93,13 @@ end
 
 function StoreSettings()
 
-    persistence.store("settings.lua", GetRelevantSettingData())
+    persistence.store(Path .. separator .. "settings.lua", GetRelevantSettingData())
 
 end
 
 function LoadSettings()
 
-    local temp = persistence.load("settings.lua")
+    local temp = persistence.load(Path .. separator .. "settings.lua")
     if temp then
         Settings.Controls           = temp.Controls
         Settings.Window_Width       = temp.Window_Width
