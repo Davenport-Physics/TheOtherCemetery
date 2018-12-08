@@ -34,7 +34,7 @@ local function HandleDirectoryChecksAndCreation()
         return
     end
     if not Makedirectory(SavePath) then
-
+        -- TODO Handle this issue
     end
 
 end
