@@ -185,10 +185,7 @@ end
 
 function TiledMap:ShouldSetColor(x, y, ra_x, ra_y)
 
-    if Shared.IsNear(x, y, ra_x, ra_y, 64) then
-        return true
-    end
-    return false
+    return Shared.IsNear(x, y, ra_x, ra_y, 64)
 
 end
 
