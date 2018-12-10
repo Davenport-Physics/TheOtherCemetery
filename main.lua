@@ -210,18 +210,21 @@ local function IncrementPlayTimer(dt)
 
 end
 
+local run_profiler      = false
 local profiler = newProfiler()
 local profiler_started  = false
 local current_prof_idx  = 1
 local profiler_idx_stop = 600
 
 local function UpdateStartProfiler()
+    if not run_profiler then return end
     if not profiler_started then
         profiler:start()
         profiler_started = true
     end
 end
 local function UpdateStopProfiler()
+    if not run_profiler then return end
     if current_prof_idx == profiler_idx_stop then
         current_prof_idx = 1
         profiler_started = false
@@ -235,7 +238,6 @@ end
 
 function love.update(dt)
 
-    UpdateStartProfiler()
     if love.window.isMinimized() then return end
     Settings.UpdateWindow()
     Settings.UpdateScale()
@@ -243,7 +245,6 @@ function love.update(dt)
     CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Update()
     CheckEventPool()
     IncrementPlayTimer(dt)
-    UpdateStopProfiler()
 
 end
 
