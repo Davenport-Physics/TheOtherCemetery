@@ -189,11 +189,12 @@ function TiledMap:ShouldSetColor(x, y, ra_x, ra_y)
 
 end
 
+local r,g,b,a
 function TiledMap:DrawTileInView(ra_x, ra_y, sprite_sheet_idx, x, y, angle, sx, sy, real_id)
 
     if Shared.IsBetweenRange(x, ra_x-self.d_lx, ra_x+self.d_lx) and Shared.IsBetweenRange(y, ra_y-self.d_ly, ra_y+self.d_ly) then
         if self.draw_lighting and self:ShouldSetColor(x, y, ra_x, ra_y) then
-            local r,g,b,a = love.graphics.getColor()
+            r,g,b,a = love.graphics.getColor()
             love.graphics.setColor(1, 1, 1, 1)
             love.graphics.draw(self.sprite_sheet[sprite_sheet_idx], self.quads[real_id], x, y, angle, sx, sy)
             love.graphics.setColor(r, g, b, a)
@@ -208,7 +209,7 @@ function TiledMap:DrawTile(layer_data, tiles_drawn_along_row, current_y_offset, 
 
     if layer_data == 0 then return end
     local real_id, angle, x_off, y_off, sx, sy = self:GetRotation(layer_data)
-    local x = (tiles_drawn_along_row) * self.width[1] + x_off
+    local x = (tiles_drawn_along_row) * 16 + x_off
     local y = current_y_offset + y_off
     local sprite_sheet_idx = self:FromRealIDGetSpriteSheetIndex(real_id)
 
@@ -234,7 +235,7 @@ function TiledMap:DrawLayer(layer, ra_x, ra_y)
 
         if (tiles_drawn_along_row > (TilesAlongX - 1)) then
 
-            current_y_offset = current_y_offset + self.height[1]
+            current_y_offset = current_y_offset + 16
             tiles_drawn_along_row = 0
 
         end

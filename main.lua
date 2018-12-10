@@ -7,6 +7,7 @@ require("src/save/saving")
 require("src/loadgame/loadgamehandler")
 require("src/options/options")
 require("src/gamehandler/gamehandler")
+require("src/debug/profiler")
 
 local DataToSave = require("src/save/savingdata") 
 local Settings   = require("src/settings/settings")
@@ -209,8 +210,32 @@ local function IncrementPlayTimer(dt)
 
 end
 
+local profiler = newProfiler()
+local profiler_started  = false
+local current_prof_idx  = 1
+local profiler_idx_stop = 600
+
+local function UpdateStartProfiler()
+    if not profiler_started then
+        profiler:start()
+        profiler_started = true
+    end
+end
+local function UpdateStopProfiler()
+    if current_prof_idx == profiler_idx_stop then
+        current_prof_idx = 1
+        profiler_started = false
+        local outfile    = io.open( "profile.txt", "w+" )
+        profiler:report( outfile )
+        outfile:close()
+        profiler.stop()
+    end
+    current_prof_idx = current_prof_idx + 1
+end
+
 function love.update(dt)
 
+    UpdateStartProfiler()
     if love.window.isMinimized() then return end
     Settings.UpdateWindow()
     Settings.UpdateScale()
@@ -218,6 +243,7 @@ function love.update(dt)
     CONTEXT_FUNCTIONS[CURRENT_CONTEXT].Update()
     CheckEventPool()
     IncrementPlayTimer(dt)
+    UpdateStopProfiler()
 
 end
 
