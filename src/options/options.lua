@@ -4,7 +4,7 @@ local utf8 = require("utf8")
 local Settings    = require("src/settings/settings")
 local ButtonClass = require("src/button/button")
 
-local BackgroundVideo = love.graphics.newVideo("video/RandomSequence.ogv")
+local BackgroundVideo
 local VideoMenu       = getImageFromCache("pics/options/Video.png")
 local SoundMenu       = getImageFromCache("pics/options/Sound.png")
 local ControlsMenu    = getImageFromCache("pics/options/Controls.png")
@@ -424,6 +424,9 @@ end
 
 local function UpdateBackgroundVideo()
 
+    if BackgroundVideo == nil then
+        BackgroundVideo = love.graphics.newVideo("video/RandomSequence.ogv")
+    end
     if not BackgroundVideo:isPlaying() then
         BackgroundVideo:rewind()
         BackgroundVideo:play()
@@ -451,10 +454,10 @@ end
 
 function Options_Update()
 
+    UpdateBackgroundVideo()
+    UpdateStartMenuSounds()
     UpdateOffsets()
     UpdateSliders()
-    UpdateStartMenuSounds()
-    UpdateBackgroundVideo()
 
 end
 
@@ -464,8 +467,16 @@ function Options_HandleInput()
 
 end
 
+local function DestroyData()
+
+    BackgroundVideo:pause();
+    BackgroundVideo = nil
+    collectgarbage()
+
+end
+
 function InitializeOptions_CallBackkFunctions(func)
 
-    startmenu_callback = func
+    startmenu_callback = function() DestroyData(); func() end
 
 end

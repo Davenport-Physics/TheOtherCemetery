@@ -146,10 +146,18 @@ function LoadGameHandler_Input()
 
 end
 
+local function DestroyData()
+
+    BackgroundVideo:pause()
+    BackgroundVideo = nil
+    collectgarbage()
+
+end
+
 function InitializeLoadGame_CallBackFunctions(InStartMenu, game)
 
-    BackButton:SetCallback(function() BackgroundVideo:pause(); InStartMenu(); end)
-    GameHandlerCallback = function()  BackgroundVideo:pause(); game(); end
+    BackButton:SetCallback(function() DestroyData(); InStartMenu(); end)
+    GameHandlerCallback = function()  DestroyData(); game(); end
 
 end
 
@@ -157,5 +165,6 @@ function ResetLoadGame()
 
     NextTimeForMouseClick = love.timer.getTime() + .1
     PartialSaveData = GetPartialDataFromSaves()
+    BackgroundVideo = love.graphics.newVideo("video/RandomSequence.ogv")
 
 end

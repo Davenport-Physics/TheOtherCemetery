@@ -8,7 +8,7 @@ local ButtonClass = require("src/button/button")
 
 local BackgroundVideo_s_x = 1
 local BackgroundVideo_s_y = 1
-local BackgroundVideo     = love.graphics.newVideo("video/RandomSequence.ogv")
+local BackgroundVideo
 local NewGameGui          = getImageFromCache("pics/newgame/newgame-2.png")
 
 
@@ -252,6 +252,14 @@ function NewGame_textinput(t)
 
 end
 
+local function DestroyData()
+
+    BackgroundVideo:pause()
+    BackgroundVideo = nil
+    collectgarbage()
+
+end
+
 local function HandleReturnKeyPressed()
 
     StoreSaveData("save" .. WriteTextIdx .. ".lua")
@@ -260,6 +268,7 @@ local function HandleReturnKeyPressed()
     DataToSave.ResetValues()
     DataToSave.SaveName = temp_name
     DataToSave.File = "save" .. WriteTextIdx .. ".lua"
+    DestroyData()
     GameHandlerCallback()
 
 end
@@ -303,8 +312,8 @@ end
 
 function InitializeNewGame_CallBackFunctions(InStartMenu, GameHandle)
 
-    BackButton:SetCallback(function() BackgroundVideo:pause(); InStartMenu() end)
-    GameHandlerCallback = function() BackgroundVideo:pause(); GameHandle() end
+    BackButton:SetCallback(function() DestroyData(); InStartMenu() end)
+    GameHandlerCallback = function() GameHandle() end
 
 end
 
@@ -318,7 +327,7 @@ function ResetNewGame()
     WriteTextIdx     = nil
     NewGameGui_x_pos = 0
     NewGameGui_y_pos = 0
-    BackgroundVideo:rewind()
+    BackgroundVideo = love.graphics.newVideo("video/RandomSequence.ogv")
     BackgroundVideo:play()
 
 end

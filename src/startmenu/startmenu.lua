@@ -31,7 +31,7 @@ Buttons.Website:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.About:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 Buttons.Discord:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
 
-local BackgroundVideo = love.graphics.newVideo("video/StartMenuVideo.ogv")
+local BackgroundVideo
 
 function StartMenuMusic_Start()
 
@@ -65,14 +65,22 @@ local function CallbackOSHandler()
 
 end
 
+local function DestroyData()
+
+    BackgroundVideo:pause();
+    BackgroundVideo = nil
+    collectgarbage()
+
+end
+
 function InitializeStartMenu_CallBackFunctions(StartNewGame, LoadGame, Options, Credits, Quit)
 
     SetAboutPath()
-    Buttons.NewGame:SetCallback(function() BackgroundVideo:pause(); StartNewGame() end)
-    Buttons.LoadGame:SetCallback(function() BackgroundVideo:pause(); LoadGame() end)
-    Buttons.Credits:SetCallback(function() BackgroundVideo:pause(); Credits() end)
-    Buttons.Options:SetCallback(function() BackgroundVideo:pause(); Options() end)
-    Buttons.Quit:SetCallback(function() BackgroundVideo:pause(); Quit() end)
+    Buttons.NewGame:SetCallback(function() DestroyData(); StartNewGame() end)
+    Buttons.LoadGame:SetCallback(function() DestroyData(); LoadGame() end)
+    Buttons.Credits:SetCallback(function() DestroyData(); Credits() end)
+    Buttons.Options:SetCallback(function() DestroyData(); Options() end)
+    Buttons.Quit:SetCallback(function() DestroyData(); Quit() end)
     Buttons.Twitter:SetCallback(function() CallbackOSHandler(); love.system.openURL("https://twitter.com/DSectorStudios") end)
     Buttons.Website:SetCallback(function() CallbackOSHandler(); love.system.openURL("https://www.darksectorstudios.com/") end)
     Buttons.YouTube:SetCallback(function() CallbackOSHandler(); love.system.openURL("https://www.youtube.com/channel/UCIW4bSzn44v08ttyRMT5z2w?view_as=subscriber") end)
@@ -126,10 +134,17 @@ local function DrawButtons()
 
 end
 
+local function UpdateBackgroundVideo()
+    if BackgroundVideo == nil then
+        BackgroundVideo = love.graphics.newVideo("video/StartMenuVideo.ogv")
+    end
+end
+
 local BackGroundScale_x = 1
 local BackGroundScale_y = 1
 function Update_StartMenu()
 
+    UpdateBackgroundVideo()
     BackGroundScale_x = love.graphics.getWidth()/BackgroundVideo:getWidth()
     BackGroundScale_y = love.graphics.getHeight()/BackgroundVideo:getHeight()
     Buttons.NewGame.x_pos  = bit.rshift(love.graphics.getWidth(), 1) - (25 + 300)
@@ -148,6 +163,7 @@ end
 
 local function DrawBackgroundVideo()
 
+    if BackgroundVideo == nil then return end
     if not BackgroundVideo:isPlaying() then
         BackgroundVideo:rewind()
         BackgroundVideo:play()

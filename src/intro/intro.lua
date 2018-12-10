@@ -15,6 +15,7 @@ local function CheckIfShouldEnd()
 
     if not introsequence:isPlaying() then
         introsequence = nil
+        collectgarbage()
         callback()
     end
 
