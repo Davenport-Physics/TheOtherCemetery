@@ -218,14 +218,12 @@ end
 local sformat = function(num) return tonumber(string.format("%.3f", num)) end
 function Character:DisplaceCharacterAlongXWithCollisionCheck(displace_x)
 
-    local temp_x
     local increment    = .05
-    local x_mid, y_mid = self:GetCenterPosition()
+    local x_mid = self:GetCenterPosition()
 
     if displace_x > 0 then increment = -.05 end
     for dis = displace_x, 0, increment do
-        temp_x = x_mid + dis
-        if not self:DoesCharacterCollide(temp_x, self.y_pos + self.height) then
+        if not self:DoesCharacterCollide(x_mid + dis, self.y_pos + self.height) then
             self.x_pos = sformat(self.x_pos + dis)
             self.distance_walked_currently = self.distance_walked_currently + dis
             break;
@@ -236,14 +234,12 @@ end
 
 function Character:DisplaceCharacterAlongYWithCollisionCheck(displace_y)
 
-    local temp_y
     local increment    = .1
-    local x_mid, y_mid = self:GetCenterPosition()
+    local x_mid = self:GetCenterPosition()
 
     if displace_y > 0 then increment = -.05 end
     for dis = displace_y, 0, increment do
-        temp_y = self.y_pos + self.height + dis
-        if not self:DoesCharacterCollide(x_mid, temp_y) then
+        if not self:DoesCharacterCollide(x_mid, self.y_pos + self.height + dis) then
             self.y_pos = sformat(self.y_pos + dis)
             self.distance_walked_currently = self.distance_walked_currently + dis
             break
