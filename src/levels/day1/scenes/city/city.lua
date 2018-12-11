@@ -39,12 +39,13 @@ DoorHandler:ToggleDoor(7, false)
 local NPCs =
 {
 
-    CharacterClass:new("tiles/Characters/Males/M_05.png", 33*16, 62*16, 16, 17, 4, .05),    -- Key Person
-    CharacterClass:new("tiles/Characters/Females/F_08.png", 30*16, 43*16, 16, 17, 4, .05),  -- Going To Work
-    CharacterClass:new("tiles/Characters/Females/F_07.png", 33*16, 43*16, 16, 17, 4, .05),  -- Kid Going To School
-    CharacterClass:new("tiles/Characters/Females/F_05.png", 39*16, 43*16, 16, 17, 4, .05),  -- Lady turning
-    CharacterClass:new("tiles/Characters/Females/F_03.png", 41*16, 46*16, 16, 17, 4, .05),  -- Couple Bickering
-    CharacterClass:new("tiles/Characters/Females/F_10.png", 42*16, 46*16, 16, 17, 4, .05)   -- Coupler Bickering
+    CharacterClass:newMale("M_05", 33, 62, 4, .05),    -- Key Person
+    CharacterClass:newFemale("F_08", 30, 43, 4, .05),  -- Going To Work
+    CharacterClass:newFemale("F_07", 33, 43, 4, .05),  -- Kid Going To School
+    CharacterClass:newFemale("F_05", 39, 43, 4, .05),  -- Lady turning
+    CharacterClass:newFemale("F_03", 41, 46, 4, .05),  -- Couple Bickering
+    CharacterClass:newFemale("F_10", 42, 46, 4, .05),  -- Coupler Bickering
+    CharacterClass:newMale("M_01", 63, 64, 4, .05)     -- Kid running around
 
 }
 NPCs[1]:FaceLeft()
@@ -52,9 +53,23 @@ NPCs[2]:FaceLeft()
 NPCs[3]:FaceUp()
 NPCs[5]:FaceRight()
 NPCs[6]:FaceLeft()
+NPCs[7]:FaceUp()
 
 NPCs[5]:AllowDrawing(false)
 NPCs[6]:AllowDrawing(false)
+
+local KidRunningAroundFountain =
+{
+    cycle = true,
+    path =
+    {
+        {x = 63*16, y = 60*16},
+        {x = 68*16, y = 60*16},
+        {x = 68*16, y = 64*16},
+        {x = 63*16, y = 64*16}
+
+    }
+}
 
 local FemaleGoingToWorkWalkerInstructions =
 {
@@ -86,7 +101,8 @@ local NPCWalkers =
 
     WalkerClass:new(NPCs[2], "path-walker", FemaleGoingToWorkWalkerInstructions),
     WalkerClass:new(NPCs[3], "path-walker", KidGoingToSchoolWalkerInstructions),
-    WalkerClass:new(NPCs[4], "turn-walker", TurnWalkerInstructions)
+    WalkerClass:new(NPCs[4], "turn-walker", TurnWalkerInstructions),
+    WalkerClass:new(NPCs[7], "path-walker", KidRunningAroundFountain)
 
 }
 local NPCTurners =
@@ -160,6 +176,7 @@ end
 local function NPCUpdates()
 
     NPCWalkers[3]:Update()
+    NPCWalkers[4]:Update()
     TurnNPCs()
     NPCWalkerConditions()
     NPCWalkerUpdates()

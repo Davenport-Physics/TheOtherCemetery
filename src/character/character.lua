@@ -53,14 +53,14 @@ end
 function Character:newFemale(character_image_file, x_pos, y_pos, displacement, stance_change_time)
 
     character_image_file = "tiles/Characters/Females/" .. character_image_file .. ".png"
-    return Character:new(character_image_file, x_pos*16, y_pos*16, 16, 17, displacement or 4, stance_change_time or .05)
+    return Character:new(character_image_file, bit.lshift(x_pos, 4), bit.lshift(y_pos, 4), 16, 17, displacement or 4, stance_change_time or .05)
 
 end
 
 function Character:newMale(character_image_file, x_pos, y_pos, displacement, stance_change_time)
 
     character_image_file = "tiles/Characters/Males/" .. character_image_file .. ".png"
-    return Character:new(character_image_file, x_pos*16, y_pos*16, 16, 17, displacement or 4, stance_change_time or .05)
+    return Character:new(character_image_file, bit.lshift(x_pos, 4), bit.lshift(y_pos, 4), 16, 17, displacement or 4, stance_change_time or .05)
 
 end
 

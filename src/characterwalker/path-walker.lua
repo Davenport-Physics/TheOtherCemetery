@@ -64,9 +64,8 @@ end
 
 function PathWalker:ResetIfIterationFinished()
 
-    for i = 1, #self.point_made do
-        self.point_made[i] = false
-    end
+    self.idx = 1
+    self:Init()
 
 end
 
