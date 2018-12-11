@@ -8,6 +8,7 @@ function PathWalker:new(char, walker_instructions)
     obj.char = char
     obj.walker_instructions = walker_instructions
     obj.point_threshold     = walker_instructions.threshold or 1
+    obj.cycle               = walker_instructions.cycle or false
     obj.debug               = walker_instructions.debug or false
     obj.idx                 = 1
     obj:Init()
@@ -61,10 +62,28 @@ function PathWalker:SetNewWalkStanceX(old_pos, new_pos)
 
 end
 
+function PathWalker:ResetIfIterationFinished()
+
+    for i = 1, #self.point_made do
+        self.point_made[i] = false
+    end
+
+end
+
+function PathWalker:SetFlagsOrReset()
+
+    if not self.cycle then
+        self.is_done_walking = true
+    else
+        self:ResetIfIterationFinished()
+    end
+
+end
+
 function PathWalker:CalculateNextWalkOrQuit(idx)
 
     if (idx + 1) > #self.path then
-        self.is_done_walking = true
+        self:SetFlagsOrReset()
         return
     end
     if self.path[idx+1].y ~= self.path[idx].y then
