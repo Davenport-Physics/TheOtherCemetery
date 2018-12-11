@@ -39,13 +39,13 @@ DoorHandler:ToggleDoor(7, false)
 local NPCs =
 {
 
-    CharacterClass:newMale("M_05", 33, 62, 4, .05),    -- Key Person
-    CharacterClass:newFemale("F_08", 30, 43, 4, .05),  -- Going To Work
-    CharacterClass:newFemale("F_07", 33, 43, 4, .05),  -- Kid Going To School
-    CharacterClass:newFemale("F_05", 39, 43, 4, .05),  -- Lady turning
-    CharacterClass:newFemale("F_03", 41, 46, 4, .05),  -- Couple Bickering
-    CharacterClass:newFemale("F_10", 42, 46, 4, .05),  -- Coupler Bickering
-    CharacterClass:newMale("M_01", 63, 64, 4, .05)     -- Kid running around
+    CharacterClass:newMale("M_05", 33, 62, 4, .06),    -- Key Person
+    CharacterClass:newFemale("F_08", 30, 43, 4, .06),  -- Going To Work
+    CharacterClass:newFemale("F_07", 33, 43, 4, .06),  -- Kid Going To School
+    CharacterClass:newFemale("F_05", 39, 43, 4, .06),  -- Lady turning
+    CharacterClass:newFemale("F_03", 41, 46, 4, .06),  -- Couple Bickering
+    CharacterClass:newFemale("F_10", 42, 46, 4, .06),  -- Coupler Bickering
+    CharacterClass:newMale("M_01", 63, 64, 4, .06)     -- Kid running around
 
 }
 NPCs[1]:FaceLeft()

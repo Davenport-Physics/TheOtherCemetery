@@ -215,6 +215,7 @@ function Character:DoesCharacterCollide(new_x, new_y)
 
 end
 
+local sformat = function(num) return tonumber(string.format("%.3f", num)) end
 function Character:DisplaceCharacterAlongXWithCollisionCheck(displace_x)
 
     local temp_x
@@ -225,7 +226,7 @@ function Character:DisplaceCharacterAlongXWithCollisionCheck(displace_x)
     for dis = displace_x, 0, increment do
         temp_x = x_mid + dis
         if not self:DoesCharacterCollide(temp_x, self.y_pos + self.height) then
-            self.x_pos = self.x_pos + dis;
+            self.x_pos = sformat(self.x_pos + dis)
             self.distance_walked_currently = self.distance_walked_currently + dis
             break;
         end
@@ -243,7 +244,7 @@ function Character:DisplaceCharacterAlongYWithCollisionCheck(displace_y)
     for dis = displace_y, 0, increment do
         temp_y = self.y_pos + self.height + dis
         if not self:DoesCharacterCollide(x_mid, temp_y) then
-            self.y_pos = self.y_pos + dis
+            self.y_pos = sformat(self.y_pos + dis)
             self.distance_walked_currently = self.distance_walked_currently + dis
             break
         end
@@ -439,7 +440,7 @@ end
 
 function Character:MakeMinisculeDisplacement()
 
-    local mini_displacement = tonumber(string.format("%.3f", self.displacement*(love.timer.getDelta()/self.stance_change_time)))
+    local mini_displacement = sformat(self.displacement*(love.timer.getDelta()/self.stance_change_time))
     if self.direction == DIRECTION.UP then
         self:DisplaceCharacterAlongYWithCollisionCheck(-mini_displacement)
     elseif self.direction == DIRECTION.DOWN then
