@@ -18,9 +18,9 @@ Settings.Window_Width         = love.graphics.getWidth()
 Settings.Window_Height        = love.graphics.getHeight()
 Settings.Window_Width_old     = Settings.Window_Width
 Settings.Window_Height_old    = Settings.Window_Height_old
-Settings.Scale                = 3 * (Settings.Window_Height/Settings.Window_Width)*(600/800)
-Settings.Scale_x              = 3 * (love.graphics.getWidth()/800)
-Settings.Scale_y              = 3 * (love.graphics.getHeight()/600)
+Settings.Scale                = 3 * (Settings.Window_Height/Settings.Window_Width)*(.75)
+Settings.Scale_x              = 3 * (love.graphics.getWidth()*0.00125)
+Settings.Scale_y              = 3 * (love.graphics.getHeight()*0.00166666666)
 Settings.GlobalScaleOn        = true
 Settings.X_Canvas_Translation = 0
 Settings.Y_Canvas_Translation = 0
@@ -49,9 +49,9 @@ function Settings.UpdateScale()
 
         Settings.Window_Width_old  = Settings.Window_Width
         Settings.Window_Height_old = Settings.Window_Height
-        Settings.Scale_x = 3 * (love.graphics.getWidth()/800)
-        Settings.Scale_y = 3 * (love.graphics.getHeight()/600)
-        Settings.Scale   = 3 * (Settings.Window_Height/Settings.Window_Width)*(800/600)
+        Settings.Scale_x = 3 * (love.graphics.getWidth()*0.00125)
+        Settings.Scale_y = 3 * (love.graphics.getHeight()*0.00166666666)
+        Settings.Scale   = 3 * (Settings.Window_Height/Settings.Window_Width)*1.33333333333
 
     end
 
