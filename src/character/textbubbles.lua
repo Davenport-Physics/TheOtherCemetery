@@ -68,12 +68,8 @@ end
 
 function TextBubble:AddNewCharacterIfPossible()
 
-    if #self.text == nil then return end
     if #self.text_drawn == #self.text then
         return
-    end
-    if #self.text_drawn > #self.text then
-        self.text_drawn = ""
     end
     self.text_drawn = self.text_drawn .. self.text:sub(#self.text_drawn+1, #self.text_drawn+1)
 
