@@ -147,7 +147,7 @@ function Update_StartMenu()
     UpdateBackgroundVideo()
     BackGroundScale_x = love.graphics.getWidth()/BackgroundVideo:getWidth()
     BackGroundScale_y = love.graphics.getHeight()/BackgroundVideo:getHeight()
-    Buttons.NewGame.x_pos  = bit.rshift(love.graphics.getWidth(), 1) - (275)
+    Buttons.NewGame.x_pos  = bit.rshift(love.graphics.getWidth(), 1) - (325)
     Buttons.LoadGame.x_pos = Buttons.NewGame.x_pos  + 175
     Buttons.Credits.x_pos  = Buttons.LoadGame.x_pos + 175
     Buttons.Options.x_pos  = Buttons.Credits.x_pos  + 175

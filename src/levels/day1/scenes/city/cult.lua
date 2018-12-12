@@ -27,7 +27,7 @@ BackgroundWindSound:setLooping(true)
 BackgroundDeadSound:setVolume(Settings.MasterVolume * Settings.MusicVolume)
 
 local EntityOutsideHouse = EntityClass:newMinimal(49*16, 63*16)
-local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 49*16, 61*16, 16, 17, 9, .075); Henry:WalkDown();
+local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 49*16, 61*16, 16, 17, 9, .075); Henry:FaceDown();
 local NPCs  =
 {
 
@@ -66,6 +66,7 @@ local ShiftActiveWorldDT    = 2
 
 local function DrawTextFromCultOutside()
 
+    if DataToSave["Day1Events"].HasSeenCultOutsideHouse then return end
     if DialogFromTextCultOutside:IsFinished() then
         return
     end
@@ -75,6 +76,7 @@ end
 
 local function DrawWhatTheTextIfPossible()
 
+    if DataToSave["Day1Events"].HasSeenCultOutsideHouse then return end
     if WhatTheTimer == nil then return end
     if WhatTheTimer > love.timer.getTime() then
         WhatTheText:Draw()
@@ -87,6 +89,7 @@ end
 
 local function CultOutsideLogic()
 
+    if DataToSave["Day1Events"].HasSeenCultOutsideHouse then return end
     if DialogFromTextCultOutside:IsFinished() and ShiftActiveWorldTimer == nil then
         ActiveWorld = DeadWorld
         ShiftActiveWorldTimer = love.timer.getTime() + ShiftActiveWorldDT
@@ -97,6 +100,7 @@ end
 
 local function ShiftBackToNormalWorld()
 
+    if DataToSave["Day1Events"].HasSeenCultOutsideHouse then return end
     if ShiftActiveWorldTimer == nil then return end
     if love.timer.getTime() >= ShiftActiveWorldTimer then
 
@@ -106,6 +110,7 @@ local function ShiftBackToNormalWorld()
             NPCs[i]:AllowDrawing(false)
         end
         World:SetEntityToTrackForCamera(Henry)
+        World:GiveCharactersMapCollisionObjects()
         BackgroundSound:play()
         BackgroundWindSound:stop()
         BackgroundDeadSound:stop()
@@ -124,6 +129,8 @@ local function CultOutsideHouseUpdate()
                 NPCs[i]:AllowDrawing(false)
             end
             World:SetHandleInputCallback(nil)
+            World:SetEntityToTrackForCamera(Henry)
+            World:GiveCharactersMapCollisionObjects()
         end
         return
     end
