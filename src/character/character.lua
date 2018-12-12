@@ -234,7 +234,7 @@ end
 
 function Character:DisplaceCharacterAlongYWithCollisionCheck(displace_y)
 
-    local increment    = .1
+    local increment    = .05
     local x_mid = self:GetCenterPosition()
 
     if displace_y > 0 then increment = -.05 end
