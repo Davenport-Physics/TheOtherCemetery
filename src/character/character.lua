@@ -218,10 +218,10 @@ end
 local sformat = function(num) return tonumber(string.format("%.3f", num)) end
 function Character:DisplaceCharacterAlongXWithCollisionCheck(displace_x)
 
-    local increment    = .05
+    local increment    = .1
     local x_mid = self:GetCenterPosition()
 
-    if displace_x > 0 then increment = -.05 end
+    if displace_x > 0 then increment = -.1 end
     for dis = displace_x, 0, increment do
         if not self:DoesCharacterCollide(x_mid + dis, self.y_pos + self.height) then
             self.x_pos = sformat(self.x_pos + dis)
@@ -234,10 +234,10 @@ end
 
 function Character:DisplaceCharacterAlongYWithCollisionCheck(displace_y)
 
-    local increment    = .05
+    local increment    = .1
     local x_mid = self:GetCenterPosition()
 
-    if displace_y > 0 then increment = -.05 end
+    if displace_y > 0 then increment = -.1 end
     for dis = displace_y, 0, increment do
         if not self:DoesCharacterCollide(x_mid, self.y_pos + self.height + dis) then
             self.y_pos = sformat(self.y_pos + dis)
