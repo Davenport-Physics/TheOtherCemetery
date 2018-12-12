@@ -409,12 +409,15 @@ local MiscNPCText =
 
 local function DrawMiscText()
 
+    if DataToSave["Day1Events"].WentToSchool then return end
     local IDX_MISC
     for i = 1, #MiscNPCText do
         IDX_MISC = MiscNPCText[i].NPC_IDX
+        if not NPCs[IDX_MISC].allow_drawing then goto skip end
         if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[IDX_MISC].x_pos, NPCs[IDX_MISC].y_pos, 100) then
             MiscNPCText[i].Text:Draw()
         end
+        ::skip::
     end
 
 end
@@ -433,6 +436,7 @@ local function StopDrawingNPCs()
     end
     NPCs[1]:AllowDrawing(false)
     NPCs[4]:AllowDrawing(false)
+    NPCs[7]:AllowDrawing(false)
 
 end
 

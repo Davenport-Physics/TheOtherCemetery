@@ -2,6 +2,7 @@ require("src/shared/cache")
 require("src/save/saving")
 local bit = require("bit")
 local ButtonClass = require("src/button/button")
+local DataToSave  = require("src/save/savingdata")
 
 local World = {}
 World.__index = World
@@ -49,7 +50,12 @@ function World:SetEscapeMenuObjects()
     self.escape_menu_quit_game  = ButtonClass:newWithoutImage(-100,-100, 1, 1, 0, 0)
     self.escape_menu_save_game:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
     self.escape_menu_quit_game:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
-    self.escape_menu_quit_game:SetCallback(function() self.escape_menu_active = false; self.Settings.GlobalScaleOn = true; love.event.push("startmenu"); end)
+    self.escape_menu_quit_game:SetCallback(function()
+        self.escape_menu_active = false
+        self.Settings.GlobalScaleOn = true
+        love.event.push("startmenu")
+        DataToSave.ResetValues()
+    end)
     self.escape_menu_save_game:SetCallback(function() StoreSaveData(); self.escape_menu_active = false; self.Settings.GlobalScaleOn = true; end)
 
 end
