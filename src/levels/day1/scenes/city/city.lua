@@ -398,52 +398,30 @@ local function DrawHenryStopTextBubblesIfPossible()
 
 end
 
-local KeyNPCText = TextBubbleClass:newSpeaking(NPCs[1], "What is wrong ... OPEN!")
-local function DrawKeyNPCTextIfPossible()
+local MiscNPCText =
+{
+    {NPC_IDX = 1, Text = TextBubbleClass:newSpeaking(NPCs[1], "What is wrong ... OPEN!")},
+    {NPC_IDX = 2, Text = TextBubbleClass:newSpeaking(NPCs[2], "NEED COFFEE")},
+    {NPC_IDX = 3, Text = TextBubbleClass:newSpeaking(NPCs[3], "Gahh, I'm going to be late!")},
+    {NPC_IDX = 4, Text = TextBubbleClass:newSpeaking(NPCs[4], "You and your mom are \nspecial.")},
+    {NPC_IDX = 7, Text = TextBubbleClass:newSpeaking(NPCs[7], "Today is a special day!")}
+};
 
-    if not NPCs[1].allow_drawing then return end
-    if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[1].x_pos, NPCs[1].y_pos, 100) then
-        KeyNPCText:Draw()
-    end
+local function DrawMiscText()
 
-end
-
-local AdultGoingToWorkText = TextBubbleClass:newSpeaking(NPCs[2], "NEED COFFEE")
-local function DrawAdultTextIfPossible()
-
-    if not NPCs[2].allow_drawing then return end
-    if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[2].x_pos, NPCs[2].y_pos, 100) then
-        AdultGoingToWorkText:Draw()
-    end
-
-end
-
-local KidNPCText = TextBubbleClass:newSpeaking(NPCs[3], "Gahh, I'm going to be late!")
-local function DrawKidNPCTextIfPossible()
-
-    if not NPCs[3].allow_drawing then return end
-    if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[3].x_pos, NPCs[3].y_pos, 100) then
-        KidNPCText:Draw()
-    end
-
-end
-
-local CrazyNPCText = TextBubbleClass:newSpeaking(NPCs[4], "You and your mom are \nspecial.")
-local function DrawCrazyTextIfPossible()
-
-    if not NPCs[4].allow_drawing then return end
-    if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[4].x_pos, NPCs[4].y_pos, 48) then
-        CrazyNPCText:Draw()
+    local IDX_MISC
+    for i = 1, #MiscNPCText do
+        IDX_MISC = MiscNPCText[i].NPC_IDX
+        if Shared.IsNear(Henry.x_pos, Henry.y_pos, NPCs[IDX_MISC].x_pos, NPCs[IDX_MISC].y_pos, 100) then
+            MiscNPCText[i].Text:Draw()
+        end
     end
 
 end
 
 local function DrawNPCTextIfPossible()
 
-    DrawKeyNPCTextIfPossible()
-    DrawAdultTextIfPossible()
-    DrawKidNPCTextIfPossible()
-    DrawCrazyTextIfPossible()
+    DrawMiscText()
 
 end
 
