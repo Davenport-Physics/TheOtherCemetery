@@ -45,6 +45,7 @@ local DeadWorld = WorldClass:new(DeadMap, NPCs, Henry, DeadMap:GetCollisionObjec
 World:SetEntityToTrackForCamera(EntityOutsideHouse)
 World:SetTimeCycle("Night")
 DeadWorld:SetEntityToTrackForCamera(EntityOutsideHouse)
+World:TogglePlayerLighting(true)
 World:SetHandleInputCallback(function() end)
 DeadWorld:SetHandleInputCallback(function() end)
 
@@ -79,7 +80,7 @@ local function DrawWhatTheTextIfPossible()
         WhatTheText:Draw()
     else
         WhatTheTimer = nil
-        transition   = {"src/levels/day1/scenes/transitions/betaending"}
+        --transition   = {"src/levels/day1/scenes/transitions/betaending"}
     end
 
 end
