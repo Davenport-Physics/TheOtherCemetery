@@ -170,7 +170,7 @@ function Button:Draw()
         if self:CheckForMouseCollision() then
             self:DrawRectangleWithFilterIfPossible()
         end
-        return 
+        return
     end
     if self:CheckForMouseCollision() then
         self:DrawWithFilter()

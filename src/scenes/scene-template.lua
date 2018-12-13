@@ -18,7 +18,7 @@ local Map        = TiledMapClass:new(require("src/levels/day1/maps/school/butche
 
 local NPCs = {}
 
-local Henry = CharacterClass:new("tiles/Characters/Males/M_08.png", 5*16, 7*16, 16, 17, 9, .075); Henry:FaceUp();
+local Henry = CharacterClass:newMale("M_08", 5, 7, 9, .075); Henry:FaceUp();
 local World = WorldClass:new(Map, NPCs, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)
 
