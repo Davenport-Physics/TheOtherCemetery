@@ -25,8 +25,9 @@ function InsultScene.new(map, player, enemy)
     setmetatable(obj, InsultScene)
     obj.InitChars(player, enemy)
     obj.InitWorld(map)
-    obj.menu_active   = true
-    obj.in_categories = true
+    obj.menu_active      = true
+    obj.in_categories    = true
+    obj.active_categorie = 1
 
     return obj
 
@@ -73,7 +74,21 @@ function InsultScene:DrawBanter()
 
 end
 
+function InsultScene:DrawInsults()
+
+end
+
+function InsultScene:DrawCategories()
+
+end
+
 function InsultScene:DrawMenu()
+
+    if self.in_categories then
+        self:DrawCategories()
+    else
+        self:DrawInsults()
+    end
 
 end
 
