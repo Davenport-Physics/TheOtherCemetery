@@ -179,4 +179,8 @@ function InsultScene:DrawText()
 
 end
 
+function InsultScene:HandleInput()
+
+end
+
 return InsultScene
