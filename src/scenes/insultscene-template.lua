@@ -62,7 +62,7 @@ function InsultScene:InitButtons()
     self.category_buttons = {}
     self.buttons          = {}
     for i = 1, #self.playerinsults do
-        self.category_buttons[self.playerinsults[i].category] = ButtonClass::newWithoutImage(0, 0, self.menu_width_half, self.menu_height_half)
+        self.category_buttons[self.playerinsults[i].category] = ButtonClass:newWithoutImage(0, 0, self.menu_width_half, self.menu_height_half)
         self.buttons[self.playerinsults[i].category] = {}
         for j = 1, #self.playerinsults[i] do
             self.buttons[self.playerinsults[i].category][j] = ButtonsClass:newWithoutImage(0, 0, self.menu_width_half, self.menu_height_half)
@@ -264,7 +264,7 @@ end
 
 function InsultScene:ButtonInputHandler()
 
-    self.buttons == nil then return end
+    if self.buttons == nil then return end
     if self.in_categories then
 
         self:ButtonCategoryHandler()
