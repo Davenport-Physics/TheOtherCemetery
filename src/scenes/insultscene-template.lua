@@ -29,7 +29,7 @@ function InsultScene.new(map, player, enemy)
     obj.InitWorld(map)
     obj.menu_active       = true
     obj.in_categories     = true
-    obj.active_category  = 1
+    obj.active_category   = 1
     obj.current_scale     = Settings.Scale
     obj.fontsize          = 8 * Settings.Scale
     obj.font              = love.graphics.newFont(self.fontsize)
@@ -62,10 +62,10 @@ function InsultScene:InitButtons()
     self.category_buttons = {}
     self.buttons          = {}
     for i = 1, #self.playerinsults do
-        self.category_buttons[self.playerinsults[i].category] = ButtonClass::newWithoutImage(0, 0, 0, 0)
+        self.category_buttons[self.playerinsults[i].category] = ButtonClass::newWithoutImage(0, 0, self.menu_width_half, self.menu_height_half)
         self.buttons[self.playerinsults[i].category] = {}
         for j = 1, #self.playerinsults[i] do
-            self.buttons[self.playerinsults[i].category][j] = ButtonsClass:newWithoutImage(0, 0, 0, 0)
+            self.buttons[self.playerinsults[i].category][j] = ButtonsClass:newWithoutImage(0, 0, self.menu_width_half, self.menu_height_half)
         end
     end
 
@@ -91,10 +91,12 @@ function InsultScene:UpdateButtonPos()
     local x, y
     for i = 1, #self.playerinsults do
         x, y = self:CalcButtonPos(i)
-        self.category_buttons[self.playerinsults[i].category] = ButtonClass::newWithoutImage(x, y, self.menu_width_half, self.menu_height_half)
+        self.category_buttons[self.playerinsults[i].category].x = x
+        self.category_buttons[self.playerinsults[i].category].y = y
         for j = 1, #self.playerinsults[i] do
             x, y = self:CalcButtonPos(j)
-            self.buttons[self.playerinsults[i].category][j] = ButtonsClass:newWithoutImage(x, y, self.menu_width_half, self.menu_height_half)
+            self.buttons[self.playerinsults[i].category][j].x = x
+            self.buttons[self.playerinsults[i].category][j].y = y
         end
     end
 
@@ -159,16 +161,16 @@ end
 
 function InsultScene:GetMenuLocation()
 
-    local x = Settings.X_Canvas_Translation + (self.menu_entity.x_pos)*Settings.Scale
-    local y = Settings.Y_Canvas_Translation + (self.menu_entity.y_pos)*Settings.Scale
+    local x = Settings.X_Canvas_Translation + (self.menu_entity.x_pos) * Settings.Scale
+    local y = Settings.Y_Canvas_Translation + (self.menu_entity.y_pos) * Settings.Scale
     return x, y
 
 end
 
 function InsultScene:GetTextLocation(idx, row)
 
-    local tempx = (idx - 1) * bit.rshift(self.menu_image:getWidth(), 1) + x  + 16 * idx
-    local tempy = (row - 1) * bit.rshift(self.menu_image:getHeight(), 1) + y + 16 * idx
+    local tempx = (idx - 1) * self.menu_width_half  + x + 16 * idx
+    local tempy = (row - 1) * self.menu_height_half + y + 16 * idx
     return tempx, tempy
 
 end
@@ -240,7 +242,45 @@ function InsultScene:DrawText()
 
 end
 
+function InsultScene:ButtonCategoryHandler()
+
+    for i = 1, #self.category_buttons do
+        self.category_buttons[self.playerinsults[i].category]:HandleMouseClick()
+    end
+
+end
+
+function InsultScene:ButtonSubCategoryHandler()
+
+    for i = 1, #self.buttons[self.playerinsults[self.active_category].category] do
+        self.buttons[self.playerinsults[self.active_category].category][i]:HandleMouseClick()
+    end
+
+end
+
+function InsultScene:ButtonBackHandler()
+
+end
+
+function InsultScene:ButtonInputHandler()
+
+    self.buttons == nil then return end
+    if self.in_categories then
+
+        self:ButtonCategoryHandler()
+
+    else
+
+        self:ButtonSubCategoryHandler()
+        self:ButtonBackHandler()
+
+    end
+
+end
+
 function InsultScene:HandleInput()
+
+    self:ButtonInputHandler()
 
 end
 
