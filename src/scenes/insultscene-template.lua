@@ -169,6 +169,7 @@ end
 
 function InsultScene:GetTextLocation(idx, row)
 
+    local x, y  = self:GetMenuLocation()
     local tempx = (idx - 1) * self.menu_width_half  + x + 16 * idx
     local tempy = (row - 1) * self.menu_height_half + y + 16 * idx
     return tempx, tempy
@@ -184,8 +185,7 @@ function InsultScene:DrawInsults()
     love.graphics.setFont(self.font)
 
     local tempx, tempy
-    local x, y         = self:GetMenuLocation()
-    local row          = 1
+    local row = 1
     for i = 1, #self.playerinsults do
 
         tempx, tempy = self:GetTextLocation(i, row)
@@ -200,8 +200,7 @@ function InsultScene:DrawCategories()
     love.graphics.setFont(self.font)
 
     local tempx, tempy
-    local x, y         = self:GetMenuLocation()
-    local row          = 1
+    local row = 1
     for i = 1, #self.playerinsults do
 
         tempx, tempy = self:GetTextLocation(i, row)
