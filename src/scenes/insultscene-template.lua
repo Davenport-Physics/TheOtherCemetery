@@ -6,6 +6,7 @@ local TiledMapClass   = require("src/map/tiledmap")
 local WalkerClass     = require("src/characterwalker/walker-generic")
 local TextBubbleClass = require("src/character/textbubbles")
 local DialogClass     = require("src/dialog/dialog")
+local ButtonClass     = require("src/button/button")
 local bit             = require("bit")
 
 local function GetCharacterInitializer(char)
@@ -53,6 +54,52 @@ function InsultScene:InitWorld(map)
 
 end
 
+function InsultScene:InitButtons()
+
+    if self.menu_image == nil then return end
+    if self.playerinsults == nil then return end
+
+    self.category_buttons = {}
+    self.buttons          = {}
+    for i = 1, #self.playerinsults do
+        self.category_buttons[self.playerinsults[i].category] = ButtonClass::newWithoutImage(0, 0, 0, 0)
+        self.buttons[self.playerinsults[i].category] = {}
+        for j = 1, #self.playerinsults[i] do
+            self.buttons[self.playerinsults[i].category][j] = ButtonsClass:newWithoutImage(0, 0, 0, 0)
+        end
+    end
+
+end
+
+function InsultScene:CalcButtonPos(idx)
+
+    local x, y = self:GetMenuLocation()
+
+    if idx%2 == 0 then
+        x = x + self.menu_width_half
+    end
+
+    if math.ceil(idx*.333) >= 1 then
+        y = y + self.menu_height_half
+    end
+    return x, y
+
+end
+
+function InsultScene:UpdateButtonPos()
+
+    local x, y
+    for i = 1, #self.playerinsults do
+        x, y = self:CalcButtonPos(i)
+        self.category_buttons[self.playerinsults[i].category] = ButtonClass::newWithoutImage(x, y, self.menu_width_half, self.menu_height_half)
+        for j = 1, #self.playerinsults[i] do
+            x, y = self:CalcButtonPos(j)
+            self.buttons[self.playerinsults[i].category][j] = ButtonsClass:newWithoutImage(x, y, self.menu_width_half, self.menu_height_half)
+        end
+    end
+
+end
+
 function InsultScene:SetInsults(playerinsults, enemyinsults)
 
     --insults -> categories -> insult and ranking
@@ -77,8 +124,20 @@ end
 
 function InsultScene:SetMenuEntity(menu_entity)
 
-    self.menu_entity = menu_entity
-    self.menu_image  = getImageFromCache("pics/share/text/TextBoxes.png")
+    self.menu_entity      = menu_entity
+    self.menu_image       = getImageFromCache("pics/share/text/TextBoxes.png")
+    self.menu_width_half  = bit.rshift(self.menu_image:getWidth(), 1)
+    self.menu_height_half = bit.rshift(self.menu_image:getHeight(), 1)
+
+end
+
+function InsultScene:SetButtons()
+
+    if self.buttons == nil then
+        self:InitButtons()
+        return
+    end
+    self:UpdateButtonPos()
 
 end
 
@@ -153,8 +212,10 @@ end
 function InsultScene:DrawBackgroundForMenu()
 
     if self.menu_entity == nil then
+
         print("Background menu_entity never set")
         return
+
     end
     local x, y = self:GetMenuLocation()
     love.graphics.draw(self.menu_image, x, y, 0, Settings.Scale, Settings.Scale)
@@ -180,6 +241,12 @@ function InsultScene:DrawText()
 end
 
 function InsultScene:HandleInput()
+
+end
+
+function InsultScene:Update()
+
+    self:SetButtons()
 
 end
 
