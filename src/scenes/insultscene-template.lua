@@ -11,7 +11,7 @@ local bit             = require("bit")
 
 local function GetCharacterInitializer(char)
 
-    if char.name[1] == "m" then
+    if string.sub(char.name, 1, 1) == "M" then
         return CharacterClass.newMale
     end
     return CharacterClass.newFemale
@@ -25,15 +25,16 @@ function InsultScene.new(map, player, enemy)
 
     local obj = {}
     setmetatable(obj, InsultScene)
-    obj.InitChars(player, enemy)
-    obj.InitWorld(map)
+    obj:InitChars(player, enemy)
+    obj:InitWorld(map)
     obj.menu_active       = true
     obj.in_categories     = true
     obj.active_category   = 1
     obj.current_scale     = Settings.Scale
     obj.fontsize          = 8 * Settings.Scale
-    obj.font              = love.graphics.newFont(self.fontsize)
+    obj.font              = love.graphics.newFont(obj.fontsize)
     obj.time_to_next_char = nil
+    obj.transition        = false
     obj.font:setFilter("linear", "nearest", 16)
 
     return obj
@@ -44,14 +45,16 @@ function InsultScene:InitChars(player, enemy)
 
     self.player = GetCharacterInitializer(player)(CharacterClass, player.name,  player.x_pos, player.y_pos, 9, .075)
     self.enemy  = GetCharacterInitializer(enemy)(CharacterClass, enemy.name,  enemy.x_pos, enemy.y_pos, 9, .075)
+    self.player:FaceLeft()
+    self.enemy:FaceRight()
 
 end
 
 function InsultScene:InitWorld(map)
 
-    self.mapdata = TiledMapClass:new(map)
+    self.mapdata = TiledMapClass:new(require(map))
     self.world   = WorldClass:new(self.mapdata, {self.enemy}, self.player, self.mapdata:GetCollisionObjects())
-
+ 
 end
 
 function InsultScene:InitButtons()
@@ -63,6 +66,7 @@ function InsultScene:InitButtons()
     self.buttons          = {}
     for i = 1, #self.playerinsults do
         self.category_buttons[self.playerinsults[i].category] = ButtonClass:newWithoutImage(0, 0, self.menu_width_half, self.menu_height_half)
+        self.category_buttons[self.playerinsults[i].category]:SetCallback(function() self.active_category = i end)
         self.buttons[self.playerinsults[i].category] = {}
         for j = 1, #self.playerinsults[i] do
             self.buttons[self.playerinsults[i].category][j] = ButtonsClass:newWithoutImage(0, 0, self.menu_width_half, self.menu_height_half)
@@ -167,11 +171,20 @@ function InsultScene:GetMenuLocation()
 
 end
 
+local function SecondRowOffset(row)
+
+    if row == 2 then
+        return -1
+    end
+    return 0
+
+end
+
 function InsultScene:GetTextLocation(idx, row)
 
     local x, y  = self:GetMenuLocation()
-    local tempx = (idx - 1) * self.menu_width_half  + x + 16 * idx
-    local tempy = (row - 1) * self.menu_height_half + y + 16 * idx
+    local tempx = (idx - row + SecondRowOffset(row)) * self.menu_width_half * Settings.Scale + x + 16
+    local tempy = (row - 1) * self.menu_height_half * Settings.Scale + y
     return tempx, tempy
 
 end
@@ -188,6 +201,9 @@ function InsultScene:DrawInsults()
     local row = 1
     for i = 1, #self.playerinsults do
 
+        if row ~= 2 and i > 2 then
+            row = 2
+        end
         tempx, tempy = self:GetTextLocation(i, row)
         love.graphics.print({{0,0,0,1}, self.playerinsults[self.active_category].insults[i]}, tempx, tempy)
 
@@ -203,6 +219,9 @@ function InsultScene:DrawCategories()
     local row = 1
     for i = 1, #self.playerinsults do
 
+        if row ~= 2 and i > 2 then
+            row = 2
+        end
         tempx, tempy = self:GetTextLocation(i, row)
         love.graphics.print({{0,0,0,1}, self.playerinsults[i].category}, tempx, tempy)
 
@@ -286,6 +305,12 @@ end
 function InsultScene:Update()
 
     self:SetButtons()
+
+end
+
+function InsultScene:CanTransition()
+
+    return self.transition
 
 end
 
