@@ -163,6 +163,12 @@ function InsultScene:Draw()
 
 end
 
+function InsultScene:GetMenuLocationNoTranslation()
+
+    return (self.menu_entity.x_pos) * Settings.Scale, (self.menu_entity.y_pos) * Settings.Scale
+
+end
+
 function InsultScene:GetMenuLocation()
 
     local x = Settings.X_Canvas_Translation + (self.menu_entity.x_pos) * Settings.Scale
