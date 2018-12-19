@@ -65,11 +65,11 @@ function InsultScene:InitButtons()
     self.category_buttons = {}
     self.buttons          = {}
     for i = 1, #self.playerinsults do
-        self.category_buttons[self.playerinsults[i].category] = ButtonClass:newWithoutImage(0, 0, self.menu_width_half, self.menu_height_half)
+        self.category_buttons[self.playerinsults[i].category] = ButtonClass:newWithoutImage(0, 0, self.menu_width_half_scale, self.menu_height_half_scale)
         self.category_buttons[self.playerinsults[i].category]:SetCallback(function() self.active_category = i end)
         self.buttons[self.playerinsults[i].category] = {}
         for j = 1, #self.playerinsults[i] do
-            self.buttons[self.playerinsults[i].category][j] = ButtonsClass:newWithoutImage(0, 0, self.menu_width_half, self.menu_height_half)
+            self.buttons[self.playerinsults[i].category][j] = ButtonsClass:newWithoutImage(0, 0, self.menu_width_half_scale, self.menu_height_half_scale)
         end
     end
 
@@ -93,14 +93,20 @@ end
 function InsultScene:UpdateButtonPos()
 
     local x, y
+    local w_s, h_s = self.menu_width_half  * Settings.Scale, self.menu_height_half * Settings.Scale
+
+    local function SetParameters(button)
+        button.x_pos  = x
+        button.y_pos  = y
+        button.width  = w_s
+        button.height = h_s
+    end
     for i = 1, #self.playerinsults do
         x, y = self:CalcButtonPos(i)
-        self.category_buttons[self.playerinsults[i].category].x = x
-        self.category_buttons[self.playerinsults[i].category].y = y
+        SetParameters(self.category_buttons[self.playerinsults[i].category])
         for j = 1, #self.playerinsults[i] do
             x, y = self:CalcButtonPos(j)
-            self.buttons[self.playerinsults[i].category][j].x = x
-            self.buttons[self.playerinsults[i].category][j].y = y
+            SetParameters(self.buttons[self.playerinsults[i].category][j])
         end
     end
 
@@ -134,6 +140,8 @@ function InsultScene:SetMenuEntity(menu_entity)
     self.menu_image       = getImageFromCache("pics/share/text/TextBoxes.png")
     self.menu_width_half  = bit.rshift(self.menu_image:getWidth(), 1)
     self.menu_height_half = bit.rshift(self.menu_image:getHeight(), 1)
+    self.menu_width_half_scale  = self.menu_width_half  * Settings.Scale
+    self.menu_height_half_scale = self.menu_height_half * Settings.Scale
 
 end
 
