@@ -280,8 +280,6 @@ function InsultScene:DrawButtonOutlines()
 
     if self.in_categories then
         drawoutlines(self.category_buttons)
-    else
-        drawoutlines(self.buttons)
     end
 
 end
@@ -296,8 +294,8 @@ end
 
 function InsultScene:ButtonCategoryHandler()
 
-    for i = 1, #self.category_buttons do
-        self.category_buttons[self.playerinsults[i].category]:HandleMouseClick()
+    for idx, value in pairs(self.category_buttons) do
+        value:HandleMouseClick()
     end
 
 end

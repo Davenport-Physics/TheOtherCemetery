@@ -80,7 +80,7 @@ end
 function Button:IsBetweenRange(value, low, high)
 
     if self.debug then
-        print(low .. " " .. value .. " " .. high)
+        --print(low .. " " .. value .. " " .. high)
     end
     if value >= low and value <= high then return true end
     return false
@@ -148,7 +148,11 @@ end
 
 function Button:HandleMouseClick()
 
-    if love.mouse.isDown(1) and self:CheckForMouseCollision() then
+    if self.debug then
+        print("Handling click")
+    end
+    if self:CheckMouseClick() then
+        print("Handling click")
         self:PlayMouseClickSoundIfPossible()
         self:DoCallBackIfPossible()
     end
