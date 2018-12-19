@@ -67,9 +67,11 @@ function InsultScene:InitButtons()
     for i = 1, #self.playerinsults do
         self.category_buttons[self.playerinsults[i].category] = ButtonClass:newWithoutImage(0, 0, self.menu_width_half_scale, self.menu_height_half_scale)
         self.category_buttons[self.playerinsults[i].category]:SetCallback(function() self.active_category = i end)
+        self.category_buttons[self.playerinsults[i].category]:SetAlphaForFilter(.33)
         self.buttons[self.playerinsults[i].category] = {}
         for j = 1, #self.playerinsults[i] do
             self.buttons[self.playerinsults[i].category][j] = ButtonsClass:newWithoutImage(0, 0, self.menu_width_half_scale, self.menu_height_half_scale)
+            self.buttons[self.playerinsults[i].category][j]:SetAlphaForFilter(.33)
         end
     end
 
@@ -271,7 +273,7 @@ function InsultScene:DrawButtonOutlines()
 
     local function drawoutlines(buttons)
         for idx, value in pairs(buttons) do
-            value:DrawOutline()
+            value:Draw()
         end
     end
 
@@ -315,14 +317,10 @@ function InsultScene:ButtonInputHandler()
 
     if self.buttons == nil then return end
     if self.in_categories then
-
         self:ButtonCategoryHandler()
-
     else
-
         self:ButtonSubCategoryHandler()
         self:ButtonBackHandler()
-
     end
 
 end

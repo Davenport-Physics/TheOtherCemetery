@@ -48,6 +48,7 @@ function Button:InitializeButtonAttributes(image_file, x_pos, y_pos, scale_x, sc
     self.mouse_click_callback = mouse_click_callback or GenericCallBack
     self.sound_thread = nil
     self.next_callback = love.timer.getTime()
+    self.alpha = 1
     self.avoid_callback_timer = false
 
 end
@@ -61,6 +62,12 @@ end
 function Button:SetCallback(mouse_click_callback)
 
     self.mouse_click_callback = mouse_click_callback
+
+end
+
+function Button:SetAlphaForFilter(alpha)
+
+    self.alpha = alpha
 
 end
 
@@ -150,7 +157,7 @@ end
 
 function Button:DrawWithFilter()
 
-    love.graphics.setColor(.66, .66, .66, 1)
+    love.graphics.setColor(.66, .66, .66, self.alpha)
     love.graphics.draw(self.image, self.x_pos, self.y_pos, 0, self.scale_x, self.scale_y)
     love.graphics.setColor(1, 1, 1, 1)
 
@@ -158,7 +165,7 @@ end
 
 function Button:DrawRectangleWithFilterIfPossible()
 
-    love.graphics.setColor(.66, .66, .66, 1)
+    love.graphics.setColor(.66, .66, .66, self.alpha)
     love.graphics.rectangle("fill", self.x_pos, self.y_pos, self.image_width, self.image_height)
     love.graphics.setColor(1,1,1,1)
 
