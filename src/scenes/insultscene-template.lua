@@ -54,7 +54,7 @@ function InsultScene:InitWorld(map)
 
     self.mapdata = TiledMapClass:new(require(map))
     self.world   = WorldClass:new(self.mapdata, {self.enemy}, self.player, self.mapdata:GetCollisionObjects())
- 
+
 end
 
 function InsultScene:InitButtons()
@@ -80,11 +80,11 @@ function InsultScene:CalcButtonPos(idx)
     local x, y = self:GetMenuLocation()
 
     if idx%2 == 0 then
-        x = x + self.menu_width_half
+        x = x + self.menu_width_half * Settings.Scale
     end
 
-    if math.ceil(idx*.333) >= 1 then
-        y = y + self.menu_height_half
+    if idx*.333 >= .95 then
+        y = y + self.menu_height_half * Settings.Scale
     end
     return x, y
 
@@ -259,10 +259,27 @@ function InsultScene:DrawMenu()
 
 end
 
+function InsultScene:DrawButtonOutlines()
+
+    local function drawoutlines(buttons)
+        for idx, value in pairs(buttons) do
+            value:DrawOutline()
+        end
+    end
+
+    if self.in_categories then
+        drawoutlines(self.category_buttons)
+    else
+        drawoutlines(self.buttons)
+    end
+
+end
+
 function InsultScene:DrawText()
 
     self:DrawBanter()
     if self.menu_active then self:DrawMenu() end
+    if self.buttons ~= nil then self:DrawButtonOutlines() end
 
 end
 
