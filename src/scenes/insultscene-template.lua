@@ -65,13 +65,15 @@ function InsultScene:InitButtons()
     self.category_buttons = {}
     self.buttons          = {}
     for i = 1, #self.playerinsults do
-        self.category_buttons[self.playerinsults[i].category] = ButtonClass:newWithoutImage(0, 0, self.menu_width_half_scale, self.menu_height_half_scale)
-        self.category_buttons[self.playerinsults[i].category]:SetCallback(function() self.active_category = i end)
+        self.category_buttons[self.playerinsults[i].category] = ButtonClass:newWithoutImage(-1, -1, self.menu_width_half_scale, self.menu_height_half_scale)
+        self.category_buttons[self.playerinsults[i].category]:SetCallback(function() self.in_categories = false; self.active_category = i end)
         self.category_buttons[self.playerinsults[i].category]:SetAlphaForFilter(.33)
+        self.category_buttons[self.playerinsults[i].category]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
         self.buttons[self.playerinsults[i].category] = {}
         for j = 1, #self.playerinsults[i] do
-            self.buttons[self.playerinsults[i].category][j] = ButtonsClass:newWithoutImage(0, 0, self.menu_width_half_scale, self.menu_height_half_scale)
+            self.buttons[self.playerinsults[i].category][j] = ButtonsClass:newWithoutImage(-1, -1, self.menu_width_half_scale, self.menu_height_half_scale)
             self.buttons[self.playerinsults[i].category][j]:SetAlphaForFilter(.33)
+            self.buttons[self.playerinsults[i].category][j]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
         end
     end
 
@@ -96,7 +98,6 @@ function InsultScene:UpdateButtonPos()
 
     local x, y
     local w_s, h_s = self.menu_width_half  * Settings.Scale, self.menu_height_half * Settings.Scale
-
     local function SetParameters(button)
         button.x_pos  = x
         button.y_pos  = y
@@ -317,10 +318,14 @@ function InsultScene:ButtonInputHandler()
 
     if self.buttons == nil then return end
     if self.in_categories then
+
         self:ButtonCategoryHandler()
-    else
+
+    else 
+
         self:ButtonSubCategoryHandler()
         self:ButtonBackHandler()
+
     end
 
 end
