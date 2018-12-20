@@ -152,7 +152,6 @@ function Button:HandleMouseClick()
         print("Handling click")
     end
     if self:CheckMouseClick() then
-        print("Handling click")
         self:PlayMouseClickSoundIfPossible()
         self:DoCallBackIfPossible()
     end
