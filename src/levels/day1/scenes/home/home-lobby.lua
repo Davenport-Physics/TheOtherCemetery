@@ -24,7 +24,7 @@ local World = WorldClass:new(Map, {Anna}, Henry, Map:GetCollisionObjects())
 World:SetEntityToTrackForCamera(Henry)
 
 local BedroomDoor    = DoorClass:new(2*16, 5*16, 16, 16, "src/levels/day1/scenes/home/henry-bedroom-scene", 7*16, 4*16)
-local LeaveHouseDoor = DoorClass:new(2*16, 8*16, 2*16, 16, "src/levels/day1/scenes/example/example-insult", 49 * 16, 61 * 16)
+local LeaveHouseDoor = DoorClass:new(2*16, 8*16, 2*16, 16, "src/levels/day1/scenes/city/city", 49 * 16, 61 * 16)
 local LeaveHouseDoorAlternative = DoorClass:new(2*16, 8*16, 2*16, 16, "src/levels/day1/scenes/city/cult", 49 * 16, 61 * 16)
 
 local BackgroundSound = getSoundFromCache("sound/ambiance/home/home.mp3")

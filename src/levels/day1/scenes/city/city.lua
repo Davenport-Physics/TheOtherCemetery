@@ -1,4 +1,5 @@
 require("src/shared/cache")
+local bit = require("bit")
 local DataToSave = require("src/save/savingdata")
 local Shared     = require("src/shared/shared")
 local Scene = {}
@@ -31,7 +32,8 @@ local Doors =
     DoorClass:new(53 * 16, 37 * 16, 2*16, 16, "src/levels/day1/scenes/interiors/funeral", 8*16, 16*16),
     DoorClass:new(41 * 16, 59 * 16, 16, 16, "src/levels/day1/scenes/interiors/neighbour", 2*16, 7*16),
     DoorClass:new(19 * 16, 3 * 16, 2*16, 16, "src/levels/day1/scenes/school/butchery", 5*16, 7*16),
-    DoorClass:new(23 * 16, 59 * 16, 16, 16, "src/levels/day1/scenes/interiors/neighbour2", 2*16, 7*16)
+    DoorClass:new(23 * 16, 59 * 16, 16, 16, "src/levels/day1/scenes/interiors/neighbour2", 2*16, 7*16),
+    DoorClass:new(36 * 16, 41 * 16, 16, 16, "src/levels/day1/scenes/example/example-insult", 2*16, 7*16) -- Example Door
 }
 local DoorHandler = DoorsHandler:new(Doors, Henry)
 DoorHandler:ToggleDoor(7, false)
@@ -121,7 +123,7 @@ local transition = false
 local function CheckIfNearSchoolDoor()
 
     if SchoolBell ~= nil then return end
-    if math.sqrt((Henry.x_pos - 36 * 16)^2 + (Henry.y_pos - 5 * 16)^2) < 200 then
+    if math.sqrt((Henry.x_pos - bit.lshift(36, 4))^2 + (Henry.y_pos - bit.lshift(5, 4))^2) < 200 then
 
         SchoolBell = getSoundFromCache("sound/shorts/school-bell.wav")
         SchoolBell:setVolume(Settings.MasterVolume * Settings.MusicVolume)

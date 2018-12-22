@@ -296,10 +296,12 @@ end
 
 function love.errorhandler(msg)
 
-    local file = io:open("errors.txt", "a+")
-    file:write(tostring(msg) .. "\n")
-    file:close()
-    love.timer.sleep(1000)
+    if not Settings.BUILD then
+        local file = io:open("errors.txt", "a+")
+        file:write(tostring(msg) .. "\n")
+        file:close()
+        love.timer.sleep(1000)
+    end
 
 end
 
