@@ -254,9 +254,21 @@ function love.textinput(t)
 
 end
 
+local function TakeScreenShotIfNecessary(key)
+
+    if key == "p" then
+        love.graphics.captureScreenshot(os.time() .. ".png")
+    end
+
+end
+
+
 function love.keypressed(key)
 
     CONTEXT_FUNCTIONS[CURRENT_CONTEXT].KeyPressed(key)
+    if not Settings.BUILD then
+        TakeScreenShotIfNecessary(key)
+    end
 
 end
 
