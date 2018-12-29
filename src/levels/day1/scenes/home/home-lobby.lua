@@ -80,9 +80,9 @@ local function DrawTextFromAnna()
 
     if not DataToSave["Day1Events"].WentToSchool then
         LoveYouText:Draw()
-    elseif not SecondaryConversationStarted then
+    elseif not SecondaryConversationStarted and not DataToSave["Day1Events"].SpokeWithMomAfterSchool then
         SecondaryConversationStarted = true
-    elseif not DialogBetweenHenryAndMom:IsFinished() then
+    elseif not DialogBetweenHenryAndMom:IsFinished() and not DataToSave["Day1Events"].SpokeWithMomAfterSchool then
         DialogBetweenHenryAndMom:Draw()
         CheckIfSpeakingToMomShouldToggleSaveData()
     end
