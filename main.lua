@@ -306,16 +306,20 @@ function love.draw()
 
 end
 
+
 function love.errorhandler(msg)
 
-    if not Settings.BUILD then
-        local file = io:open("errors.txt", "a+")
-        file:write(tostring(msg) .. "\n")
-        file:close()
-        love.timer.sleep(1000)
+    return function()
+        if not Settings.BUILD then
+            local file = io:open("errors.txt", "a+")
+            file:write(tostring(msg) .. "\n")
+            file:close()
+            love.timer.sleep(1000)
+        end
     end
 
 end
+
 
 function love.quit()
 
