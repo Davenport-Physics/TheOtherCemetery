@@ -88,8 +88,6 @@ end
 
 function Map:Draw(x_pos, y_pos)
 
-    -- TODO implement x_pos, y_pos origin
-    -- Character should be as close to center as possible.
     local height
     local width
     for y = 1, #self.Map_Cache do
