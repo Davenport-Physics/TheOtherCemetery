@@ -52,7 +52,7 @@ DeadWorld:SetHandleInputCallback(function() end)
 local ActiveWorld = World
 
 local WhatTheTimer = nil
-local WhatTheText = TextBubbleClass:new(Henry, "pics/share/text/TextBubbleSpeaking.png", "What the...")
+local WhatTheText = TextBubbleClass:newSpeaking(Henry, "What the...")
 local TextFromCultOutside =
 {
     TextBubbleClass:new(NPCs[2], "pics/share/text/TextBubbleSpeaking.png", "Ne rae eay,"),
@@ -76,13 +76,13 @@ end
 
 local function DrawWhatTheTextIfPossible()
 
-    if DataToSave["Day1Events"].HasSeenCultOutsideHouse then return end
+    if not DataToSave["Day1Events"].HasSeenCultOutsideHouse then return end
     if WhatTheTimer == nil then return end
-    if WhatTheTimer > love.timer.getTime() then
-        WhatTheText:Draw()
-    else
+    if love.timer.getTime() >= WhatTheTimer then
         WhatTheTimer = nil
-        --transition   = {"src/levels/day1/scenes/transitions/betaending"}
+        World:SetHandleInputCallback(nil)
+    else
+        WhatTheText:Draw()
     end
 
 end
@@ -115,7 +115,6 @@ local function ShiftBackToNormalWorld()
         BackgroundWindSound:stop()
         BackgroundDeadSound:stop()
         WhatTheTimer = love.timer.getTime() + 2
-        World:SetHandleInputCallback(nil)
 
     end
 
