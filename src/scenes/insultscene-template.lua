@@ -57,6 +57,13 @@ function InsultScene:InitWorld(map)
 
 end
 
+function InsultScene:InitBackButton()
+
+    self.back_button = ButtonClass:newImage("pics/share/buttons/backbutton.png", -1, -1, .2, .2)
+    self.back_button:SetCallback(function() self.in_categories = true; self.active_category = 1; end)
+
+end
+
 function InsultScene:InitButtons()
 
     if self.menu_image == nil then return end
@@ -76,6 +83,7 @@ function InsultScene:InitButtons()
             self.buttons[self.playerinsults[i].category][j]:SetSoundWhenClicked("sound/startmenu/click/click.ogg")
         end
     end
+    self:InitBackButton()
 
 end
 
@@ -112,6 +120,8 @@ function InsultScene:UpdateButtonPos()
             SetParameters(self.buttons[self.playerinsults[i].category][j])
         end
     end
+    x, y = self:GetMenuLocation()
+    self.back_button.x_pos, self.back_button.y_pos = x, y + self.menu_image:getHeight()*Settings.Scale
 
 end
 
@@ -266,6 +276,7 @@ function InsultScene:DrawMenu()
         self:DrawCategories()
     else
         self:DrawInsults()
+        self.back_button:Draw()
     end
 
 end
@@ -310,20 +321,18 @@ end
 
 function InsultScene:ButtonBackHandler()
 
+    self.back_button:HandleMouseClick()
+
 end
 
 function InsultScene:ButtonInputHandler()
 
     if self.buttons == nil then return end
     if self.in_categories then
-
         self:ButtonCategoryHandler()
-
-    else 
-
+    else
         self:ButtonSubCategoryHandler()
         self:ButtonBackHandler()
-
     end
 
 end
