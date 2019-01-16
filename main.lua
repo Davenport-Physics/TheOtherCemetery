@@ -309,9 +309,9 @@ end
 
 function love.errorhandler(msg)
 
-    return function()
+    return function(msg)
         if not Settings.BUILD then
-            local file = io:open("errors.txt", "a+")
+            local file = io.open("errors.txt", "a+")
             file:write(tostring(msg) .. "\n")
             file:close()
             love.timer.sleep(1000)
